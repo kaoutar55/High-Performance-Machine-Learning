@@ -1,0 +1,40 @@
+# Private chapter drafts (manuscripts, figures source, fundraising,
+# contracts, schedules). Public release artifacts live at the repo root
+# under chapterNN/ — never inside chapters/.
+chapters/
+
+# macOS / editor cruft
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+.python-version
+
+# Jupyter
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# Build / dist
+build/
+dist/
+*.egg
+
+# uv / pip
+.uv/
+pip-log.txt
+
+# Office lock files
+~$*.docx
+~$*.pptx
+~$*.xlsx
