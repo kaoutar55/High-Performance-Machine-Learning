@@ -79,7 +79,7 @@ Each notebook installs its own pinned stack the first time you run it. If you ha
 | 3  | PyTorch Internals and Execution Performance        | `chapter03/`          | the Python tax, launch overhead, autograd cost, DataLoader |
 | 4  | Optimizing with `torch.compile` and Kernel Fusion  | `chapter04/`          | graph breaks, fused kernels, eager-vs-compiled gap         |
 | 5  | GPU Architecture and Hardware-Aware Decisions      | `chapter05/`          | bandwidth vs compute, coalescing, the Roofline model       |
-| 6  | Custom Kernels: Triton, FlashAttention, FAISS GPU  | _coming_              | attention kernel walk-through, GPU vector search           |
+| 6  | Practical High-Performance Kernels with Triton     | `chapter06/`          | Triton kernels: fused softmax, LayerNorm/RMSNorm, tiled matmul, autotuning |
 | 7  | Distributed Training: DP, TP, PP, FSDP             | _coming_              | scaling without drowning in communication                  |
 | 8  | Inference Serving and KV Cache Management          | _coming_              | continuous batching, PagedAttention, speculative decoding  |
 | 9  | Model Compression: Quantization, Distillation, LoRA| _coming_              | post-training quantization end-to-end                      |
