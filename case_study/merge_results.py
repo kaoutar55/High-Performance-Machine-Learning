@@ -5,7 +5,9 @@ H200): every repeat whose device does not match experiment_config.EXPECTED_DEVIC
 medians and ranges are recomputed from the repeats that remain, and the traces are taken from a
 source whose traces were captured on the right device.
 
-    python case_study/merge_results.py OUT_DIR SRC_DIR [SRC_DIR ...]
+    python case_study/merge_results.py OUT_DIR SRC_DIR [SRC_DIR ...] [--max N]
+
+--max N keeps the first N usable repeats per GPU (default 5, the book's convention).
 
 Later sources win for traces and all-reduce files; repeats from all sources are pooled.
 """
@@ -63,7 +65,7 @@ def trace_device(tdir):
     return "?"
 
 
-def main(out, srcs):
+def main(out, srcs, max_n=5):
     out = pathlib.Path(out); out.mkdir(parents=True, exist_ok=True)
     (out / "repeats").mkdir(exist_ok=True)
     by_gpu, runs_by_gpu, log = {}, {}, []
@@ -85,7 +87,7 @@ def main(out, srcs):
                         shutil.copy(nb, out / f"chapter02_lab_executed_{tag}.ipynb")
         if not runs:
             log.append(f"{g}: no usable repeats"); continue
-        merged, sp, views, mlog = aggregate.merge_repeats(runs, want, labdev)
+        merged, sp, views, mlog = aggregate.merge_repeats(runs, want, labdev, max_n=max_n)
         log += [f"{g}: {m}" for m in mlog]
         log.append(f"{g}: {merged['repeats']} experiment repeats, {merged['lab_repeats']} lab repeats kept")
         (out / f"{tag}.json").write_text(json.dumps(merged, indent=2))
@@ -137,4 +139,8 @@ def main(out, srcs):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], [pathlib.Path(p) for p in sys.argv[2:]])
+    args = sys.argv[1:]
+    n = 5
+    if "--max" in args:
+        i = args.index("--max"); n = int(args[i + 1]); del args[i:i + 2]
+    main(args[0], [pathlib.Path(p) for p in args[1:]], max_n=n)

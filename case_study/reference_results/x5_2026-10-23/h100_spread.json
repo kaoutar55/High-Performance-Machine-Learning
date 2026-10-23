@@ -1,7 +1,7 @@
 {
   "requested_gpu": "H100",
   "repeat": [
-    2.0,
+    1.0,
     4.0
   ],
   "env": {
@@ -15,7 +15,7 @@
     "python": "3.11.12",
     "cpu": "unknown",
     "cpu_count": [
-      17.0,
+      8.0,
       17.0
     ],
     "packages": {
@@ -251,10 +251,10 @@
         ],
         "seconds": [
           0.911,
-          0.928
+          0.93
         ],
         "chunks_per_s": [
-          69.0,
+          68.8,
           70.3
         ]
       },
@@ -308,10 +308,10 @@
         ],
         "seconds": [
           2.102,
-          2.116
+          2.12
         ],
         "chunks_per_s": [
-          121.0,
+          120.7,
           121.8
         ]
       },
@@ -327,10 +327,10 @@
         ],
         "seconds": [
           0.525,
-          0.602
+          0.899
         ],
         "chunks_per_s": [
-          106.4,
+          71.2,
           122.0
         ]
       },
@@ -346,10 +346,10 @@
         ],
         "seconds": [
           0.525,
-          0.559
+          0.729
         ],
         "chunks_per_s": [
-          458.1,
+          351.2,
           487.4
         ]
       },
@@ -365,10 +365,10 @@
         ],
         "seconds": [
           0.477,
-          0.484
+          0.492
         ],
         "chunks_per_s": [
-          528.8,
+          520.0,
           536.6
         ]
       },
@@ -384,10 +384,10 @@
         ],
         "seconds": [
           0.473,
-          0.48
+          0.496
         ],
         "chunks_per_s": [
-          533.5,
+          516.5,
           541.7
         ]
       }
@@ -401,7 +401,7 @@
         "op": "aten::addmm",
         "self_cuda_ms": [
           13.279,
-          13.425
+          13.718
         ],
         "calls": [
           145.0,
@@ -412,7 +412,7 @@
         "op": "nvjet_sm90_hsh_128x192_64x5_2x1_v_bz_coopB_bias_TNN",
         "self_cuda_ms": [
           8.95,
-          9.045
+          9.25
         ],
         "calls": [
           120.0,
@@ -422,7 +422,7 @@
       {
         "op": "aten::_cudnn_attention_forward",
         "self_cuda_ms": [
-          7.225,
+          7.222,
           7.313
         ],
         "calls": [
@@ -433,7 +433,7 @@
       {
         "op": "cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_1_64x128x64_4x1x1_cga1x1x1_kernel0_0",
         "self_cuda_ms": [
-          7.201,
+          7.198,
           7.29
         ],
         "calls": [
@@ -445,7 +445,7 @@
         "op": "nvjet_sm90_hsh_128x288_64x4_2x1_v_bz_coopA_bias_TNT",
         "self_cuda_ms": [
           4.178,
-          4.225
+          4.312
         ],
         "calls": [
           24.0,
@@ -456,7 +456,7 @@
         "op": "aten::gelu",
         "self_cuda_ms": [
           2.13,
-          2.138
+          2.139
         ],
         "calls": [
           24.0,
@@ -467,7 +467,7 @@
         "op": "void at::native::vectorized_elementwise_kernel<8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>, false>(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>)",
         "self_cuda_ms": [
           2.13,
-          2.138
+          2.139
         ],
         "calls": [
           24.0,
@@ -521,7 +521,7 @@
       {
         "op": "aten::where",
         "self_cuda_ms": [
-          0.475,
+          0.471,
           0.475
         ],
         "calls": [
@@ -532,7 +532,7 @@
       {
         "op": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1})",
         "self_cuda_ms": [
-          0.475,
+          0.471,
           0.475
         ],
         "calls": [
@@ -544,7 +544,7 @@
         "op": "Memset (Device)",
         "self_cuda_ms": [
           0.16,
-          0.174
+          0.175
         ],
         "calls": [
           168.0,
@@ -554,7 +554,7 @@
       {
         "op": "aten::fill_",
         "self_cuda_ms": [
-          0.051,
+          0.05,
           0.051
         ],
         "calls": [
@@ -600,22 +600,22 @@
         ],
         "prefill_s": [
           0.0117,
-          0.0129
+          0.0183
         ],
         "prefill_tflops": [
-          198.62,
+          140.16,
           219.59
         ],
         "decode_ms_per_step": [
           9.88,
-          10.69
+          15.73
         ],
         "decode_tokens_per_s": [
-          93.5,
+          63.6,
           101.3
         ],
         "weight_read_gbs": [
-          468.7,
+          318.6,
           507.6
         ]
       },
@@ -630,22 +630,22 @@
         ],
         "prefill_s": [
           0.0202,
-          0.0206
+          0.0213
         ],
         "prefill_tflops": [
-          497.87,
+          481.14,
           508.0
         ],
         "decode_ms_per_step": [
           9.61,
-          11.95
+          16.25
         ],
         "decode_tokens_per_s": [
-          334.6,
+          246.2,
           416.1
         ],
         "weight_read_gbs": [
-          419.3,
+          308.5,
           521.4
         ]
       },
@@ -660,22 +660,22 @@
         ],
         "prefill_s": [
           0.0723,
-          0.0742
+          0.0755
         ],
         "prefill_tflops": [
-          553.45,
+          544.1,
           567.89
         ],
         "decode_ms_per_step": [
           9.7,
-          11.59
+          15.93
         ],
         "decode_tokens_per_s": [
-          1380.9,
+          1004.5,
           1650.2
         ],
         "weight_read_gbs": [
-          432.6,
+          314.7,
           517.0
         ]
       },
@@ -690,22 +690,22 @@
         ],
         "prefill_s": [
           0.2774,
-          0.2806
+          0.2909
         ],
         "prefill_tflops": [
-          585.29,
+          564.69,
           592.12
         ],
         "decode_ms_per_step": [
           9.72,
-          11.93
+          16.13
         ],
         "decode_tokens_per_s": [
-          5362.8,
+          3968.6,
           6585.9
         ],
         "weight_read_gbs": [
-          420.0,
+          310.8,
           515.8
         ]
       }
@@ -724,19 +724,19 @@
     "eager_dynamic_cache": {
       "t_first_token_s": [
         0.0114,
-        0.0126
+        0.0183
       ],
       "t_all_tokens_s": [
         0.197,
-        0.222
+        0.3282
       ],
       "decode_ms_per_token": [
         9.77,
-        11.02
+        16.31
       ],
       "first_call_s": [
         1.41,
-        1.56
+        1.81
       ],
       "dynamo_graphs_compiled": [
         0.0,
@@ -746,19 +746,19 @@
     "eager_static_cache": {
       "t_first_token_s": [
         0.013,
-        0.0148
+        0.0202
       ],
       "t_all_tokens_s": [
         0.2256,
-        0.2458
+        0.3654
       ],
       "decode_ms_per_token": [
         11.19,
-        12.16
+        18.17
       ],
       "first_call_s": [
         0.72,
-        0.74
+        0.86
       ],
       "dynamo_graphs_compiled": [
         0.0,
@@ -768,19 +768,19 @@
     "hf_autocompile_static_cache": {
       "t_first_token_s": [
         0.013,
-        0.0142
+        0.0195
       ],
       "t_all_tokens_s": [
         0.0786,
-        0.0806
+        0.0869
       ],
       "decode_ms_per_token": [
         3.46,
-        3.49
+        3.54
       ],
       "first_call_s": [
         16.45,
-        18.08
+        20.73
       ],
       "dynamo_graphs_compiled": [
         1.0,
@@ -790,19 +790,19 @@
     "wrong_compile_module_then_generate": {
       "t_first_token_s": [
         0.0117,
-        0.0131
+        0.0179
       ],
       "t_all_tokens_s": [
         0.2017,
-        0.2251
+        0.32
       ],
       "decode_ms_per_token": [
         10.0,
-        11.16
+        15.9
       ],
       "first_call_s": [
         1.43,
-        1.45
+        1.78
       ],
       "dynamo_graphs_compiled": [
         0.0,
@@ -812,19 +812,19 @@
     "right_compile_default": {
       "t_first_token_s": [
         0.0078,
-        0.0087
+        0.0098
       ],
       "t_all_tokens_s": [
         0.0819,
-        0.0915
+        0.1256
       ],
       "decode_ms_per_token": [
         3.9,
-        4.36
+        6.09
       ],
       "first_call_s": [
         32.97,
-        37.43
+        44.06
       ],
       "dynamo_graphs_compiled": [
         2.0,
@@ -834,19 +834,19 @@
     "right_compile_forward_static_cache": {
       "t_first_token_s": [
         0.0078,
-        0.0087
+        0.0098
       ],
       "t_all_tokens_s": [
         0.0819,
-        0.0915
+        0.1256
       ],
       "decode_ms_per_token": [
         3.9,
-        4.36
+        6.09
       ],
       "first_call_s": [
         32.97,
-        37.43
+        44.06
       ],
       "dynamo_graphs_compiled": [
         2.0,
@@ -878,27 +878,27 @@
         ],
         [
           292.3,
-          383.8
+          404.5
         ],
         [
           202.8,
-          206.3
+          224.0
         ],
         [
           199.4,
-          212.4
+          217.5
         ],
         [
           198.1,
-          208.2
+          217.7
         ],
         [
           196.9,
-          207.5
+          223.2
         ]
       ],
       "first_over_steady": [
-        320.3,
+        301.1,
         379.1
       ]
     },
@@ -911,18 +911,18 @@
       "ms": {
         "python_for_loop": [
           128.29,
-          146.11
+          165.43
         ],
         "builtin_sum": [
-          41.42,
+          36.29,
           50.58
         ],
         "numpy_sum": [
-          6.66,
+          3.44,
           8.4
         ],
         "torch_sum_cpu_1_threads": [
-          4.61,
+          2.93,
           7.19
         ],
         "torch_sum_cpu_1_thread": [
@@ -931,7 +931,7 @@
         ],
         "torch_sum_gpu": [
           0.05,
-          0.05
+          0.06
         ]
       }
     },
@@ -939,7 +939,7 @@
       "grad_enabled": {
         "ms": [
           12.65,
-          13.24
+          20.79
         ],
         "peak_extra_gb": [
           1.978,
@@ -950,7 +950,7 @@
       "no_grad": {
         "ms": [
           10.42,
-          11.07
+          17.83
         ],
         "peak_extra_gb": [
           0.264,
@@ -961,7 +961,7 @@
       "inference_mode": {
         "ms": [
           9.8,
-          10.37
+          16.06
         ],
         "peak_extra_gb": [
           0.264,
@@ -980,7 +980,7 @@
         32.0
       ],
       "cpu_count": [
-        17.0,
+        8.0,
         17.0
       ],
       "rows": [
@@ -997,7 +997,7 @@
           ],
           "data_wait_pct": [
             41.9,
-            43.7
+            44.0
           ],
           "seconds": [
             2.87,
@@ -1015,16 +1015,16 @@
             2.0
           ],
           "chunks_per_s": [
-            794.7,
+            772.1,
             837.8
           ],
           "data_wait_pct": [
             9.2,
-            10.3
+            10.6
           ],
           "seconds": [
             1.22,
-            1.29
+            1.33
           ]
         },
         {
@@ -1043,7 +1043,7 @@
           ],
           "data_wait_pct": [
             7.5,
-            9.5
+            10.0
           ],
           "seconds": [
             1.26,
@@ -1062,14 +1062,14 @@
           ],
           "chunks_per_s": [
             814.0,
-            826.1
+            833.8
           ],
           "data_wait_pct": [
             6.2,
-            6.9
+            7.5
           ],
           "seconds": [
-            1.24,
+            1.23,
             1.26
           ]
         },
@@ -1112,7 +1112,7 @@
           ],
           "data_wait_pct": [
             5.3,
-            5.7
+            6.5
           ],
           "seconds": [
             1.37,
@@ -1125,37 +1125,37 @@
       "embedder_fp16_batch32": {
         "eager_ms": [
           27.01,
-          27.49
+          28.04
         ],
         "compiled_ms": [
           24.72,
-          25.29
+          25.56
         ],
         "speedup": [
           1.08,
-          1.09
+          1.1
         ],
         "first_call_s": [
           16.5,
-          18.8
+          22.5
         ]
       },
       "gemma_prefill_512": {
         "eager_ms": [
           9.2,
-          11.57
+          16.43
         ],
         "compiled_ms": [
           6.01,
-          6.1
+          6.23
         ],
         "speedup": [
           1.53,
-          1.9
+          2.66
         ],
         "first_call_s": [
           15.7,
-          16.3
+          21.0
         ]
       },
       "graphs_compiled": [
@@ -1214,7 +1214,7 @@
             "op": "aten::addmm",
             "self_cuda_ms": [
               3.276,
-              3.293
+              3.305
             ],
             "calls": [
               48.0,
@@ -1225,7 +1225,7 @@
             "op": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
             "self_cuda_ms": [
               1.925,
-              1.936
+              1.939
             ],
             "calls": [
               36.0,
@@ -1236,7 +1236,7 @@
             "op": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x64_8x5_nn_align1>(cutlass_80_simt_sgemm_128x64_8x5_nn_align1::Params)",
             "self_cuda_ms": [
               1.339,
-              1.348
+              1.357
             ],
             "calls": [
               12.0,
@@ -1246,7 +1246,7 @@
           {
             "op": "aten::mm",
             "self_cuda_ms": [
-              0.809,
+              0.805,
               0.819
             ],
             "calls": [
@@ -1257,7 +1257,7 @@
           {
             "op": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
             "self_cuda_ms": [
-              0.809,
+              0.805,
               0.819
             ],
             "calls": [
@@ -1268,7 +1268,7 @@
           {
             "op": "aten::_efficient_attention_forward",
             "self_cuda_ms": [
-              0.665,
+              0.663,
               0.685
             ],
             "calls": [
@@ -1279,7 +1279,7 @@
           {
             "op": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
             "self_cuda_ms": [
-              0.665,
+              0.663,
               0.685
             ],
             "calls": [
@@ -1352,7 +1352,7 @@
           271.0
         ],
         "total_cuda_ms": [
-          5.359,
+          5.351,
           5.405
         ]
       },
@@ -1383,7 +1383,7 @@
           {
             "op": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
             "self_cuda_ms": [
-              0.807,
+              0.803,
               0.81
             ],
             "calls": [
@@ -1406,7 +1406,7 @@
             "op": "void cutlass::Kernel2<cutlass_80_simt_sgemm_256x128_8x4_nn_align1>(cutlass_80_simt_sgemm_256x128_8x4_nn_align1::Params)",
             "self_cuda_ms": [
               0.671,
-              0.677
+              0.685
             ],
             "calls": [
               12.0,
@@ -1450,7 +1450,7 @@
             "op": "triton_poi_fused_add_addmm_mul_pow_tanh_view_4",
             "self_cuda_ms": [
               0.045,
-              0.051
+              0.052
             ],
             "calls": [
               12.0,
@@ -1471,7 +1471,7 @@
           {
             "op": "triton_per_fused_add_addmm_native_layer_norm_view_6",
             "self_cuda_ms": [
-              0.04,
+              0.039,
               0.04
             ],
             "calls": [
@@ -1490,7 +1490,7 @@
         ],
         "total_cuda_ms": [
           4.315,
-          4.341
+          4.348
         ]
       }
     },
@@ -1505,20 +1505,20 @@
           52.0
         ],
         "tf32": [
-          402.8,
+          396.6,
           415.8
         ],
         "fp16": [
-          747.8,
+          727.7,
           773.6
         ],
         "bf16": [
-          778.4,
+          755.1,
           802.2
         ]
       },
       "copy_gbs": [
-        2980.6,
+        2957.7,
         2984.5
       ],
       "launch_us": {
@@ -1528,7 +1528,7 @@
         ],
         "launch_plus_sync": [
           11.39,
-          12.11
+          13.98
         ]
       }
     },
@@ -1543,11 +1543,11 @@
       "inductor_cache_dir": "/tmp/ind_rbta5xx_",
       "eager_ms": [
         6.13,
-        6.31
+        7.94
       ],
       "first_call_s": [
         9.8,
-        11.12
+        13.07
       ],
       "steady_ms": [
         4.65,
@@ -1555,7 +1555,7 @@
       ],
       "first_over_steady": [
         2108.0,
-        2328.0
+        2784.0
       ]
     },
     "gpt2_warm": {
@@ -1569,11 +1569,11 @@
       "inductor_cache_dir": "/tmp/ind_rbta5xx_",
       "eager_ms": [
         6.08,
-        6.3
+        7.91
       ],
       "first_call_s": [
         3.23,
-        3.31
+        3.92
       ],
       "steady_ms": [
         4.6,
@@ -1581,7 +1581,7 @@
       ],
       "first_over_steady": [
         693.0,
-        702.0
+        823.0
       ]
     },
     "gpt2_regional": {
@@ -1595,19 +1595,610 @@
       "inductor_cache_dir": "/tmp/ind_dxjstqic",
       "eager_ms": [
         6.12,
-        6.19
+        7.96
       ],
       "first_call_s": [
         5.1,
-        5.37
+        6.16
       ],
       "steady_ms": [
         5.38,
-        5.71
+        6.9
       ],
       "first_over_steady": [
-        940.0,
+        893.0,
         966.0
+      ]
+    },
+    "traces": {
+      "decode_top_ops": [
+        {
+          "op": "decode_step_4",
+          "self_cuda_ms": [
+            34.245,
+            34.245
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "decode_step_3",
+          "self_cuda_ms": [
+            32.751,
+            32.751
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "decode_step_2",
+          "self_cuda_ms": [
+            32.178,
+            32.178
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "decode_step_1",
+          "self_cuda_ms": [
+            31.954,
+            31.954
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "prefill",
+          "self_cuda_ms": [
+            30.101,
+            30.101
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "decode_step_0",
+          "self_cuda_ms": [
+            28.924,
+            28.924
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": [
+            14.857,
+            14.857
+          ],
+          "calls": [
+            762.0,
+            762.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x8_64x12_2x1_v_bz_TNT",
+          "self_cuda_ms": [
+            4.568,
+            4.568
+          ],
+          "calls": [
+            180.0,
+            180.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_2x1_v_bz_splitK_TNT",
+          "self_cuda_ms": [
+            2.268,
+            2.268
+          ],
+          "calls": [
+            90.0,
+            90.0
+          ]
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": [
+            2.139,
+            2.139
+          ],
+          "calls": [
+            1008.0,
+            1008.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_256x8_64x6_2x1_v_bz_TNT",
+          "self_cuda_ms": [
+            1.8,
+            1.8
+          ],
+          "calls": [
+            5.0,
+            5.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": [
+            1.728,
+            1.728
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": [
+            1.601,
+            1.601
+          ],
+          "calls": [
+            722.0,
+            722.0
+          ]
+        },
+        {
+          "op": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "self_cuda_ms": [
+            1.281,
+            1.281
+          ],
+          "calls": [
+            450.0,
+            450.0
+          ]
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": [
+            1.271,
+            1.271
+          ],
+          "calls": [
+            108.0,
+            108.0
+          ]
+        }
+      ],
+      "prefill_top_ops": [
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": [
+            4.035,
+            4.035
+          ],
+          "calls": [
+            127.0,
+            127.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": [
+            1.735,
+            1.735
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x128_64x6_1x2_h_bz_splitK_TNT",
+          "self_cuda_ms": [
+            0.88,
+            0.88
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_320x128_64x3_1x2_h_bz_coopB_TNT",
+          "self_cuda_ms": [
+            0.777,
+            0.777
+          ],
+          "calls": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": [
+            0.774,
+            0.774
+          ],
+          "calls": [
+            168.0,
+            168.0
+          ]
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": [
+            0.364,
+            0.364
+          ],
+          "calls": [
+            116.0,
+            116.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x128_64x8_2x1_v_bz_TNN",
+          "self_cuda_ms": [
+            0.346,
+            0.346
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": [
+            0.325,
+            0.325
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "self_cuda_ms": [
+            0.312,
+            0.312
+          ],
+          "calls": [
+            75.0,
+            75.0
+          ]
+        },
+        {
+          "op": "cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_1_64x128x256_4x1x1_cga1x1x1_kernel0_0",
+          "self_cuda_ms": [
+            0.31,
+            0.31
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "aten::add",
+          "self_cuda_ms": [
+            0.301,
+            0.301
+          ],
+          "calls": [
+            147.0,
+            147.0
+          ]
+        },
+        {
+          "op": "void at::native::vectorized_elementwise_kernel<8, at::native::BinaryFunctor<c10::Half, c10::Half, c10::Half, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul>, false>(int, at::native::BinaryFunctor<c10::Half, c10::Half, c10::Half, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul>)",
+          "self_cuda_ms": [
+            0.3,
+            0.3
+          ],
+          "calls": [
+            54.0,
+            54.0
+          ]
+        },
+        {
+          "op": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "self_cuda_ms": [
+            0.269,
+            0.269
+          ],
+          "calls": [
+            75.0,
+            75.0
+          ]
+        },
+        {
+          "op": "aten::mean",
+          "self_cuda_ms": [
+            0.217,
+            0.217
+          ],
+          "calls": [
+            37.0,
+            37.0
+          ]
+        },
+        {
+          "op": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)",
+          "self_cuda_ms": [
+            0.217,
+            0.217
+          ],
+          "calls": [
+            37.0,
+            37.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_24x64_64x16_4x2_h_bz_TNN",
+          "self_cuda_ms": [
+            0.212,
+            0.212
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "aten::gelu",
+          "self_cuda_ms": [
+            0.2,
+            0.2
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "void at::native::vectorized_elementwise_kernel<8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>, false>(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>)",
+          "self_cuda_ms": [
+            0.2,
+            0.2
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "aten::cat",
+          "self_cuda_ms": [
+            0.173,
+            0.173
+          ],
+          "calls": [
+            37.0,
+            37.0
+          ]
+        },
+        {
+          "op": "void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 64, 64>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 64, 64>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+          "self_cuda_ms": [
+            0.171,
+            0.171
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        }
+      ],
+      "compiled_decode_top_ops": [
+        {
+          "op": "## Call CompiledFxGraph fvcnf6v44nidlv2zz4ktnq6g2enmcniwebecy3p5dp3vfrrtfddq ##",
+          "self_cuda_ms": [
+            12.846,
+            12.846
+          ],
+          "calls": [
+            5.0,
+            5.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x8_64x12_2x1_v_bz_TNT",
+          "self_cuda_ms": [
+            4.53,
+            4.53
+          ],
+          "calls": [
+            180.0,
+            180.0
+          ]
+        },
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": [
+            3.615,
+            3.615
+          ],
+          "calls": [
+            127.0,
+            127.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_2x1_v_bz_splitK_TNT",
+          "self_cuda_ms": [
+            2.295,
+            2.295
+          ],
+          "calls": [
+            90.0,
+            90.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_256x8_64x6_2x1_v_bz_TNT",
+          "self_cuda_ms": [
+            2.166,
+            2.166
+          ],
+          "calls": [
+            6.0,
+            6.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": [
+            1.724,
+            1.724
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_4x1_v_bz_TNT",
+          "self_cuda_ms": [
+            1.065,
+            1.065
+          ],
+          "calls": [
+            180.0,
+            180.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_8x64_64x16_4x1_v_bz_TNN",
+          "self_cuda_ms": [
+            0.941,
+            0.941
+          ],
+          "calls": [
+            180.0,
+            180.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x128_64x6_1x2_h_bz_splitK_TNT",
+          "self_cuda_ms": [
+            0.881,
+            0.881
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        },
+        {
+          "op": "cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_2_16x128x256_1x4x1_cga1x1x1_kernel0_0",
+          "self_cuda_ms": [
+            0.859,
+            0.859
+          ],
+          "calls": [
+            90.0,
+            90.0
+          ]
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": [
+            0.79,
+            0.79
+          ],
+          "calls": [
+            180.0,
+            180.0
+          ]
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": [
+            0.486,
+            0.486
+          ],
+          "calls": [
+            214.0,
+            214.0
+          ]
+        },
+        {
+          "op": "aten::add",
+          "self_cuda_ms": [
+            0.368,
+            0.368
+          ],
+          "calls": [
+            192.0,
+            192.0
+          ]
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x128_64x8_2x1_v_bz_TNN",
+          "self_cuda_ms": [
+            0.35,
+            0.35
+          ],
+          "calls": [
+            36.0,
+            36.0
+          ]
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": [
+            0.318,
+            0.318
+          ],
+          "calls": [
+            18.0,
+            18.0
+          ]
+        }
+      ],
+      "files": [
+        "gemma_prefill_decode5_eager.json.gz",
+        "gemma_prefill_decode5_eager.txt",
+        "gemma_prefill_eager.json.gz",
+        "gemma_prefill_eager.txt",
+        "gemma_generate6_static_autocompile.json.gz",
+        "gemma_generate6_static_autocompile.txt",
+        "bge_m3_fp16_batch32.json.gz",
+        "bge_m3_fp16_batch32.txt"
+      ]
+    },
+    "nsys": {
+      "nsys": "NVIDIA Nsight Systems version 2026.3.2.476-263238834031v0",
+      "attempts": [
+        {
+          "trace": "cuda,nvtx,osrt,cublas",
+          "returncode": [
+            0.0,
+            0.0
+          ],
+          "ok": true,
+          "tail": "[transformers] We found `hidden_act=\"gelu\"` in this Gemma config. This is a legacy value of the official releases but it is meant to target the tanh approximation. Setting `hidden_act=\"gelu_pytorch_tanh\"` instead.\n[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/164 [00:00<?, ?it/s]\nLoading weights:   1%|          | 1/164 [00:00<01:26,  1.89it/s]\nLoading weights:  68%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 111/164 [00:00<00:00, 230.38it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 164/164 [00:00<00:00, 168.32it/s]\nUsing the latest cached version of the dataset since Salesforce/wikitext couldn't be found on the Hugging Face Hub (offline mode is enabled).\nFound the latest cached dataset configuration 'wikitext-2-raw-v1' at /cache/hf/datasets/Salesforce___wikitext/wikitext-2-raw-v1/0.0.0/b08601e04326c79dfdd32d625aee71d232d685c3 (last modified on Fri Oct 23 13:00:09 2026).\n"
+        }
+      ],
+      "trace": "cuda,nvtx,osrt,cublas",
+      "dropped_files_with_token": [
+        "rag_decode.nsys-rep"
+      ],
+      "files": [
+        "nsys/rag_decode_cuda_api_sum.csv",
+        "nsys/rag_decode_cuda_gpu_kern_sum.csv",
+        "nsys/rag_decode_nvtx_sum.csv"
       ]
     }
   },

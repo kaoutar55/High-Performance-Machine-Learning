@@ -38,7 +38,7 @@
         "5.20.2"
       ]
     ],
-    "note": "Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch2_latency_ms": {
     "header": [
@@ -73,7 +73,7 @@
         "685.2 (586.7\u2013693.3)"
       ]
     ],
-    "note": "Chapter 2 lab, naive RAG pipeline, 100 requests. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Chapter 2 lab, naive RAG pipeline, 100 requests. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch2_stage_median_ms": {
     "header": [
@@ -132,7 +132,7 @@
         "76%"
       ]
     ],
-    "note": "Chapter 2 lab, median per stage. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Chapter 2 lab, median per stage. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch2_decode_roofline": {
     "header": [
@@ -173,7 +173,7 @@
         "203"
       ]
     ],
-    "note": "The lab's hand-written decode loop runs more Python per token than generate(). Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "The lab's hand-written decode loop runs more Python per token than generate(). Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch3_embedder_chunks_per_s": {
     "header": [
@@ -186,49 +186,49 @@
       [
         "FP32, batch 1",
         "33.5",
-        "70.2",
+        "69.0",
         "10.2 (8.7\u201311.2)"
       ],
       [
         "FP32, batch 8",
         "48.6",
-        "115.2",
+        "114.3",
         "10.9 (10.5\u201313.1)"
       ],
       [
         "FP32, batch 32",
         "53.0",
-        "120.4",
+        "119.5",
         "10.6 (9.2\u201312.7)"
       ],
       [
         "FP32, batch 64",
         "53.4",
-        "121.6",
+        "121.2",
         "10.8 (9.5\u201312.9)"
       ],
       [
         "FP16, batch 1",
         "74.2 (64.3\u201376.3)",
-        "120.7 (106.4\u2013122.0)",
+        "106.4 (71.2\u2013122.0)",
         "46.5 (42.2\u201352.6)"
       ],
       [
         "FP16, batch 8",
         "256.9",
-        "475.7",
+        "458.1 (351.2\u2013487.4)",
         "48.0 (41.0\u201359.2)"
       ],
       [
         "FP16, batch 32",
         "279.0",
-        "531.9",
+        "528.8",
         "46.0 (40.3\u201358.3)"
       ],
       [
         "FP16, batch 64",
         "289.7",
-        "537.6",
+        "533.5",
         "47.3 (41.6\u201356.8)"
       ],
       [
@@ -238,7 +238,7 @@
         "mem_efficient"
       ]
     ],
-    "note": "BGE-M3 on 477-token chunks. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "BGE-M3 on 477-token chunks. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch4_decode_ms_per_token": {
     "header": [
@@ -251,25 +251,25 @@
       [
         "Eager, dynamic cache",
         "16.22 (15.78\u201317.74)",
-        "10.10 (9.77\u201311.02)",
+        "11.02 (9.77\u201316.31)",
         "26.38 (24.58\u201327.89)"
       ],
       [
         "Eager, static cache (auto-compile off)",
         "18.71 (18.47\u201320.38)",
-        "11.52",
+        "12.16 (11.19\u201318.17)",
         "27.34 (24.95\u201329.04)"
       ],
       [
         "Static cache, transformers auto-compile",
         "6.06",
-        "3.47",
+        "3.49",
         "29.83 (23.38\u201339.30)"
       ],
       [
         "torch.compile(model) then .generate()",
         "16.58 (16.04\u201317.80)",
-        "10.32 (10.00\u201311.16)",
+        "11.16 (10.00\u201315.90)",
         "26.37 (24.42\u201327.11)"
       ],
       [
@@ -281,11 +281,11 @@
       [
         "Compiled forward + static cache, no CUDA graphs",
         "6.34 (6.20\u20136.87)",
-        "4.32 (3.90\u20134.36)",
+        "4.36 (3.90\u20136.09)",
         "24.24 (23.15\u201339.79)"
       ]
     ],
-    "note": "generate(), batch 1, 512-token prompt, 20 new tokens. '\u2013' = not measured or crashed. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "generate(), batch 1, 512-token prompt, 20 new tokens. '\u2013' = not measured or crashed. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch5_decode_batching": {
     "header": [
@@ -298,55 +298,55 @@
       [
         "Batch 1: decode tokens/s",
         "61 (50\u201364)",
-        "97",
+        "94 (64\u2013101)",
         "38 (36\u201341)"
       ],
       [
         "Batch 4: decode tokens/s",
         "234 (216\u2013245)",
-        "416 (335\u2013416)",
+        "335 (246\u2013416)",
         "146"
       ],
       [
         "Batch 16: decode tokens/s",
         "936 (834\u2013959)",
-        "1,551 (1,381\u20131,650)",
+        "1,381 (1,004\u20131,650)",
         "406 (319\u2013493)"
       ],
       [
         "Batch 64: decode tokens/s",
         "3,698",
-        "6,176 (5,363\u20136,586)",
+        "5,363 (3,969\u20136,586)",
         "1,050 (668\u20131,207)"
       ],
       [
         "Batch 1: ms per decode step",
         "16.46 (15.71\u201319.89)",
-        "10.33",
+        "10.69 (9.88\u201315.73)",
         "25.99 (24.45\u201328.17)"
       ],
       [
         "Batch 4: ms per decode step",
         "17.09 (16.34\u201318.55)",
-        "9.62 (9.61\u201311.95)",
+        "11.95 (9.61\u201316.25)",
         "27.46"
       ],
       [
         "Batch 16: ms per decode step",
         "17.09 (16.69\u201319.19)",
-        "10.31 (9.70\u201311.59)",
+        "11.59 (9.70\u201315.93)",
         "39.42 (32.44\u201350.15)"
       ],
       [
         "Batch 64: ms per decode step",
         "17.31",
-        "10.36 (9.72\u201311.93)",
+        "11.93 (9.72\u201316.13)",
         "60.92 (53.01\u201395.88)"
       ],
       [
         "Batch 1: prefill TFLOP/s",
         "121.7",
-        "208.7 (198.6\u2013219.6)",
+        "198.6 (140.2\u2013219.6)",
         "20.8 (18.2\u201324.3)"
       ],
       [
@@ -356,7 +356,7 @@
         "15.66"
       ]
     ],
-    "note": "Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch2_warmup_us": {
     "header": [
@@ -369,47 +369,47 @@
       [
         "Call 1",
         "86,678.3 (82,243.4\u2013114,429.2)",
-        "75,344.7 (64,270.6\u201376,577.6)",
+        "74,235.8 (64,270.6\u201376,577.6)",
         "24,683.2 (18,926.7\u201356,880.0)"
       ],
       [
         "Call 2",
         "779.9",
-        "300.7 (292.3\u2013383.8)",
+        "329.5 (292.3\u2013404.5)",
         "2,788.6 (2,140.5\u20133,208.0)"
       ],
       [
         "Call 3",
         "636.1",
-        "204.8",
+        "206.3 (202.8\u2013224.0)",
         "2,687.5 (2,030.6\u20133,121.3)"
       ],
       [
         "Call 4",
         "637.7",
-        "203.6",
+        "212.4",
         "2,685.1 (2,021.1\u20133,114.9)"
       ],
       [
         "Call 5",
         "635.3",
-        "198.5",
+        "208.2",
         "2,681.4 (2,014.9\u20133,114.0)"
       ],
       [
         "Call 6",
         "631.2",
-        "197.6",
+        "207.5 (196.9\u2013223.2)",
         "2,680.1 (2,014.1\u20133,112.8)"
       ],
       [
         "First / steady",
         "136.4 (129.2\u2013179.5)",
-        "368.4 (320.3\u2013379.1)",
+        "343.5 (301.1\u2013379.1)",
         "7.9 (6.9\u201328.2)"
       ]
     ],
-    "note": "torch.bmm on 32x512x512 FP32 in a fresh process, microseconds per call. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "torch.bmm on 32x512x512 FP32 in a fresh process, microseconds per call. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch3_python_loop_ms": {
     "header": [
@@ -422,41 +422,41 @@
       [
         "python_for_loop",
         "185.70",
-        "142.68 (128.29\u2013146.11)",
+        "146.11 (128.29\u2013165.43)",
         "203.28 (188.23\u2013243.07)"
       ],
       [
         "builtin_sum",
         "48.11 (40.52\u201354.79)",
-        "43.59 (41.42\u201350.58)",
+        "41.42 (36.29\u201350.58)",
         "53.16 (47.66\u201355.52)"
       ],
       [
         "numpy_sum",
         "4.27 (4.06\u20137.66)",
-        "7.68 (6.66\u20138.40)",
+        "6.66 (3.44\u20138.40)",
         "6.63"
       ],
       [
         "torch_sum_cpu_1_threads",
         "3.69 (3.59\u20137.37)",
-        "6.36 (4.61\u20137.19)",
+        "4.61 (2.93\u20137.19)",
         "6.59"
       ],
       [
         "torch_sum_cpu_1_thread",
         "3.66 (3.52\u20137.22)",
-        "2.76 (2.74\u20135.14)",
+        "2.77 (2.74\u20135.14)",
         "6.36"
       ],
       [
         "torch_sum_gpu",
         "0.07 (0.07\u20130.08)",
-        "0.05",
+        "0.05 (0.05\u20130.06)",
         "0.34 (0.34\u20130.42)"
       ]
     ],
-    "note": "Summing 10 million floats (ms). Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Summing 10 million floats (ms). Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch3_autograd": {
     "header": [
@@ -469,19 +469,19 @@
       [
         "grad_enabled: ms",
         "22.09 (21.47\u201323.99)",
-        "12.99",
+        "13.24 (12.65\u201320.79)",
         "139.49 (119.79\u2013151.73)"
       ],
       [
         "no_grad: ms",
         "18.86 (18.14\u201320.21)",
-        "10.95",
+        "11.07 (10.42\u201317.83)",
         "138.10 (119.30\u2013155.18)"
       ],
       [
         "inference_mode: ms",
         "17.62 (17.06\u201319.32)",
-        "9.90",
+        "10.37 (9.80\u201316.06)",
         "139.39 (119.80\u2013155.61)"
       ],
       [
@@ -503,7 +503,7 @@
         "0.26"
       ]
     ],
-    "note": "Gemma-2B prefill, 512 tokens, FP16. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "Gemma-2B prefill, 512 tokens, FP16. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch3_dataloader": {
     "header": [
@@ -516,19 +516,19 @@
       [
         "workers=0.0, pin=False, prefetch=None",
         "228.1 chunks/s, 39.1% waiting",
-        "339.2 chunks/s, 42.4% waiting",
+        "339.2 chunks/s, 42.8% waiting",
         "47.2 chunks/s, 10.4% waiting"
       ],
       [
         "workers=2.0, pin=True, prefetch=2.0",
         "340.4 chunks/s, 6.3% waiting",
-        "825.7 chunks/s, 10.2% waiting",
+        "794.7 chunks/s, 10.2% waiting",
         "48.5 chunks/s, 0.9% waiting"
       ],
       [
         "workers=4.0, pin=False, prefetch=2.0",
         "342.3 chunks/s, 6.8% waiting",
-        "806.8 chunks/s, 8.8% waiting",
+        "806.8 chunks/s, 9.5% waiting",
         "47.4 chunks/s, 0.9% waiting"
       ],
       [
@@ -540,17 +540,17 @@
       [
         "workers=8.0, pin=True, prefetch=2.0",
         "316.6 chunks/s, 3.6% waiting",
-        "698.4 chunks/s, 5.1% waiting",
+        "698.4 chunks/s, 5.8% waiting",
         "44.7 chunks/s, 0.5% waiting"
       ],
       [
         "workers=8.0, pin=True, prefetch=4.0",
         "328.5 chunks/s, 4.1% waiting",
-        "691.9 chunks/s, 5.4% waiting",
+        "701.9 chunks/s, 5.7% waiting",
         "45.3 chunks/s, 0.6% waiting"
       ]
     ],
-    "note": "BGE-M3 FP16, batch 32, tokenization inside __getitem__. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "BGE-M3 FP16, batch 32, tokenization inside __getitem__. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch4_compile_stages": {
     "header": [
@@ -563,13 +563,13 @@
       [
         "BGE-M3 encoder, batch 32: eager ms",
         "73.93",
-        "27.06",
+        "27.49",
         "644.55 (512.76\u2013714.58)"
       ],
       [
         "BGE-M3 encoder, batch 32: compiled ms",
         "69.21",
-        "24.97",
+        "25.17",
         "646.71 (485.15\u2013777.94)"
       ],
       [
@@ -581,35 +581,35 @@
       [
         "BGE-M3 encoder, batch 32: first call s",
         "27.60",
-        "16.80 (16.50\u201318.80)",
+        "18.80 (16.50\u201322.50)",
         "34.70 (24.30\u201337.00)"
       ],
       [
         "Gemma-2B prefill, 512 tokens: eager ms",
         "20.79",
-        "9.55 (9.20\u201311.57)",
+        "11.57 (9.20\u201316.43)",
         "159.19 (121.29\u2013191.26)"
       ],
       [
         "Gemma-2B prefill, 512 tokens: compiled ms",
         "14.63",
-        "6.03",
+        "6.10",
         "152.62 (115.56\u2013166.96)"
       ],
       [
         "Gemma-2B prefill, 512 tokens: speedup",
         "1.42",
-        "1.59 (1.53\u20131.90)",
+        "1.90 (1.53\u20132.66)",
         "1.05 (1.04\u20131.15)"
       ],
       [
         "Gemma-2B prefill, 512 tokens: first call s",
         "24.70",
-        "15.90",
+        "16.30 (15.70\u201321.00)",
         "29.90 (20.00\u201331.70)"
       ]
     ],
-    "note": "torch.compile(mode='default'). Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "torch.compile(mode='default'). Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch4_gpt2": {
     "header": [
@@ -622,19 +622,19 @@
       [
         "full model, cold cache: first call (s)",
         "16.02",
-        "10.33 (9.80\u201311.12)",
+        "11.12 (9.80\u201313.07)",
         "19.87 (14.48\u201322.12)"
       ],
       [
         "full model, cold cache: steady call (ms)",
         "11.99 (9.81\u201312.00)",
-        "4.67",
+        "4.70",
         "40.00 (32.70\u201344.36)"
       ],
       [
         "full model, warm cache: first call (s)",
         "4.60",
-        "3.23",
+        "3.31 (3.23\u20133.92)",
         "6.42 (5.02\u20136.70)"
       ],
       [
@@ -646,19 +646,19 @@
       [
         "regional, cold cache: first call (s)",
         "7.63",
-        "5.21",
+        "5.37 (5.10\u20136.16)",
         "9.31 (7.54\u201310.12)"
       ],
       [
         "regional, cold cache: steady call (ms)",
         "12.58",
-        "5.40",
+        "5.71 (5.38\u20136.90)",
         "41.60 (34.85\u201345.08)"
       ],
       [
         "eager call (ms)",
         "12.79",
-        "6.15",
+        "6.31 (6.13\u20137.94)",
         "45.08 (37.56\u201347.99)"
       ],
       [
@@ -682,11 +682,11 @@
       [
         "profile compiled: CUDA ms / kernels / launches",
         "11.872 / 23.0 / 207.0",
-        "4.325 / 23.0 / 231.0",
+        "4.335 / 23.0 / 231.0",
         "50.63 / 21.0 / 243.0"
       ]
     ],
-    "note": "GPT-2 124M, FP32, one sequence of 512 tokens. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "GPT-2 124M, FP32, one sequence of 512 tokens. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch5_measured_roofs": {
     "header": [
@@ -699,31 +699,31 @@
       [
         "GEMM fp32 (TFLOP/s)",
         "19.1",
-        "51.6",
+        "51.9",
         "3.2 (3.1\u20134.2)"
       ],
       [
         "GEMM tf32 (TFLOP/s)",
         "128.5",
-        "414.2",
+        "405.1",
         "\u2013"
       ],
       [
         "GEMM fp16 (TFLOP/s)",
         "283.3",
-        "766.8",
+        "747.8",
         "20.1 (19.4\u201324.8)"
       ],
       [
         "GEMM bf16 (TFLOP/s)",
         "290.1",
-        "795.4",
+        "778.4",
         "\u2013"
       ],
       [
         "Copy bandwidth (GB/s)",
         "1,697",
-        "2,982",
+        "2,981",
         "234"
       ],
       [
@@ -741,17 +741,17 @@
       [
         "Kernel enqueue (us)",
         "7.16 (7.04\u20137.96)",
-        "5.05 (4.78\u20135.44)",
+        "4.88 (4.78\u20135.44)",
         "8.19 (7.27\u20139.32)"
       ],
       [
         "Launch + sync round trip (us)",
         "17.54 (16.99\u201319.13)",
-        "11.58",
+        "12.11 (11.39\u201313.98)",
         "19.46 (17.44\u201321.00)"
       ]
     ],
-    "note": "8192^3 GEMM; 1 GiB device-to-device copy; tiny add_ kernel. Median of 3\u20135 independent runs; (min\u2013max) shown where runs differ by more than 10%."
+    "note": "8192^3 GEMM; 1 GiB device-to-device copy; tiny add_ kernel. Median of 5 independent runs; (min\u2013max) shown where runs differ by more than 10%."
   },
   "ch7_allreduce_busbw_gbs": {
     "header": [

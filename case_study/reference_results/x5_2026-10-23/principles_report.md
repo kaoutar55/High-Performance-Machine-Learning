@@ -23,7 +23,7 @@ so its ceiling is memory bandwidth: it can use only a tiny fraction of peak comp
 Sources: Williams, Waterman, Patterson, Roofline, CACM 2009; NVIDIA, GPU Performance Background User's Guide
 
 - **A100-80GB** (holds): 16.5 ms/token uses 0.10% of peak compute; weight-read floor 2.5 ms/token, reached at 15%
-- **H100** (holds): 10.3 ms/token uses 0.05% of peak compute; weight-read floor 1.5 ms/token, reached at 14%
+- **H100** (holds): 10.7 ms/token uses 0.05% of peak compute; weight-read floor 1.5 ms/token, reached at 14%
 - **T4** (holds): 26.0 ms/token uses 0.30% of peak compute; weight-read floor 15.7 ms/token, reached at 60%
 
 ### Eager decode pays a roughly fixed CPU and launch cost per step; removing it helps in proportion to that cost's share of the step
@@ -34,7 +34,7 @@ to the overhead's share of the step: a lot on fast GPUs, little on a GPU already
 Sources: PyTorch blog, Accelerating Generative AI with PyTorch II: GPT, Fast (2023); Ansel et al., PyTorch 2, ASPLOS 2024
 
 - **A100-80GB** (holds): eager 16.2 ms/token, floor 2.5 ms, so overhead is 85% of the step; hf_autocompile_static_cache gives 6.1 ms/token (2.68x)
-- **H100** (holds): eager 10.1 ms/token, floor 1.5 ms, so overhead is 85% of the step; hf_autocompile_static_cache gives 3.5 ms/token (2.91x)
+- **H100** (holds): eager 11.0 ms/token, floor 1.5 ms, so overhead is 86% of the step; hf_autocompile_static_cache gives 3.5 ms/token (3.16x)
 - **T4** (holds): eager 26.4 ms/token, floor 15.7 ms, so overhead is 41% of the step; hf_autocompile_static_cache gives 29.8 ms/token (0.88x)
 
 ### A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over
@@ -44,7 +44,7 @@ until compute or KV-cache traffic takes over._
 Sources: Agrawal et al., Sarathi-Serve, OSDI 2024; Pope et al., Efficiently Scaling Transformer Inference, MLSys 2023; Kwon et al., PagedAttention, SOSP 2023
 
 - **A100-80GB** (holds): batch 16 gives 15.4x the tokens/s of batch 1 (ideal 16x)
-- **H100** (holds): batch 16 gives 16.0x the tokens/s of batch 1 (ideal 16x)
+- **H100** (holds): batch 16 gives 14.8x the tokens/s of batch 1 (ideal 16x)
 - **T4** (holds): batch 16 gives 10.5x the tokens/s of batch 1 (ideal 16x)
 
 ### Prefill is compute-bound; decode is memory-bound
@@ -54,7 +54,7 @@ than decode does._
 Sources: Agrawal et al., Sarathi-Serve, OSDI 2024; Patel et al., Splitwise, ISCA 2024
 
 - **A100-80GB** (holds): prefill 121.7 TFLOP/s vs decode 0.30 TFLOP/s (400x)
-- **H100** (holds): prefill 208.7 TFLOP/s vs decode 0.49 TFLOP/s (430x)
+- **H100** (holds): prefill 198.6 TFLOP/s vs decode 0.47 TFLOP/s (424x)
 - **T4** (holds): prefill 20.8 TFLOP/s vs decode 0.19 TFLOP/s (108x)
 
 ### Utilization grows with the rows per matrix multiply until a hardware-dependent knee
@@ -65,7 +65,7 @@ of token rows, so batching chunks helps less; how much less depends on where the
 Sources: NVIDIA, Linear/Fully-Connected Layers User's Guide; Agrawal et al., Sarathi-Serve, OSDI 2024
 
 - **A100-80GB** (holds): decode (1 row/sequence): batch 16 = 15.4x batch 1; embedder (477.0 token rows/chunk): batch 32 = 3.8x batch 1
-- **H100** (holds): decode (1 row/sequence): batch 16 = 16.0x batch 1; embedder (477.0 token rows/chunk): batch 32 = 4.4x batch 1
+- **H100** (holds): decode (1 row/sequence): batch 16 = 14.8x batch 1; embedder (477.0 token rows/chunk): batch 32 = 5.0x batch 1
 - **T4** (holds): decode (1 row/sequence): batch 16 = 10.5x batch 1; embedder (477.0 token rows/chunk): batch 32 = 1.0x batch 1
 
 ### In this case study's configuration, decode dominates the RAG pipeline's latency
@@ -85,7 +85,7 @@ _Running the encoder in 16-bit on Tensor Cores raises throughput substantially o
 Sources: Micikevicius et al., Mixed Precision Training, ICLR 2018; PyTorch CUDA semantics: TF32 notes
 
 - **A100-80GB** (holds): FP16 279 vs FP32 53 chunks/s at batch 32 (5.3x)
-- **H100** (holds): FP16 532 vs FP32 120 chunks/s at batch 32 (4.4x)
+- **H100** (holds): FP16 529 vs FP32 120 chunks/s at batch 32 (4.4x)
 - **T4** (holds): FP16 46 vs FP32 11 chunks/s at batch 32 (4.3x)
 
 ### torch.compile(model) compiles forward only; generate()'s loop stays eager
@@ -95,7 +95,7 @@ and then calling .generate() leaves the decode loop, which generate() drives, es
 Sources: Hugging Face, LLM optimization overview (compile inside generate); PyTorch blog, GPT, Fast (compile the per-token decode step)
 
 - **A100-80GB** (holds): eager 16.2 ms/token; compile-module-then-generate 16.6
-- **H100** (holds): eager 10.1 ms/token; compile-module-then-generate 10.3
+- **H100** (holds): eager 11.0 ms/token; compile-module-then-generate 11.2
 - **T4** (holds): eager 26.4 ms/token; compile-module-then-generate 26.4
 
 ### SDPA dispatches at run time to the first eligible fused attention backend
@@ -121,12 +121,12 @@ How many repeats each principle held in (each repeat is a separate container and
 
 | Principle | A100-80GB | H100 | T4 |
 |---|---|---|---|
-| At batch 1 every decode GEMM is a matrix-vector product (~1 FLOP/byte), so memory bandwidth sets the Roofline ceiling | 5/5 | 3/3 | 5/5 |
-| Eager decode pays a roughly fixed CPU and launch cost per step; removing it helps in proportion to that cost's share of the step | 5/5 | 3/3 | 5/5 |
-| A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over | 5/5 | 3/3 | 5/5 |
-| Prefill is compute-bound; decode is memory-bound | 5/5 | 3/3 | 5/5 |
-| Utilization grows with the rows per matrix multiply until a hardware-dependent knee | 5/5 | 3/3 | 5/5 |
-| In this case study's configuration, decode dominates the RAG pipeline's latency | 5/5 | 5/5 | 5/5 |
-| 16-bit Tensor Core math gives several times FP32 throughput on compute-bound work | 5/5 | 3/3 | 5/5 |
-| torch.compile(model) compiles forward only; generate()'s loop stays eager | 5/5 | 3/3 | 5/5 |
-| SDPA dispatches at run time to the first eligible fused attention backend | 5/5 | 3/3 | 5/5 |
+| At batch 1 every decode GEMM is a matrix-vector product (~1 FLOP/byte), so memory bandwidth sets the Roofline ceiling | 5/5 | 5/5 | 5/5 |
+| Eager decode pays a roughly fixed CPU and launch cost per step; removing it helps in proportion to that cost's share of the step | 5/5 | 5/5 | 5/5 |
+| A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over | 5/5 | 5/5 | 5/5 |
+| Prefill is compute-bound; decode is memory-bound | 5/5 | 5/5 | 5/5 |
+| Utilization grows with the rows per matrix multiply until a hardware-dependent knee | 5/5 | 5/5 | 5/5 |
+| In this case study's configuration, decode dominates the RAG pipeline's latency | 5/5 | 7/7 | 5/5 |
+| 16-bit Tensor Core math gives several times FP32 throughput on compute-bound work | 5/5 | 5/5 | 5/5 |
+| torch.compile(model) compiles forward only; generate()'s loop stays eager | 5/5 | 5/5 | 5/5 |
+| SDPA dispatches at run time to the first eligible fused attention backend | 5/5 | 5/5 | 5/5 |

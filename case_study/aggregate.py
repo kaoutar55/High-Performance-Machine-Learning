@@ -76,7 +76,7 @@ def lab_device(res, notebook_text=None):
     return None
 
 
-def merge_repeats(runs, want, lab_devices=None):
+def merge_repeats(runs, want, lab_devices=None, max_n=None):
     """Median and spread across repeats, keeping each container's part only if it ran on a device
     containing `want`. Returns (merged, spread, per_repeat_views, log)."""
     lab_devices = lab_devices or [None] * len(runs)
@@ -95,6 +95,12 @@ def merge_repeats(runs, want, lab_devices=None):
         if l_good and LAB_KEY in r:
             lab_ok.append(r[LAB_KEY])
         views.append(v)
+    if max_n:      # keep the first max_n usable repeats of each part (earlier sources first)
+        if len(exp_ok) > max_n:
+            log.append(f"kept the first {max_n} of {len(exp_ok)} usable experiment repeats")
+        if len(lab_ok) > max_n:
+            log.append(f"kept the first {max_n} of {len(lab_ok)} usable lab repeats")
+        exp_ok, lab_ok = exp_ok[:max_n], lab_ok[:max_n]
     merged = median(exp_ok) if len(exp_ok) > 1 else (dict(exp_ok[0]) if exp_ok else {})
     sp = spread(exp_ok) if len(exp_ok) > 1 else None
     if lab_ok:

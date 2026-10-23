@@ -1,0 +1,21 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            aten::addmm        19.35%       4.187ms        28.61%       6.191ms      42.693us      13.316ms        50.20%      13.316ms      91.831us           145  
+    nvjet_sm90_hsh_128x192_64x5_2x1_v_bz_coopB_bias_TNN         0.00%       0.000us         0.00%       0.000us       0.000us       8.979ms        33.85%       8.979ms      74.827us           120  
+                         aten::_cudnn_attention_forward         4.10%     886.468us         7.36%       1.592ms      66.349us       7.120ms        26.84%       7.120ms     296.648us            24  
+cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wg...         0.00%       0.000us         0.00%       0.000us       0.000us       7.095ms        26.75%       7.095ms     295.641us            24  
+    nvjet_sm90_hsh_128x288_64x4_2x1_v_bz_coopA_bias_TNT         0.00%       0.000us         0.00%       0.000us       0.000us       4.183ms        15.77%       4.183ms     174.293us            24  
+                                             aten::gelu         1.42%     306.978us         2.21%     477.501us      19.896us       2.109ms         7.95%       2.109ms      87.863us            24  
+void at::native::vectorized_elementwise_kernel<8, at...         0.00%       0.000us         0.00%       0.000us       0.000us       2.109ms         7.95%       2.109ms      87.863us            24  
+                                aten::native_layer_norm         2.83%     611.436us         7.51%       1.625ms      33.170us       1.856ms         7.00%       1.856ms      37.883us            49  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us       1.856ms         7.00%       1.856ms      37.883us            49  
+                                              aten::add         3.22%     697.638us         5.27%       1.140ms      21.104us       1.479ms         5.58%       1.479ms      27.389us            54  
+void at::native::vectorized_elementwise_kernel<8, at...         0.00%       0.000us         0.00%       0.000us       0.000us       1.474ms         5.56%       1.474ms      29.471us            50  
+                                            aten::where         1.97%     425.675us         7.67%       1.659ms      34.559us     466.785us         1.76%     957.861us      19.955us            48  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us     466.785us         1.76%     466.785us      19.449us            24  
+                                        Memset (Device)         0.00%       0.000us         0.00%       0.000us       0.000us     172.061us         0.65%     172.061us       1.024us           168  
+                                            aten::fill_         1.23%     266.651us         2.86%     617.826us      12.609us      50.883us         0.19%      50.883us       1.038us            49  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 21.638ms
+Self CUDA time total: 26.524ms
