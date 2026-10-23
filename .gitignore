@@ -37,4 +37,5 @@ pip-log.txt
 # Office lock files
 ~$*.docx
 ~$*.pptx
-~$*.xlsx
+~$*.xlsxcase_study/results/*
+!case_study/results/.gitkeep
