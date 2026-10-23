@@ -126,7 +126,7 @@ How many repeats each principle held in (each repeat is a separate container and
 | A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over | 5/5 | 5/5 | 5/5 |
 | Prefill is compute-bound; decode is memory-bound | 5/5 | 5/5 | 5/5 |
 | Utilization grows with the rows per matrix multiply until a hardware-dependent knee | 5/5 | 5/5 | 5/5 |
-| In this case study's configuration, decode dominates the RAG pipeline's latency | 5/5 | 7/7 | 5/5 |
+| In this case study's configuration, decode dominates the RAG pipeline's latency | 5/5 | 5/5 | 5/5 |
 | 16-bit Tensor Core math gives several times FP32 throughput on compute-bound work | 5/5 | 5/5 | 5/5 |
 | torch.compile(model) compiles forward only; generate()'s loop stays eager | 5/5 | 5/5 | 5/5 |
 | SDPA dispatches at run time to the first eligible fused attention backend | 5/5 | 5/5 | 5/5 |

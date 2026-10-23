@@ -94,6 +94,10 @@ def merge_repeats(runs, want, lab_devices=None, max_n=None):
             exp_ok.append({k: x for k, x in r.items() if k != LAB_KEY})
         if l_good and LAB_KEY in r:
             lab_ok.append(r[LAB_KEY])
+            if max_n and len(lab_ok) > max_n:
+                v.pop(LAB_KEY, None)
+        if max_n and e_good and len(exp_ok) > max_n:
+            v = {k: x for k, x in v.items() if k == LAB_KEY}
         views.append(v)
     if max_n:      # keep the first max_n usable repeats of each part (earlier sources first)
         if len(exp_ok) > max_n:
