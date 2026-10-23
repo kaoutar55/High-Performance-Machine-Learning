@@ -1,0 +1,22 @@
+A100-80GB: 5 experiment repeats, 5 lab repeats kept
+H100: repeat 1: experiments ran on NVIDIA H200; excluded
+H100: repeat 5: experiments ran on NVIDIA H200; excluded
+H100: 3 experiment repeats, 5 lab repeats kept
+H100: skipped trace results/nsys/rag_decode.nsys-rep (captured on NVIDIA H200)
+H100: skipped trace results/nsys/rag_decode_cuda_gpu_kern_sum.csv (captured on NVIDIA H200)
+H100: skipped trace results/nsys/rag_decode_cuda_api_sum.csv (captured on NVIDIA H200)
+H100: skipped trace results/nsys/rag_decode_nvtx_sum.csv (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_prefill_eager.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_prefill_eager.txt (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_generate6_static_autocompile.txt (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/bge_m3_fp16_batch32.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_prefill_decode5_eager.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_prefill_decode5_eager.txt (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/bge_m3_fp16_batch32.txt (captured on NVIDIA H200)
+H100: skipped trace results/pytorch_profiler/gemma_generate6_static_autocompile.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/extra/gpt2_profile/gpt2_compiled.txt (captured on NVIDIA H200)
+H100: skipped trace results/extra/gpt2_profile/gpt2_eager.txt (captured on NVIDIA H200)
+H100: skipped trace results/extra/gpt2_profile/gpt2_eager.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/extra/gpt2_profile/gpt2_compiled.json.gz (captured on NVIDIA H200)
+H100: skipped trace results/extra/gpt2_explain/gpt2_explain.txt (captured on NVIDIA H200)
+T4: 5 experiment repeats, 5 lab repeats kept

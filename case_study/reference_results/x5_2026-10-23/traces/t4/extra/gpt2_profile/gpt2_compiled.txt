@@ -1,0 +1,18 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::mm         1.21%     666.294us         1.97%       1.088ms      29.405us      36.860ms        70.81%      36.860ms     996.217us            37  
+                                  volta_sgemm_128x64_nn         0.00%       0.000us         0.00%       0.000us       0.000us      32.284ms        62.02%      32.284ms     672.583us            48  
+                                  volta_sgemm_128x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us      12.738ms        24.47%      12.738ms      12.738ms             1  
+                                            aten::addmm         0.55%     304.475us         0.85%     469.112us      39.093us       8.201ms        15.75%       8.201ms     683.403us            12  
+                     aten::_efficient_attention_forward         0.31%     172.651us         1.82%       1.002ms      83.537us       5.393ms        10.36%       5.462ms     455.145us            12  
+fmha_cutlassF_f32_aligned_64x64_rf_sm75(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us       5.393ms        10.36%       5.393ms     449.382us            12  
+         triton_poi_fused_add_addmm_mul_pow_tanh_view_4         0.25%     137.782us         0.39%     213.690us      17.807us     627.581us         1.21%     627.581us      52.298us            12  
+         triton_poi_fused_add_addmm_mul_pow_tanh_view_4         0.00%       0.000us         0.00%       0.000us       0.000us     627.581us         1.21%     627.581us      52.298us            12  
+    triton_per_fused_add_addmm_native_layer_norm_view_6         0.43%     235.053us         0.56%     308.763us      28.069us     311.489us         0.60%     311.489us      28.317us            11  
+    triton_per_fused_add_addmm_native_layer_norm_view_6         0.00%       0.000us         0.00%       0.000us       0.000us     311.489us         0.60%     311.489us      28.317us            11  
+    triton_per_fused_add_addmm_native_layer_norm_view_5         0.30%     167.726us         0.43%     238.281us      21.662us     251.104us         0.48%     251.104us      22.828us            11  
+    triton_per_fused_add_addmm_native_layer_norm_view_5         0.00%       0.000us         0.00%       0.000us       0.000us     251.104us         0.48%     251.104us      22.828us            11  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 55.159ms
+Self CUDA time total: 52.058ms

@@ -116,7 +116,7 @@ def tables(by):
                                         ("flash" if g(emb[k], "sdpa_backend_seen", "flash") else "mem_efficient")
                                         for k in gpus]])
     add("ch3_embedder_chunks_per_s", ["Setting", *gpus], erows,
-        f"BGE-M3 on {g(next(iter(emb.values())), 'tokens_per_chunk')}-token chunks.")
+        f"BGE-M3 on {int(g(next(iter(emb.values())), 'tokens_per_chunk') or 0)}-token chunks.")
     cd = {k: g(r, "compiled_decode") or {} for k, r in by.items()}
     variants = [("eager_dynamic_cache", "Eager, dynamic cache"),
                 ("eager_static_cache", "Eager, static cache (auto-compile off)"),

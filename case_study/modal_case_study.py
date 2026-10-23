@@ -209,11 +209,16 @@ def _run_nsys(files) -> dict:
     rep = os.path.join(d, "rag_decode")
     out = {"nsys": subprocess.getoutput(f"{nsys} --version").strip(), "attempts": []}
     target = [sys.executable, "/root/experiments_extra.py", "nsys_target", os.path.join(d, "target.json")]
+    # Nsight Systems stores the profiled process's environment in the report, so the Hugging Face
+    # token must not be in it: drop every token variable and load the models from the cache offline.
+    clean_env = {k: v for k, v in os.environ.items()
+                 if "TOKEN" not in k.upper() and "SECRET" not in k.upper() and "KEY" not in k.upper()}
+    clean_env.update(HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
     for trace in ("cuda,nvtx,osrt,cublas", "cuda,nvtx"):
         cmd = [nsys, "profile", f"--trace={trace}", "--sample=none", "--cpuctxsw=none",
                "--capture-range=cudaProfilerApi", "--capture-range-end=stop", "--force-overwrite=true",
                "-o", rep, *target]
-        p = subprocess.run(cmd, capture_output=True, text=True)
+        p = subprocess.run(cmd, capture_output=True, text=True, env=clean_env)
         ok = p.returncode == 0 and os.path.exists(rep + ".nsys-rep")
         out["attempts"].append({"trace": trace, "returncode": p.returncode, "ok": ok,
                                 "tail": (p.stderr or p.stdout or "")[-1500:]})
@@ -225,9 +230,15 @@ def _run_nsys(files) -> dict:
         return out
     subprocess.run([nsys, "stats", "--report", "cuda_gpu_kern_sum,cuda_api_sum,nvtx_sum", "--format", "csv",
                     "--output", rep, "--force-export=true", rep + ".nsys-rep"], capture_output=True, text=True)
+    import re
+    leak = re.compile(rb"hf_[A-Za-z0-9]{30,}")
     for fn in os.listdir(d):
         if fn.endswith((".nsys-rep", ".csv")):
-            files[f"nsys/{fn}"] = open(os.path.join(d, fn), "rb").read()
+            data = open(os.path.join(d, fn), "rb").read()
+            if leak.search(data):          # belt and braces: never hand back a file with a token in it
+                out.setdefault("dropped_files_with_token", []).append(fn)
+                continue
+            files[f"nsys/{fn}"] = data
     out["files"] = sorted(k for k in files if k.startswith("nsys/"))
     return out
 

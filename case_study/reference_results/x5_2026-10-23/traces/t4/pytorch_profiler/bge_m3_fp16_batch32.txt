@@ -1,0 +1,21 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            aten::addmm         0.89%       4.864ms         1.24%       6.786ms      46.797us     349.412ms        62.94%     349.412ms       2.410ms           145  
+    turing_fp16_s1688gemm_fp16_256x128_ldg8_relu_f2f_tn         0.00%       0.000us         0.00%       0.000us       0.000us     349.391ms        62.94%     349.391ms       2.426ms           144  
+                     aten::_efficient_attention_forward         0.09%     477.114us         0.42%       2.318ms      96.599us     132.428ms        23.86%     132.548ms       5.523ms            24  
+fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us     132.428ms        23.86%     132.428ms       5.518ms            24  
+                                             aten::gelu         0.07%     398.602us         0.11%     607.929us      25.330us      24.033ms         4.33%      24.033ms       1.001ms            24  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      24.033ms         4.33%      24.033ms       1.001ms            24  
+                                aten::native_layer_norm         0.18%     974.844us         0.44%       2.404ms      49.062us      19.242ms         3.47%      19.242ms     392.694us            49  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us      19.242ms         3.47%      19.242ms     392.694us            49  
+                                              aten::add         0.18%     972.539us         0.27%       1.484ms      27.478us      18.542ms         3.34%      18.542ms     343.376us            54  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      18.535ms         3.34%      18.535ms     370.707us            50  
+                                            aten::copy_         0.07%     372.312us         0.12%     665.947us      20.811us       4.626ms         0.83%       4.626ms     144.556us            32  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us       4.598ms         0.83%       4.598ms     191.583us            24  
+                                            aten::where         0.12%     656.316us         0.45%       2.482ms      51.699us       4.448ms         0.80%       8.955ms     186.557us            48  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us       4.448ms         0.80%       4.448ms     185.336us            24  
+                                            aten::fill_         0.16%     870.402us         0.35%       1.924ms      15.904us       1.736ms         0.31%       1.736ms      14.343us           121  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 546.636ms
+Self CUDA time total: 555.112ms
