@@ -80,6 +80,11 @@ def _env():
         "torch": torch.__version__, "cuda": torch.version.cuda,
         "transformers": transformers.__version__, "sentence_transformers": sentence_transformers.__version__,
         "python": platform.python_version(),
+        # Host CPU matters: at batch 1 decode is often limited by Python and kernel-launch overhead.
+        "cpu": next((ln.split(":", 1)[1].strip() for ln in open("/proc/cpuinfo") if ln.startswith("model name")), "?"),
+        "cpu_count": os.cpu_count(),
+        "packages": {ln.split("==")[0].lower(): ln.split("==")[1] for ln in
+                     subprocess.getoutput(f"{sys.executable} -m pip freeze").splitlines() if "==" in ln},
     }, spec
 
 
@@ -166,9 +171,26 @@ def run_experiments() -> dict:
     env, spec = _env()
     res = {"env": env, "spec": spec, "config": {k: getattr(cfg, k) for k in
            ("MODELS", "DTYPE", "PROMPT_TOKENS", "NEW_TOKENS", "DECODE_BATCHES", "EMBED_BATCHES", "TIMING")}}
-    for key in ("embedder", "compiled_decode", "decode_batching"):
+    for key in ("embedder", "decode_batching"):
         res[key] = _run_experiment_subprocess(key)
         torch.cuda.empty_cache()
+    # Chapter 4: each decode variant in its own child process, merged into one "compiled_decode" dict.
+    cd, runs = {}, {}
+    for key in ("decode_eager", "decode_wrong_compile", "decode_compile_reduce_overhead",
+                "decode_compile_default"):
+        r = _run_experiment_subprocess(key)
+        runs[key] = {k: v for k, v in r.items() if k in ("error", "stderr_tail", "mode",
+                                                       "autocompile_switch_available")}
+        if key.startswith("decode_compile_") and "right_compile_forward_static_cache" in r:
+            r[f"right_compile_{key.removeprefix('decode_compile_')}"] = r.pop("right_compile_forward_static_cache")
+        cd.update({k: v for k, v in r.items() if k not in ("error", "stderr_tail", "mode")})
+    # the book's "right" number: the CUDA-graph version if it ran, otherwise the default-mode one
+    for k in ("right_compile_reduce_overhead", "right_compile_default"):
+        if k in cd:
+            cd["right_compile_forward_static_cache"] = {**cd[k], "mode": k.removeprefix("right_compile_")}
+            break
+    cd["runs"] = runs
+    res["compiled_decode"] = cd
     hf_cache.commit()
     return res
 
@@ -208,7 +230,8 @@ def main(gpus: str = ""):
         (RESULTS / f"{tag}.json").write_text(json.dumps(res, indent=2))
         by_gpu[g] = res
         print(f"{g}: lab errors={len(lab['errors'])}; experiment errors="
-              f"{[k for k in ('embedder', 'compiled_decode', 'decode_batching') if 'error' in (res.get(k) or {})]}")
+              f"{[k for k in ('embedder', 'decode_batching') if 'error' in (res.get(k) or {})]}"
+              f"; decode runs with errors={[k for k, v in res['compiled_decode']['runs'].items() if 'error' in v]}")
     rows = principles.evaluate(by_gpu)
     (RESULTS / "principles_report.json").write_text(json.dumps(rows, indent=2))
     (RESULTS / "principles_report.md").write_text(principles.markdown_report(rows, by_gpu))

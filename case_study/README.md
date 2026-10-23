@@ -20,8 +20,11 @@ change; `results/principles_report.md` shows whether the lessons still hold.
 2. **Extra experiments**:
    - Chapter 3: BGE-M3 throughput on 512-token chunks (FP32 vs FP16, batch 1–64), model shape,
      operator profile, and which attention kernel runs.
-   - Chapter 4: eager decode, compiling the module and calling `.generate()`, and compiling
-     `model.forward` with a static KV cache.
+   - Chapter 4: eager decode (dynamic cache; static cache with transformers' automatic compilation
+     off), the static cache with automatic compilation on, compiling the module and calling
+     `.generate()`, and compiling `model.forward` with a static KV cache with CUDA graphs
+     (`mode="reduce-overhead"`) and without (`mode="default"`). Each variant runs in its own child
+     process, so a native crash in one compile mode does not lose the others.
    - Chapter 5: prefill and per-token decode against batch size, with achieved compute and bandwidth.
 
 ## One-time setup
@@ -47,7 +50,7 @@ Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip
 
 ## Output (`case_study/results/`)
 
-- `<gpu>.json`: every measurement for one GPU, with the GPU, driver and software versions.
+- `<gpu>.json`: every measurement for one GPU, with the GPU, host CPU, driver and package versions.
 - `chapter02_lab_executed_<gpu>.ipynb`: the executed Chapter 2 lab with all outputs.
 - `principles_report.md` / `.json`: each principle per GPU (holds, FAILS, n/a) with its evidence.
 

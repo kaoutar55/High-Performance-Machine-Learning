@@ -37,11 +37,13 @@ DECODE_BATCHES = [1, 4, 16, 64]
 EMBED_CHUNK_TOKENS = 512
 EMBED_BATCHES = [1, 8, 32, 64]
 EMBED_CHUNKS = 256         # chunks timed per batch size (64 for batch 1)
-TIMING = {"warmup": 2, "iters": 5}
+TIMING = {"warmup": 2, "iters": 10}   # 10 (was 5): batch-1 decode on fast GPUs is noisy
 
 # Python packages for the GPU image. For an edition release, pin exact versions here: after a
 # successful run, copy the versions recorded under "env" in the results files.
+# Pinned to the stack of the first three-GPU run (23 Oct 2026); the rest are recorded per run under
+# env["packages"] and should be pinned from there before the edition is released.
 PIP_PACKAGES = [
-    "torch", "transformers", "accelerate", "sentence-transformers", "faiss-cpu", "datasets",
+    "torch==2.14.1", "transformers==5.20.2", "accelerate", "sentence-transformers==6.2.0", "faiss-cpu", "datasets",
     "numpy", "pandas", "matplotlib", "nbclient", "nbformat", "ipykernel",
 ]

@@ -7,7 +7,9 @@ GPUs torch.compile with CUDA graphs plus the static KV cache crashes the process
 non-zero exit the runner records as an error, leaving every other measurement intact.
 
 Run one experiment in isolation (used by modal_case_study.run_experiments):
-    python experiments.py <embedder|compiled_decode|decode_batching> <out.json>
+    python experiments.py <name> <out.json>     # names: see EXPERIMENTS at the bottom
+The Chapter 4 decode measurements are split into several experiments so that a native crash in
+one compile mode does not lose the others.
 """
 import os
 import sys
@@ -129,28 +131,52 @@ def exp_embedder() -> dict:
                 with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA]) as prof:
                     m(feats); torch.cuda.synchronize()
             out["profile_fp16_batch32"] = _top_ops(prof)
-            names = " ".join(e.key for e in prof.key_averages()).lower()
+            keys = [e.key for e in prof.key_averages()]
+            names = " ".join(keys).lower()
             out["sdpa_backend_seen"] = {"flash": "flash" in names, "mem_efficient": "efficient" in names}
+            att = [k for k in keys if any(w in k.lower() for w in
+                   ("attention", "fmha", "flash", "sdpa", "cudnn"))]
+            out["attention_ops"] = att[:10]
+            out["attention_backend"] = (
+                "cudnn" if any("cudnn_attention" in k for k in att) else
+                "flash" if any("flash_attention" in k for k in att) else
+                "mem_efficient" if any("efficient_attention" in k for k in att) else
+                "math (unfused)" if not att else "other")
             out["peak_mem_gb"] = round(torch.cuda.max_memory_allocated() / 1e9, 2)
         del m; torch.cuda.empty_cache()
     return out
 
 
-def exp_compiled_decode(on_progress=None) -> dict:
-    """Chapter 4: eager vs compiled decode, including the pattern that silently compiles nothing.
+def _graph_count():
+    """Number of graphs Dynamo has compiled in this process (0 means nothing was compiled)."""
+    try:
+        from torch._dynamo.utils import counters
+        return int(counters["stats"]["unique_graphs"])
+    except Exception:  # noqa: BLE001
+        return None
 
-    on_progress, if given, is called with the partial result dict after each measurement so a caller
-    running this in a subprocess can persist what finished before a later step crashes the process.
-    It does not affect any measurement.
-    """
-    import time
 
+def _autocompile_kw():
+    """generate() kwargs that switch off transformers' automatic compilation for a static cache.
+
+    Recent transformers compile the forward pass inside generate() whenever the cache is static.
+    To measure eager with a static cache we must turn that off; record whether the switch exists."""
+    try:
+        from transformers import GenerationConfig
+        if hasattr(GenerationConfig(), "disable_compile"):
+            return {"disable_compile": True}
+    except Exception:  # noqa: BLE001
+        pass
+    return None
+
+
+def _decode_setup(on_progress):
     import torch
     tok, model = _generator()
     inputs = _prompt(tok)
     out = {"prompt_tokens": int(inputs["input_ids"].shape[1]), "new_tokens": cfg.NEW_TOKENS}
 
-    def _flush():
+    def flush():
         if on_progress is not None:
             on_progress(out)
 
@@ -159,38 +185,68 @@ def exp_compiled_decode(on_progress=None) -> dict:
                                   pad_token_id=tok.eos_token_id, **kw)
 
     def measure(label, m, **kw):
+        import time
+        g0 = _graph_count()
+        torch.cuda.synchronize(); t0 = time.perf_counter()
+        gen(m, cfg.NEW_TOKENS, **kw)()          # first call: includes any compilation
+        torch.cuda.synchronize(); first = time.perf_counter() - t0
         t1 = _cuda_time(gen(m, 1, **kw))
         tn = _cuda_time(gen(m, cfg.NEW_TOKENS, **kw))
+        g1 = _graph_count()
         out[label] = {"t_first_token_s": round(t1, 4), "t_all_tokens_s": round(tn, 4),
-                      "decode_ms_per_token": round((tn - t1) / (cfg.NEW_TOKENS - 1) * 1000, 2)}
-        _flush()
+                      "decode_ms_per_token": round((tn - t1) / (cfg.NEW_TOKENS - 1) * 1000, 2),
+                      "first_call_s": round(first, 2),
+                      "dynamo_graphs_compiled": (None if None in (g0, g1) else g1 - g0)}
+        flush()
 
+    return torch, model, out, flush, measure
+
+
+def exp_decode_eager(on_progress=None) -> dict:
+    """Chapter 4 baseline: eager decode with the dynamic cache, eager with a static cache (automatic
+    compilation off), and the static cache with transformers' automatic compilation left on."""
+    torch, model, out, flush, measure = _decode_setup(on_progress)
+    off = _autocompile_kw()
+    out["autocompile_switch_available"] = off is not None
     with torch.inference_mode():
         measure("eager_dynamic_cache", model)
-        measure("eager_static_cache", model, cache_implementation="static")
+        if off is not None:
+            measure("eager_static_cache", model, cache_implementation="static", **off)
         torch._dynamo.reset()
-        try:
-            measure("wrong_compile_module_then_generate", torch.compile(model, mode="reduce-overhead"))
-        except Exception as e:  # noqa: BLE001
-            out["wrong_compile_module_then_generate"] = {"error": repr(e)[:400]}; _flush()
-        torch._dynamo.reset()
-        orig = model.forward
-        for fullgraph in (True, False):
-            try:
-                model.forward = torch.compile(orig, mode="reduce-overhead", fullgraph=fullgraph)
-                torch.cuda.synchronize(); t0 = time.perf_counter()
-                gen(model, cfg.NEW_TOKENS, cache_implementation="static")()
-                torch.cuda.synchronize()
-                out["right_compile_first_call_s"] = round(time.perf_counter() - t0, 1)
-                measure("right_compile_forward_static_cache", model, cache_implementation="static")
-                out["right_compile_fullgraph"] = fullgraph
-                break
-            except Exception as e:  # noqa: BLE001
-                out[f"right_compile_error_fullgraph_{fullgraph}"] = repr(e)[:400]
-                torch._dynamo.reset(); model.forward = orig
-        model.forward = orig
-    _flush()
+        measure("hf_autocompile_static_cache", model, cache_implementation="static")
+    flush()
     return out
+
+
+def exp_decode_wrong_compile(on_progress=None) -> dict:
+    """Chapter 4: compile the module, then call .generate(). generate() runs outside the compiled
+    function, so decode should be essentially unchanged."""
+    torch, model, out, flush, measure = _decode_setup(on_progress)
+    with torch.inference_mode():
+        measure("wrong_compile_module_then_generate", torch.compile(model, mode="reduce-overhead"))
+    flush()
+    return out
+
+
+def _right_compile(mode, on_progress):
+    torch, model, out, flush, measure = _decode_setup(on_progress)
+    off = _autocompile_kw() or {}
+    out["mode"] = mode
+    with torch.inference_mode():
+        model.forward = torch.compile(model.forward, mode=mode)
+        measure("right_compile_forward_static_cache", model, cache_implementation="static", **off)
+    flush()
+    return out
+
+
+def exp_decode_compile_reduce_overhead(on_progress=None) -> dict:
+    """Chapter 4: compile model.forward with CUDA graphs (mode="reduce-overhead") + static cache."""
+    return _right_compile("reduce-overhead", on_progress)
+
+
+def exp_decode_compile_default(on_progress=None) -> dict:
+    """Chapter 4 fallback: compile model.forward without CUDA graphs (mode="default") + static cache."""
+    return _right_compile("default", on_progress)
 
 
 def exp_decode_batching() -> dict:
@@ -221,8 +277,11 @@ def exp_decode_batching() -> dict:
     return out
 
 
-EXPERIMENTS = {"embedder": exp_embedder, "compiled_decode": exp_compiled_decode,
-               "decode_batching": exp_decode_batching}
+EXPERIMENTS = {"embedder": exp_embedder, "decode_batching": exp_decode_batching,
+               "decode_eager": exp_decode_eager, "decode_wrong_compile": exp_decode_wrong_compile,
+               "decode_compile_reduce_overhead": exp_decode_compile_reduce_overhead,
+               "decode_compile_default": exp_decode_compile_default}
+DECODE_EXPERIMENTS = [k for k in EXPERIMENTS if k.startswith("decode_") and k != "decode_batching"]
 
 
 if __name__ == "__main__":
@@ -233,7 +292,7 @@ if __name__ == "__main__":
 
     name, out_path = sys.argv[1], sys.argv[2]
     fn = EXPERIMENTS[name]
-    if name == "compiled_decode":
+    if name in DECODE_EXPERIMENTS:
         def _save(partial):
             json.dump(partial, open(out_path, "w"))
         res = fn(on_progress=_save)

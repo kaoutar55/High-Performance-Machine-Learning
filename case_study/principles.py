@@ -24,9 +24,9 @@ def _row(rows, **match):
     return None
 
 
-def decode_is_bandwidth_limited(res):
-    """At batch 1 a decode step reads every weight once to produce one token per sequence, about 1 FLOP
-    per byte, so it can use only a tiny fraction of peak compute; its floor is memory bandwidth."""
+def decode_ceiling_is_bandwidth(res):
+    """A decode step at batch 1 reads every weight once to produce one token, about 1 FLOP per byte,
+    so its ceiling is memory bandwidth: it can use only a tiny fraction of peak compute."""
     spec, row = res.get("spec"), _row(_get(res, "decode_batching", "rows"), batch=1)
     if not spec or not row or "decode_ms_per_step" not in row:
         return None, "not measured"
@@ -37,9 +37,29 @@ def decode_is_bandwidth_limited(res):
     floor_ms = weight_gb / spec["mem_bw_gbs"] * 1000
     pct_compute = 100 * tflops / spec["fp16_tensor_tflops"]
     pct_bw = 100 * floor_ms / row["decode_ms_per_step"]
-    return pct_compute < 5, (f"{row['decode_ms_per_step']:.1f} ms/token = {pct_compute:.2f}% of peak compute; "
-                             f"bandwidth floor {floor_ms:.1f} ms/token, so the step reaches {pct_bw:.0f}% of the "
-                             f"bandwidth limit (the rest is framework overhead)")
+    return pct_compute < 5, (f"{row['decode_ms_per_step']:.1f} ms/token uses {pct_compute:.2f}% of peak compute; "
+                             f"weight-read floor {floor_ms:.1f} ms/token, reached at {pct_bw:.0f}%")
+
+
+def overhead_decides_how_close_decode_gets(res):
+    """Whether decode reaches its bandwidth ceiling depends on per-step overhead (Python, kernel
+    launches). Removing that overhead (static cache + compilation / CUDA graphs) helps in proportion
+    to the overhead's share of the step: a lot on fast GPUs, little on a GPU already near its floor."""
+    spec, c = res.get("spec"), res.get("compiled_decode") or {}
+    weight_gb = _get(res, "decode_batching", "weight_gb")
+    eager = _get(c, "eager_dynamic_cache", "decode_ms_per_token")
+    cands = [(k, _get(c, k, "decode_ms_per_token")) for k in
+             ("right_compile_forward_static_cache", "hf_autocompile_static_cache")
+             if _get(c, k, "decode_ms_per_token") and (_get(c, k, "dynamo_graphs_compiled") or 0) > 0]
+    if not spec or not weight_gb or not eager or not cands:
+        return None, "not measured (no compiled decode number)"
+    label, fast = min(cands, key=lambda kv: kv[1])
+    floor = weight_gb / spec["mem_bw_gbs"] * 1000
+    share = 1 - floor / eager
+    speedup = eager / fast
+    holds = (speedup >= 1.3) if share > 0.5 else (speedup < 1.3)
+    return holds, (f"eager {eager:.1f} ms/token, floor {floor:.1f} ms, so overhead is {100 * share:.0f}% of the step; "
+                   f"{label} gives {fast:.1f} ms/token ({speedup:.2f}x)")
 
 
 def batching_amortizes_weights(res):
@@ -88,55 +108,59 @@ def lower_precision_speeds_up_encoder(res):
     return gain >= 1.5, f"FP16 {f16['chunks_per_s']:.0f} vs FP32 {f32['chunks_per_s']:.0f} chunks/s at batch 32 ({gain:.1f}x)"
 
 
-def batching_feeds_the_encoder(res):
-    """Batching the embedder keeps the GPU busy: throughput rises steeply from batch 1 until the GPU
-    saturates."""
-    rows = _get(res, "embedder", "throughput")
-    b1, b32 = _row(rows, dtype="fp16", batch=1), _row(rows, dtype="fp16", batch=32)
-    if not b1 or not b32:
+def rows_per_gemm_set_utilization(res):
+    """GPU utilization depends on how many rows each matrix multiply processes. Decode has one row per
+    sequence, so batching sequences helps almost linearly; an embedder chunk already supplies hundreds
+    of token rows, so batching chunks helps much less."""
+    dec = _get(res, "decode_batching", "rows")
+    emb = _get(res, "embedder", "throughput")
+    d1, d16 = _row(dec, batch=1), _row(dec, batch=16)
+    e1, e32 = _row(emb, dtype="fp16", batch=1), _row(emb, dtype="fp16", batch=32)
+    rows = _get(res, "embedder", "tokens_per_chunk")
+    if not all((d1, d16, e1, e32)) or "decode_tokens_per_s" not in d16:
         return None, "not measured"
-    gain = b32["chunks_per_s"] / b1["chunks_per_s"]
-    return gain >= 3, f"FP16 batch 32 gives {gain:.1f}x the chunks/s of batch 1"
+    dgain = d16["decode_tokens_per_s"] / d1["decode_tokens_per_s"]
+    egain = e32["chunks_per_s"] / e1["chunks_per_s"]
+    return dgain > egain, (f"decode (1 row/sequence): batch 16 = {dgain:.1f}x batch 1; "
+                           f"embedder ({rows} token rows/chunk): batch 32 = {egain:.1f}x batch 1")
 
 
 def compile_only_helps_compiled_code(res):
-    """torch.compile speeds up only the code that actually runs through the compiled function:
-    compiling the module and then calling .generate() leaves decode unchanged; compiling forward
-    with a static KV cache speeds it up."""
+    """torch.compile speeds up only code that runs through the compiled function: compiling the module
+    and then calling .generate() leaves the decode loop, which generate() drives, essentially unchanged."""
     c = res.get("compiled_decode") or {}
-    eager = _get(c, "eager_static_cache", "decode_ms_per_token")
-    eager_dyn = _get(c, "eager_dynamic_cache", "decode_ms_per_token")
+    eager = _get(c, "eager_dynamic_cache", "decode_ms_per_token")
     wrong = _get(c, "wrong_compile_module_then_generate", "decode_ms_per_token")
-    right = _get(c, "right_compile_forward_static_cache", "decode_ms_per_token")
-    if None in (eager, eager_dyn, wrong, right):
-        return None, "not measured (see compiled_decode errors)"
-    unchanged = abs(wrong - eager_dyn) / eager_dyn < 0.10
-    faster = right < 0.9 * eager
-    return unchanged and faster, (f"eager {eager_dyn:.1f} ms/token, compile-module-then-generate {wrong:.1f}, "
-                                  f"compiled forward + static cache {right:.1f} (eager static {eager:.1f})")
-
-
-def attention_kernel_depends_on_generation(res):
-    """Which fused attention kernel runs depends on the GPU generation: FlashAttention needs compute
-    capability 8.0 or newer; older GPUs fall back to another kernel."""
-    seen = _get(res, "embedder", "sdpa_backend_seen")
-    cc = _get(res, "env", "compute_capability")
-    if not seen or not cc:
+    if None in (eager, wrong):
         return None, "not measured"
-    major = int(str(cc).split(".")[0])
-    expected_flash = major >= 8
-    return seen.get("flash") == expected_flash, f"compute capability {cc}; flash kernel seen: {seen.get('flash')}"
+    return abs(wrong - eager) / eager < 0.15, f"eager {eager:.1f} ms/token; compile-module-then-generate {wrong:.1f}"
+
+
+def attention_runs_fused(res):
+    """Attention runs as one fused kernel on every GPU; which kernel PyTorch's SDPA dispatcher picks
+    (FlashAttention, memory-efficient, cuDNN) depends on GPU, dtype, mask and library versions, so read
+    it from the profiler."""
+    be = _get(res, "embedder", "attention_backend")
+    if be is None:
+        seen = _get(res, "embedder", "sdpa_backend_seen")
+        if not seen:
+            return None, "not measured"
+        be = "flash" if seen.get("flash") else "mem_efficient" if seen.get("mem_efficient") else "math (unfused)"
+    ops = (_get(res, "embedder", "attention_ops") or [""])
+    cc = _get(res, "env", "compute_capability")
+    return be != "math (unfused)", f"compute capability {cc}: {be} ({ops[-1][:60]})"
 
 
 PRINCIPLES = [
-    ("decode-bandwidth", "Decode at batch 1 is limited by memory bandwidth, not compute", "Ch 1, 2, 5", decode_is_bandwidth_limited),
+    ("decode-ceiling", "Decode at batch 1 has ~1 FLOP/byte, so memory bandwidth is its ceiling", "Ch 1, 2, 5", decode_ceiling_is_bandwidth),
+    ("decode-overhead", "Per-step overhead decides how close decode gets to that ceiling; removing it helps in proportion", "Ch 2, 3, 4", overhead_decides_how_close_decode_gets),
     ("batching", "Batching amortizes weight reads during decode", "Ch 5", batching_amortizes_weights),
     ("prefill-compute", "Prefill is compute-heavy; decode is not", "Ch 1, 5", prefill_is_compute_heavy),
+    ("rows-per-gemm", "Utilization depends on rows per matrix multiply", "Ch 1, 3, 5", rows_per_gemm_set_utilization),
     ("dominant-stage", "Decode dominates the naive RAG pipeline's latency", "Ch 1, 2", decode_dominates_naive_rag),
     ("precision", "16-bit Tensor Core math speeds up the encoder", "Ch 3, 5", lower_precision_speeds_up_encoder),
-    ("encoder-batching", "Batching keeps the encoder's GPU busy", "Ch 3", batching_feeds_the_encoder),
     ("compile-scope", "torch.compile helps only code that runs through the compiled function", "Ch 4", compile_only_helps_compiled_code),
-    ("attention-kernel", "The fused attention kernel depends on the GPU generation", "Ch 2, 3, 5", attention_kernel_depends_on_generation),
+    ("attention-fused", "Attention runs fused; the kernel is a runtime choice", "Ch 2, 3, 5", attention_runs_fused),
 ]
 
 
