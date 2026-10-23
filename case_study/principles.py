@@ -49,11 +49,13 @@ def overhead_decides_how_close_decode_gets(res):
     weight_gb = _get(res, "decode_batching", "weight_gb")
     eager = _get(c, "eager_dynamic_cache", "decode_ms_per_token")
     cands = [(k, _get(c, k, "decode_ms_per_token")) for k in
-             ("right_compile_forward_static_cache", "hf_autocompile_static_cache")
+             ("hf_autocompile_static_cache", "right_compile_forward_static_cache")
              if _get(c, k, "decode_ms_per_token") and (_get(c, k, "dynamo_graphs_compiled") or 0) > 0]
     if not spec or not weight_gb or not eager or not cands:
         return None, "not measured (no compiled decode number)"
-    label, fast = min(cands, key=lambda kv: kv[1])
+    # Book-wide choice: quote transformers' own static-cache compilation when it ran; otherwise the
+    # hand-compiled forward.
+    label, fast = next((kv for kv in cands if kv[0] == "hf_autocompile_static_cache"), cands[0])
     floor = weight_gb / spec["mem_bw_gbs"] * 1000
     share = 1 - floor / eager
     speedup = eager / fast

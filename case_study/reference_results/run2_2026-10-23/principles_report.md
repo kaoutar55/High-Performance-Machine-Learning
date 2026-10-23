@@ -35,7 +35,7 @@ Sources: PyTorch blog, Accelerating Generative AI with PyTorch II: GPT, Fast (20
 
 - **A100-80GB** (holds): eager 17.5 ms/token, floor 2.5 ms, so overhead is 86% of the step; hf_autocompile_static_cache gives 6.0 ms/token (2.91x)
 - **H100** (holds): eager 11.7 ms/token, floor 1.5 ms, so overhead is 87% of the step; hf_autocompile_static_cache gives 3.5 ms/token (3.33x)
-- **T4** (holds): eager 24.7 ms/token, floor 15.7 ms, so overhead is 37% of the step; right_compile_forward_static_cache gives 23.3 ms/token (1.06x)
+- **T4** (holds): eager 24.7 ms/token, floor 15.7 ms, so overhead is 37% of the step; hf_autocompile_static_cache gives 23.5 ms/token (1.05x)
 
 ### A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over
 _Batching amortizes weight reads: decode throughput grows almost in proportion to batch size

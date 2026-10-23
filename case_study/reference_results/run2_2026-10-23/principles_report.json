@@ -43,7 +43,7 @@
       },
       "T4": {
         "holds": true,
-        "evidence": "eager 24.7 ms/token, floor 15.7 ms, so overhead is 37% of the step; right_compile_forward_static_cache gives 23.3 ms/token (1.06x)"
+        "evidence": "eager 24.7 ms/token, floor 15.7 ms, so overhead is 37% of the step; hf_autocompile_static_cache gives 23.5 ms/token (1.05x)"
       }
     }
   },
