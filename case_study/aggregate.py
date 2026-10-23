@@ -26,8 +26,19 @@ def _merge(xs, fn):
     if all(isinstance(x, dict) for x in xs):
         keys = list(dict.fromkeys(k for x in xs for k in x))
         return {k: _merge([x.get(k) for x in xs], fn) for k in keys}
-    if all(isinstance(x, list) for x in xs) and len({len(x) for x in xs}) == 1:
-        return [_merge(list(items), fn) for items in zip(*xs)]
+    if all(isinstance(x, list) for x in xs):
+        # Profiler operator lists are ranked per run, so the order differs between repeats: merge by
+        # operator name, then re-rank by the merged value.
+        flat = [i for x in xs for i in x]
+        if flat and all(isinstance(i, dict) and "op" in i for i in flat):
+            names = list(dict.fromkeys(i["op"] for i in flat))
+            merged = [_merge([next((i for i in x if i["op"] == n), None) for x in xs], fn) for n in names]
+            key = next((k for k in ("self_cuda_ms", "us", "ms") if all(k in m for m in merged)), None)
+            if key:
+                merged.sort(key=lambda m: (m[key][1] if isinstance(m[key], list) else m[key]) or 0, reverse=True)
+            return merged
+        if len({len(x) for x in xs}) == 1:
+            return [_merge(list(items), fn) for items in zip(*xs)]
     if all(_num(x) for x in xs):
         return fn([float(x) for x in xs])
     return xs[0]
