@@ -53,6 +53,8 @@ Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip
 - `<gpu>.json`: every measurement for one GPU, with the GPU, host CPU, driver and package versions.
 - `chapter02_lab_executed_<gpu>.ipynb`: the executed Chapter 2 lab with all outputs.
 - `principles_report.md` / `.json`: each principle per GPU (holds, FAILS, n/a) with its evidence.
+- `master_tables.md` / `.json`: every case-study table the chapters quote, built by
+  `python case_study/make_tables.py` from the `<gpu>.json` files.
 
 Each experiment keeps going if another fails and records the error in the JSON, so it can be
 fixed and re-run on its own. For an edition release, copy the versions recorded under `env` into
