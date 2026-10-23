@@ -1,0 +1,285 @@
+{
+  "requested_gpu": "T4",
+  "env": {
+    "gpu": "Tesla T4",
+    "compute_capability": "7.5",
+    "driver": "610.57.04",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.20.2",
+    "sentence_transformers": "6.2.0",
+    "python": "3.11.12"
+  },
+  "spec": {
+    "label": "NVIDIA T4",
+    "fp16_tensor_tflops": 65.0,
+    "mem_bw_gbs": 320.0,
+    "memory": "16 GB GDDR6"
+  },
+  "config": {
+    "MODELS": {
+      "generator": "google/gemma-2b-it",
+      "embedder": "BAAI/bge-m3"
+    },
+    "DTYPE": "float16",
+    "PROMPT_TOKENS": 512,
+    "NEW_TOKENS": 20,
+    "DECODE_BATCHES": [
+      1,
+      4,
+      16,
+      64
+    ],
+    "EMBED_BATCHES": [
+      1,
+      8,
+      32,
+      64
+    ],
+    "TIMING": {
+      "warmup": 2,
+      "iters": 5
+    }
+  },
+  "embedder": {
+    "model": {
+      "id": "BAAI/bge-m3",
+      "layers": 24,
+      "heads": 16,
+      "hidden": 1024,
+      "params_m": 567.8
+    },
+    "throughput": [
+      {
+        "dtype": "fp32",
+        "batch": 1,
+        "chunks": 64,
+        "seconds": 5.701,
+        "chunks_per_s": 11.2
+      },
+      {
+        "dtype": "fp32",
+        "batch": 8,
+        "chunks": 256,
+        "seconds": 19.595,
+        "chunks_per_s": 13.1
+      },
+      {
+        "dtype": "fp32",
+        "batch": 32,
+        "chunks": 256,
+        "seconds": 20.291,
+        "chunks_per_s": 12.6
+      },
+      {
+        "dtype": "fp32",
+        "batch": 64,
+        "chunks": 256,
+        "seconds": 20.053,
+        "chunks_per_s": 12.8
+      },
+      {
+        "dtype": "fp16",
+        "batch": 1,
+        "chunks": 64,
+        "seconds": 1.221,
+        "chunks_per_s": 52.4
+      },
+      {
+        "dtype": "fp16",
+        "batch": 8,
+        "chunks": 256,
+        "seconds": 4.38,
+        "chunks_per_s": 58.4
+      },
+      {
+        "dtype": "fp16",
+        "batch": 32,
+        "chunks": 256,
+        "seconds": 4.47,
+        "chunks_per_s": 57.3
+      },
+      {
+        "dtype": "fp16",
+        "batch": 64,
+        "chunks": 256,
+        "seconds": 4.586,
+        "chunks_per_s": 55.8
+      }
+    ],
+    "tokens_per_chunk": 477,
+    "profile_fp16_batch32": [
+      {
+        "op": "aten::addmm",
+        "self_cuda_ms": 297.713,
+        "calls": 145
+      },
+      {
+        "op": "turing_fp16_s1688gemm_fp16_256x128_ldg8_relu_f2f_tn",
+        "self_cuda_ms": 297.694,
+        "calls": 144
+      },
+      {
+        "op": "aten::_efficient_attention_forward",
+        "self_cuda_ms": 112.179,
+        "calls": 24
+      },
+      {
+        "op": "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::AttentionKernel<cutlass::half_t, cutlass::arch::Sm75, true, 64, 64, 64, true, true>::Params)",
+        "self_cuda_ms": 112.179,
+        "calls": 24
+      },
+      {
+        "op": "aten::gelu",
+        "self_cuda_ms": 24.486,
+        "calls": 24
+      },
+      {
+        "op": "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>, false>(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>)",
+        "self_cuda_ms": 24.486,
+        "calls": 24
+      },
+      {
+        "op": "aten::add",
+        "self_cuda_ms": 18.879,
+        "calls": 54
+      },
+      {
+        "op": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<c10::Half>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<c10::Half>, std::array<char*, 3ul>)",
+        "self_cuda_ms": 18.873,
+        "calls": 50
+      },
+      {
+        "op": "aten::native_layer_norm",
+        "self_cuda_ms": 16.697,
+        "calls": 49
+      },
+      {
+        "op": "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c10::Half, float, false>(int, float, c10::Half const*, c10::Half const*, c10::Half const*, float*, float*, c10::Half*)",
+        "self_cuda_ms": 16.697,
+        "calls": 49
+      },
+      {
+        "op": "aten::copy_",
+        "self_cuda_ms": 4.362,
+        "calls": 32
+      },
+      {
+        "op": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#10}::operator()() const::{lambda(c10::Half)#1} const&)::{lambda(int)#1})",
+        "self_cuda_ms": 4.337,
+        "calls": 24
+      },
+      {
+        "op": "aten::where",
+        "self_cuda_ms": 4.148,
+        "calls": 48
+      },
+      {
+        "op": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1})",
+        "self_cuda_ms": 4.148,
+        "calls": 24
+      },
+      {
+        "op": "aten::fill_",
+        "self_cuda_ms": 1.761,
+        "calls": 121
+      }
+    ],
+    "sdpa_backend_seen": {
+      "flash": false,
+      "mem_efficient": true
+    },
+    "peak_mem_gb": 3.82
+  },
+  "compiled_decode": {
+    "error": "experiment subprocess exited with code -11 (signal 11 if negative)",
+    "stderr_tail": "r/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py\", line 308, in forward\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     hidden_states, _ = self.self_attn(\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                        ^^^^^^^^^^^^^^^\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py\", line 262, in forward\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     key_states, value_states = past_key_values.update(key_states, value_states, self.layer_idx)\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/cache_utils.py\", line 1423, in update\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     keys, values = self.layers[layer_idx].update(key_states, value_states, *args, **kwargs)\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/cache_utils.py\", line 467, in update\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     self.cumulative_length.add_(kv_length)\nW1023 14:55:51.196000 37 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs] \n",
+    "prompt_tokens": 512,
+    "new_tokens": 20,
+    "eager_dynamic_cache": {
+      "t_first_token_s": 0.1064,
+      "t_all_tokens_s": 0.5706,
+      "decode_ms_per_token": 24.43
+    },
+    "eager_static_cache": {
+      "t_first_token_s": 0.1092,
+      "t_all_tokens_s": 0.5405,
+      "decode_ms_per_token": 22.7
+    },
+    "wrong_compile_module_then_generate": {
+      "t_first_token_s": 0.1091,
+      "t_all_tokens_s": 0.5721,
+      "decode_ms_per_token": 24.37
+    }
+  },
+  "decode_batching": {
+    "params_b": 2.506,
+    "weight_gb": 5.012,
+    "rows": [
+      {
+        "batch": 1,
+        "prompt_tokens": 512,
+        "prefill_s": 0.1035,
+        "prefill_tflops": 24.8,
+        "decode_ms_per_step": 24.38,
+        "decode_tokens_per_s": 41.0,
+        "weight_read_gbs": 205.6
+      },
+      {
+        "batch": 4,
+        "prompt_tokens": 512,
+        "prefill_s": 0.3826,
+        "prefill_tflops": 26.83,
+        "decode_ms_per_step": 25.86,
+        "decode_tokens_per_s": 154.7,
+        "weight_read_gbs": 193.8
+      },
+      {
+        "batch": 16,
+        "prompt_tokens": 512,
+        "prefill_s": 1.5433,
+        "prefill_tflops": 26.61,
+        "decode_ms_per_step": 34.05,
+        "decode_tokens_per_s": 469.9,
+        "weight_read_gbs": 147.2
+      },
+      {
+        "batch": 64,
+        "prompt_tokens": 512,
+        "prefill_s": 6.7014,
+        "prefill_tflops": 24.51,
+        "decode_ms_per_step": 63.24,
+        "decode_tokens_per_s": 1012.1,
+        "weight_read_gbs": 79.3
+      }
+    ]
+  },
+  "chapter02_lab": {
+    "errors": [],
+    "summary": {
+      "latency_ms": {
+        "p50": 951.0450749999961,
+        "p95": 1223.521770549994,
+        "p99": 1412.9250757400027,
+        "mean": 978.6820866800002,
+        "n": 100
+      },
+      "stage_median_ms": {
+        "encode_query": 20.2,
+        "retrieval": 0.9,
+        "tokenize_prompt": 2.5,
+        "prefill": 167.9,
+        "decode": 760.1,
+        "detokenize": 0.3
+      },
+      "decode_roofline": {
+        "ms_per_token": 45.37683715820313,
+        "achieved_tflops": 0.11046042751998811,
+        "achieved_bw_gbs": 110.46042751998812,
+        "pct_peak_bw": 34.518883599996286,
+        "arithmetic_intensity": 1.0,
+        "ridge": 203.125
+      }
+    }
+  }
+}
