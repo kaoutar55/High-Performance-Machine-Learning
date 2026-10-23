@@ -4,20 +4,23 @@ Companion code for *High-Performance Machine Learning* (Packt) by **Dr. Kaoutar 
 
 A model that is accurate but too slow does not ship. Neither does one that is accurate but too expensive to serve, or one that crashes when traffic doubles. The book is built around that observation. It treats performance as a design concern from the first commit, and it walks through the techniques that actually move the needle: compilation, custom kernels, quantization, continuous batching, KV cache management, distributed training, accelerator portability.
 
-This repo holds runnable notebooks for every chapter. The same multimodal RAG case study runs through all of them. You start with a 5 to 8 second naïve baseline on a free Colab T4 and finish under 1.5 seconds end-to-end on the same hardware. About 4.6× on Colab's slowest GPU, with no exotic infrastructure.
+This repo holds runnable notebooks for every chapter. The same RAG case study runs through all of them: a Gemma-2B-IT generator in FP16, a BGE-M3 embedder and a FAISS index. The book measures it on an NVIDIA A100 80GB (the reference platform), an H100 and a T4, and sets every performance target relative to the measured baseline on the same GPU. On the A100 the naïve pipeline answers a query in about 380 ms at the median, and token-by-token decode takes almost 90% of that time.
 
-## Hardware tiers
+## Platforms
 
-The notebooks detect what you have and pick model sizes that fit. The pipeline is identical across tiers; only the model sizes change.
+The case study uses the same two models on every GPU. Absolute numbers change with the GPU and the host; the ratios and the principles the book teaches hold on all three.
 
-| Tier              | Exemplar             | Memory     | Embedding model        | Generation model         | Expected naïve TTFT |
-|-------------------|----------------------|------------|------------------------|--------------------------|---------------------|
-| Consumer CPU      | Any laptop           | ≥ 8 GB RAM | all-MiniLM-L6 (22 M)   | Qwen2.5-0.5B-Instruct    | ~10 to 30 s            |
-| Consumer GPU 16 GB| Colab Free T4        | ~15 GB     | all-MiniLM-L6 (22 M)   | Qwen2.5-1.5B-Inst (4-bit)| ~3 to 8 s              |
-| Datacenter 40 GB  | Colab Pro A100 / L40 | ~40 GB     | bge-base-en-v1.5       | Qwen2.5-3B-Instruct      | ~1 to 3 s              |
-| Datacenter 80 GB+ | A100 80 / H100       | ~80 GB     | bge-large-en-v1.5      | Qwen2.5-7B-Instruct      | ~0.5 to 1 s            |
+| Platform | Role in the book | Memory | Generator | Embedder | Naïve p50 latency (measured) |
+|---|---|---|---|---|---|
+| NVIDIA A100 80GB (SXM) | Reference: quoted first in every table | 80 GB HBM2e | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~380 ms |
+| NVIDIA H100 80GB | Current generation | 80 GB HBM3 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~220 ms |
+| NVIDIA T4 16GB | Budget path (free Colab tier) | 16 GB GDDR6 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~590 ms |
 
-The model names above are 2026 picks. They will rotate as Hugging Face publishes new checkpoints. What does not rotate is the structural claim: same pipeline, scaled model size, same lessons.
+FP16 is used throughout because the T4 has no BF16 Tensor Core path. Chapter 6 is the exception to the stack: it is pinned to PyTorch 2.6 + Triton 3.2 on an A100 80GB PCIe (see its README). The Chapter 1 lab still contains an older hardware-tier recipe with smaller models for CPU-only machines.
+
+## Case study and principles
+
+[`case_study/`](case_study/README.md) re-measures the case study on Modal on all three GPUs in one command and checks the book's principles against the measurements. It separates the claims the book teaches (`principles.py`, each with the chapters that teach it and its sources) from the swappable settings (`experiment_config.py`: GPUs, models, sizes, package versions). The measured data every chapter quotes is in [`case_study/reference_results/`](case_study/reference_results/README.md).
 
 ## Repository layout
 
@@ -41,17 +44,21 @@ The model names above are 2026 picks. They will rotate as Hugging Face publishes
 ├── chapter05/
 │   ├── README.md
 │   └── chapter05_companion.ipynb
+├── chapter06/                    Triton kernels (pinned PyTorch 2.6 + Triton 3.2)
+├── chapter07/                    distributed training (analytical cells + measured 2x A10G runs)
+├── case_study/                   multi-GPU re-measurement, principles, reference results
+├── tools/drift_check/            monthly check that the code and numbers still hold
 └── ...                           one folder per chapter as the book is released
 ```
 
-Each chapter folder has its own README and a Colab-ready notebook. Section numbers in the notebooks match the section numbers in the chapter, so you can read with the notebook open beside you. Pinned versions live inline at the top of every lab notebook, which means a cold runtime reproduces what's in the book without you maintaining a separate lockfile.
+Each chapter folder has its own README and a Colab-ready notebook. Notebook section headings name the chapter section they accompany, so you can read with the notebook open beside you. Each README states the tested stack: Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2 and sentence-transformers 6.2.0 for Chapters 1–5 and 7, and PyTorch 2.6 + Triton 3.2 for Chapter 6.
 
 ## Quick start
 
 ### Option 1: Google Colab
 
 1. Open the notebook on GitHub and click **Open in Colab**.
-2. *Runtime → Change runtime type → Hardware accelerator: T4 GPU*.
+2. *Runtime → Change runtime type → Hardware accelerator*: a T4 works for every chapter (Chapter 6 needs the pinned Triton on a T4; see its README); an A100 or H100 matches the book's reference numbers.
 3. Run the cells top to bottom.
 
 That's the path most readers should take.
@@ -68,7 +75,7 @@ pip install jupyter
 jupyter lab
 ```
 
-Each notebook installs its own pinned stack the first time you run it. If you have a CUDA GPU, it gets used. If not, the notebook falls back to the CPU recipe and the timings rescale accordingly.
+Install PyTorch for your CUDA version first (https://pytorch.org/get-started/locally/); each notebook then installs the libraries it needs. Without a CUDA GPU the timings are not comparable with the book's.
 
 ## Chapter map
 
@@ -80,7 +87,7 @@ Each notebook installs its own pinned stack the first time you run it. If you ha
 | 4  | Optimizing with `torch.compile` and Kernel Fusion  | `chapter04/`          | graph breaks, fused kernels, eager-vs-compiled gap         |
 | 5  | GPU Architecture and Hardware-Aware Decisions      | `chapter05/`          | bandwidth vs compute, coalescing, the Roofline model       |
 | 6  | Practical High-Performance Kernels with Triton     | `chapter06/`          | Triton kernels: fused softmax, LayerNorm/RMSNorm, tiled matmul, autotuning |
-| 7  | Distributed Training: DP, TP, PP, FSDP             | _coming_              | scaling without drowning in communication                  |
+| 7  | Scaling Out: Choosing a Distributed Training Strategy | `chapter07/`       | memory wall, all-reduce cost, pipeline bubbles, DDP and FSDP measured |
 | 8  | Inference Serving and KV Cache Management          | _coming_              | continuous batching, PagedAttention, speculative decoding  |
 | 9  | Model Compression: Quantization, Distillation, LoRA| _coming_              | post-training quantization end-to-end                      |
 | 10 | Adaptation: PEFT, RLHF, Preference Optimization    | _coming_              | parameter-efficient fine-tuning under a budget             |
@@ -88,6 +95,17 @@ Each notebook installs its own pinned stack the first time you run it. If you ha
 | 12 | Production Maturity, Observability, Stewardship    | _coming_              | the capstone, tying everything to the case study           |
 
 Packt publishes the book in chapter installments through their Early Access Program. New folders show up here as each chapter clears editorial.
+
+## Book editions
+
+Each published edition of the book is a git tag (`edition-1`, `edition-2`, ...). The tag fixes the notebooks, the pinned versions and the reference results that edition quotes. To read the code exactly as printed:
+
+```bash
+git fetch --tags
+git checkout edition-1
+```
+
+The default branch keeps moving with PyTorch, Triton and new GPUs. [`CHANGES_SINCE_PUBLICATION.md`](CHANGES_SINCE_PUBLICATION.md) records behaviour that changed after an edition went to print, and [`RELEASING.md`](RELEASING.md) describes how an edition is cut.
 
 ## What's *not* in this repository
 
