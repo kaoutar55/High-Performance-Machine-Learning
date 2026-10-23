@@ -78,6 +78,12 @@ Every repeat is saved in `results/repeats/`; `<gpu>.json` becomes the median acr
 wherever repeats differ by more than 10%, and `principles_report.md` adds how many repeats each
 principle held in. Overhead-bound numbers (batch-1 decode and encoding) vary most between hosts.
 
+Modal may place a plain "H100" request on an H200, so `experiment_config.MODAL_GPU` asks for
+"H100!" (pinned). Every repeat is also checked against `EXPECTED_DEVICE`: the experiments and the
+Chapter 2 lab run in separate containers, and any part that ran on another GPU is left out of the
+medians. To combine runs (for example a later re-run of one GPU), use
+`python case_study/merge_results.py OUT_DIR RESULTS_DIR [RESULTS_DIR ...]`.
+
 Each experiment keeps going if another fails and records the error in the JSON, so it can be
 fixed and re-run on its own. For an edition release, copy the versions recorded under `env` into
 `PIP_PACKAGES` so the published numbers can be reproduced.

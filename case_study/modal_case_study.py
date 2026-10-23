@@ -67,7 +67,7 @@ COMMON = dict(timeout=3 * 3600, volumes={"/cache": hf_cache},
 
 
 def _tag(gpu: str) -> str:
-    return gpu.lower().replace("-", "_")
+    return gpu.lower().replace("-", "_").replace("!", "")
 
 
 # ------------------------------------------------------------------------------------------------
@@ -108,7 +108,8 @@ def _env():
 # ------------------------------------------------------------------------------------------------
 SUMMARY_CELL = r'''
 import json as _json, numpy as _np
-_out = {"latency_ms": {"p50": float(_np.percentile(totals, 50)), "p95": float(_np.percentile(totals, 95)),
+import torch as _torch
+_out = {"gpu": _torch.cuda.get_device_name(0), "latency_ms": {"p50": float(_np.percentile(totals, 50)), "p95": float(_np.percentile(totals, 95)),
                        "p99": float(_np.percentile(totals, 99)), "mean": float(totals.mean()), "n": int(len(totals))},
         "stage_median_ms": {k: float(v) for k, v in summary.items()}}
 _g = globals()
@@ -303,9 +304,10 @@ def run_allreduce() -> dict:
 LAB_FUNCS, EXP_FUNCS = {}, {}
 for _gpu in cfg.GPUS:
     _t = _tag(_gpu)
-    LAB_FUNCS[_gpu] = app.function(name=f"run_chapter02_lab_{_t}", gpu=_gpu, **COMMON)(run_chapter02_lab)
-    EXP_FUNCS[_gpu] = app.function(name=f"run_experiments_{_t}", gpu=_gpu, **COMMON)(run_experiments)
-ALLREDUCE_GPUS = ["A100-80GB:8", "H100:8"]
+    _m = getattr(cfg, "MODAL_GPU", {}).get(_gpu, _gpu)
+    LAB_FUNCS[_gpu] = app.function(name=f"run_chapter02_lab_{_t}", gpu=_m, **COMMON)(run_chapter02_lab)
+    EXP_FUNCS[_gpu] = app.function(name=f"run_experiments_{_t}", gpu=_m, **COMMON)(run_experiments)
+ALLREDUCE_GPUS = ["A100-80GB:8", "H100!:8"]
 ALLREDUCE_FUNCS = {g: app.function(name=f"run_allreduce_{_tag(g).replace(':', 'x')}", gpu=g, **COMMON)(run_allreduce)
                    for g in ALLREDUCE_GPUS}
 
@@ -352,7 +354,10 @@ def main(gpus: str = "", repeats: int = 1, allreduce: bool = False):
                 print(f"{g} repeat {k}: FAILED ({e!r})")
                 continue
             nb = lab.pop("executed_notebook")
-            _write_files(tag, {**lab.pop("_files", {}), **exp.pop("_files", {})})
+            tf = {**lab.pop("_files", {}), **exp.pop("_files", {})}
+            if tf:
+                tf["DEVICE.txt"] = ((exp.get("env") or {}).get("gpu", "?") + "\n").encode()
+            _write_files(tag, tf)
             res = {"requested_gpu": g, "repeat": k, **exp, "chapter02_lab": lab}
             runs.append(res)
             if repeats > 1:
@@ -365,13 +370,14 @@ def main(gpus: str = "", repeats: int = 1, allreduce: bool = False):
                   f"; decode runs with errors={[x for x, v in res['compiled_decode']['runs'].items() if 'error' in v]}")
         if not runs:
             continue
-        runs_by_gpu[g] = runs
-        merged = aggregate.median(runs) if len(runs) > 1 else runs[0]
-        merged.pop("repeat", None)
-        merged["repeats"] = len(runs)
+        want = getattr(cfg, "EXPECTED_DEVICE", {}).get(g, "")
+        merged, sp, views, mlog = aggregate.merge_repeats(runs, want)
+        for m in mlog:
+            print(f"{g} {m}")
+        runs_by_gpu[g] = views
         (RESULTS / f"{tag}.json").write_text(json.dumps(merged, indent=2))
-        if len(runs) > 1:
-            (RESULTS / f"{tag}_spread.json").write_text(json.dumps(aggregate.spread(runs), indent=2))
+        if sp:
+            (RESULTS / f"{tag}_spread.json").write_text(json.dumps(sp, indent=2))
         by_gpu[g] = merged
     for g, job in ar_jobs.items():
         try:

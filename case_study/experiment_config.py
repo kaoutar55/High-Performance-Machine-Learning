@@ -11,6 +11,11 @@ is configured here. To refresh the book for a new GPU or model, edit this file a
 # GPUs to run on (Modal GPU names). The first is the book's reference platform.
 GPUS = ["A100-80GB", "H100", "T4"]
 
+# What to ask Modal for. Modal may upgrade a plain "H100" request to an H200; "H100!" pins the type.
+MODAL_GPU = {"A100-80GB": "A100-80GB", "H100": "H100!", "T4": "T4"}
+# Substring every repeat's torch.cuda.get_device_name() must contain to be included in the medians.
+EXPECTED_DEVICE = {"A100-80GB": "A100", "H100": "H100", "T4": "T4"}
+
 # Datasheet peaks used for Roofline placement, matched against the device name the GPU reports.
 # Dense (no sparsity) 16-bit Tensor Core TFLOP/s and memory bandwidth in GB/s.
 GPU_SPECS = [
@@ -21,6 +26,7 @@ GPU_SPECS = [
     ("A100-SXM4-40GB", "NVIDIA A100 40GB SXM", 312.0, 1555.0, "40 GB HBM2"),
     ("H100 80GB HBM3", "NVIDIA H100 SXM", 989.0, 3350.0, "80 GB HBM3"),
     ("H100 PCIe", "NVIDIA H100 PCIe", 756.0, 2000.0, "80 GB HBM2e"),
+    ("H200", "NVIDIA H200", 989.0, 4800.0, "141 GB HBM3e"),
 ]
 
 # The RAG case study's components, defined by role. Swap a model by changing its id.
