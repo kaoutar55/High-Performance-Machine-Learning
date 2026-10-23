@@ -236,4 +236,8 @@ def main(gpus: str = ""):
     (RESULTS / "principles_report.json").write_text(json.dumps(rows, indent=2))
     (RESULTS / "principles_report.md").write_text(principles.markdown_report(rows, by_gpu))
     print("\n" + principles.markdown_report(rows, by_gpu).split("## Evidence")[0])
+    import make_tables
+    T = make_tables.tables(make_tables.load())
+    (RESULTS / "master_tables.json").write_text(json.dumps(T, indent=2))
+    (RESULTS / "master_tables.md").write_text(make_tables.to_md(T))
     print(f"Results in {RESULTS}")
