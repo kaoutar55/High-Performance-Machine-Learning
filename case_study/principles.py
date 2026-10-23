@@ -230,3 +230,31 @@ def markdown_report(rows, results_by_gpu):
                      f"PyTorch {env.get('torch', '?')}, CUDA {env.get('cuda', '?')}, "
                      f"transformers {env.get('transformers', '?')}")
     return "\n".join(lines) + "\n"
+
+
+def count_across_repeats(runs_by_gpu):
+    """{principle id: {gpu: "k/N"}}: in how many independent repeats each principle held."""
+    out = {}
+    for pid, _statement, _chapters, fn in PRINCIPLES:
+        out[pid] = {}
+        for gpu, runs in runs_by_gpu.items():
+            verdicts = []
+            for res in runs:
+                try:
+                    verdicts.append(fn(res)[0])
+                except Exception:  # noqa: BLE001
+                    verdicts.append(None)
+            measured = [v for v in verdicts if v is not None]
+            out[pid][gpu] = f"{sum(1 for v in measured if v)}/{len(measured)}" if measured else "n/a"
+    return out
+
+
+def markdown_counts(counts):
+    gpus = list(next(iter(counts.values())).keys()) if counts else []
+    names = {pid: st for pid, st, _c, _f in PRINCIPLES}
+    lines = ["", "## Across independent repeats", "",
+             "How many repeats each principle held in (each repeat is a separate container and host).", "",
+             "| Principle | " + " | ".join(gpus) + " |", "|---|" + "---|" * len(gpus)]
+    for pid, per in counts.items():
+        lines.append(f"| {names[pid]} | " + " | ".join(per[g] for g in gpus) + " |")
+    return "\n".join(lines) + "\n"

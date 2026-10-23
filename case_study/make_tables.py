@@ -30,13 +30,47 @@ def fmt(x, nd=1):
     return "–" if x is None else f"{x:,.{nd}f}"
 
 
-def load():
+def load(results=RESULTS):
     out = {}
     for gpu in cfg.GPUS:
-        p = RESULTS / f"{gpu.lower().replace('-', '_')}.json"
+        p = pathlib.Path(results) / f"{gpu.lower().replace('-', '_')}.json"
         if p.exists():
             out[gpu] = json.loads(p.read_text())
     return out
+
+
+def load_spread(results=RESULTS):
+    """{gpu: (min_result, max_result)} from <gpu>_spread.json, when repeats were run."""
+    out = {}
+    for gpu in cfg.GPUS:
+        p = pathlib.Path(results) / f"{gpu.lower().replace('-', '_')}_spread.json"
+        if p.exists():
+            sp = json.loads(p.read_text())
+            pick = lambda x, i: ({k: pick(v, i) for k, v in x.items()} if isinstance(x, dict) else
+                                 x[i] if isinstance(x, list) and len(x) == 2 and all(
+                                     isinstance(v, (int, float)) for v in x) else
+                                 [pick(v, i) for v in x] if isinstance(x, list) else x)
+            out[gpu] = (pick(sp, 0), pick(sp, 1))
+    return out
+
+
+def _num(cell):
+    try:
+        return float(str(cell).replace(",", "").rstrip("%"))
+    except ValueError:
+        return None
+
+
+def with_ranges(T, T_lo, T_hi, threshold=0.10):
+    """Add "(min–max)" to every numeric cell whose spread across repeats exceeds threshold."""
+    for name, t in T.items():
+        for i, row_ in enumerate(t["rows"]):
+            for j in range(1, len(row_)):
+                m, lo, hi = _num(row_[j]), _num(T_lo[name]["rows"][i][j]), _num(T_hi[name]["rows"][i][j])
+                if None not in (m, lo, hi) and m and (hi - lo) / abs(m) > threshold:
+                    t["rows"][i][j] = f"{row_[j]} ({T_lo[name]['rows'][i][j]}–{T_hi[name]['rows'][i][j]})"
+        t.setdefault("note", "")
+    return T
 
 
 def tables(by):
@@ -121,11 +155,25 @@ def to_md(T):
     return "\n".join(out)
 
 
-if __name__ == "__main__":
-    by = load()
+def build(results=RESULTS):
+    by = load(results)
     if not by:
-        raise SystemExit(f"No results in {RESULTS}")
+        raise SystemExit(f"No results in {results}")
     T = tables(by)
+    sp = load_spread(results)
+    if sp and set(sp) == set(by):
+        T = with_ranges(T, tables({g: sp[g][0] for g in by}), tables({g: sp[g][1] for g in by}))
+        n = {g: by[g].get("repeats", 1) for g in by}
+        for t in T.values():
+            t["note"] = (t["note"] + " " if t["note"] else "") + (
+                f"Median of {min(n.values()) if min(n.values()) == max(n.values()) else f'{min(n.values())}–{max(n.values())}'} "
+                "independent runs; (min–max) shown where runs "
+                "differ by more than 10%.")
+    return T
+
+
+if __name__ == "__main__":
+    T = build()
     (RESULTS / "master_tables.json").write_text(json.dumps(T, indent=2))
     (RESULTS / "master_tables.md").write_text(to_md(T))
     print(to_md(T))

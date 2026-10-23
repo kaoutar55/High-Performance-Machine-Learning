@@ -212,7 +212,14 @@ for _gpu in cfg.GPUS:
 # local entrypoint
 # ------------------------------------------------------------------------------------------------
 @app.local_entrypoint()
-def main(gpus: str = ""):
+def main(gpus: str = "", repeats: int = 1):
+    """Run every GPU in parallel; with --repeats N, run N independent containers per GPU.
+
+    repeats == 1 writes results/<gpu>.json as before. repeats > 1 also writes every repeat to
+    results/repeats/<gpu>_r<k>.json, and results/<gpu>.json becomes the median across repeats
+    (results/<gpu>_spread.json holds [min, max] for every number)."""
+    import aggregate
+    import make_tables
     import principles
 
     RESULTS.mkdir(parents=True, exist_ok=True)
@@ -220,24 +227,52 @@ def main(gpus: str = ""):
     missing = [g for g in targets if g not in LAB_FUNCS]
     if missing:
         raise SystemExit(f"GPUs not in experiment_config.GPUS: {missing}. Add them there first.")
-    jobs = {g: (LAB_FUNCS[g].spawn(), EXP_FUNCS[g].spawn()) for g in targets}
-    by_gpu = {}
-    for g, (lab_job, exp_job) in jobs.items():
+    repeats = max(1, int(repeats))
+    jobs = {g: [(LAB_FUNCS[g].spawn(), EXP_FUNCS[g].spawn()) for _ in range(repeats)] for g in targets}
+    by_gpu, runs_by_gpu = {}, {}
+    if repeats > 1:
+        (RESULTS / "repeats").mkdir(exist_ok=True)
+    for g, pairs in jobs.items():
         tag = g.lower().replace("-", "_")
-        lab, exp = lab_job.get(), exp_job.get()
-        (RESULTS / f"chapter02_lab_executed_{tag}.ipynb").write_text(lab.pop("executed_notebook"))
-        res = {"requested_gpu": g, **exp, "chapter02_lab": lab}
-        (RESULTS / f"{tag}.json").write_text(json.dumps(res, indent=2))
-        by_gpu[g] = res
-        print(f"{g}: lab errors={len(lab['errors'])}; experiment errors="
-              f"{[k for k in ('embedder', 'decode_batching') if 'error' in (res.get(k) or {})]}"
-              f"; decode runs with errors={[k for k, v in res['compiled_decode']['runs'].items() if 'error' in v]}")
+        runs = []
+        for k, (lab_job, exp_job) in enumerate(pairs, 1):
+            try:
+                lab, exp = lab_job.get(), exp_job.get()
+            except Exception as e:  # noqa: BLE001  a lost container should not lose the other repeats
+                print(f"{g} repeat {k}: FAILED ({e!r})")
+                continue
+            nb = lab.pop("executed_notebook")
+            res = {"requested_gpu": g, "repeat": k, **exp, "chapter02_lab": lab}
+            runs.append(res)
+            if repeats > 1:
+                (RESULTS / "repeats" / f"{tag}_r{k}.json").write_text(json.dumps(res, indent=2))
+                (RESULTS / "repeats" / f"chapter02_lab_executed_{tag}_r{k}.ipynb").write_text(nb)
+            if k == 1 or not (RESULTS / f"chapter02_lab_executed_{tag}.ipynb").exists():
+                (RESULTS / f"chapter02_lab_executed_{tag}.ipynb").write_text(nb)
+            print(f"{g} repeat {k}: lab errors={len(lab['errors'])}; experiment errors="
+                  f"{[x for x in ('embedder', 'decode_batching') if 'error' in (res.get(x) or {})]}"
+                  f"; decode runs with errors={[x for x, v in res['compiled_decode']['runs'].items() if 'error' in v]}")
+        if not runs:
+            continue
+        runs_by_gpu[g] = runs
+        merged = aggregate.median(runs) if len(runs) > 1 else runs[0]
+        merged.pop("repeat", None)
+        merged["repeats"] = len(runs)
+        (RESULTS / f"{tag}.json").write_text(json.dumps(merged, indent=2))
+        if len(runs) > 1:
+            (RESULTS / f"{tag}_spread.json").write_text(json.dumps(aggregate.spread(runs), indent=2))
+        by_gpu[g] = merged
     rows = principles.evaluate(by_gpu)
+    report = principles.markdown_report(rows, by_gpu)
+    if any(len(r) > 1 for r in runs_by_gpu.values()):
+        counts = principles.count_across_repeats(runs_by_gpu)
+        report += principles.markdown_counts(counts)
+        for r in rows:
+            r["holds_in_repeats"] = counts.get(r["id"], {})
     (RESULTS / "principles_report.json").write_text(json.dumps(rows, indent=2))
-    (RESULTS / "principles_report.md").write_text(principles.markdown_report(rows, by_gpu))
-    print("\n" + principles.markdown_report(rows, by_gpu).split("## Evidence")[0])
-    import make_tables
-    T = make_tables.tables(make_tables.load())
+    (RESULTS / "principles_report.md").write_text(report)
+    print("\n" + report.split("## Evidence")[0])
+    T = make_tables.build()
     (RESULTS / "master_tables.json").write_text(json.dumps(T, indent=2))
     (RESULTS / "master_tables.md").write_text(make_tables.to_md(T))
     print(f"Results in {RESULTS}")

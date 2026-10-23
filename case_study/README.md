@@ -44,6 +44,7 @@ From the repository root:
 ```bash
 modal run case_study/modal_case_study.py                   # A100-80GB, H100 and T4 in parallel
 modal run case_study/modal_case_study.py --gpus T4         # a subset, comma-separated
+modal run case_study/modal_case_study.py --repeats 5       # 5 independent containers per GPU
 ```
 
 Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip the downloads.
@@ -55,6 +56,12 @@ Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip
 - `principles_report.md` / `.json`: each principle per GPU (holds, FAILS, n/a) with its evidence.
 - `master_tables.md` / `.json`: every case-study table the chapters quote, built by
   `python case_study/make_tables.py` from the `<gpu>.json` files.
+
+With `--repeats N`, each repeat runs in its own container (and usually on a different host).
+Every repeat is saved in `results/repeats/`; `<gpu>.json` becomes the median across repeats,
+`<gpu>_spread.json` holds the min and max of every number, `master_tables.md` shows (min–max)
+wherever repeats differ by more than 10%, and `principles_report.md` adds how many repeats each
+principle held in. Overhead-bound numbers (batch-1 decode and encoding) vary most between hosts.
 
 Each experiment keeps going if another fails and records the error in the JSON, so it can be
 fixed and re-run on its own. For an edition release, copy the versions recorded under `env` into
