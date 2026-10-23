@@ -87,8 +87,9 @@ def prefill_is_compute_heavy(res):
 
 
 def decode_dominates_naive_rag(res):
-    """In the naive RAG pipeline, token-by-token decode dominates end-to-end latency, so it is where
-    optimization starts."""
+    """In this case study (small in-memory index, one retrieval, 2B generator, 20 output tokens),
+    token-by-token decode dominates end-to-end latency. At billion-scale retrieval or with long
+    contexts encoded online, retrieval or encoding can dominate instead (RAGO, Shen et al.)."""
     stages = _get(res, "chapter02_lab", "summary", "stage_median_ms")
     key = next((k for k in ("decode", "prefill_plus_decode") if k in (stages or {})), None)
     if not key:
@@ -110,8 +111,8 @@ def lower_precision_speeds_up_encoder(res):
 
 def rows_per_gemm_set_utilization(res):
     """GPU utilization depends on how many rows each matrix multiply processes. Decode has one row per
-    sequence, so batching sequences helps almost linearly; an embedder chunk already supplies hundreds
-    of token rows, so batching chunks helps much less."""
+    sequence, so batching sequences helps almost linearly. An embedder chunk already supplies hundreds
+    of token rows, so batching chunks helps less; how much less depends on where the GPU's knee is."""
     dec = _get(res, "decode_batching", "rows")
     emb = _get(res, "embedder", "throughput")
     d1, d16 = _row(dec, batch=1), _row(dec, batch=16)
@@ -152,16 +153,35 @@ def attention_runs_fused(res):
 
 
 PRINCIPLES = [
-    ("decode-ceiling", "Decode at batch 1 has ~1 FLOP/byte, so memory bandwidth is its ceiling", "Ch 1, 2, 5", decode_ceiling_is_bandwidth),
-    ("decode-overhead", "Per-step overhead decides how close decode gets to that ceiling; removing it helps in proportion", "Ch 2, 3, 4", overhead_decides_how_close_decode_gets),
-    ("batching", "Batching amortizes weight reads during decode", "Ch 5", batching_amortizes_weights),
-    ("prefill-compute", "Prefill is compute-heavy; decode is not", "Ch 1, 5", prefill_is_compute_heavy),
-    ("rows-per-gemm", "Utilization depends on rows per matrix multiply", "Ch 1, 3, 5", rows_per_gemm_set_utilization),
-    ("dominant-stage", "Decode dominates the naive RAG pipeline's latency", "Ch 1, 2", decode_dominates_naive_rag),
-    ("precision", "16-bit Tensor Core math speeds up the encoder", "Ch 3, 5", lower_precision_speeds_up_encoder),
-    ("compile-scope", "torch.compile helps only code that runs through the compiled function", "Ch 4", compile_only_helps_compiled_code),
-    ("attention-fused", "Attention runs fused; the kernel is a runtime choice", "Ch 2, 3, 5", attention_runs_fused),
+    ("decode-ceiling", "At batch 1 every decode GEMM is a matrix-vector product (~1 FLOP/byte), so memory bandwidth sets the Roofline ceiling", "Ch 1, 2, 5", decode_ceiling_is_bandwidth),
+    ("decode-overhead", "Eager decode pays a roughly fixed CPU and launch cost per step; removing it helps in proportion to that cost's share of the step", "Ch 2, 3, 4", overhead_decides_how_close_decode_gets),
+    ("batching", "A decode batch reads the weights once per step, so tokens/s rises almost linearly with batch size until compute or KV-cache traffic takes over", "Ch 5", batching_amortizes_weights),
+    ("prefill-compute", "Prefill is compute-bound; decode is memory-bound", "Ch 1, 5", prefill_is_compute_heavy),
+    ("rows-per-gemm", "Utilization grows with the rows per matrix multiply until a hardware-dependent knee", "Ch 1, 3, 5", rows_per_gemm_set_utilization),
+    ("dominant-stage", "In this case study's configuration, decode dominates the RAG pipeline's latency", "Ch 1, 2", decode_dominates_naive_rag),
+    ("precision", "16-bit Tensor Core math gives several times FP32 throughput on compute-bound work", "Ch 3, 5", lower_precision_speeds_up_encoder),
+    ("compile-scope", "torch.compile(model) compiles forward only; generate()'s loop stays eager", "Ch 4", compile_only_helps_compiled_code),
+    ("attention-fused", "SDPA dispatches at run time to the first eligible fused attention backend", "Ch 2, 3, 5", attention_runs_fused),
 ]
+
+# Where each principle is taught in the literature (checked 23 Oct 2026; full quotes in the book's
+# analysis/principles_sources.md). Cite these in the chapters next to the measured evidence.
+SOURCES = {
+    "decode-ceiling": ["Williams, Waterman, Patterson, Roofline, CACM 2009",
+                       "NVIDIA, GPU Performance Background User's Guide"],
+    "decode-overhead": ["PyTorch blog, Accelerating Generative AI with PyTorch II: GPT, Fast (2023)",
+                        "Ansel et al., PyTorch 2, ASPLOS 2024"],
+    "batching": ["Agrawal et al., Sarathi-Serve, OSDI 2024", "Pope et al., Efficiently Scaling Transformer Inference, MLSys 2023",
+                 "Kwon et al., PagedAttention, SOSP 2023"],
+    "prefill-compute": ["Agrawal et al., Sarathi-Serve, OSDI 2024", "Patel et al., Splitwise, ISCA 2024"],
+    "rows-per-gemm": ["NVIDIA, Linear/Fully-Connected Layers User's Guide", "Agrawal et al., Sarathi-Serve, OSDI 2024"],
+    "dominant-stage": ["Shen et al., arXiv:2412.11854 (retrieval can be 41% of latency)",
+                       "Jiang et al., RAGO, arXiv:2503.14649 (the dominant stage depends on configuration)"],
+    "precision": ["Micikevicius et al., Mixed Precision Training, ICLR 2018", "PyTorch CUDA semantics: TF32 notes"],
+    "compile-scope": ["Hugging Face, LLM optimization overview (compile inside generate)",
+                      "PyTorch blog, GPT, Fast (compile the per-token decode step)"],
+    "attention-fused": ["Dao et al., FlashAttention, NeurIPS 2022", "PyTorch 2.5 release blog (cuDNN SDPA on H100)"],
+}
 
 
 def evaluate(results_by_gpu):
@@ -175,6 +195,7 @@ def evaluate(results_by_gpu):
             except Exception as e:  # noqa: BLE001
                 per_gpu[gpu] = (None, f"check failed: {e!r}"[:200])
         out.append({"id": pid, "statement": statement, "chapters": chapters, "why": fn.__doc__.strip(),
+                    "sources": SOURCES.get(pid, []),
                     "results": {g: {"holds": h, "evidence": ev} for g, (h, ev) in per_gpu.items()}})
     return out
 
@@ -193,6 +214,9 @@ def markdown_report(rows, results_by_gpu):
     for r in rows:
         lines.append(f"### {r['statement']}")
         lines.append(f"_{r['why']}_")
+        if r.get("sources"):
+            lines.append("")
+            lines.append("Sources: " + "; ".join(r["sources"]))
         lines.append("")
         for g in gpus:
             lines.append(f"- **{g}** ({mark[r['results'][g]['holds']]}): {r['results'][g]['evidence']}")
