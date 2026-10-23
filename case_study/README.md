@@ -1,20 +1,28 @@
-# Case-study re-measurement on Modal
+# Case study: principles and swappable experiments
 
-This folder re-measures the book's RAG case study on a cloud GPU so every chapter can quote one
-consistent set of numbers.
+This folder re-measures the book's RAG case study on several GPUs and checks that the book's
+principles still hold on each one. It keeps two kinds of content apart:
 
-`modal_case_study.py` runs two jobs in parallel on the GPU you choose:
+| File | What it holds | How often it changes |
+|---|---|---|
+| `principles.py` | The claims the book teaches (decode is bandwidth-limited, batching amortizes weight reads, compile only helps compiled code, ...), each with the chapters that teach it and a check against measurements | Rarely; a principle that fails on new hardware is a finding for the book |
+| `experiment_config.py` | GPUs, models, precision, workload sizes, package versions, datasheet peaks | Every refresh: new GPU, new model, new stack |
+| `modal_case_study.py` | The runner: measures everything in the config, then evaluates every principle | Only when a new experiment is added |
+
+To refresh the book for a new GPU or model, edit `experiment_config.py` and re-run. The numbers
+change; `results/principles_report.md` shows whether the lessons still hold.
+
+## What runs on each GPU
 
 1. **The Chapter 2 lab, executed top to bottom** (`chapter02/chapter02_lab.ipynb`: Gemma-2B-IT in
-   FP16, BGE-M3 embedder, FAISS). This produces the latency distribution (Table 2.6), the stage
-   table and waterfall (Table 2.7, Figure 2.9), the profiler table (Table 2.4) and the Roofline
-   placement (Table 2.8).
-2. **Extra measurements** that no notebook produces yet:
+   FP16, BGE-M3 embedder, FAISS): latency distribution, stage table, profiler table and Roofline
+   placement.
+2. **Extra experiments**:
    - Chapter 3: BGE-M3 throughput on 512-token chunks (FP32 vs FP16, batch 1–64), model shape,
-     operator profile, and which attention backend runs on the GPU.
-   - Chapter 4: Gemma decode in eager mode and with `torch.compile`, comparing compiling the module
-     and calling `.generate()` with compiling `model.forward` with a static KV cache.
-   - Chapter 5: Gemma prefill and per-token decode time against batch size, with achieved bandwidth.
+     operator profile, and which attention kernel runs.
+   - Chapter 4: eager decode, compiling the module and calling `.generate()`, and compiling
+     `model.forward` with a static KV cache.
+   - Chapter 5: prefill and per-token decode against batch size, with achieved compute and bandwidth.
 
 ## One-time setup
 
@@ -31,19 +39,18 @@ modal secret create huggingface HF_TOKEN=<your_read_token>
 From the repository root:
 
 ```bash
-source ~/.venvs/hpml/bin/activate
-modal run case_study/modal_case_study.py                    # NVIDIA T4 (Colab free-tier reference)
-modal run case_study/modal_case_study.py --gpu A100-80GB    # same measurements on an A100
+modal run case_study/modal_case_study.py                   # A100-80GB, H100 and T4 in parallel
+modal run case_study/modal_case_study.py --gpus T4         # a subset, comma-separated
 ```
 
 Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip the downloads.
 
-## Output
+## Output (`case_study/results/`)
 
-`case_study/results/` receives:
+- `<gpu>.json`: every measurement for one GPU, with the GPU, driver and software versions.
+- `chapter02_lab_executed_<gpu>.ipynb`: the executed Chapter 2 lab with all outputs.
+- `principles_report.md` / `.json`: each principle per GPU (holds, FAILS, n/a) with its evidence.
 
-- `case_study_results_<gpu>.json`: all measurements plus the software and GPU versions used.
-- `chapter02_lab_executed_<gpu>.ipynb`: the executed Chapter 2 lab with every output.
-
-Each job keeps going if one section fails, and records the error in the JSON so it can be fixed
-and re-run on its own.
+Each experiment keeps going if another fails and records the error in the JSON, so it can be
+fixed and re-run on its own. For an edition release, copy the versions recorded under `env` into
+`PIP_PACKAGES` so the published numbers can be reproduced.
