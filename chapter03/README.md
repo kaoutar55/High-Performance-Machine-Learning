@@ -17,6 +17,10 @@ Seven programming exercises, one per major section of the chapter. Every one is 
 6. Benchmark without lying to yourself: the difference between timing with and without a CUDA sync.
 7. Capstone: optimize the RAG embedding stage.
 
+## Versions
+
+Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2, sentence-transformers 6.2.0. The book's measurements come from an NVIDIA A100 80GB (reference), an H100 and a T4; the case-study data is in [`case_study/reference_results/`](../case_study/reference_results/). Colab ships its own PyTorch build, so the notebooks do not reinstall torch.
+
 ## Run it
 
 Runs on Google Colab free tier. Exercises 3.3, 3.6, and 3.7 want a GPU (Runtime > Change runtime type > T4); the rest run on CPU. `torch` and `numpy` are preinstalled on Colab. Numbers vary by hardware; the ratios are what matter.
