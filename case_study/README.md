@@ -26,6 +26,20 @@ change; `results/principles_report.md` shows whether the lessons still hold.
      (`mode="reduce-overhead"`) and without (`mode="default"`). Each variant runs in its own child
      process, so a native crash in one compile mode does not lose the others.
    - Chapter 5: prefill and per-token decode against batch size, with achieved compute and bandwidth.
+   - `experiments_extra.py` (see its docstring for the chapter map): first-call warm-up (Ch 2);
+     Python loop vs vectorized sum, autograd overhead, DataLoader sweep (Ch 3); compiled encoder and
+     prefill, GPT-2 `explain` output, cold/warm/regional compile start, eager vs compiled profiles
+     (Ch 4); measured GEMM and copy-bandwidth roofs and kernel-launch overhead (Ch 5).
+3. **Traces, first repeat only** (`results/traces/<gpu>/`):
+   - `pytorch_profiler/*.json.gz` and `extra/gpt2_profile/*.json.gz`: Chrome traces. Open them at
+     https://ui.perfetto.dev (drag the file in; .json.gz works as is). Each has a matching
+     `key_averages()` table as `.txt`.
+   - `chapter02_lab/*.json.gz`: the two traces the Chapter 2 lab writes itself.
+   - `nsys/rag_decode.nsys-rep`: Nsight Systems report of prefill + 5 NVTX-labelled decode steps. Open
+     it in the Nsight Systems GUI (free, macOS/Windows/Linux). The CSVs beside it are the kernel,
+     CUDA API and NVTX summaries from `nsys stats`.
+4. **Chapter 7, optional** (`--allreduce`): NCCL all-reduce bus bandwidth on one 8×A100 and one
+   8×H100 container, written to `results/allreduce_<gpu>.json`.
 
 ## One-time setup
 
@@ -45,6 +59,7 @@ From the repository root:
 modal run case_study/modal_case_study.py                   # A100-80GB, H100 and T4 in parallel
 modal run case_study/modal_case_study.py --gpus T4         # a subset, comma-separated
 modal run case_study/modal_case_study.py --repeats 5       # 5 independent containers per GPU
+modal run case_study/modal_case_study.py --repeats 5 --allreduce   # plus the Chapter 7 8-GPU all-reduce job
 ```
 
 Model weights are cached in the Modal volume `hpml-hf-cache`, so later runs skip the downloads.

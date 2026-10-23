@@ -139,6 +139,64 @@ def tables(by):
     brows.append(["Weight-read floor (ms/token)", *[fmt(db[k].get("weight_gb", 0) / (g(by[k], "spec", "mem_bw_gbs") or 1) * 1000, 2)
                                                      for k in gpus]])
     add("ch5_decode_batching", ["Quantity", *gpus], brows)
+
+    ex = {k: g(r, "extra") or {} for k, r in by.items()}
+    if any(ex.values()):
+        def ev(k, *path, nd=1):
+            return fmt(g(ex[k], *path), nd) if isinstance(g(ex[k], *path), (int, float)) else "–"
+        w = {k: g(ex[k], "warmup", "call_us") or [] for k in gpus}
+        add("ch2_warmup_us", ["Call", *gpus],
+            [[f"Call {i + 1}", *[fmt(w[k][i]) if len(w[k]) > i else "–" for k in gpus]] for i in range(6)]
+            + [["First / steady", *[ev(k, "warmup", "first_over_steady") for k in gpus]]],
+            "torch.bmm on 32x512x512 FP32 in a fresh process, microseconds per call.")
+        keys = []
+        for k in gpus:
+            for kk in (g(ex[k], "python_loop", "ms") or {}):
+                if kk not in keys:
+                    keys.append(kk)
+        add("ch3_python_loop_ms", ["Method", *gpus],
+            [[kk, *[ev(k, "python_loop", "ms", kk, nd=2) for k in gpus]] for kk in keys],
+            "Summing 10 million floats (ms).")
+        add("ch3_autograd", ["Mode", *gpus],
+            [[f"{m}: ms", *[ev(k, "autograd", m, "ms", nd=2) for k in gpus]] for m in ("grad_enabled", "no_grad", "inference_mode")]
+            + [[f"{m}: extra memory (GB)", *[ev(k, "autograd", m, "peak_extra_gb", nd=2) for k in gpus]]
+               for m in ("grad_enabled", "no_grad", "inference_mode")],
+            "Gemma-2B prefill, 512 tokens, FP16.")
+        dl = {k: g(ex[k], "dataloader", "rows") or [] for k in gpus}
+        n = max((len(v) for v in dl.values()), default=0)
+        ref = next((v for v in dl.values() if v), [])
+        lab_ = lambda r: f"workers={r['num_workers']}, pin={r['pin_memory']}, prefetch={r['prefetch_factor']}"
+        add("ch3_dataloader", ["Setting", *gpus],
+            [[lab_(ref[i]), *[(f"{fmt(dl[k][i]['chunks_per_s'])} chunks/s, {fmt(dl[k][i]['data_wait_pct'])}% waiting"
+                               if len(dl[k]) > i else "–") for k in gpus]] for i in range(n)],
+            "BGE-M3 FP16, batch 32, tokenization inside __getitem__.")
+        rows_ = []
+        for st, lab2 in (("embedder_fp16_batch32", "BGE-M3 encoder, batch 32"), ("gemma_prefill_512", "Gemma-2B prefill, 512 tokens")):
+            for f, l in (("eager_ms", "eager ms"), ("compiled_ms", "compiled ms"), ("speedup", "speedup"), ("first_call_s", "first call s")):
+                rows_.append([f"{lab2}: {l}", *[ev(k, "compile_stages", st, f, nd=2) for k in gpus]])
+        add("ch4_compile_stages", ["Quantity", *gpus], rows_, "torch.compile(mode='default').")
+        rows_ = []
+        for e, lab2 in (("gpt2_cold", "full model, cold cache"), ("gpt2_warm", "full model, warm cache"),
+                        ("gpt2_regional", "regional, cold cache")):
+            rows_ += [[f"{lab2}: first call (s)", *[ev(k, e, "first_call_s", nd=2) for k in gpus]],
+                      [f"{lab2}: steady call (ms)", *[ev(k, e, "steady_ms", nd=2) for k in gpus]]]
+        rows_ += [["eager call (ms)", *[ev(k, "gpt2_cold", "eager_ms", nd=2) for k in gpus]]]
+        for lab3 in ("with_breaks", "clean"):
+            rows_ += [[f"explain {lab3}: graphs / breaks / ops",
+                       *[" / ".join(str(g(ex[k], "gpt2_explain", lab3, f)) for f in ("graph_count", "graph_break_count", "op_count"))
+                         for k in gpus]]]
+        for lab3 in ("eager", "compiled"):
+            rows_ += [[f"profile {lab3}: CUDA ms / kernels / launches",
+                       *[" / ".join(str(g(ex[k], "gpt2_profile", lab3, f)) for f in ("total_cuda_ms", "distinct_kernels", "kernel_launches"))
+                         for k in gpus]]]
+        add("ch4_gpt2", ["Quantity", *gpus], rows_, f"GPT-2 124M, FP32, one sequence of 512 tokens.")
+        rows_ = [[f"GEMM {p} (TFLOP/s)", *[ev(k, "roofs", "gemm_tflops", p) for k in gpus]] for p in ("fp32", "tf32", "fp16", "bf16")]
+        rows_ += [["Copy bandwidth (GB/s)", *[ev(k, "roofs", "copy_gbs", nd=0) for k in gpus]],
+                  ["Datasheet bandwidth (GB/s)", *[fmt(g(by[k], "spec", "mem_bw_gbs"), 0) for k in gpus]],
+                  ["Datasheet FP16 Tensor (TFLOP/s)", *[fmt(g(by[k], "spec", "fp16_tensor_tflops"), 0) for k in gpus]],
+                  ["Kernel enqueue (us)", *[ev(k, "roofs", "launch_us", "enqueue_per_kernel", nd=2) for k in gpus]],
+                  ["Launch + sync round trip (us)", *[ev(k, "roofs", "launch_us", "launch_plus_sync", nd=2) for k in gpus]]]
+        add("ch5_measured_roofs", ["Quantity", *gpus], rows_, "8192^3 GEMM; 1 GiB device-to-device copy; tiny add_ kernel.")
     return T
 
 
@@ -169,6 +227,16 @@ def build(results=RESULTS):
                 f"Median of {min(n.values()) if min(n.values()) == max(n.values()) else f'{min(n.values())}–{max(n.values())}'} "
                 "independent runs; (min–max) shown where runs "
                 "differ by more than 10%.")
+    ar = sorted(pathlib.Path(results).glob("allreduce_*.json"))
+    if ar:
+        runs = {p.stem.removeprefix("allreduce_"): json.loads(p.read_text()) for p in ar}
+        sizes = [r["size_mb"] for r in next(iter(runs.values()))["allreduce"].get("rows", [])]
+        T["ch7_allreduce_busbw_gbs"] = {
+            "header": ["Message size", *[f"{g(v, 'allreduce', 'gpus')}x {g(v, 'env', 'gpu')}" for v in runs.values()]],
+            "rows": [[f"{mb} MB", *[fmt(next((r["busbw_gbs"] for r in g(v, "allreduce", "rows") or [] if r["size_mb"] == mb), None))
+                                    for v in runs.values()]] for mb in sizes],
+            "note": "NCCL all-reduce of FP16 tensors across all GPUs in one container; bus bandwidth = "
+                    "algorithm bandwidth x 2(n-1)/n (nccl-tests convention)."}
     return T
 
 
