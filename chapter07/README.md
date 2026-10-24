@@ -31,4 +31,17 @@ The analytical cells run anywhere, including a CPU laptop or a Colab CPU runtime
 
 The measured cells need at least two GPUs. The notebook gives the exact `torchrun` commands for `ddp_train.py` and `fsdp_train.py`, and a Modal entry point (`modal_run.py`) that runs both studies on a two-GPU container.
 
-> **Status:** the helper modules and the three launch scripts (`ddp_train.py`, `fsdp_train.py`, `modal_run.py`) are not yet in this folder. Until they are added, the notebook's first code cell fails on import, and the measured numbers are reproducible only from the recorded output in `results/`.
+## Files
+
+| File | What it does |
+|---|---|
+| `mem_wall.py` | Bytes per parameter for four training regimes; replicated and sharded model state; minimum GPU count |
+| `comm_cost.py` | Ring all-reduce and parameter-server volume, alpha-beta time, bus bandwidth |
+| `bubble.py` | Pipeline bubble fraction (plain and interleaved 1F1B) and the microbatches needed for a target |
+| `tp_mlp.py` | Megatron column-then-row split of the MLP, checked against the unsplit layer |
+| `moe_routing.py` | Top-1 routing, per-expert load and capacity-factor dropping |
+| `ddp_train.py` | DDP scaling study (throughput, peak memory, gradient check across ranks) |
+| `fsdp_train.py` | FSDP2 peak memory against the 16/N floor, with and without activation checkpointing |
+| `modal_run.py` | Runs the analytics and both studies on a two-GPU Modal container and writes `modal_results.txt` |
+
+The analytical modules need only PyTorch and NumPy and run on CPU. Measured numbers vary with the GPU, the interconnect and the host; the recorded run is in `results/modal_results_2xa10g.txt`.
