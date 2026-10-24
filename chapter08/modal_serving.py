@@ -60,7 +60,12 @@ prompt_image = (modal.Image.debian_slim(python_version="3.11")
                 .add_local_file(str(HERE / "build_prompts.py"), "/root/ch08/build_prompts.py"))
 serve_image = (modal.Image.debian_slim(python_version="3.11")
                .pip_install(f"vllm=={VLLM_VERSION}", "aiohttp")
-               .env({"HF_HOME": "/cache/hf", "TOKENIZERS_PARALLELISM": "false"})
+               .env({"HF_HOME": "/cache/hf", "TOKENIZERS_PARALLELISM": "false",
+                     # vLLM 0.32.0 auto-selects the FlashInfer top-k/top-p sampler, which JIT-compiles a CUDA
+                     # kernel at startup and needs nvcc; the pip-only serve image has no CUDA toolkit, so warmup
+                     # crashes (vllm-project/vllm#49497). Fall back to the native sampler. Sampling is greedy
+                     # (temperature 0.0) in the load generator, so results are identical.
+                     "VLLM_USE_FLASHINFER_SAMPLER": "0"})
                .add_local_file(str(HERE / "loadgen.py"), "/root/ch08/loadgen.py"))
 
 app = modal.App("hpml-ch08-serving")
@@ -100,7 +105,7 @@ class Server:
         self.proc = subprocess.Popen(self.cmd, stdout=self.log, stderr=subprocess.STDOUT)
         for _ in range(1200):
             if self.proc.poll() is not None:
-                raise RuntimeError("vllm exited:\n" + open("/tmp/vllm.log").read()[-4000:])
+                raise RuntimeError("vllm exited:\n" + open("/tmp/vllm.log").read()[-16000:])
             try:
                 urllib.request.urlopen("http://localhost:8000/health", timeout=2)
                 return self
@@ -243,7 +248,7 @@ def run_studies(gpu: str, model: str, studies: list) -> dict:
         try:
             out[name] = STUDIES[name](gpu, model)
         except Exception as e:                                   # keep the other studies' results
-            out[name] = {"error": f"{type(e).__name__}: {e}"[-4000:]}
+            out[name] = {"error": f"{type(e).__name__}: {e}"[-16000:]}
         out[name + "_wall_s"] = round(time.time() - t0, 1)
     return out
 
