@@ -45,7 +45,7 @@ python chapter08/loadgen.py --model google/gemma-2b-it --prompts data/prompts_si
 | `tiled_attention.py` | Online-softmax attention and split-KV decoding, checked against the reference |
 | `pd_size.py` | Prefill and decode pool sizes for a workload from the Roofline step time and KV capacity |
 | `spec_math.py` | Speculative decoding: expected tokens per pass and speedup against acceptance rate and draft length |
-| `build_prompts.py` | Builds the RAG serving workload (1,000 distinct SQuAD questions, BGE-M3 + FAISS top-5 over the Chapter 2 corpus) a follow-up turn for each, and 4,096-token long-context prompts |
+| `build_prompts.py` | Builds the RAG serving workload (1,000 distinct SQuAD questions, BGE-M3 + FAISS top-5 over the Chapter 2 corpus), a follow-up turn for each, and 4,096-token long-context prompts |
 | `loadgen.py` | Open-loop Poisson load generator for OpenAI-compatible servers; TTFT, ITL, TPOT, E2E percentiles and goodput |
 | `modal_serving.py` | Runs the case-study studies on Modal, one fresh `vllm serve` per configuration; writes `results/<gpu>_<model>.json` |
 | `summarize_results.py` | Prints the case-study tables and plots the load sweep |
