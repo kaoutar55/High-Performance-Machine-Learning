@@ -16,7 +16,7 @@ def kv_bytes_per_token(model_id, dtype_bytes=2):
     return 2 * c.num_hidden_layers * kv_heads * head_dim * dtype_bytes
 
 
-def kv_token_capacity(model_id, gpu_gb, weight_gb, util=0.90, overhead_gb=2.0, dtype_bytes=2):
+def kv_token_capacity(model_id, gpu_gb, weight_gb, util=0.92, overhead_gb=2.0, dtype_bytes=2):
     free = gpu_gb * util - weight_gb - overhead_gb       # activations, CUDA graphs, workspace
     return int(free * 1e9 // kv_bytes_per_token(model_id, dtype_bytes))
 
