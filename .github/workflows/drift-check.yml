@@ -1,0 +1,54 @@
+name: Drift check
+
+# Re-runs the case study on one T4 each month and compares it with the reference run.
+# The job fails (and GitHub emails the repository owner) when a principle's verdict changes, an
+# experiment starts failing, or a measurement moves by more than 20%. See tools/drift_check/README.md.
+
+on:
+  schedule:
+    - cron: "17 6 1 * *"      # 06:17 UTC on the 1st of every month
+  workflow_dispatch:
+    inputs:
+      reference:
+        description: "Reference run folder under case_study/reference_results/"
+        default: "run2_2026-10-23"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+      MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+      REFERENCE: ${{ github.event.inputs.reference || 'run2_2026-10-23' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Modal
+        run: pip install --upgrade modal
+      - name: Run the case study on a T4
+        run: modal run case_study/modal_case_study.py --gpus T4
+      - name: Compare with the reference run
+        run: |
+          python tools/drift_check/compare.py \
+            case_study/results/t4.json \
+            "case_study/reference_results/${REFERENCE}/t4.json" \
+            --report drift_report.md
+      - name: Add the report to the job summary
+        if: always()
+        run: test -f drift_report.md && cat drift_report.md >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Upload results and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: drift-check-${{ github.run_id }}
+          path: |
+            drift_report.md
+            case_study/results/
+          retention-days: 90

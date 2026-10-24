@@ -1,0 +1,79 @@
+
+======================================================================
+DDP
+======================================================================
+
+----- ddp_small_1gpu -----
+[rank 0] shard size=1920 first=44 last=240
+[rank 0] gradients identical across ranks after backward: True
+[rank 0] per-rank samples/s: ['11377.9']
+[rank 0] aggregate samples/s (world=1): 11377.9
+[rank 0] peak allocated: 0.244 GB
+RESULT world_size=1 batch_per_gpu=32 aggregate_samples_s=11377.87 peak_gb=0.2443
+
+
+
+----- ddp_small_2gpu -----
+[rank 1] shard size=1920 first=778 last=480
+[rank 0] shard size=1920 first=1964 last=1641
+[rank 0] gradients identical across ranks after backward: True
+[rank 0] per-rank samples/s: ['5875.9', '5876.1']
+[rank 0] aggregate samples/s (world=2): 11752.0
+[rank 0] peak allocated: 0.244 GB
+RESULT world_size=2 batch_per_gpu=32 aggregate_samples_s=11752.03 peak_gb=0.2443
+
+
+
+----- ddp_big_1gpu -----
+[rank 0] shard size=3840 first=1964 last=480
+[rank 0] gradients identical across ranks after backward: True
+[rank 0] per-rank samples/s: ['1788.9']
+[rank 0] aggregate samples/s (world=1): 1788.9
+[rank 0] peak allocated: 3.646 GB
+RESULT world_size=1 batch_per_gpu=64 aggregate_samples_s=1788.94 peak_gb=3.6460
+
+
+
+----- ddp_big_2gpu -----
+[rank 1] shard size=3840 first=7025 last=6584
+[rank 0] shard size=3840 first=5804 last=629
+[rank 0] gradients identical across ranks after backward: True
+[rank 0] per-rank samples/s: ['785.4', '785.4']
+[rank 0] aggregate samples/s (world=2): 1570.7
+[rank 0] peak allocated: 3.646 GB
+RESULT world_size=2 batch_per_gpu=64 aggregate_samples_s=1570.71 peak_gb=3.6460
+
+
+
+----- ddp_2gpu_nosampler -----
+[rank 0] gradients identical across ranks after backward: True
+[rank 0] per-rank samples/s: ['5984.4', '5986.5']
+[rank 0] aggregate samples/s (world=2): 11970.8
+[rank 0] peak allocated: 0.244 GB
+RESULT world_size=2 batch_per_gpu=32 aggregate_samples_s=11970.83 peak_gb=0.2443
+
+
+
+======================================================================
+FSDP
+======================================================================
+
+----- fsdp_2gpu -----
+[rank 0] params=407.0M  world=2  checkpoint=False
+[rank 0] modeled model-state/GPU (16B/param / world) = 3.256 GB
+[rank 0] measured peak allocated/GPU = 7.097 GB
+[rank 0] gap (peak - modeled state) = 3.841 GB (activations + transient all-gather + fragmentation)
+[rank 0] aggregate samples/s = 85.7
+RESULT world_size=2 params_m=407.0 checkpoint=False modeled_state_gb=3.2562 peak_gb=7.0968 aggregate_samples_s=85.67
+
+
+
+----- fsdp_2gpu_ckpt -----
+[rank 0] params=407.0M  world=2  checkpoint=True
+[rank 0] modeled model-state/GPU (16B/param / world) = 3.256 GB
+[rank 0] measured peak allocated/GPU = 4.322 GB
+[rank 0] gap (peak - modeled state) = 1.066 GB (activations + transient all-gather + fragmentation)
+[rank 0] aggregate samples/s = 67.7
+RESULT world_size=2 params_m=407.0 checkpoint=True modeled_state_gb=3.2562 peak_gb=4.3221 aggregate_samples_s=67.71
+
+

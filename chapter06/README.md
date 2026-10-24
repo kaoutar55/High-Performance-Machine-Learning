@@ -1,6 +1,6 @@
 # Chapter 6 — Practical High-Performance Kernels with Triton
 
-Companion notebook for Chapter 6. It turns the chapter's claims into runnable, measurable Triton kernels. Written for a Colab T4, but every cell runs on any recent NVIDIA GPU with a matching Triton build.
+Companion notebook for Chapter 6. It turns the chapter's claims into runnable, measurable Triton kernels. It runs on any Ampere-or-newer NVIDIA GPU with the pinned Triton build.
 
 ## Notebook
 
@@ -25,4 +25,4 @@ The chapter pins **PyTorch 2.6 + Triton 3.2** for reproducibility, and its publi
 
 ## Run it
 
-Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. A GPU runtime is required — Triton compiles for the GPU, and there is no CPU fallback for these kernels except the interpreter used in the debugging section.
+Open the notebook in Google Colab or on any GPU machine and run top to bottom. On a Colab T4 (Turing), first run `pip install torch==2.6.0 triton==3.2.0`: Triton dropped Turing support in 3.3, so the Triton that ships with a current Colab runtime does not compile for a T4. A GPU runtime is required — Triton compiles for the GPU, and there is no CPU fallback for these kernels except the interpreter used in the debugging section.

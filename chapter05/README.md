@@ -1,6 +1,6 @@
 # Chapter 5 — GPU Architecture and Hardware-Aware Decisions
 
-Companion notebook for Chapter 5. It makes the chapter's claims measurable on a real GPU. Written for a Colab T4, but every cell runs on any recent NVIDIA GPU.
+Companion notebook for Chapter 5. It makes the chapter's claims measurable on a real GPU. It runs on a Colab T4 or any recent NVIDIA GPU.
 
 ## Notebook
 
@@ -15,6 +15,10 @@ Companion notebook for Chapter 5. It makes the chapter's claims measurable on a 
 5. Figure regeneration: the code that reproduces the chapter's roofline figure.
 
 The notebook closes with exercises that sweep copy size against bandwidth, stride against slowdown, and place your own model's shapes on the roofline.
+
+## Versions
+
+Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2, sentence-transformers 6.2.0. The book's measurements come from an NVIDIA A100 80GB (reference), an H100 and a T4; the case-study data is in [`case_study/reference_results/`](../case_study/reference_results/). Colab ships its own PyTorch build, so the notebooks do not reinstall torch.
 
 ## Run it
 

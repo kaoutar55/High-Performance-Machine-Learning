@@ -15,6 +15,10 @@ Companion notebook for Chapter 4. It makes the chapter's claims measurable on a 
 
 The notebook closes with five exercises, from confirming that a `torch.where` branch does not break the graph to compiling with `fullgraph=True` and tracing any break to its source.
 
+## Versions
+
+Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2, sentence-transformers 6.2.0. The book's measurements come from an NVIDIA A100 80GB (reference), an H100 and a T4; the case-study data is in [`case_study/reference_results/`](../case_study/reference_results/). Colab ships its own PyTorch build, so the notebooks do not reinstall torch.
+
 ## Run it
 
 Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom.

@@ -17,8 +17,12 @@ Lab notebook for Chapter 1. You measure the ideas the chapter argues for on hard
 
 Save the end-to-end latency you measure. Chapter 2's regression test compares against it.
 
+## Versions
+
+Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2, sentence-transformers 6.2.0. The book's measurements come from an NVIDIA A100 80GB (reference), an H100 and a T4; the case-study data is in [`case_study/reference_results/`](../case_study/reference_results/). Colab ships its own PyTorch build, so the notebooks do not reinstall torch.
+
 ## Run it
 
-Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. The first cell pins the stack, so a cold runtime reproduces the book's numbers. It runs on CPU too, but each decode takes 30 to 60 seconds instead of 3 to 8.
+Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. The first cell installs the tested library versions. It runs on CPU too, but decoding is far slower.
 
-Runtime: about 12 minutes on a Colab Free T4, about 25 minutes on a CPU laptop.
+Runtime: about 12 minutes on a Colab Free T4, about 25 minutes on a CPU laptop. The notebook has not yet been re-run on the tested stack below.
