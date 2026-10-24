@@ -42,10 +42,15 @@ async def one_request(session, url, model, prompt, max_tokens):
 
 
 async def _one_request(session, url, model, prompt, max_tokens):
+    # ignore_eos makes every request produce max_tokens tokens. After the model's natural end, those tokens are
+    # mostly special tokens (<eos>, <end_of_turn>, <|eot_id|>), which detokenize to empty text unless
+    # skip_special_tokens is off. Without this, the tail of each answer streams no text, the last text chunk
+    # arrives early, and TPOT = (e2e - TTFT) / (n - 1) comes out far too low.
     body = {"model": model, "prompt": prompt, "max_tokens": max_tokens, "temperature": 0.0,
-            "stream": True, "ignore_eos": True, "stream_options": {"include_usage": True}}
+            "stream": True, "ignore_eos": True, "skip_special_tokens": False,
+            "stream_options": {"include_usage": True}}
     t0 = time.perf_counter()
-    stamps, n_tokens = [], 0
+    stamps, n_tokens, t_end = [], 0, None
     async with session.post(f"{url}/v1/completions", json=body) as resp:
         resp.raise_for_status()
         async for raw in resp.content:
@@ -55,15 +60,20 @@ async def _one_request(session, url, model, prompt, max_tokens):
             chunk = json.loads(line[5:])
             if chunk.get("usage"):
                 n_tokens = chunk["usage"]["completion_tokens"]
-            if chunk.get("choices") and chunk["choices"][0].get("text"):
-                stamps.append(time.perf_counter())
+            choices = chunk.get("choices")
+            if choices:
+                now = time.perf_counter()
+                if choices[0].get("text"):
+                    stamps.append(now)
+                if choices[0].get("text") or choices[0].get("finish_reason"):
+                    t_end = now                                  # last token (or the finish chunk) of the answer
     if not stamps:
         return None
     ttft = stamps[0] - t0
-    e2e = stamps[-1] - t0
+    e2e = (t_end or stamps[-1]) - t0
     n = n_tokens or len(stamps)
     return {"ttft": ttft, "e2e": e2e, "tpot": (e2e - ttft) / (n - 1) if n > 1 else None,
-            "itl": [b - a for a, b in zip(stamps, stamps[1:])], "out_tokens": n}
+            "itl": [b - a for a, b in zip(stamps, stamps[1:])], "out_tokens": n, "text_chunks": len(stamps)}
     # note: with speculative decoding one streamed chunk can carry several tokens, so ITL is per chunk
 
 
@@ -103,7 +113,9 @@ def summarize(rs, duration, args):
            "request_throughput": len(rs) / duration,
            "output_token_throughput": sum(r["out_tokens"] for r in rs) / duration,
            "goodput_req_s": len(ok) / duration, "slo_attainment": len(ok) / max(1, len(rs)),
-           "slo": {"ttft_ms": args.slo_ttft_ms, "tpot_ms": args.slo_tpot_ms}}
+           "slo": {"ttft_ms": args.slo_ttft_ms, "tpot_ms": args.slo_tpot_ms},
+           # sanity check: close to 1.0 when every token streams as its own text chunk
+           "text_chunks_per_token": sum(r.get("text_chunks", 0) for r in rs) / max(1, sum(r["out_tokens"] for r in rs))}
     for name, xs in (("ttft_ms", ttft), ("tpot_ms", tpot), ("itl_ms", itl), ("e2e_ms", e2e)):
         out[name] = {"mean": statistics.fmean(xs) if xs else None,
                      **{f"p{q}": pct(xs, q) for q in (50, 90, 95, 99)}}

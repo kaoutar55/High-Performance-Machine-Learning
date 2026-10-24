@@ -21,7 +21,10 @@ def main():
         print(f"\n=== {gpu}  ({d['env'].get('gpu')}, {d['env'].get('model')}, vLLM {d['env'].get('vllm')})")
         s = d.get("single", {}).get("result", {})
         if "ttft_ms" in s:
-            print(f"single request: TTFT p50 {f(s['ttft_ms']['p50'])} ms, TPOT p50 {f(s['tpot_ms']['p50'], 2)} ms")
+            print(f"single request: TTFT p50 {f(s['ttft_ms']['p50'])} ms, TPOT p50 {f(s['tpot_ms']['p50'], 2)} ms, "
+                  f"ITL p50 {f(s['itl_ms']['p50'], 2)} ms, text chunks per token {s.get('text_chunks_per_token', 0):.2f}")
+            if s.get("tpot_ms", {}).get("p50") and s["itl_ms"]["p50"] and s["tpot_ms"]["p50"] < 0.8 * s["itl_ms"]["p50"]:
+                print("  WARNING: TPOT p50 is well below ITL p50; the end of the stream was probably not timed")
         print("rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met")
         for r in d.get("sweep", {}).get("runs", []):
             if "ttft_ms" not in r:
