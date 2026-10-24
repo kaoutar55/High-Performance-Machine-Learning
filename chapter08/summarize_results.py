@@ -16,7 +16,9 @@ def f(x, nd=0):
 def main():
     data = {p.stem: json.loads(p.read_text()) for p in sorted(RES.glob("*.json"))}
     for gpu, d in data.items():
-        print(f"\n=== {gpu}  ({d['env'].get('gpu')}, vLLM {d['env'].get('vllm')})")
+        if "env" not in d:
+            print(f"\n=== {gpu}: {d.get('error', 'no results')}"); continue
+        print(f"\n=== {gpu}  ({d['env'].get('gpu')}, {d['env'].get('model')}, vLLM {d['env'].get('vllm')})")
         s = d.get("single", {}).get("result", {})
         if "ttft_ms" in s:
             print(f"single request: TTFT p50 {f(s['ttft_ms']['p50'])} ms, TPOT p50 {f(s['tpot_ms']['p50'], 2)} ms")
@@ -28,6 +30,18 @@ def main():
                   f"{f(r['ttft_ms']['p50']):>6}/{f(r['ttft_ms']['p99']):<7}  {f(r['tpot_ms']['p50'], 1):>6}/"
                   f"{f(r['tpot_ms']['p99'], 1):<7}  {f(r['itl_ms']['p99'], 1):>6}  {r['goodput_req_s']:6.2f}  "
                   f"{100 * r['slo_attainment']:5.1f}%")
+        runs = d.get("long", {}).get("runs", [])
+        if runs:
+            print("long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions")
+        for r in runs:
+            if "ttft_ms" not in r:
+                print("error", r.get("error", "")[:200]); continue
+            after, peak = r.get("metrics_after", {}), r.get("metrics_peak", {})
+            kv = max([v for k, v in peak.items() if "cache_usage" in k] or [None])
+            pre = sum(v for k, v in after.items() if "preemption" in k) - sum(
+                v for k, v in r.get("metrics_before", {}).items() if "preemption" in k)
+            print(f"  {r['rate']:>5}  {r['output_token_throughput']:9.0f}  {f(r['ttft_ms']['p50']):>6}/{f(r['ttft_ms']['p99']):<7}"
+                  f"  {f(r['tpot_ms']['p50'], 1):>6}  {r['goodput_req_s']:6.2f}  {f(kv, 2):>6}  {pre:6.0f}")
         for name in ("prefix_on", "prefix_off"):
             p = d.get("prefix", {}).get(name, {}).get("follow_up", {})
             if "ttft_ms" in p:
@@ -62,6 +76,7 @@ def main():
             ax[0].plot(x, [r["output_token_throughput"] for r in runs], marker="o", label=gpu)
             ax[1].plot(x, [r["ttft_ms"]["p99"] for r in runs], marker="o", label=gpu)
             ax[2].plot(x, [r["goodput_req_s"] for r in runs], marker="o", label=gpu)
+            # gpu here is the results file stem, e.g. A100-80GB_gemma
         for a, t in zip(ax, ("output tokens/s", "TTFT p99 (ms)", "goodput (req/s)")):
             a.set_xlabel("offered load (req/s)"); a.set_ylabel(t); a.legend()
         ax[1].set_yscale("log")

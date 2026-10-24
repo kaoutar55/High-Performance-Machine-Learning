@@ -9,6 +9,8 @@ Writes:
   prompts_followup.jsonl  a second turn for each question: the first turn's prompt, a short answer, and a
                           follow-up question. Sent after the first turns, its long shared prefix is what
                           prefix caching can reuse.
+  prompts_long.jsonl      the same questions with the top-40 passages, capped at --long-prompt-tokens (4,096):
+                          a long-context RAG workload whose KV cache, not compute, limits the batch.
 
     python build_prompts.py --out-dir data --num 1000
 """
@@ -32,6 +34,7 @@ def main():
     ap.add_argument("--out-dir", default="data")
     ap.add_argument("--num", type=int, default=1000)
     ap.add_argument("--max-prompt-tokens", type=int, default=512)
+    ap.add_argument("--long-prompt-tokens", type=int, default=4096)
     ap.add_argument("--generator", default="google/gemma-2b-it")
     args = ap.parse_args()
     os.makedirs(args.out_dir, exist_ok=True)
@@ -46,14 +49,21 @@ def main():
     emb = embedder.encode(corpus, batch_size=64, normalize_embeddings=True, convert_to_numpy=True).astype("float32")
     index = faiss.IndexFlatIP(emb.shape[1]); index.add(emb)
     q_emb = embedder.encode(questions, batch_size=128, normalize_embeddings=True, convert_to_numpy=True).astype("float32")
-    _, ids = index.search(q_emb, 5)
+    _, ids_long = index.search(q_emb, 40)
+    ids = ids_long[:, :5]
 
     tok = AutoTokenizer.from_pretrained(args.generator)
     rng = random.Random(1)
     n_tok = []
     with open(os.path.join(args.out_dir, "prompts_single.jsonl"), "w") as f1, \
-         open(os.path.join(args.out_dir, "prompts_followup.jsonl"), "w") as f2:
-        for q, row in zip(questions, ids):
+         open(os.path.join(args.out_dir, "prompts_followup.jsonl"), "w") as f2, \
+         open(os.path.join(args.out_dir, "prompts_long.jsonl"), "w") as f3:
+        for q, row, row_long in zip(questions, ids, ids_long):
+            long_prompt = TEMPLATE.format(context="\n\n".join(corpus[i] for i in row_long), query=q)
+            lt = tok(long_prompt, add_special_tokens=True)["input_ids"]
+            if len(lt) > args.long_prompt_tokens:
+                long_prompt = tok.decode(lt[-args.long_prompt_tokens:], skip_special_tokens=True)
+            f3.write(json.dumps({"prompt": long_prompt}) + "\n")
             context = "\n\n".join(corpus[i] for i in row)
             prompt = TEMPLATE.format(context=context, query=q)
             toks = tok(prompt, add_special_tokens=True)["input_ids"]
