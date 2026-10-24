@@ -1,0 +1,21 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::mm        11.62%       2.859ms        16.83%       4.142ms      32.615us      13.717ms        71.50%      13.717ms     108.011us           127  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us       5.974ms        31.14%       5.974ms     165.934us            36  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us       5.839ms        30.43%       5.839ms     307.325us            19  
+                                              aten::mul         7.16%       1.762ms        11.46%       2.820ms      16.783us       1.524ms         7.94%       1.524ms       9.072us           168  
+ampere_fp16_s16816gemm_fp16_128x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us       1.365ms         7.12%       1.365ms      37.919us            36  
+                         aten::_flash_attention_forward         1.72%     424.055us         5.56%       1.369ms      76.035us     782.743us         4.08%     782.743us      43.486us            18  
+                                            aten::copy_         3.15%     775.179us         6.51%       1.602ms      13.814us     748.569us         3.90%     748.569us       6.453us           116  
+void at::native::elementwise_kernel<128, 2, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us     605.717us         3.16%     605.717us       8.076us            75  
+                                              aten::add         6.19%       1.524ms         9.84%       2.421ms      16.467us     604.601us         3.15%     604.601us       4.113us           147  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us     567.390us         2.96%     567.390us      10.507us            54  
+void at::native::unrolled_elementwise_kernel<at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us     551.355us         2.87%     551.355us       7.351us            75  
+void pytorch_flash::flash_fwd_splitkv_kernel<Flash_f...         0.00%       0.000us         0.00%       0.000us       0.000us     538.361us         2.81%     538.361us      29.909us            18  
+ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f...         0.00%       0.000us         0.00%       0.000us       0.000us     515.644us         2.69%     515.644us      14.323us            36  
+                                             aten::gelu         0.94%     231.258us         1.43%     352.253us      19.570us     462.331us         2.41%     462.331us      25.685us            18  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us     462.331us         2.41%     462.331us      25.685us            18  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 24.604ms
+Self CUDA time total: 19.186ms

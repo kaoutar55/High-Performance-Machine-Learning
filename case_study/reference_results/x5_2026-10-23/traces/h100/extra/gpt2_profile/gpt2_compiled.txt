@@ -1,0 +1,18 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                               aten::mm         9.59%     829.023us        14.03%       1.213ms      32.773us       2.555ms        61.41%       2.555ms      69.051us            37  
+sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x...         0.00%       0.000us         0.00%       0.000us       0.000us       1.698ms        40.80%       1.698ms      47.158us            36  
+sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x256...         0.00%       0.000us         0.00%       0.000us       0.000us     804.412us        19.33%     804.412us     804.412us             1  
+                                            aten::addmm         3.80%     328.420us         4.86%     420.017us      35.001us     737.630us        17.73%     737.630us      61.469us            12  
+void cutlass::Kernel2<cutlass_80_simt_sgemm_256x128_...         0.00%       0.000us         0.00%       0.000us       0.000us     682.110us        16.39%     682.110us      56.843us            12  
+                     aten::_efficient_attention_forward         1.51%     130.670us         8.95%     773.539us      64.462us     670.302us        16.11%     694.271us      57.856us            12  
+fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us     670.302us        16.11%     670.302us      55.859us            12  
+void cublasLt::splitKreduce_kernel<32, 16, int, floa...         0.00%       0.000us         0.00%       0.000us       0.000us      66.399us         1.60%      66.399us       5.533us            12  
+         triton_poi_fused_add_addmm_mul_pow_tanh_view_4         1.39%     120.399us         2.33%     201.243us      16.770us      51.615us         1.24%      51.615us       4.301us            12  
+         triton_poi_fused_add_addmm_mul_pow_tanh_view_4         0.00%       0.000us         0.00%       0.000us       0.000us      51.615us         1.24%      51.615us       4.301us            12  
+sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x...         0.00%       0.000us         0.00%       0.000us       0.000us      41.920us         1.01%      41.920us       3.493us            12  
+    triton_per_fused_add_addmm_native_layer_norm_view_6         1.99%     172.249us         2.85%     246.055us      22.369us      38.879us         0.93%      38.879us       3.534us            11  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 8.641ms
+Self CUDA time total: 4.161ms

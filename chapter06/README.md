@@ -21,7 +21,7 @@ The notebook closes with exercises that sweep block size against bandwidth, comp
 
 ## Versions
 
-The chapter pins **PyTorch 2.5 + Triton 3.1** for reproducibility. The kernels use stable API and run across nearby versions; if a cell fails on an API name, check your Triton version first.
+The chapter pins **PyTorch 2.6 + Triton 3.2** for reproducibility, and its published numbers come from an NVIDIA A100 80GB PCIe (see `chapter06_companion_executed.ipynb`). The kernels use stable API and run across nearby versions; if a cell fails on an API name, check your Triton version first.
 
 ## Run it
 

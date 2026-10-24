@@ -1,0 +1,1061 @@
+{
+  "requested_gpu": "H100",
+  "env": {
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "compute_capability": "9.0",
+    "driver": "610.57.04",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.20.2",
+    "sentence_transformers": "6.2.0",
+    "python": "3.11.12",
+    "cpu": "unknown",
+    "cpu_count": 17.0,
+    "packages": {
+      "accelerate": "1.15.0",
+      "aiohappyeyeballs": "2.7.1",
+      "aiohttp": "3.14.5",
+      "aiosignal": "1.4.0",
+      "annotated-doc": "0.0.5",
+      "anyio": "4.15.1",
+      "asttokens": "3.0.2",
+      "attrs": "26.1.0",
+      "cbor2": "5.7.0",
+      "certifi": "2026.10.19",
+      "click": "8.5.0",
+      "cloudpickle": "3.1.2",
+      "comm": "0.2.3",
+      "contourpy": "1.3.3",
+      "cuda-bindings": "13.4.4",
+      "cuda-pathfinder": "1.8.4",
+      "cuda-toolkit": "13.0.3.0",
+      "cycler": "0.12.1",
+      "datasets": "5.1.0",
+      "debugpy": "1.8.22",
+      "dill": "0.4.1",
+      "executing": "2.3.0",
+      "faiss-cpu": "1.15.1",
+      "fastjsonschema": "2.22.2",
+      "filelock": "4.2.4",
+      "fonttools": "4.67.0",
+      "frozenlist": "1.8.0",
+      "fsspec": "2026.7.0",
+      "grpclib": "0.4.8",
+      "h11": "0.16.0",
+      "h2": "4.2.0",
+      "hf-xet": "1.7.0",
+      "hpack": "4.1.0",
+      "httpcore2": "2.16.0",
+      "httpx2": "2.16.0",
+      "huggingface_hub": "2.3.0",
+      "hyperframe": "6.1.0",
+      "idna": "3.20",
+      "ipykernel": "7.4.0",
+      "ipython": "9.17.1",
+      "ipython_pygments_lexers": "1.1.1",
+      "jedi": "0.20.1",
+      "jinja2": "3.1.6",
+      "joblib": "1.6.0",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "jupyter_client": "8.10.0",
+      "jupyter_core": "5.9.1",
+      "kiwisolver": "1.5.1",
+      "markdown-it-py": "4.2.0",
+      "markupsafe": "3.0.4",
+      "matplotlib": "3.11.2",
+      "matplotlib-inline": "0.2.2",
+      "mdurl": "0.1.2",
+      "mpmath": "1.3.0",
+      "multidict": "7.1.0",
+      "multiprocess": "0.70.19",
+      "narwhals": "2.27.1",
+      "nbclient": "0.11.0",
+      "nbformat": "5.11.1",
+      "nest-asyncio2": "1.7.4",
+      "networkx": "3.6.1",
+      "numpy": "2.4.6",
+      "nvidia-cublas": "13.1.1.3",
+      "nvidia-cuda-cupti": "13.0.85",
+      "nvidia-cuda-nvrtc": "13.0.88",
+      "nvidia-cuda-runtime": "13.0.96",
+      "nvidia-cudnn-cu13": "9.24.0.43",
+      "nvidia-cufft": "12.0.0.61",
+      "nvidia-cufile": "1.15.1.6",
+      "nvidia-curand": "10.4.0.35",
+      "nvidia-cusolver": "12.0.4.66",
+      "nvidia-cusparse": "12.6.3.3",
+      "nvidia-cusparselt-cu13": "0.8.1",
+      "nvidia-nccl-cu13": "2.30.7",
+      "nvidia-nvjitlink": "13.4.92",
+      "nvidia-nvshmem-cu13": "3.4.5",
+      "nvidia-nvtx": "13.0.85",
+      "packaging": "26.3",
+      "pandas": "3.1.0",
+      "parso": "0.8.7",
+      "pexpect": "4.9.0",
+      "pillow": "13.0.0",
+      "platformdirs": "4.13.5",
+      "prompt_toolkit": "3.0.53",
+      "propcache": "0.5.4",
+      "protobuf": "6.31.1",
+      "psutil": "7.2.2",
+      "ptyprocess": "0.7.0",
+      "pure_eval": "0.2.4",
+      "pyarrow": "26.0.0",
+      "pygments": "2.21.0",
+      "pyparsing": "3.3.3",
+      "python-dateutil": "3.0.0",
+      "pyyaml": "6.0.3",
+      "pyzmq": "27.2.0",
+      "referencing": "0.37.0",
+      "regex": "2026.9.29",
+      "rich": "15.0.0",
+      "rpds-py": "2026.9.1",
+      "safetensors": "0.8.0",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.17.1",
+      "sentence-transformers": "6.2.0",
+      "shellingham": "1.5.4",
+      "six": "1.17.0",
+      "stack-data": "0.6.3",
+      "sympy": "1.14.0",
+      "threadpoolctl": "3.7.0",
+      "tokenizers": "0.23.3",
+      "torch": "2.14.1",
+      "tornado": "6.6",
+      "tqdm": "4.70.1",
+      "traitlets": "5.16.1",
+      "transformers": "5.20.2",
+      "triton": "3.8.0",
+      "truststore": "0.10.5",
+      "typer": "0.27.3",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.5",
+      "uv": "0.8.17",
+      "wcwidth": "0.9.3",
+      "xxhash": "4.0.2",
+      "yarl": "1.25.1"
+    }
+  },
+  "spec": {
+    "label": "NVIDIA H100 SXM",
+    "fp16_tensor_tflops": 989.0,
+    "mem_bw_gbs": 3350.0,
+    "memory": "80 GB HBM3"
+  },
+  "config": {
+    "MODELS": {
+      "generator": "google/gemma-2b-it",
+      "embedder": "BAAI/bge-m3"
+    },
+    "DTYPE": "float16",
+    "PROMPT_TOKENS": 512.0,
+    "NEW_TOKENS": 20.0,
+    "DECODE_BATCHES": [
+      1.0,
+      4.0,
+      16.0,
+      64.0
+    ],
+    "EMBED_BATCHES": [
+      1.0,
+      8.0,
+      32.0,
+      64.0
+    ],
+    "TIMING": {
+      "warmup": 2.0,
+      "iters": 10.0
+    }
+  },
+  "embedder": {
+    "model": {
+      "id": "BAAI/bge-m3",
+      "layers": 24.0,
+      "heads": 16.0,
+      "hidden": 1024.0,
+      "params_m": 567.8
+    },
+    "throughput": [
+      {
+        "dtype": "fp32",
+        "batch": 1.0,
+        "chunks": 64.0,
+        "seconds": 0.928,
+        "chunks_per_s": 69.0
+      },
+      {
+        "dtype": "fp32",
+        "batch": 8.0,
+        "chunks": 256.0,
+        "seconds": 2.239,
+        "chunks_per_s": 114.3
+      },
+      {
+        "dtype": "fp32",
+        "batch": 32.0,
+        "chunks": 256.0,
+        "seconds": 2.143,
+        "chunks_per_s": 119.5
+      },
+      {
+        "dtype": "fp32",
+        "batch": 64.0,
+        "chunks": 256.0,
+        "seconds": 2.112,
+        "chunks_per_s": 121.2
+      },
+      {
+        "dtype": "fp16",
+        "batch": 1.0,
+        "chunks": 64.0,
+        "seconds": 0.602,
+        "chunks_per_s": 106.4
+      },
+      {
+        "dtype": "fp16",
+        "batch": 8.0,
+        "chunks": 256.0,
+        "seconds": 0.559,
+        "chunks_per_s": 458.1
+      },
+      {
+        "dtype": "fp16",
+        "batch": 32.0,
+        "chunks": 256.0,
+        "seconds": 0.484,
+        "chunks_per_s": 528.8
+      },
+      {
+        "dtype": "fp16",
+        "batch": 64.0,
+        "chunks": 256.0,
+        "seconds": 0.48,
+        "chunks_per_s": 533.5
+      }
+    ],
+    "tokens_per_chunk": 477.0,
+    "profile_fp16_batch32": [
+      {
+        "op": "aten::addmm",
+        "self_cuda_ms": 13.425,
+        "calls": 145.0
+      },
+      {
+        "op": "nvjet_sm90_hsh_128x192_64x5_2x1_v_bz_coopB_bias_TNN",
+        "self_cuda_ms": 9.045,
+        "calls": 120.0
+      },
+      {
+        "op": "aten::_cudnn_attention_forward",
+        "self_cuda_ms": 7.246,
+        "calls": 24.0
+      },
+      {
+        "op": "cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_1_64x128x64_4x1x1_cga1x1x1_kernel0_0",
+        "self_cuda_ms": 7.222,
+        "calls": 24.0
+      },
+      {
+        "op": "nvjet_sm90_hsh_128x288_64x4_2x1_v_bz_coopA_bias_TNT",
+        "self_cuda_ms": 4.225,
+        "calls": 24.0
+      },
+      {
+        "op": "aten::gelu",
+        "self_cuda_ms": 2.137,
+        "calls": 24.0
+      },
+      {
+        "op": "void at::native::vectorized_elementwise_kernel<8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>, false>(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>)",
+        "self_cuda_ms": 2.137,
+        "calls": 24.0
+      },
+      {
+        "op": "aten::native_layer_norm",
+        "self_cuda_ms": 1.904,
+        "calls": 49.0
+      },
+      {
+        "op": "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c10::Half, float, false>(int, float, c10::Half const*, c10::Half const*, c10::Half const*, float*, float*, c10::Half*)",
+        "self_cuda_ms": 1.904,
+        "calls": 49.0
+      },
+      {
+        "op": "aten::add",
+        "self_cuda_ms": 1.485,
+        "calls": 54.0
+      },
+      {
+        "op": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctor_add<c10::Half>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<c10::Half>, std::array<char*, 3ul>)",
+        "self_cuda_ms": 1.479,
+        "calls": 50.0
+      },
+      {
+        "op": "aten::where",
+        "self_cuda_ms": 0.475,
+        "calls": 48.0
+      },
+      {
+        "op": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(bool, unsigned short, unsigned short)#1} const&)::{lambda(int)#1})",
+        "self_cuda_ms": 0.475,
+        "calls": 24.0
+      },
+      {
+        "op": "Memset (Device)",
+        "self_cuda_ms": 0.172,
+        "calls": 168.0
+      },
+      {
+        "op": "aten::fill_",
+        "self_cuda_ms": 0.051,
+        "calls": 49.0
+      }
+    ],
+    "sdpa_backend_seen": {
+      "flash": true,
+      "mem_efficient": false
+    },
+    "attention_ops": [
+      "aten::scaled_dot_product_attention",
+      "aten::_scaled_dot_product_cudnn_attention",
+      "aten::_cudnn_attention_forward",
+      "cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_1_64x128x64_4x1x1_cga1x1x1_kernel0_0"
+    ],
+    "attention_backend": "cudnn",
+    "peak_mem_gb": 3.85
+  },
+  "decode_batching": {
+    "params_b": 2.506,
+    "weight_gb": 5.012,
+    "rows": [
+      {
+        "batch": 1.0,
+        "prompt_tokens": 512.0,
+        "prefill_s": 0.0129,
+        "prefill_tflops": 198.62,
+        "decode_ms_per_step": 10.69,
+        "decode_tokens_per_s": 93.5,
+        "weight_read_gbs": 468.7
+      },
+      {
+        "batch": 4.0,
+        "prompt_tokens": 512.0,
+        "prefill_s": 0.0206,
+        "prefill_tflops": 497.87,
+        "decode_ms_per_step": 11.95,
+        "decode_tokens_per_s": 334.6,
+        "weight_read_gbs": 419.3
+      },
+      {
+        "batch": 16.0,
+        "prompt_tokens": 512.0,
+        "prefill_s": 0.074,
+        "prefill_tflops": 555.02,
+        "decode_ms_per_step": 11.59,
+        "decode_tokens_per_s": 1380.9,
+        "weight_read_gbs": 432.6
+      },
+      {
+        "batch": 64.0,
+        "prompt_tokens": 512.0,
+        "prefill_s": 0.2806,
+        "prefill_tflops": 585.29,
+        "decode_ms_per_step": 11.93,
+        "decode_tokens_per_s": 5362.8,
+        "weight_read_gbs": 420.0
+      }
+    ]
+  },
+  "compiled_decode": {
+    "prompt_tokens": 512.0,
+    "new_tokens": 20.0,
+    "autocompile_switch_available": true,
+    "eager_dynamic_cache": {
+      "t_first_token_s": 0.0126,
+      "t_all_tokens_s": 0.222,
+      "decode_ms_per_token": 11.02,
+      "first_call_s": 1.56,
+      "dynamo_graphs_compiled": 0.0
+    },
+    "eager_static_cache": {
+      "t_first_token_s": 0.0148,
+      "t_all_tokens_s": 0.2458,
+      "decode_ms_per_token": 12.16,
+      "first_call_s": 0.74,
+      "dynamo_graphs_compiled": 0.0
+    },
+    "hf_autocompile_static_cache": {
+      "t_first_token_s": 0.0142,
+      "t_all_tokens_s": 0.0806,
+      "decode_ms_per_token": 3.49,
+      "first_call_s": 18.08,
+      "dynamo_graphs_compiled": 1.0
+    },
+    "wrong_compile_module_then_generate": {
+      "t_first_token_s": 0.0131,
+      "t_all_tokens_s": 0.2251,
+      "decode_ms_per_token": 11.16,
+      "first_call_s": 1.45,
+      "dynamo_graphs_compiled": 0.0
+    },
+    "right_compile_default": {
+      "t_first_token_s": 0.0087,
+      "t_all_tokens_s": 0.0915,
+      "decode_ms_per_token": 4.36,
+      "first_call_s": 37.43,
+      "dynamo_graphs_compiled": 2.0
+    },
+    "right_compile_forward_static_cache": {
+      "t_first_token_s": 0.0087,
+      "t_all_tokens_s": 0.0915,
+      "decode_ms_per_token": 4.36,
+      "first_call_s": 37.43,
+      "dynamo_graphs_compiled": 2.0,
+      "mode": "default"
+    },
+    "runs": {
+      "decode_eager": {
+        "autocompile_switch_available": true
+      },
+      "decode_wrong_compile": {},
+      "decode_compile_reduce_overhead": {
+        "error": "experiment subprocess exited with code -11 (signal 11 if negative)",
+        "stderr_tail": "_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py\", line 308, in forward\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     hidden_states, _ = self.self_attn(\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                        ^^^^^^^^^^^^^^^\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/models/gemma/modeling_gemma.py\", line 262, in forward\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     key_states, value_states = past_key_values.update(key_states, value_states, self.layer_idx)\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/cache_utils.py\", line 1423, in update\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     keys, values = self.layers[layer_idx].update(key_states, value_states, *args, **kwargs)\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]   File \"/usr/local/lib/python3.11/site-packages/transformers/cache_utils.py\", line 467, in update\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs]     self.cumulative_length.add_(kv_length)\nW1023 19:31:59.731000 183 site-packages/torch/_inductor/cudagraph_utils.py:401] [__cudagraphs] \n"
+      },
+      "decode_compile_default": {
+        "mode": "default"
+      }
+    }
+  },
+  "extra": {
+    "warmup": {
+      "op": "torch.bmm(32x512x512, fp32)",
+      "call_us": [
+        74235.8,
+        329.5,
+        206.3,
+        212.4,
+        208.2,
+        207.5
+      ],
+      "first_over_steady": 343.5
+    },
+    "python_loop": {
+      "n": 10000000.0,
+      "python": "3.11.12",
+      "ms": {
+        "python_for_loop": 146.11,
+        "builtin_sum": 41.42,
+        "numpy_sum": 6.66,
+        "torch_sum_cpu_1_threads": 4.61,
+        "torch_sum_cpu_1_thread": 2.77,
+        "torch_sum_gpu": 0.05
+      }
+    },
+    "autograd": {
+      "grad_enabled": {
+        "ms": 13.24,
+        "peak_extra_gb": 1.978,
+        "output_requires_grad": true
+      },
+      "no_grad": {
+        "ms": 11.07,
+        "peak_extra_gb": 0.264,
+        "output_requires_grad": false
+      },
+      "inference_mode": {
+        "ms": 10.37,
+        "peak_extra_gb": 0.264,
+        "output_requires_grad": false
+      }
+    },
+    "dataloader": {
+      "chunks": 1024.0,
+      "batch": 32.0,
+      "cpu_count": 17.0,
+      "rows": [
+        {
+          "num_workers": 0.0,
+          "pin_memory": false,
+          "prefetch_factor": null,
+          "chunks_per_s": 339.2,
+          "data_wait_pct": 42.8,
+          "seconds": 3.02
+        },
+        {
+          "num_workers": 2.0,
+          "pin_memory": true,
+          "prefetch_factor": 2.0,
+          "chunks_per_s": 794.7,
+          "data_wait_pct": 10.2,
+          "seconds": 1.29
+        },
+        {
+          "num_workers": 4.0,
+          "pin_memory": false,
+          "prefetch_factor": 2.0,
+          "chunks_per_s": 806.8,
+          "data_wait_pct": 9.5,
+          "seconds": 1.27
+        },
+        {
+          "num_workers": 4.0,
+          "pin_memory": true,
+          "prefetch_factor": 2.0,
+          "chunks_per_s": 825.8,
+          "data_wait_pct": 6.9,
+          "seconds": 1.24
+        },
+        {
+          "num_workers": 8.0,
+          "pin_memory": true,
+          "prefetch_factor": 2.0,
+          "chunks_per_s": 698.4,
+          "data_wait_pct": 5.8,
+          "seconds": 1.47
+        },
+        {
+          "num_workers": 8.0,
+          "pin_memory": true,
+          "prefetch_factor": 4.0,
+          "chunks_per_s": 701.9,
+          "data_wait_pct": 5.7,
+          "seconds": 1.46
+        }
+      ]
+    },
+    "compile_stages": {
+      "embedder_fp16_batch32": {
+        "eager_ms": 27.49,
+        "compiled_ms": 25.17,
+        "speedup": 1.09,
+        "first_call_s": 18.8
+      },
+      "gemma_prefill_512": {
+        "eager_ms": 11.57,
+        "compiled_ms": 6.1,
+        "speedup": 1.9,
+        "first_call_s": 16.3
+      },
+      "graphs_compiled": 2.0
+    },
+    "gpt2_explain": {
+      "model": "openai-community/gpt2",
+      "seq": 512.0,
+      "dtype": "float32",
+      "with_breaks": {
+        "graph_count": 2.0,
+        "graph_break_count": 1.0,
+        "op_count": 321.0,
+        "text": "Graph Count: 2\nGraph Break Count: 1\nOp Count: 321\nBreak Reasons:\n  Break Reason 1:\n    Reason: Unsupported Tensor.item() call with capture_scalar_outputs=False\n  Explanation: Dynamo does not support tracing `Tensor.item()` with config.capture_scalar_outputs=False.\n  Hint: Set `torch._dynamo.config.capture_scalar_outputs = True` or `export TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1` to include these operations in the captured graph.\n\n  Developer debug context: call_method TensorVariable() item () {}\n\n For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0124.html\n    User Stack:\n      <FrameSummary file /root/experiments_extra.py, line 365 in forward>\nOps per Graph:\n  Ops 1:\n    <function embedding at 0x2ac31fb22840>\n  Ops 2:\n    <built-in method arange of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <function embedding at 0x2ac31fb22840>\n    <built-in function add>\n    <function dropout at 0x2ac31fb21580>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of ty"
+      },
+      "clean": {
+        "graph_count": 1.0,
+        "graph_break_count": 0.0,
+        "op_count": 321.0,
+        "text": "Graph Count: 1\nGraph Break Count: 0\nOp Count: 321\nBreak Reasons:\nOps per Graph:\n  Ops 1:\n    <function embedding at 0x2ac31fb22840>\n    <built-in method arange of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <function embedding at 0x2ac31fb22840>\n    <built-in function add>\n    <function dropout at 0x2ac31fb21580>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in function getitem>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method tensor of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in method cat of type object at 0x2ac2e8fb3460>\n    <built-in function scaled_dot_product_attention>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <function dropout at 0x2ac31fb21580>\n    <built-in function add>\n    <function layer_norm at 0x2ac31fb22c00>\n    <built-in method addmm of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in method pow of type object at 0x2ac2e8fb3460>\n    <built-in function mul>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method tanh of type object at 0x2ac2e8fb3460>\n    <built-in function add>\n    <built-in function mul>\n    <built-in method addmm of type object at 0x2ac2e8fb3"
+      }
+    },
+    "gpt2_profile": {
+      "model": "openai-community/gpt2",
+      "seq": 512.0,
+      "dtype": "float32",
+      "eager": {
+        "top_ops": [
+          {
+            "op": "aten::addmm",
+            "self_cuda_ms": 3.282,
+            "calls": 48.0
+          },
+          {
+            "op": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+            "self_cuda_ms": 1.927,
+            "calls": 36.0
+          },
+          {
+            "op": "void cutlass::Kernel2<cutlass_80_simt_sgemm_128x64_8x5_nn_align1>(cutlass_80_simt_sgemm_128x64_8x5_nn_align1::Params)",
+            "self_cuda_ms": 1.347,
+            "calls": 12.0
+          },
+          {
+            "op": "aten::mm",
+            "self_cuda_ms": 0.81,
+            "calls": 1.0
+          },
+          {
+            "op": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+            "self_cuda_ms": 0.81,
+            "calls": 1.0
+          },
+          {
+            "op": "aten::_efficient_attention_forward",
+            "self_cuda_ms": 0.667,
+            "calls": 12.0
+          },
+          {
+            "op": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+            "self_cuda_ms": 0.667,
+            "calls": 12.0
+          },
+          {
+            "op": "aten::mul",
+            "self_cuda_ms": 0.152,
+            "calls": 48.0
+          },
+          {
+            "op": "aten::add",
+            "self_cuda_ms": 0.138,
+            "calls": 50.0
+          },
+          {
+            "op": "aten::native_layer_norm",
+            "self_cuda_ms": 0.112,
+            "calls": 25.0
+          },
+          {
+            "op": "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<float, float, false>(int, float, float const*, float const*, float const*, float*, float*, float*)",
+            "self_cuda_ms": 0.112,
+            "calls": 25.0
+          },
+          {
+            "op": "void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>, false>(int, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+            "self_cuda_ms": 0.109,
+            "calls": 36.0
+          }
+        ],
+        "distinct_kernels": 17.0,
+        "kernel_launches": 271.0,
+        "total_cuda_ms": 5.373
+      },
+      "compiled": {
+        "top_ops": [
+          {
+            "op": "aten::mm",
+            "self_cuda_ms": 2.555,
+            "calls": 37.0
+          },
+          {
+            "op": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+            "self_cuda_ms": 1.698,
+            "calls": 36.0
+          },
+          {
+            "op": "sm80_xmma_gemm_f32f32_f32f32_f32_tn_n_tilesize64x256x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_kernel__5x_cublas",
+            "self_cuda_ms": 0.807,
+            "calls": 1.0
+          },
+          {
+            "op": "aten::addmm",
+            "self_cuda_ms": 0.738,
+            "calls": 12.0
+          },
+          {
+            "op": "void cutlass::Kernel2<cutlass_80_simt_sgemm_256x128_8x4_nn_align1>(cutlass_80_simt_sgemm_256x128_8x4_nn_align1::Params)",
+            "self_cuda_ms": 0.677,
+            "calls": 12.0
+          },
+          {
+            "op": "aten::_efficient_attention_forward",
+            "self_cuda_ms": 0.672,
+            "calls": 12.0
+          },
+          {
+            "op": "fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEffAttention::AttentionKernel<float, cutlass::arch::Sm80, true, 64, 64, 64, true, true>::Params)",
+            "self_cuda_ms": 0.672,
+            "calls": 12.0
+          },
+          {
+            "op": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+            "self_cuda_ms": 0.067,
+            "calls": 12.0
+          },
+          {
+            "op": "triton_poi_fused_add_addmm_mul_pow_tanh_view_4",
+            "self_cuda_ms": 0.051,
+            "calls": 12.0
+          },
+          {
+            "op": "sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4_execute_split_k_kernel__5x_cublas",
+            "self_cuda_ms": 0.042,
+            "calls": 12.0
+          },
+          {
+            "op": "triton_per_fused_add_addmm_native_layer_norm_view_6",
+            "self_cuda_ms": 0.04,
+            "calls": 11.0
+          }
+        ],
+        "distinct_kernels": 23.0,
+        "kernel_launches": 231.0,
+        "total_cuda_ms": 4.335
+      }
+    },
+    "roofs": {
+      "gemm_n": 8192.0,
+      "gemm_tflops": {
+        "fp32": 51.9,
+        "tf32": 405.1,
+        "fp16": 747.8,
+        "bf16": 778.4
+      },
+      "copy_gbs": 2980.6,
+      "launch_us": {
+        "enqueue_per_kernel": 4.88,
+        "launch_plus_sync": 12.11
+      }
+    },
+    "gpt2_cold": {
+      "model": "openai-community/gpt2",
+      "seq": 512.0,
+      "dtype": "float32",
+      "regional": false,
+      "inductor_cache_dir": "/tmp/ind_rbta5xx_",
+      "eager_ms": 6.31,
+      "first_call_s": 11.12,
+      "steady_ms": 4.7,
+      "first_over_steady": 2328.0
+    },
+    "gpt2_warm": {
+      "model": "openai-community/gpt2",
+      "seq": 512.0,
+      "dtype": "float32",
+      "regional": false,
+      "inductor_cache_dir": "/tmp/ind_rbta5xx_",
+      "eager_ms": 6.3,
+      "first_call_s": 3.31,
+      "steady_ms": 4.67,
+      "first_over_steady": 702.0
+    },
+    "gpt2_regional": {
+      "model": "openai-community/gpt2",
+      "seq": 512.0,
+      "dtype": "float32",
+      "regional": true,
+      "inductor_cache_dir": "/tmp/ind_dxjstqic",
+      "eager_ms": 6.19,
+      "first_call_s": 5.37,
+      "steady_ms": 5.71,
+      "first_over_steady": 940.0
+    },
+    "traces": {
+      "decode_top_ops": [
+        {
+          "op": "decode_step_4",
+          "self_cuda_ms": 34.245,
+          "calls": 1.0
+        },
+        {
+          "op": "decode_step_3",
+          "self_cuda_ms": 32.751,
+          "calls": 1.0
+        },
+        {
+          "op": "decode_step_2",
+          "self_cuda_ms": 32.178,
+          "calls": 1.0
+        },
+        {
+          "op": "decode_step_1",
+          "self_cuda_ms": 31.954,
+          "calls": 1.0
+        },
+        {
+          "op": "prefill",
+          "self_cuda_ms": 30.101,
+          "calls": 1.0
+        },
+        {
+          "op": "decode_step_0",
+          "self_cuda_ms": 28.924,
+          "calls": 1.0
+        },
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": 14.857,
+          "calls": 762.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x8_64x12_2x1_v_bz_TNT",
+          "self_cuda_ms": 4.568,
+          "calls": 180.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_2x1_v_bz_splitK_TNT",
+          "self_cuda_ms": 2.268,
+          "calls": 90.0
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": 2.139,
+          "calls": 1008.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_256x8_64x6_2x1_v_bz_TNT",
+          "self_cuda_ms": 1.8,
+          "calls": 5.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": 1.728,
+          "calls": 36.0
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": 1.601,
+          "calls": 722.0
+        },
+        {
+          "op": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "self_cuda_ms": 1.281,
+          "calls": 450.0
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": 1.271,
+          "calls": 108.0
+        }
+      ],
+      "prefill_top_ops": [
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": 4.035,
+          "calls": 127.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": 1.735,
+          "calls": 36.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x128_64x6_1x2_h_bz_splitK_TNT",
+          "self_cuda_ms": 0.88,
+          "calls": 18.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_320x128_64x3_1x2_h_bz_coopB_TNT",
+          "self_cuda_ms": 0.777,
+          "calls": 1.0
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": 0.774,
+          "calls": 168.0
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": 0.364,
+          "calls": 116.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x128_64x8_2x1_v_bz_TNN",
+          "self_cuda_ms": 0.346,
+          "calls": 36.0
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": 0.325,
+          "calls": 18.0
+        },
+        {
+          "op": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+          "self_cuda_ms": 0.312,
+          "calls": 75.0
+        },
+        {
+          "op": "cudnn_generated_fort_native_sdpa_sm90_flash_fprop_wgmma_f16_knob_1_64x128x256_4x1x1_cga1x1x1_kernel0_0",
+          "self_cuda_ms": 0.31,
+          "calls": 18.0
+        },
+        {
+          "op": "aten::add",
+          "self_cuda_ms": 0.301,
+          "calls": 147.0
+        },
+        {
+          "op": "void at::native::vectorized_elementwise_kernel<8, at::native::BinaryFunctor<c10::Half, c10::Half, c10::Half, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul>, false>(int, at::native::BinaryFunctor<c10::Half, c10::Half, c10::Half, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul>)",
+          "self_cuda_ms": 0.3,
+          "calls": 54.0
+        },
+        {
+          "op": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "self_cuda_ms": 0.269,
+          "calls": 75.0
+        },
+        {
+          "op": "aten::mean",
+          "self_cuda_ms": 0.217,
+          "calls": 37.0
+        },
+        {
+          "op": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)",
+          "self_cuda_ms": 0.217,
+          "calls": 37.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_24x64_64x16_4x2_h_bz_TNN",
+          "self_cuda_ms": 0.212,
+          "calls": 36.0
+        },
+        {
+          "op": "aten::gelu",
+          "self_cuda_ms": 0.2,
+          "calls": 18.0
+        },
+        {
+          "op": "void at::native::vectorized_elementwise_kernel<8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>, false>(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(c10::Half)#1}, std::array<char*, 2ul>)",
+          "self_cuda_ms": 0.2,
+          "calls": 18.0
+        },
+        {
+          "op": "aten::cat",
+          "self_cuda_ms": 0.173,
+          "calls": 37.0
+        },
+        {
+          "op": "void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 64, 64>(at::native::(anonymous namespace)::OpaqueType<2u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 64, 64>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+          "self_cuda_ms": 0.171,
+          "calls": 36.0
+        }
+      ],
+      "compiled_decode_top_ops": [
+        {
+          "op": "## Call CompiledFxGraph fvcnf6v44nidlv2zz4ktnq6g2enmcniwebecy3p5dp3vfrrtfddq ##",
+          "self_cuda_ms": 12.846,
+          "calls": 5.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x8_64x12_2x1_v_bz_TNT",
+          "self_cuda_ms": 4.53,
+          "calls": 180.0
+        },
+        {
+          "op": "aten::mm",
+          "self_cuda_ms": 3.615,
+          "calls": 127.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_2x1_v_bz_splitK_TNT",
+          "self_cuda_ms": 2.295,
+          "calls": 90.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_256x8_64x6_2x1_v_bz_TNT",
+          "self_cuda_ms": 2.166,
+          "calls": 6.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x256_64x4_2x1_v_bz_coopA_TNN",
+          "self_cuda_ms": 1.724,
+          "calls": 36.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x8_64x16_4x1_v_bz_TNT",
+          "self_cuda_ms": 1.065,
+          "calls": 180.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_8x64_64x16_4x1_v_bz_TNN",
+          "self_cuda_ms": 0.941,
+          "calls": 180.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_128x128_64x6_1x2_h_bz_splitK_TNT",
+          "self_cuda_ms": 0.881,
+          "calls": 18.0
+        },
+        {
+          "op": "cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_2_16x128x256_1x4x1_cga1x1x1_kernel0_0",
+          "self_cuda_ms": 0.859,
+          "calls": 90.0
+        },
+        {
+          "op": "aten::mul",
+          "self_cuda_ms": 0.79,
+          "calls": 180.0
+        },
+        {
+          "op": "aten::copy_",
+          "self_cuda_ms": 0.486,
+          "calls": 214.0
+        },
+        {
+          "op": "aten::add",
+          "self_cuda_ms": 0.368,
+          "calls": 192.0
+        },
+        {
+          "op": "nvjet_sm90_hsh_64x128_64x8_2x1_v_bz_TNN",
+          "self_cuda_ms": 0.35,
+          "calls": 36.0
+        },
+        {
+          "op": "aten::_cudnn_attention_forward",
+          "self_cuda_ms": 0.318,
+          "calls": 18.0
+        }
+      ],
+      "files": [
+        "gemma_prefill_decode5_eager.json.gz",
+        "gemma_prefill_decode5_eager.txt",
+        "gemma_prefill_eager.json.gz",
+        "gemma_prefill_eager.txt",
+        "gemma_generate6_static_autocompile.json.gz",
+        "gemma_generate6_static_autocompile.txt",
+        "bge_m3_fp16_batch32.json.gz",
+        "bge_m3_fp16_batch32.txt"
+      ]
+    },
+    "nsys": {
+      "nsys": "NVIDIA Nsight Systems version 2026.3.2.476-263238834031v0",
+      "attempts": [
+        {
+          "trace": "cuda,nvtx,osrt,cublas",
+          "returncode": 0.0,
+          "ok": true,
+          "tail": "[transformers] We found `hidden_act=\"gelu\"` in this Gemma config. This is a legacy value of the official releases but it is meant to target the tanh approximation. Setting `hidden_act=\"gelu_pytorch_tanh\"` instead.\n[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/164 [00:00<?, ?it/s]\nLoading weights:   1%|          | 1/164 [00:00<01:26,  1.89it/s]\nLoading weights:  68%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 111/164 [00:00<00:00, 230.38it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 164/164 [00:00<00:00, 168.32it/s]\nUsing the latest cached version of the dataset since Salesforce/wikitext couldn't be found on the Hugging Face Hub (offline mode is enabled).\nFound the latest cached dataset configuration 'wikitext-2-raw-v1' at /cache/hf/datasets/Salesforce___wikitext/wikitext-2-raw-v1/0.0.0/b08601e04326c79dfdd32d625aee71d232d685c3 (last modified on Fri Oct 23 13:00:09 2026).\n"
+        }
+      ],
+      "trace": "cuda,nvtx,osrt,cublas",
+      "dropped_files_with_token": [
+        "rag_decode.nsys-rep"
+      ],
+      "files": [
+        "nsys/rag_decode_cuda_api_sum.csv",
+        "nsys/rag_decode_cuda_gpu_kern_sum.csv",
+        "nsys/rag_decode_nvtx_sum.csv"
+      ]
+    }
+  },
+  "chapter02_lab": {
+    "errors": [],
+    "summary": {
+      "latency_ms": {
+        "p50": 188.70747099999363,
+        "p95": 222.79037895000045,
+        "p99": 229.80116716000978,
+        "mean": 194.33862435999873,
+        "n": 100.0
+      },
+      "stage_median_ms": {
+        "encode_query": 9.3,
+        "retrieval": 0.6,
+        "tokenize_prompt": 1.5,
+        "prefill": 10.5,
+        "decode": 167.4,
+        "detokenize": 0.1
+      },
+      "decode_roofline": {
+        "ms_per_token": 12.169073486328124,
+        "achieved_tflops": 0.4118920670198382,
+        "achieved_bw_gbs": 411.8920670198382,
+        "pct_peak_bw": 12.295285582681737,
+        "arithmetic_intensity": 1.0,
+        "ridge": 295.2238805970149
+      }
+    }
+  },
+  "repeats": 5,
+  "lab_repeats": 5
+}

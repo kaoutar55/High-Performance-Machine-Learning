@@ -1,0 +1,280 @@
+===== with_breaks =====
+Graph Count: 2
+Graph Break Count: 1
+Op Count: 321
+Break Reasons:
+  Break Reason 1:
+    Reason: Unsupported Tensor.item() call with capture_scalar_outputs=False
+  Explanation: Dynamo does not support tracing `Tensor.item()` with config.capture_scalar_outputs=False.
+  Hint: Set `torch._dynamo.config.capture_scalar_outputs = True` or `export TORCHDYNAMO_CAPTURE_SCALAR_OUTPUTS=1` to include these operations in the captured graph.
+
+  Developer debug context: call_method TensorVariable() item () {}
+
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0124.html
+    User Stack:
+      <FrameSummary file /root/experiments_extra.py, line 365 in forward>
+Ops per Graph:
+  Ops 1:
+    <function embedding at 0x2b5e71842840>
+  Ops 2:
+    <built-in method arange of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <function embedding at 0x2b5e71842840>
+    <built-in function add>
+    <function dropout at 0x2b5e71841580>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of ty
+
+===== clean =====
+Graph Count: 1
+Graph Break Count: 0
+Op Count: 321
+Break Reasons:
+Ops per Graph:
+  Ops 1:
+    <function embedding at 0x2b5e71842840>
+    <built-in method arange of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <function embedding at 0x2b5e71842840>
+    <built-in function add>
+    <function dropout at 0x2b5e71841580>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in function getitem>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method tensor of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in method cat of type object at 0x2b5e3abb3460>
+    <built-in function scaled_dot_product_attention>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <function dropout at 0x2b5e71841580>
+    <built-in function add>
+    <function layer_norm at 0x2b5e71842c00>
+    <built-in method addmm of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in method pow of type object at 0x2b5e3abb3460>
+    <built-in function mul>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method tanh of type object at 0x2b5e3abb3460>
+    <built-in function add>
+    <built-in function mul>
+    <built-in method addmm of type object at 0x2b5e3abb3
+

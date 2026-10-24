@@ -1,0 +1,361 @@
+{
+  "platforms": {
+    "header": [
+      "",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "GPU",
+        "NVIDIA A100-SXM4-80GB",
+        "NVIDIA H100 80GB HBM3",
+        "Tesla T4"
+      ],
+      [
+        "Compute capability",
+        "8.0",
+        "9.0",
+        "7.5"
+      ],
+      [
+        "Host CPU",
+        "unknown",
+        "unknown",
+        "unknown"
+      ],
+      [
+        "PyTorch / CUDA",
+        "2.14.1+cu130 / 13.0",
+        "2.14.1+cu130 / 13.0",
+        "2.14.1+cu130 / 13.0"
+      ],
+      [
+        "transformers",
+        "5.20.2",
+        "5.20.2",
+        "5.20.2"
+      ]
+    ],
+    "note": ""
+  },
+  "ch2_latency_ms": {
+    "header": [
+      "Statistic",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "p50",
+        "382.2",
+        "222.8",
+        "587.1"
+      ],
+      [
+        "p95",
+        "389.8",
+        "252.1",
+        "590.1"
+      ],
+      [
+        "p99",
+        "392.0",
+        "255.1",
+        "591.4"
+      ],
+      [
+        "mean",
+        "382.1",
+        "225.8",
+        "586.7"
+      ]
+    ],
+    "note": "Chapter 2 lab, naive RAG pipeline, 100 requests."
+  },
+  "ch2_stage_median_ms": {
+    "header": [
+      "Stage",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "encode_query",
+        "17.0",
+        "11.2",
+        "16.8"
+      ],
+      [
+        "retrieval",
+        "1.0",
+        "1.1",
+        "1.0"
+      ],
+      [
+        "tokenize_prompt",
+        "2.6",
+        "1.9",
+        "2.3"
+      ],
+      [
+        "prefill",
+        "22.2",
+        "12.3",
+        "108.0"
+      ],
+      [
+        "decode",
+        "339.1",
+        "196.5",
+        "458.1"
+      ],
+      [
+        "detokenize",
+        "0.2",
+        "0.2",
+        "0.3"
+      ],
+      [
+        "Total of stage medians",
+        "382.1",
+        "223.2",
+        "586.5"
+      ],
+      [
+        "Decode share",
+        "89%",
+        "88%",
+        "78%"
+      ]
+    ],
+    "note": "Chapter 2 lab, median per stage."
+  },
+  "ch2_decode_roofline": {
+    "header": [
+      "Quantity",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "Decode ms/token (lab loop)",
+        "23.0",
+        "13.0",
+        "28.4"
+      ],
+      [
+        "Achieved bandwidth (GB/s)",
+        "218",
+        "385",
+        "176"
+      ],
+      [
+        "% of peak bandwidth",
+        "11",
+        "11",
+        "55"
+      ],
+      [
+        "Arithmetic intensity (FLOP/byte)",
+        "1.0",
+        "1.0",
+        "1.0"
+      ],
+      [
+        "Ridge point (FLOP/byte)",
+        "153",
+        "295",
+        "203"
+      ]
+    ],
+    "note": "The lab's hand-written decode loop runs more Python per token than generate()."
+  },
+  "ch3_embedder_chunks_per_s": {
+    "header": [
+      "Setting",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "FP32, batch 1",
+        "33.2",
+        "68.7",
+        "10.7"
+      ],
+      [
+        "FP32, batch 8",
+        "48.4",
+        "113.3",
+        "12.4"
+      ],
+      [
+        "FP32, batch 32",
+        "52.5",
+        "118.6",
+        "11.9"
+      ],
+      [
+        "FP32, batch 64",
+        "53.2",
+        "120.2",
+        "12.2"
+      ],
+      [
+        "FP16, batch 1",
+        "66.9",
+        "104.4",
+        "49.7"
+      ],
+      [
+        "FP16, batch 8",
+        "247.3",
+        "436.9",
+        "57.9"
+      ],
+      [
+        "FP16, batch 32",
+        "273.8",
+        "511.1",
+        "57.3"
+      ],
+      [
+        "FP16, batch 64",
+        "290.5",
+        "529.4",
+        "56.8"
+      ],
+      [
+        "Attention kernel",
+        "mem_efficient",
+        "cudnn",
+        "mem_efficient"
+      ]
+    ],
+    "note": "BGE-M3 on 477-token chunks."
+  },
+  "ch4_decode_ms_per_token": {
+    "header": [
+      "Variant",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "Eager, dynamic cache",
+        "17.48",
+        "11.74",
+        "24.68"
+      ],
+      [
+        "Eager, static cache (auto-compile off)",
+        "20.07",
+        "13.62",
+        "25.23"
+      ],
+      [
+        "Static cache, transformers auto-compile",
+        "6.00",
+        "3.53",
+        "23.47"
+      ],
+      [
+        "torch.compile(model) then .generate()",
+        "17.77",
+        "11.09",
+        "24.70"
+      ],
+      [
+        "Compiled forward + static cache, CUDA graphs",
+        "\u2013",
+        "\u2013",
+        "\u2013"
+      ],
+      [
+        "Compiled forward + static cache, no CUDA graphs",
+        "6.54",
+        "4.59",
+        "23.31"
+      ]
+    ],
+    "note": "generate(), batch 1, 512-token prompt, 20 new tokens. '\u2013' = not measured or crashed."
+  },
+  "ch5_decode_batching": {
+    "header": [
+      "Quantity",
+      "A100-80GB",
+      "H100",
+      "T4"
+    ],
+    "rows": [
+      [
+        "Batch 1: decode tokens/s",
+        "57",
+        "85",
+        "41"
+      ],
+      [
+        "Batch 4: decode tokens/s",
+        "220",
+        "328",
+        "147"
+      ],
+      [
+        "Batch 16: decode tokens/s",
+        "851",
+        "1,262",
+        "454"
+      ],
+      [
+        "Batch 64: decode tokens/s",
+        "3,437",
+        "5,440",
+        "1,065"
+      ],
+      [
+        "Batch 1: ms per decode step",
+        "17.46",
+        "11.81",
+        "24.63"
+      ],
+      [
+        "Batch 4: ms per decode step",
+        "18.22",
+        "12.18",
+        "27.16"
+      ],
+      [
+        "Batch 16: ms per decode step",
+        "18.79",
+        "12.68",
+        "35.25"
+      ],
+      [
+        "Batch 64: ms per decode step",
+        "18.62",
+        "11.76",
+        "60.11"
+      ],
+      [
+        "Batch 1: prefill TFLOP/s",
+        "119.4",
+        "187.4",
+        "24.3"
+      ],
+      [
+        "Weight-read floor (ms/token)",
+        "2.46",
+        "1.50",
+        "15.66"
+      ]
+    ],
+    "note": ""
+  }
+}

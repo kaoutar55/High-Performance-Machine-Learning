@@ -1,0 +1,21 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+## Call CompiledFxGraph fzleeh26ekg55hj4dgbvfc4lcwc6...         1.57%     982.450us         6.78%       4.246ms     849.150us      26.626ms        60.21%      26.655ms       5.331ms             5  
+                                               aten::mm         4.65%       2.916ms         6.85%       4.291ms      33.788us      11.050ms        24.99%      11.050ms      87.009us           127  
+ampere_fp16_s16816gemm_fp16_128x64_ldg8_f2f_stages_3...         0.00%       0.000us         0.00%       0.000us       0.000us       8.713ms        19.70%       8.713ms      48.405us           180  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us       5.568ms        12.59%       5.568ms     154.673us            36  
+fmha_cutlassF_f16_aligned_32x128_gmem_sm80(PyTorchMe...         0.00%       0.000us         0.00%       0.000us       0.000us       4.985ms        11.27%       4.985ms      55.387us            90  
+void gemv2T_kernel_val<int, int, __half, float, floa...         0.00%       0.000us         0.00%       0.000us       0.000us       4.433ms        10.02%       4.433ms      49.255us            90  
+ampere_fp16_s16816gemm_fp16_64x64_sliced1x2_ldg8_f2f...         0.00%       0.000us         0.00%       0.000us       0.000us       4.010ms         9.07%       4.010ms      95.465us            42  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us       3.108ms         7.03%       3.108ms     172.652us            18  
+std::enable_if<!(false), void>::type internal::gemvx...         0.00%       0.000us         0.00%       0.000us       0.000us       2.903ms         6.57%       2.903ms       8.065us           360  
+                                              aten::mul         2.98%       1.870ms         5.73%       3.589ms      19.941us       1.469ms         3.32%       1.469ms       8.164us           180  
+ampere_fp16_s16816gemm_fp16_128x128_ldg8_f2f_stages_...         0.00%       0.000us         0.00%       0.000us       0.000us       1.272ms         2.88%       1.272ms      35.331us            36  
+                                            aten::copy_         2.16%       1.352ms         9.05%       5.669ms      26.490us     919.002us         2.08%     919.002us       4.294us           214  
+                         aten::_flash_attention_forward         0.82%     512.480us         2.46%       1.541ms      85.593us     728.924us         1.65%     728.924us      40.496us            18  
+                                              aten::add         3.14%       1.970ms         5.04%       3.158ms      16.446us     692.916us         1.57%     692.916us       3.609us           192  
+void at::native::elementwise_kernel<128, 2, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us     564.859us         1.28%     564.859us       7.531us            75  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 62.661ms
+Self CUDA time total: 44.225ms
