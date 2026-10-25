@@ -26,5 +26,5 @@ workloads = [("RAG", 4000, 200), ("chat", 500, 400),
              ("reasoning", 1000, 4000)]
 for name, prompt, out in workloads:
     p, d, b, fit = size_pools(20, prompt, out, 0.05, h100, llama8b)
-    print(f"{name:9s} prefill {p:4.1f}  decode {d:5.1f} GPUs  "
+    print(f"{name:9s} prefill {p:4.1f} decode {d:5.1f} GPUs "
           f"batch {b:3d} (KV limit {fit})")
