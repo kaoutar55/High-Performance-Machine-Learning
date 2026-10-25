@@ -63,9 +63,9 @@ def main():
                           f"out tok/s {r['output_token_throughput']:.0f}")
             m = sp.get("metrics", {})
             # Prometheus keys carry labels, e.g. vllm:spec_decode_num_draft_tokens_total{model_name="..."}
-            name = lambda k: k.split("{")[0]
-            acc = sum(v for k, v in m.items() if name(k) == "vllm:spec_decode_num_accepted_tokens_total")
-            dra = sum(v for k, v in m.items() if name(k) == "vllm:spec_decode_num_draft_tokens_total")
+            base = lambda k: k.split("{")[0]
+            acc = sum(v for k, v in m.items() if base(k) == "vllm:spec_decode_num_accepted_tokens_total")
+            dra = sum(v for k, v in m.items() if base(k) == "vllm:spec_decode_num_draft_tokens_total")
             if dra:
                 print(f"{name}: draft acceptance {acc / dra:.2f}")
     try:
