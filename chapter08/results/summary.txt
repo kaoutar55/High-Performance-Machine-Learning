@@ -58,6 +58,19 @@ knee repeats: rate  within objectives per repeat (position in repeat)  median  T
      16  100.0% (0), 72.9% (2), 34.4% (1)  median 72.9%  TTFT p99 299–593  
      24  46.9% (1), 90.7% (0), 43.1% (2)  median 46.9%  TTFT p99 465–4694  
      32  55.2% (2), 55.9% (1), 30.9% (0)  median 55.2%  TTFT p99 6848–15562  
+knee_low repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+      8  100.0% (0), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 45–53  all repeats >= 90%
+         sent 8.0 req/s, send lag max 4 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 367.05 W, temp max 69.0 C, reasons []
+         sent 8.0 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 376.96 W, temp max 70.0 C, reasons []
+         sent 8.5 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 368.79 W, temp max 69.0 C, reasons []
+     12  100.0% (1), 100.0% (0), 100.0% (2)  median 100.0%  TTFT p99 218–218  all repeats >= 90%
+         sent 12.5 req/s, send lag max 3 ms, SM clock p50/min 1410.0/1305.0 MHz, power max 461.62 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 12.2 req/s, send lag max 4 ms, SM clock p50/min 1365.0/1275.0 MHz, power max 442.51 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 12.6 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1275.0 MHz, power max 434.17 W, temp max 74.0 C, reasons ['0x0000000000000004']
+     16  85.8% (2), 100.0% (1), 60.2% (0)  median 85.8%  TTFT p99 295–656  
+         sent 15.9 req/s, send lag max 5 ms, SM clock p50/min 1410.0/1260.0 MHz, power max 436.12 W, temp max 76.0 C, reasons ['0x0000000000000004']
+         sent 15.9 req/s, send lag max 3 ms, SM clock p50/min 1410.0/1260.0 MHz, power max 471.87 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 17.0 req/s, send lag max 7 ms, SM clock p50/min 1305.0/1245.0 MHz, power max 458.55 W, temp max 75.0 C, reasons ['0x0000000000000004']
 no_spec @ 0.25 req/s: TPOT p50 10.85 ms, out tok/s 25
 no_spec @ 24 req/s: TPOT p50 47.31 ms, out tok/s 1990
 ngram @ 0.25 req/s: TPOT p50 7.53 ms, out tok/s 24
