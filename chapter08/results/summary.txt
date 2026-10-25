@@ -17,12 +17,18 @@ long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  p
     8.0       5125      93/13835       8.5    3.99    0.12       0
 prefix_on: follow-up TTFT p50 21 ms, p99 28 ms
 prefix_off: follow-up TTFT p50 28 ms, p99 40 ms
+high-rate sweep  64.0: req/s 55.1, out tok/s 7056, TTFT p99 2089 ms, TPOT p99 31.9 ms, within objectives 78.8%
+high-rate sweep  96.0: req/s 84.0, out tok/s 10753, TTFT p99 210 ms, TPOT p99 6.2 ms, within objectives 100.0%
+high-rate sweep 128.0: req/s 93.4, out tok/s 11961, TTFT p99 6627 ms, TPOT p99 31.0 ms, within objectives 50.5%
+long-prompt budget_512 @ 3 req/s: TTFT p50/p99 160/340 ms, ITL p99 18.3 ms, TPOT p50 6.0 ms
+long-prompt budget_8192 @ 3 req/s: TTFT p50/p99 113/253 ms, ITL p99 86.4 ms, TPOT p50 5.9 ms
 budget_512 @ 32 req/s: TTFT p99 77 ms, ITL p99 13.4 ms, TPOT p50 6.0 ms
 budget_8192 @ 32 req/s: TTFT p99 83 ms, ITL p99 18.1 ms, TPOT p50 6.4 ms
 no_spec @ 0.25 req/s: TPOT p50 4.28 ms, out tok/s 25
 no_spec @ 32 req/s: TPOT p50 6.41 ms, out tok/s 3790
 ngram @ 0.25 req/s: TPOT p50 2.17 ms, out tok/s 25
 ngram @ 32 req/s: TPOT p50 4.15 ms, out tok/s 3816
+ngram: draft acceptance 0.49
 
 === A100-80GB_llama  (NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04, meta-llama/Llama-3.1-8B-Instruct, vLLM 0.32.0)
 single request: TTFT p50 58 ms, TPOT p50 10.84 ms, ITL p50 10.82 ms, text chunks per token 1.00
@@ -47,6 +53,7 @@ no_spec @ 0.25 req/s: TPOT p50 10.85 ms, out tok/s 25
 no_spec @ 24 req/s: TPOT p50 47.31 ms, out tok/s 1990
 ngram @ 0.25 req/s: TPOT p50 7.53 ms, out tok/s 24
 ngram @ 24 req/s: TPOT p50 58.35 ms, out tok/s 1548
+ngram: draft acceptance 0.14
 
 === H100_gemma  (NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04, google/gemma-2b-it, vLLM 0.32.0)
 single request: TTFT p50 19 ms, TPOT p50 2.37 ms, ITL p50 2.38 ms, text chunks per token 1.00
@@ -68,12 +75,18 @@ long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  p
    12.0       9838      33/119         4.2    9.61    0.09       0
 prefix_on: follow-up TTFT p50 13 ms, p99 20 ms
 prefix_off: follow-up TTFT p50 15 ms, p99 24 ms
+high-rate sweep  96.0: req/s 87.2, out tok/s 11163, TTFT p99 114 ms, TPOT p99 5.8 ms, within objectives 100.0%
+high-rate sweep 128.0: req/s 117.4, out tok/s 15022, TTFT p99 148 ms, TPOT p99 3.9 ms, within objectives 100.0%
+high-rate sweep 160.0: req/s 138.4, out tok/s 17710, TTFT p99 245 ms, TPOT p99 4.2 ms, within objectives 100.0%
+long-prompt budget_512 @ 6 req/s: TTFT p50/p99 65/125 ms, ITL p99 7.0 ms, TPOT p50 3.0 ms
+long-prompt budget_8192 @ 6 req/s: TTFT p50/p99 50/97 ms, ITL p99 27.1 ms, TPOT p50 3.2 ms
 budget_512 @ 48 req/s: TTFT p99 37 ms, ITL p99 6.5 ms, TPOT p50 3.1 ms
 budget_8192 @ 48 req/s: TTFT p99 45 ms, ITL p99 10.1 ms, TPOT p50 3.3 ms
 no_spec @ 0.25 req/s: TPOT p50 2.37 ms, out tok/s 25
 no_spec @ 48 req/s: TPOT p50 3.35 ms, out tok/s 5694
 ngram @ 0.25 req/s: TPOT p50 1.33 ms, out tok/s 25
 ngram @ 48 req/s: TPOT p50 1.99 ms, out tok/s 5712
+ngram: draft acceptance 0.49
 
 === H100_llama  (NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04, meta-llama/Llama-3.1-8B-Instruct, vLLM 0.32.0)
 single request: TTFT p50 22 ms, TPOT p50 6.45 ms, ITL p50 6.44 ms, text chunks per token 1.00
@@ -98,6 +111,7 @@ no_spec @ 0.25 req/s: TPOT p50 6.45 ms, out tok/s 25
 no_spec @ 32 req/s: TPOT p50 10.96 ms, out tok/s 3712
 ngram @ 0.25 req/s: TPOT p50 4.57 ms, out tok/s 25
 ngram @ 32 req/s: TPOT p50 11.75 ms, out tok/s 3650
+ngram: draft acceptance 0.14
 
 === T4_gemma  (Tesla T4, 15360 MiB, 610.57.04, google/gemma-2b-it, vLLM 0.32.0)
 single request: TTFT p50 181 ms, TPOT p50 22.13 ms, ITL p50 21.52 ms, text chunks per token 1.00
@@ -120,3 +134,4 @@ no_spec @ 0.25 req/s: TPOT p50 22.07 ms, out tok/s 25
 no_spec @ 8 req/s: TPOT p50 140.76 ms, out tok/s 647
 ngram @ 0.25 req/s: TPOT p50 10.53 ms, out tok/s 25
 ngram @ 8 req/s: TPOT p50 139.31 ms, out tok/s 624
+ngram: draft acceptance 0.49
