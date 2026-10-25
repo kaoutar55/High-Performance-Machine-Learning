@@ -49,6 +49,17 @@ def main():
             p = d.get("prefix", {}).get(name, {}).get("follow_up", {})
             if "ttft_ms" in p:
                 print(f"{name}: follow-up TTFT p50 {f(p['ttft_ms']['p50'])} ms, p99 {f(p['ttft_ms']['p99'])} ms")
+        runs = d.get("sweep_high", {}).get("runs", [])
+        for r in runs:
+            if "ttft_ms" in r:
+                print(f"high-rate sweep {r['rate']:>5}: req/s {r['request_throughput']:.1f}, out tok/s "
+                      f"{r['output_token_throughput']:.0f}, TTFT p99 {f(r['ttft_ms']['p99'])} ms, "
+                      f"TPOT p99 {f(r['tpot_ms']['p99'], 1)} ms, within objectives {100 * r['slo_attainment']:.1f}%")
+        for name, b in d.get("budget_long", {}).items():
+            r = b.get("result", {}) if isinstance(b, dict) else {}
+            if "ttft_ms" in r:
+                print(f"long-prompt {name} @ {b['rate']} req/s: TTFT p50/p99 {f(r['ttft_ms']['p50'])}/{f(r['ttft_ms']['p99'])} ms, "
+                      f"ITL p99 {f(r['itl_ms']['p99'], 1)} ms, TPOT p50 {f(r['tpot_ms']['p50'], 1)} ms")
         for name, b in d.get("budget", {}).items():
             r = b.get("result", {})
             if "ttft_ms" in r:

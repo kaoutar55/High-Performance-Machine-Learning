@@ -39,7 +39,11 @@ MODELS = {
               "rates": {"A100-80GB": [1, 2, 4, 8, 16, 32, 48], "H100": [1, 2, 4, 8, 16, 32, 48, 64],
                         "T4": [0.5, 1, 2, 4, 8, 12]},
               "long_rates": {"A100-80GB": [0.5, 1, 2, 4, 8], "H100": [0.5, 1, 2, 4, 8, 12], "T4": [0.25, 0.5, 1]},
-              "studies": ["single", "sweep", "long", "prefix", "budget", "spec"]},
+              "studies": ["single", "sweep", "long", "prefix", "budget", "spec"],
+              # follow-up studies, run only when named with --studies
+              "high_rates": {"A100-80GB": [64, 96, 128], "H100": [96, 128, 160]},
+              "budget_long_rate": {"A100-80GB": 3, "H100": 6},
+              "extra_studies": ["sweep_high", "budget_long"]},
     "llama": {"id": "meta-llama/Llama-3.1-8B-Instruct", "dtype": "bfloat16", "gpus": ["A100-80GB", "H100"],
               "rates": {"A100-80GB": [1, 2, 4, 8, 16, 24, 32], "H100": [1, 2, 4, 8, 16, 32, 48]},
               "long_rates": {"A100-80GB": [0.25, 0.5, 1, 2, 3, 4], "H100": [0.25, 0.5, 1, 2, 4, 6]},
@@ -222,6 +226,36 @@ def study_budget(gpu, model):
     return res
 
 
+def study_sweep_high(gpu, model):
+    """The default sweep did not saturate Gemma on the A100 and H100; continue at higher rates."""
+    rates = MODELS[model].get("high_rates", {}).get(gpu)
+    if not rates:
+        return {"skipped": f"no high rates defined for {gpu}"}
+    out = []
+    with Server(model, []) as s:
+        s.load(SINGLE, 8, 80, offset=900)
+        for i, rate in enumerate(rates):
+            r = s.load(SINGLE, rate, int(min(3000, rate * 30)), offset=(i * 131) % 800, seed=100 + i)
+            out.append(r)
+            if r.get("slo_attainment", 1.0) < 0.5:                 # past saturation: stop
+                break
+        return {"startup": s.startup_lines(), "runs": out}
+
+
+def study_budget_long(gpu, model):
+    """Token budget 512 vs 8192 on the 4,096-token prompts, where a 512-token budget must split each prefill."""
+    rate = MODELS[model].get("budget_long_rate", {}).get(gpu)
+    if not rate:
+        return {"skipped": f"no rate defined for {gpu}"}
+    res = {}
+    for budget in (512, 8192):
+        with Server(model, ["--max-num-batched-tokens", str(budget)], max_len=6144) as s:
+            s.load(LONG, 0.5, 10, offset=900, slo=SLO_LONG, max_tokens=64)
+            res[f"budget_{budget}"] = {"rate": rate, "result": s.load(LONG, rate, int(rate * 60), offset=300,
+                                                                       slo=SLO_LONG, max_tokens=256)}
+    return res
+
+
 def study_spec(gpu, model):
     res = {}
     cfg = json.dumps({"method": "ngram", "num_speculative_tokens": 4, "prompt_lookup_min": 2, "prompt_lookup_max": 5})
@@ -236,7 +270,8 @@ def study_spec(gpu, model):
 
 
 STUDIES = {"single": study_single, "sweep": study_sweep, "long": study_long, "prefix": study_prefix,
-           "budget": study_budget, "spec": study_spec}
+           "budget": study_budget, "spec": study_spec, "sweep_high": study_sweep_high,
+           "budget_long": study_budget_long}
 
 
 def run_studies(gpu: str, model: str, studies: list) -> dict:
@@ -272,7 +307,10 @@ def main(gpus: str = "", models: str = "", studies: str = ""):
     handles = {}
     for (g, m), fn in FUNCS.items():
         if g in sel_g and m in sel_m:
-            handles[(g, m)] = fn.spawn(g, m, [s for s in (st or MODELS[m]["studies"]) if s in MODELS[m]["studies"]])
+            allowed = MODELS[m]["studies"] + MODELS[m].get("extra_studies", [])
+            todo = [s for s in (st or MODELS[m]["studies"]) if s in allowed]
+            if todo:
+                handles[(g, m)] = fn.spawn(g, m, todo)
     outdir = HERE / "results"
     outdir.mkdir(exist_ok=True)
     for (g, m), h in handles.items():
@@ -280,5 +318,9 @@ def main(gpus: str = "", models: str = "", studies: str = ""):
             res = h.get()
         except Exception as e:
             res = {"error": f"{type(e).__name__}: {e}"}
-        (outdir / f"{g}_{m}.json").write_text(json.dumps(res, indent=2))
-        print(f"wrote results/{g}_{m}.json")
+        path = outdir / f"{g}_{m}.json"
+        if path.exists() and "error" not in res:                  # merge new studies into earlier results
+            old = json.loads(path.read_text())
+            res = {**old, **{k: v for k, v in res.items() if k != "env"}, "env_" + "_".join(st or ["all"]): res["env"]}
+        path.write_text(json.dumps(res, indent=2))
+        print(f"wrote {path.relative_to(HERE)}")
