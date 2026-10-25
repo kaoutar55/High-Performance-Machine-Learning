@@ -1,0 +1,168 @@
+
+=== A100-80GB_gemma  (NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04, google/gemma-2b-it, vLLM 0.32.0)
+single request: TTFT p50 29 ms, TPOT p50 4.27 ms, ITL p50 4.23 ms, text chunks per token 1.00
+rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met
+ 1.0   0.88        113      26/39          4.2/4.3         4.7    0.88  100.0%
+ 2.0   2.08        267      27/40          4.2/4.4         5.3    2.08  100.0%
+ 4.0   3.65        468      28/42          4.3/4.7        13.9    3.65  100.0%
+ 8.0   7.79        997      28/51          4.5/4.9        14.3    7.79  100.0%
+16.0  14.48       1854      28/49          4.6/5.5        14.9   14.48  100.0%
+32.0  31.24       3998      24/59          4.4/6.1         9.9   31.24  100.0%
+48.0  43.94       5625      29/84          4.6/5.8        10.1   43.94  100.0%
+long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions
+    0.5        411     127/174         4.6    0.40    0.01       0
+    1.0       1012     129/230         5.0    0.99    0.02       0
+    2.0       1709     136/244         5.8    1.67    0.02       0
+    4.0       3450     239/634        13.9    3.37    0.12       0
+    8.0       5125      93/13835       8.5    3.99    0.12       0
+prefix_on: follow-up TTFT p50 21 ms, p99 28 ms
+prefix_off: follow-up TTFT p50 28 ms, p99 40 ms
+high-rate sweep  64.0: req/s 55.1, out tok/s 7056, TTFT p99 2089 ms, TPOT p99 31.9 ms, within objectives 78.8%
+high-rate sweep  96.0: req/s 84.0, out tok/s 10753, TTFT p99 210 ms, TPOT p99 6.2 ms, within objectives 100.0%
+high-rate sweep 128.0: req/s 93.4, out tok/s 11961, TTFT p99 6627 ms, TPOT p99 31.0 ms, within objectives 50.5%
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     48  100.0% (0), 100.0% (3), 100.0% (2)  median 100.0%  TTFT p99 40–47  all repeats >= 90%
+     64  100.0% (1), 100.0% (0), 100.0% (3)  median 100.0%  TTFT p99 71–91  all repeats >= 90%
+     96  100.0% (2), 100.0% (1), 100.0% (0)  median 100.0%  TTFT p99 184–254  all repeats >= 90%
+    128  99.8% (3), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 284–431  all repeats >= 90%
+long-prompt budget_512 @ 3 req/s: TTFT p50/p99 160/340 ms, ITL p99 18.3 ms, TPOT p50 6.0 ms
+long-prompt budget_8192 @ 3 req/s: TTFT p50/p99 113/253 ms, ITL p99 86.4 ms, TPOT p50 5.9 ms
+budget_512 @ 32 req/s: TTFT p99 77 ms, ITL p99 13.4 ms, TPOT p50 6.0 ms
+budget_8192 @ 32 req/s: TTFT p99 83 ms, ITL p99 18.1 ms, TPOT p50 6.4 ms
+no_spec @ 0.25 req/s: TPOT p50 4.28 ms, out tok/s 25
+no_spec @ 32 req/s: TPOT p50 6.41 ms, out tok/s 3790
+ngram @ 0.25 req/s: TPOT p50 2.17 ms, out tok/s 25
+ngram @ 32 req/s: TPOT p50 4.15 ms, out tok/s 3816
+ngram: draft acceptance 0.49
+
+=== A100-80GB_llama  (NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04, meta-llama/Llama-3.1-8B-Instruct, vLLM 0.32.0)
+single request: TTFT p50 58 ms, TPOT p50 10.84 ms, ITL p50 10.82 ms, text chunks per token 1.00
+rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met
+ 1.0   0.88        112      61/93         11.0/11.5       23.9    0.88  100.0%
+ 2.0   2.08        267      65/111        11.5/13.5       33.9    2.08  100.0%
+ 4.0   3.64        466      67/143        12.6/14.5       35.4    3.64  100.0%
+ 8.0   7.59        972      79/168        16.1/21.7       51.2    7.59  100.0%
+16.0  13.89       1778     101/252        29.5/35.9       98.9   13.89  100.0%
+24.0  20.37       2607      68/2506       17.9/46.0      131.1   18.43   90.5%
+32.0  23.78       3044      88/3331       22.3/47.1      110.1   20.65   86.8%
+long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions
+   0.25        203     329/545        12.8    0.20    0.06       0
+    0.5        528     372/803        18.0    0.52    0.19       0
+    1.0        676     405/1139       24.1    0.66    0.28       0
+    2.0        979     953/22574      69.6    0.00    1.00       7
+    3.0       1085    4525/68892      76.4    0.04    1.00      13
+    4.0       1004   67821/148388     89.3    0.00    1.00      17
+prefix_on: follow-up TTFT p50 38 ms, p99 46 ms
+prefix_off: follow-up TTFT p50 72 ms, p99 535 ms
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     16  100.0% (0), 72.9% (2), 34.4% (1)  median 72.9%  TTFT p99 299–593  
+     24  46.9% (1), 90.7% (0), 43.1% (2)  median 46.9%  TTFT p99 465–4694  
+     32  55.2% (2), 55.9% (1), 30.9% (0)  median 55.2%  TTFT p99 6848–15562  
+knee_low repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+      8  100.0% (0), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 45–53  all repeats >= 90%
+         sent 8.0 req/s, send lag max 4 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 367.05 W, temp max 69.0 C, reasons []
+         sent 8.0 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 376.96 W, temp max 70.0 C, reasons []
+         sent 8.5 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1410.0 MHz, power max 368.79 W, temp max 69.0 C, reasons []
+     12  100.0% (1), 100.0% (0), 100.0% (2)  median 100.0%  TTFT p99 218–218  all repeats >= 90%
+         sent 12.5 req/s, send lag max 3 ms, SM clock p50/min 1410.0/1305.0 MHz, power max 461.62 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 12.2 req/s, send lag max 4 ms, SM clock p50/min 1365.0/1275.0 MHz, power max 442.51 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 12.6 req/s, send lag max 2 ms, SM clock p50/min 1410.0/1275.0 MHz, power max 434.17 W, temp max 74.0 C, reasons ['0x0000000000000004']
+     16  85.8% (2), 100.0% (1), 60.2% (0)  median 85.8%  TTFT p99 295–656  
+         sent 15.9 req/s, send lag max 5 ms, SM clock p50/min 1410.0/1260.0 MHz, power max 436.12 W, temp max 76.0 C, reasons ['0x0000000000000004']
+         sent 15.9 req/s, send lag max 3 ms, SM clock p50/min 1410.0/1260.0 MHz, power max 471.87 W, temp max 75.0 C, reasons ['0x0000000000000004']
+         sent 17.0 req/s, send lag max 7 ms, SM clock p50/min 1305.0/1245.0 MHz, power max 458.55 W, temp max 75.0 C, reasons ['0x0000000000000004']
+no_spec @ 0.25 req/s: TPOT p50 10.85 ms, out tok/s 25
+no_spec @ 24 req/s: TPOT p50 47.31 ms, out tok/s 1990
+ngram @ 0.25 req/s: TPOT p50 7.53 ms, out tok/s 24
+ngram @ 24 req/s: TPOT p50 58.35 ms, out tok/s 1548
+ngram: draft acceptance 0.14
+
+=== H100_gemma  (NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04, google/gemma-2b-it, vLLM 0.32.0)
+single request: TTFT p50 19 ms, TPOT p50 2.37 ms, ITL p50 2.38 ms, text chunks per token 1.00
+rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met
+ 1.0   0.88        113      18/27          2.4/2.5         2.9    0.88  100.0%
+ 2.0   2.08        267      18/25          2.4/2.5         3.2    2.08  100.0%
+ 4.0   3.65        468      18/25          2.4/2.7         3.6    3.65  100.0%
+ 8.0   7.84       1003      17/30          2.5/2.7         7.7    7.84  100.0%
+16.0  14.59       1868      15/28          2.5/2.8         7.8   14.59  100.0%
+32.0  31.85       4077      15/36          2.6/3.1         5.3   31.85  100.0%
+48.0  45.39       5810      16/31          2.6/3.1         5.5   45.39  100.0%
+64.0  61.54       7878      19/39          2.7/3.4         6.2   61.54  100.0%
+long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions
+    0.5        420      47/52          2.5    0.41    0.00       0
+    1.0       1050      48/67          2.6    1.03    0.01       0
+    2.0       1755      48/78          2.8    1.71    0.01       0
+    4.0       3716      49/78          3.1    3.63    0.03       0
+    8.0       7239      31/108         3.5    7.07    0.06       0
+   12.0       9838      33/119         4.2    9.61    0.09       0
+prefix_on: follow-up TTFT p50 13 ms, p99 20 ms
+prefix_off: follow-up TTFT p50 15 ms, p99 24 ms
+high-rate sweep  96.0: req/s 87.2, out tok/s 11163, TTFT p99 114 ms, TPOT p99 5.8 ms, within objectives 100.0%
+high-rate sweep 128.0: req/s 117.4, out tok/s 15022, TTFT p99 148 ms, TPOT p99 3.9 ms, within objectives 100.0%
+high-rate sweep 160.0: req/s 138.4, out tok/s 17710, TTFT p99 245 ms, TPOT p99 4.2 ms, within objectives 100.0%
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     96  100.0% (0), 100.0% (3), 100.0% (2)  median 100.0%  TTFT p99 77–93  all repeats >= 90%
+    128  100.0% (1), 100.0% (0), 100.0% (3)  median 100.0%  TTFT p99 117–192  all repeats >= 90%
+    160  100.0% (2), 100.0% (1), 100.0% (0)  median 100.0%  TTFT p99 154–229  all repeats >= 90%
+    192  100.0% (3), 100.0% (2), 94.4% (1)  median 100.0%  TTFT p99 307–765  all repeats >= 90%
+long-prompt budget_512 @ 6 req/s: TTFT p50/p99 65/125 ms, ITL p99 7.0 ms, TPOT p50 3.0 ms
+long-prompt budget_8192 @ 6 req/s: TTFT p50/p99 50/97 ms, ITL p99 27.1 ms, TPOT p50 3.2 ms
+budget_512 @ 48 req/s: TTFT p99 37 ms, ITL p99 6.5 ms, TPOT p50 3.1 ms
+budget_8192 @ 48 req/s: TTFT p99 45 ms, ITL p99 10.1 ms, TPOT p50 3.3 ms
+no_spec @ 0.25 req/s: TPOT p50 2.37 ms, out tok/s 25
+no_spec @ 48 req/s: TPOT p50 3.35 ms, out tok/s 5694
+ngram @ 0.25 req/s: TPOT p50 1.33 ms, out tok/s 25
+ngram @ 48 req/s: TPOT p50 1.99 ms, out tok/s 5712
+ngram: draft acceptance 0.49
+
+=== H100_llama  (NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04, meta-llama/Llama-3.1-8B-Instruct, vLLM 0.32.0)
+single request: TTFT p50 22 ms, TPOT p50 6.45 ms, ITL p50 6.44 ms, text chunks per token 1.00
+rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met
+ 1.0   0.88        113      26/34          6.5/6.6         7.4    0.88  100.0%
+ 2.0   2.09        267      28/43          6.6/7.0         9.9    2.09  100.0%
+ 4.0   3.65        468      29/44          6.8/7.5        15.7    3.65  100.0%
+ 8.0   7.73        989      30/48          7.3/7.8        16.2    7.73  100.0%
+16.0  14.34       1836      32/56          7.7/8.7        17.0   14.34  100.0%
+32.0  30.45       3897      29/97          7.6/14.3       24.0   30.45  100.0%
+48.0  41.15       5267      33/352         8.1/17.1       26.0   41.15  100.0%
+long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions
+   0.25        208     118/153         7.0    0.20    0.04       0
+    0.5        593     123/219         8.1    0.58    0.13       0
+    1.0        739     124/277         9.0    0.72    0.18       0
+    2.0       1538     137/291        12.9    1.50    0.33       0
+    4.0       2561     537/17393      32.8    1.39    1.00      31
+    6.0       2485   17445/57354      35.7    0.81    1.00      41
+prefix_on: follow-up TTFT p50 22 ms, p99 28 ms
+prefix_off: follow-up TTFT p50 31 ms, p99 44 ms
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     32  100.0% (0), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 77–92  all repeats >= 90%
+     48  100.0% (1), 100.0% (0), 100.0% (2)  median 100.0%  TTFT p99 135–171  all repeats >= 90%
+     64  36.9% (2), 44.7% (1), 18.8% (0)  median 36.9%  TTFT p99 529–1421  
+no_spec @ 0.25 req/s: TPOT p50 6.45 ms, out tok/s 25
+no_spec @ 32 req/s: TPOT p50 10.96 ms, out tok/s 3712
+ngram @ 0.25 req/s: TPOT p50 4.57 ms, out tok/s 25
+ngram @ 32 req/s: TPOT p50 11.75 ms, out tok/s 3650
+ngram: draft acceptance 0.14
+
+=== T4_gemma  (Tesla T4, 15360 MiB, 610.57.04, google/gemma-2b-it, vLLM 0.32.0)
+single request: TTFT p50 181 ms, TPOT p50 22.13 ms, ITL p50 21.52 ms, text chunks per token 1.00
+rate  req/s  out tok/s  TTFT p50/p99 (ms)  TPOT p50/p99 (ms)  ITL p99  goodput  SLO met
+ 0.5   0.44         56     176/304        24.1/26.5       26.4    0.44  100.0%
+ 1.0   1.01        130     182/393        26.9/35.6      141.2    1.01  100.0%
+ 2.0   1.55        198     190/408        30.1/41.6      144.6    1.55  100.0%
+ 4.0   3.37        431     301/639        54.8/89.5      281.2    0.74   21.9%
+ 8.0   5.21        667    5484/13578     141.2/152.5     547.6    0.41    7.8%
+12.0   6.33        810    1211/28330     110.7/150.9     430.0    1.66   26.2%
+long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  peak KV use  preemptions
+   0.25        161    3209/6765      120.3    0.00    0.32       0
+    0.5        191   19525/47052     153.6    0.00    0.49       0
+    1.0        199   52115/90417     215.9    0.00    0.73       0
+prefix_on: follow-up TTFT p50 94 ms, p99 125 ms
+prefix_off: follow-up TTFT p50 325 ms, p99 965 ms
+budget_512 @ 8 req/s: TTFT p99 13956 ms, ITL p99 151.0 ms, TPOT p50 132.4 ms
+budget_8192 @ 8 req/s: TTFT p99 17531 ms, ITL p99 695.9 ms, TPOT p50 141.4 ms
+no_spec @ 0.25 req/s: TPOT p50 22.07 ms, out tok/s 25
+no_spec @ 8 req/s: TPOT p50 140.76 ms, out tok/s 647
+ngram @ 0.25 req/s: TPOT p50 10.53 ms, out tok/s 25
+ngram @ 8 req/s: TPOT p50 139.31 ms, out tok/s 624
+ngram: draft acceptance 0.49

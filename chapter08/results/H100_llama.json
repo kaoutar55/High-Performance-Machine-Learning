@@ -17,526 +17,545 @@
   },
   "single": {
     "startup": [
-      "(APIServer pid=10) INFO 10-24 23:11:31 [model.py:2152] Using max model len 2048",
+      "rver pid=10) INFO 10-25 14:52:25 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+      "(APIServer pid=10) INFO 10-25 14:52:34 [model.py:2152] Using max model len 2048",
+      "(APIServer pid=10) INFO 10-25 14:52:34 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=39) INFO 10-24 23:11:43 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=39) INFO 10-24 23:11:46 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=39) INFO 10-24 23:11:46 [flash_attn.py:1117] Using FlashAttention version 3",
-      "(EngineCore pid=39) INFO 10-24 23:11:56 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=39) INFO 10-24 23:12:03 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3ef3c894f4/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=39) INFO 10-24 23:12:10 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 7.42 s",
-      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.47it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 12.14it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 12.08it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 12.15it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 12.29it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:00<00:03, 12.53it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:02, 12.60it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.69it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 13.02it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.74it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.65it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 12.79it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 12.85it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 12.83it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 12.91it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 12.83it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 12.88it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 12.86it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:01, 12.88it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 12.98it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.12it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 13.08it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.54it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 13.99it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 14.76it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.10it/s]",
-      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 24.37it/s]",
-      "(EngineCore pid=39) INFO 10-24 23:12:22 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
+      "(EngineCore pid=36) INFO 10-25 14:52:45 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=36) INFO 10-25 14:52:47 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=36) INFO 10-25 14:52:47 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=36) INFO 10-25 14:52:55 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=36) INFO 10-25 14:53:01 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3ef3c894f4/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=36) INFO 10-25 14:53:07 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 5.88 s",
+      "(EngineCore pid=36) INFO 10-25 14:53:17 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
       "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=39) INFO 10-24 23:12:22 [kv_cache_utils.py:2327] GPU KV cache size: 451,040 tokens, Maximum concurrency for 2,048 tokens per request: 220.23x"
+      "(EngineCore pid=36) INFO 10-25 14:53:17 [kv_cache_utils.py:2327] GPU KV cache size: 451,040 tokens, Maximum concurrency for 2,048 tokens per request: 220.23x",
+      "(EngineCore pid=36) INFO 10-25 14:53:35 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.9%).",
+      "(APIServer pid=10) INFO 10-25 14:53:49 [loggers.py:335] Engine 000: Avg prompt throughput: 237.3 tokens/s, Avg generation throughput: 54.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%"
     ],
     "result": {
       "rate": 0.25,
       "completed": 30,
-      "duration_s": 154.17628861799997,
-      "request_throughput": 0.19458245018681505,
-      "output_token_throughput": 24.906553623912327,
-      "goodput_req_s": 0.19458245018681505,
+      "duration_s": 141.350789517,
+      "request_throughput": 0.21223793728008822,
+      "output_token_throughput": 27.166455971851292,
+      "goodput_req_s": 0.21223793728008822,
       "slo_attainment": 1.0,
+      "failed": 0,
       "slo": {
         "ttft_ms": 500.0,
         "tpot_ms": 50.0
       },
       "text_chunks_per_token": 1.0,
       "ttft_ms": {
-        "mean": 23.163565633331967,
-        "p50": 22.478143999990152,
-        "p90": 26.81822020002471,
-        "p95": 26.95795560000107,
-        "p99": 28.60360477999166
+        "mean": 22.97001066666695,
+        "p50": 22.25461700000153,
+        "p90": 26.854863300005153,
+        "p95": 30.03875880000635,
+        "p99": 32.9812531800026
       },
       "tpot_ms": {
-        "mean": 6.456043167979024,
-        "p50": 6.453326913385835,
-        "p90": 6.457593921260017,
-        "p95": 6.465208909842553,
-        "p99": 6.514590941810998
+        "mean": 6.21998635013124,
+        "p50": 6.217721728346438,
+        "p90": 6.221881225196945,
+        "p95": 6.233935156693024,
+        "p99": 6.293345005275602
       },
       "itl_ms": {
-        "mean": 6.456043167979024,
-        "p50": 6.440313499993522,
-        "p90": 6.856126000008089,
-        "p95": 7.009903450021682,
-        "p99": 7.175349689982795
+        "mean": 6.21998635013124,
+        "p50": 6.21417150000525,
+        "p90": 6.406337600010659,
+        "p95": 6.485948150000098,
+        "p99": 6.729666489988517
       },
       "e2e_ms": {
-        "mean": 843.081047966668,
-        "p50": 841.9869930000061,
-        "p90": 847.0578175000185,
-        "p95": 849.041319349999,
-        "p99": 852.698653429992
+        "mean": 812.9082771333344,
+        "p50": 811.5299399999998,
+        "p90": 819.5169592000184,
+        "p95": 823.5469959500066,
+        "p99": 824.3672595499993
       },
-      "failed": 0
+      "send_lag_ms": {
+        "p50": 1.1745949254162724,
+        "max": 2.1792889541529803
+      },
+      "sent_rate": 0.20634736338523196
     }
   },
-  "single_wall_s": 275.3,
+  "single_wall_s": 247.1,
   "sweep": {
     "startup": [
-      "(APIServer pid=189) INFO 10-24 23:15:57 [model.py:2152] Using max model len 2048",
+      "ver pid=185) INFO 10-25 14:56:32 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+      "(APIServer pid=185) INFO 10-25 14:56:32 [model.py:2152] Using max model len 2048",
+      "(APIServer pid=185) INFO 10-25 14:56:32 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=211) INFO 10-24 23:16:10 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=211) INFO 10-24 23:16:12 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=211) INFO 10-24 23:16:12 [flash_attn.py:1117] Using FlashAttention version 3",
-      "(EngineCore pid=211) INFO 10-24 23:16:19 [utils.py:347] Using LBNHC KV cache layout.",
-      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.83it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.38it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.74it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 11.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 11.82it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.26it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 12.31it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 12.67it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 12.90it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.65it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.83it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 12.97it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.03it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.05it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 12.78it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 12.82it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.04it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.09it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.17it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:03<00:00, 13.30it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.31it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.37it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.76it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.24it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 14.94it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.66it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.22it/s]",
-      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 26.96it/s]",
-      "(EngineCore pid=211) INFO 10-24 23:16:27 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+      "(EngineCore pid=205) INFO 10-25 14:56:42 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=205) INFO 10-25 14:56:45 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=205) INFO 10-25 14:56:45 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=205) INFO 10-25 14:56:50 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=205) INFO 10-25 14:56:59 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
       "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=211) INFO 10-24 23:16:27 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
-      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
+      "(EngineCore pid=205) INFO 10-25 14:56:59 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+      "(EngineCore pid=205) INFO 10-25 14:57:05 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.9%).",
+      "(APIServer pid=185) INFO 10-25 14:57:18 [loggers.py:335] Engine 000: Avg prompt throughput: 801.9 tokens/s, Avg generation throughput: 204.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=185) INFO 10-25 14:57:28 [loggers.py:335] Engine 000: Avg prompt throughput: 514.5 tokens/s, Avg generation throughput: 118.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=185) INFO 10-25 14:57:38 [loggers.py:335] Engine 000: Avg prompt throughput: 463.6 tokens/s, Avg generation throughput: 124.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=185) INFO 10-25 14:57:48 [loggers.py:335] Engine 000: Avg prompt throughput: 298.4 tokens/s, Avg generation throughput: 65.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=185) INFO 10-25 14:57:58 [loggers.py:335] Engine 000: Avg prompt throughput: 356.1 tokens/s, Avg generation throughput: 100.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=185) INFO 10-25 14:58:08 [loggers.py:335] Engine 000: Avg prompt throughput: 457.0 tokens/s, Avg generation throughput: 115.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=185) INFO 10-25 14:58:18 [loggers.py:335] Engine 000: Avg prompt throughput: 547.9 tokens/s, Avg generation throughput: 140.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=185) INFO 10-25 14:58:28 [loggers.py:335] Engine 000: Avg prompt throughput: 501.8 tokens/s, Avg generation throughput: 116.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=185) INFO 10-25 14:58:38 [loggers.py:335] Engine 000: Avg prompt throughput: 953.4 tokens/s, Avg generation throughput: 254.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=185) INFO 10-25 14:58:48 [loggers.py:335] Engine 000: Avg prompt throughput: 1268.6 tokens/s, Avg generation throughput: 298.3 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
+      "(APIServer pid=185) INFO 10-25 14:58:58 [loggers.py:335] Engine 000: Avg prompt throughput: 973.6 tokens/s, Avg generation throughput: 257.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+      "(APIServer pid=185) INFO 10-25 14:59:08 [loggers.py:335] Engine 000: Avg prompt throughput: 1101.8 tokens/s, Avg generation throughput: 261.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+      "(APIServer pid=185) INFO 10-25 14:59:18 [loggers.py:335] Engine 000: Avg prompt throughput: 1760.1 tokens/s, Avg generation throughput: 463.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+      "(APIServer pid=185) INFO 10-25 14:59:28 [loggers.py:335] Engine 000: Avg prompt throughput: 1516.3 tokens/s, Avg generation throughput: 378.9 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+      "(APIServer pid=185) INFO 10-25 14:59:38 [loggers.py:335] Engine 000: Avg prompt throughput: 2210.2 tokens/s, Avg generation throughput: 535.6 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+      "(APIServer pid=185) INFO 10-25 14:59:48 [loggers.py:335] Engine 000: Avg prompt throughput: 2264.0 tokens/s, Avg generation throughput: 609.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=185) INFO 10-25 14:59:58 [loggers.py:335] Engine 000: Avg prompt throughput: 2916.8 tokens/s, Avg generation throughput: 728.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+      "(APIServer pid=185) INFO 10-25 15:00:08 [loggers.py:335] Engine 000: Avg prompt throughput: 3689.6 tokens/s, Avg generation throughput: 911.3 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%",
+      "(APIServer pid=185) INFO 10-25 15:00:18 [loggers.py:335] Engine 000: Avg prompt throughput: 4269.9 tokens/s, Avg generation throughput: 1066.7 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+      "(APIServer pid=185) INFO 10-25 15:00:28 [loggers.py:335] Engine 000: Avg prompt throughput: 4557.3 tokens/s, Avg generation throughput: 1155.6 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=185) INFO 10-25 15:00:38 [loggers.py:335] Engine 000: Avg prompt throughput: 6686.4 tokens/s, Avg generation throughput: 1657.9 tokens/s, Running: 18 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.3%",
+      "(APIServer pid=185) INFO 10-25 15:00:48 [loggers.py:335] Engine 000: Avg prompt throughput: 7247.0 tokens/s, Avg generation throughput: 1868.5 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.3%",
+      "(APIServer pid=185) INFO 10-25 15:00:58 [loggers.py:335] Engine 000: Avg prompt throughput: 7113.6 tokens/s, Avg generation throughput: 1829.7 tokens/s, Running: 11 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%",
+      "(APIServer pid=185) INFO 10-25 15:01:08 [loggers.py:335] Engine 000: Avg prompt throughput: 6966.7 tokens/s, Avg generation throughput: 1747.3 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=185) INFO 10-25 15:01:18 [loggers.py:335] Engine 000: Avg prompt throughput: 10882.4 tokens/s, Avg generation throughput: 2589.4 tokens/s, Running: 31 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.9%",
+      "(APIServer pid=185) INFO 10-25 15:01:28 [loggers.py:335] Engine 000: Avg prompt throughput: 17187.1 tokens/s, Avg generation throughput: 4139.4 tokens/s, Running: 70 reqs, Waiting: 0 reqs, GPU KV cache usage: 9.0%",
+      "(APIServer pid=185) INFO 10-25 15:01:38 [loggers.py:335] Engine 000: Avg prompt throughput: 19796.9 tokens/s, Avg generation throughput: 4594.0 tokens/s, Running: 120 reqs, Waiting: 0 reqs, GPU KV cache usage: 15.2%"
     ],
     "runs": [
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 67.88329483399997,
-        "request_throughput": 0.8838698850243264,
-        "output_token_throughput": 113.13534528311378,
-        "goodput_req_s": 0.8838698850243264,
+        "duration_s": 67.78658926700001,
+        "request_throughput": 0.8851308296936148,
+        "output_token_throughput": 113.29674620078269,
+        "goodput_req_s": 0.8851308296936148,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 25.50650903332894,
-          "p50": 25.799005500033445,
-          "p90": 31.584226000006765,
-          "p95": 31.97987840003691,
-          "p99": 33.57066868999993
+          "mean": 24.822348233334424,
+          "p50": 24.564724499981594,
+          "p90": 29.264589699994303,
+          "p95": 30.295561000002635,
+          "p99": 32.91132535999565
         },
         "tpot_ms": {
-          "mean": 6.514796414829449,
-          "p50": 6.510254870078608,
-          "p90": 6.59003532204753,
-          "p95": 6.596310766535206,
-          "p99": 6.648746055275484
+          "mean": 6.26609026902885,
+          "p50": 6.256162862204458,
+          "p90": 6.361202191338477,
+          "p95": 6.374265153543076,
+          "p99": 6.422172383779677
         },
         "itl_ms": {
-          "mean": 6.514796414829449,
-          "p50": 6.482080500035181,
-          "p90": 6.90991599998938,
-          "p95": 7.050638500004425,
-          "p99": 7.400571890004815
+          "mean": 6.26609026902885,
+          "p50": 6.239030000017465,
+          "p90": 6.544891899994809,
+          "p95": 6.707709000014006,
+          "p99": 7.166754130013262
         },
         "e2e_ms": {
-          "mean": 852.8856537166689,
-          "p50": 853.3500085000014,
-          "p90": 863.7715384000103,
-          "p95": 866.3198466000239,
-          "p99": 870.6348804599918
+          "mean": 820.6158123999984,
+          "p50": 819.7737295000138,
+          "p90": 833.6951281999632,
+          "p95": 837.8380346499767,
+          "p99": 844.0116039899959
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 1.0403066396023064,
+          "max": 2.4122893555187375
+        },
+        "sent_rate": 0.8809353480464518
       },
       {
         "rate": 2.0,
         "completed": 80,
-        "duration_s": 38.36889151899999,
-        "request_throughput": 2.0850224448205545,
-        "output_token_throughput": 266.882872937031,
-        "goodput_req_s": 2.0850224448205545,
+        "duration_s": 37.104176558999995,
+        "request_throughput": 2.156091508264322,
+        "output_token_throughput": 275.97971305783324,
+        "goodput_req_s": 2.156091508264322,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 28.494824362503834,
-          "p50": 27.810533500030488,
-          "p90": 34.97856189995331,
-          "p95": 39.7572945000121,
-          "p99": 42.88480001000209
+          "mean": 27.635114875001676,
+          "p50": 27.540943999980527,
+          "p90": 32.14550960003635,
+          "p95": 34.67477470000801,
+          "p99": 44.137961049987084
         },
         "tpot_ms": {
-          "mean": 6.654769153543316,
-          "p50": 6.638641255905419,
-          "p90": 6.8574695456692725,
-          "p95": 6.9099646854331604,
-          "p99": 7.03292514110254
+          "mean": 6.414372019094498,
+          "p50": 6.397765775590608,
+          "p90": 6.629551256693196,
+          "p95": 6.686351337795438,
+          "p99": 6.740943712047366
         },
         "itl_ms": {
-          "mean": 6.654769153543316,
-          "p50": 6.57045249997168,
-          "p90": 6.958561099997951,
-          "p95": 7.1499730499908765,
-          "p99": 9.923188600021714
+          "mean": 6.414372019094497,
+          "p50": 6.314091499973529,
+          "p90": 6.658839600004285,
+          "p95": 6.89872004999188,
+          "p99": 11.175137339995441
         },
         "e2e_ms": {
-          "mean": 873.650506862505,
-          "p50": 871.2114950000114,
-          "p90": 900.4536736999682,
-          "p95": 907.7963688500233,
-          "p99": 921.3013574600262
+          "mean": 842.2603613000028,
+          "p50": 840.8337984999719,
+          "p90": 870.6256312000335,
+          "p95": 876.350949749957,
+          "p99": 887.789199140006
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.9924589014254082,
+          "max": 2.519126929776405
+        },
+        "sent_rate": 2.177281910617505
       },
       {
         "rate": 4.0,
         "completed": 160,
-        "duration_s": 43.79616913799998,
-        "request_throughput": 3.653287562568461,
-        "output_token_throughput": 467.620808008763,
-        "goodput_req_s": 3.653287562568461,
+        "duration_s": 43.16812166599999,
+        "request_throughput": 3.7064387753062453,
+        "output_token_throughput": 474.4241632391994,
+        "goodput_req_s": 3.7064387753062453,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 29.849826887499727,
-          "p50": 29.15376249998758,
-          "p90": 35.16287430001057,
-          "p95": 37.30043214995078,
-          "p99": 43.93440660999829
+          "mean": 28.131848237500993,
+          "p50": 27.453535999995893,
+          "p90": 33.1505672999981,
+          "p95": 35.688386799998305,
+          "p99": 39.18235996999613
         },
         "tpot_ms": {
-          "mean": 6.850680862303143,
-          "p50": 6.846563299212568,
-          "p90": 7.067068974803251,
-          "p95": 7.202669368897647,
-          "p99": 7.483326845275376
+          "mean": 6.60998821402556,
+          "p50": 6.602246700787521,
+          "p90": 6.8185659614171765,
+          "p95": 6.986981269291101,
+          "p99": 7.254480445511937
         },
         "itl_ms": {
-          "mean": 6.850680862303143,
-          "p50": 6.717180999999073,
-          "p90": 7.298133899990944,
-          "p95": 7.614314999989347,
-          "p99": 15.688558290008245
+          "mean": 6.60998821402556,
+          "p50": 6.412507499987896,
+          "p90": 6.782326199970612,
+          "p95": 7.003566899965108,
+          "p99": 12.248622860014965
         },
         "e2e_ms": {
-          "mean": 899.8862963999991,
-          "p50": 898.5490290000087,
-          "p90": 926.8459258999712,
-          "p95": 958.3172969000003,
-          "p99": 985.5910815300109
+          "mean": 867.6003514187471,
+          "p50": 867.1580224999786,
+          "p90": 894.7564330000148,
+          "p95": 925.8698819499955,
+          "p99": 954.072071800004
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8538124838040062,
+          "max": 2.6696966021830804
+        },
+        "sent_rate": 3.7543117771366115
       },
       {
         "rate": 8.0,
         "completed": 320,
-        "duration_s": 41.419491179999966,
-        "request_throughput": 7.725831266476709,
-        "output_token_throughput": 988.9064021090187,
-        "goodput_req_s": 7.725831266476709,
+        "duration_s": 41.10673485700005,
+        "request_throughput": 7.784612451297803,
+        "output_token_throughput": 996.4303937661188,
+        "goodput_req_s": 7.784612451297803,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 0.999951171875,
         "ttft_ms": {
-          "mean": 30.429190943751117,
-          "p50": 29.78239100002611,
-          "p90": 38.310582800068026,
-          "p95": 43.07379690004609,
-          "p99": 48.109884219990136
+          "mean": 31.09831381562511,
+          "p50": 29.677364999997735,
+          "p90": 38.51585260000547,
+          "p95": 43.477881799975655,
+          "p99": 50.19042495998861
         },
         "tpot_ms": {
-          "mean": 7.228057864000962,
-          "p50": 7.2933498937004515,
-          "p90": 7.6316653488183555,
-          "p95": 7.6962213956686645,
-          "p99": 7.756629280866063
+          "mean": 7.062161237180115,
+          "p50": 7.086427342519671,
+          "p90": 7.405745511811227,
+          "p95": 7.461814058267595,
+          "p99": 7.5348359708661246
         },
         "itl_ms": {
-          "mean": 7.228413593016366,
-          "p50": 6.911389999913808,
-          "p90": 7.779961300013838,
-          "p95": 9.514824500053022,
-          "p99": 16.167469699956882
+          "mean": 7.062508801589643,
+          "p50": 6.659981000041171,
+          "p90": 7.294535799996993,
+          "p95": 11.051972800015623,
+          "p99": 14.997043750013184
         },
         "e2e_ms": {
-          "mean": 948.3925396718735,
-          "p50": 958.8177565000251,
-          "p90": 1001.4073192000069,
-          "p95": 1007.6968074499689,
-          "p99": 1017.7994441900444
+          "mean": 927.9927909374998,
+          "p50": 932.5344570000027,
+          "p90": 972.0147117999545,
+          "p95": 978.3373281500047,
+          "p99": 988.6170846599805
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8506131477350465,
+          "max": 2.292909546081745
+        },
+        "sent_rate": 7.919049948977985
       },
       {
         "rate": 16.0,
         "completed": 600,
-        "duration_s": 41.831868902,
-        "request_throughput": 14.343131582421693,
-        "output_token_throughput": 1835.9208425499767,
-        "goodput_req_s": 14.343131582421693,
+        "duration_s": 41.28288910200001,
+        "request_throughput": 14.533866525609325,
+        "output_token_throughput": 1860.3349152779936,
+        "goodput_req_s": 14.533866525609325,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 0.9999479166666667,
         "ttft_ms": {
-          "mean": 32.48520846833458,
-          "p50": 31.78962499998761,
-          "p90": 44.204728000079285,
-          "p95": 47.88332415000695,
-          "p99": 55.83457266997584
+          "mean": 34.152526821667564,
+          "p50": 32.4571339999693,
+          "p90": 43.29737189999605,
+          "p95": 49.15952605002758,
+          "p99": 58.99446998998825
         },
         "tpot_ms": {
-          "mean": 7.678201020971123,
-          "p50": 7.7283794921260505,
-          "p90": 8.435227061417347,
-          "p95": 8.561640861416917,
-          "p99": 8.704503929921781
+          "mean": 7.827590534304462,
+          "p50": 7.824432893700731,
+          "p90": 8.306026309448917,
+          "p95": 8.437474237794818,
+          "p99": 8.630233615511974
         },
         "itl_ms": {
-          "mean": 7.67860409730169,
-          "p50": 7.107749500050886,
-          "p90": 9.152107999966574,
-          "p95": 15.382812250038569,
-          "p99": 17.041831499938105
+          "mean": 7.828001453015906,
+          "p50": 6.934850499987988,
+          "p90": 11.264936500026579,
+          "p95": 14.292289999985996,
+          "p99": 17.646878300001845
         },
         "e2e_ms": {
-          "mean": 1007.6167381316671,
-          "p50": 1020.2201740000305,
-          "p90": 1107.6545064999777,
-          "p95": 1127.4623140000074,
-          "p99": 1146.4218657600554
+          "mean": 1028.2565246783342,
+          "p50": 1027.6264529999821,
+          "p90": 1092.9668237000556,
+          "p95": 1105.0343335000207,
+          "p99": 1135.02128592997
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8439539982454392,
+          "max": 2.736268465980629
+        },
+        "sent_rate": 14.818589462583923
       },
       {
         "rate": 32.0,
         "completed": 600,
-        "duration_s": 19.707494981999957,
-        "request_throughput": 30.44526970820067,
-        "output_token_throughput": 3896.9945226496857,
-        "goodput_req_s": 30.44526970820067,
+        "duration_s": 19.15977263900004,
+        "request_throughput": 31.315611688350096,
+        "output_token_throughput": 4008.3982961088122,
+        "goodput_req_s": 31.315611688350096,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 0.9999739583333334,
         "ttft_ms": {
-          "mean": 34.52131851333396,
-          "p50": 29.437520000044515,
-          "p90": 54.696431699926514,
-          "p95": 73.57828584994758,
-          "p99": 96.96774449006853
+          "mean": 50.15929272333267,
+          "p50": 46.079332000033446,
+          "p90": 77.88302210000211,
+          "p95": 89.50302249996298,
+          "p99": 101.54480654992423
         },
         "tpot_ms": {
-          "mean": 8.403828408976366,
-          "p50": 7.624780783464668,
-          "p90": 12.074367107873702,
-          "p95": 13.729914061023445,
-          "p99": 14.287141360865519
+          "mean": 11.708803301102355,
+          "p50": 11.217620019685121,
+          "p90": 14.033880692125326,
+          "p95": 14.422998275197088,
+          "p99": 15.109050547480383
         },
         "itl_ms": {
-          "mean": 8.404048987689954,
-          "p50": 7.75479850000238,
-          "p90": 9.855782299996463,
-          "p95": 15.256529149985433,
-          "p99": 24.008807799989423
+          "mean": 11.709110626840593,
+          "p50": 8.775956999954815,
+          "p90": 19.386545900022156,
+          "p95": 24.947521750021902,
+          "p99": 39.34939675994201
         },
         "e2e_ms": {
-          "mean": 1101.8075264533325,
-          "p50": 996.8206670000086,
-          "p90": 1609.0051744000334,
-          "p95": 1789.3843031999268,
-          "p99": 1871.4300945399873
+          "mean": 1537.177311963332,
+          "p50": 1475.7752955,
+          "p90": 1836.8128586000582,
+          "p95": 1882.1060422499613,
+          "p99": 1999.3582901999685
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8694119342784745,
+          "max": 2.9489283980588255
+        },
+        "sent_rate": 33.00955487472014
       },
       {
         "rate": 48.0,
         "completed": 600,
-        "duration_s": 14.58104640700003,
-        "request_throughput": 41.14931008737162,
-        "output_token_throughput": 5267.111691183567,
-        "goodput_req_s": 41.14931008737162,
+        "duration_s": 13.811997346999988,
+        "request_throughput": 43.44049487747129,
+        "output_token_throughput": 5560.383344316325,
+        "goodput_req_s": 43.44049487747129,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
-        "text_chunks_per_token": 0.999921875,
+        "text_chunks_per_token": 0.9999479166666667,
         "ttft_ms": {
-          "mean": 51.20920734000265,
-          "p50": 33.176491999995505,
-          "p90": 93.94918539995845,
-          "p95": 154.593932649925,
-          "p99": 351.8455678699904
+          "mean": 88.86384612166316,
+          "p50": 79.22794999996086,
+          "p90": 148.88649299992952,
+          "p95": 179.65874794995216,
+          "p99": 236.87639016993214
         },
         "tpot_ms": {
-          "mean": 9.304356999947501,
-          "p50": 8.057268169291163,
-          "p90": 14.548535355905504,
-          "p95": 16.02765917362154,
-          "p99": 17.127722872834486
+          "mean": 19.477324940892395,
+          "p50": 20.323723047244307,
+          "p90": 23.259339458267398,
+          "p95": 24.667122035433646,
+          "p99": 25.074477296614766
         },
         "itl_ms": {
-          "mean": 9.3050896841746,
-          "p50": 8.393711999985953,
-          "p90": 10.802459999968049,
-          "p95": 17.74286299996107,
-          "p99": 25.992332869995064
+          "mean": 19.478347426321598,
+          "p50": 11.945843999967565,
+          "p90": 35.429824500056384,
+          "p95": 44.96538649999593,
+          "p99": 84.90463925005547
         },
         "e2e_ms": {
-          "mean": 1232.862546333335,
-          "p50": 1058.03445250001,
-          "p90": 1920.505353099918,
-          "p95": 2083.663722150055,
-          "p99": 2222.8806601099473
+          "mean": 2562.484113614997,
+          "p50": 2650.368991499988,
+          "p90": 3064.680411500069,
+          "p95": 3182.0492451500227,
+          "p99": 3270.9640301800027
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.9432161195332966,
+          "max": 2.8681557556282655
+        },
+        "sent_rate": 47.77269581995019
       }
     ]
   },
-  "sweep_wall_s": 342.4,
+  "sweep_wall_s": 328.1,
   "long": {
     "startup": [
-      "(APIServer pid=335) INFO 10-24 23:21:40 [model.py:2152] Using max model len 6144",
+      "ver pid=327) INFO 10-25 15:01:59 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 6144, 'enable_prefix_caching': False}",
+      "(APIServer pid=327) INFO 10-25 15:02:00 [model.py:2152] Using max model len 6144",
+      "(APIServer pid=327) INFO 10-25 15:02:00 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=357) INFO 10-24 23:21:53 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=357) INFO 10-24 23:21:55 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=357) INFO 10-24 23:21:55 [flash_attn.py:1117] Using FlashAttention version 3",
-      "(EngineCore pid=357) INFO 10-24 23:22:04 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=357) INFO 10-24 23:22:11 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/d5658fb15e/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=357) INFO 10-24 23:22:18 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 6.93 s",
-      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.70it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 11.95it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 11.75it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 11.81it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 11.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:01<00:03, 12.10it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:03, 12.28it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.52it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 12.82it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.60it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.71it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 12.86it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 12.97it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 12.86it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 12.94it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 12.99it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 12.99it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 12.63it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:03<00:01, 12.76it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 12.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.05it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 12.93it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.53it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 13.93it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 14.68it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 12.99it/s]",
-      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 23.95it/s]",
-      "(EngineCore pid=357) INFO 10-24 23:22:29 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
+      "(EngineCore pid=348) INFO 10-25 15:02:10 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=348) INFO 10-25 15:02:12 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=348) INFO 10-25 15:02:12 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=348) INFO 10-25 15:02:19 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=348) INFO 10-25 15:02:24 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/d5658fb15e/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=348) INFO 10-25 15:02:30 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 5.32 s",
+      "(EngineCore pid=348) INFO 10-25 15:02:40 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
       "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=357) INFO 10-24 23:22:29 [kv_cache_utils.py:2327] GPU KV cache size: 451,056 tokens, Maximum concurrency for 6,144 tokens per request: 73.41x"
+      "(EngineCore pid=348) INFO 10-25 15:02:40 [kv_cache_utils.py:2327] GPU KV cache size: 451,056 tokens, Maximum concurrency for 6,144 tokens per request: 73.41x",
+      "(EngineCore pid=348) INFO 10-25 15:02:58 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.4%).",
+      "(APIServer pid=327) INFO 10-25 15:03:11 [loggers.py:335] Engine 000: Avg prompt throughput: 1788.8 tokens/s, Avg generation throughput: 28.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=327) INFO 10-25 15:03:21 [loggers.py:335] Engine 000: Avg prompt throughput: 2463.5 tokens/s, Avg generation throughput: 67.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=327) INFO 10-25 15:03:31 [loggers.py:335] Engine 000: Avg prompt throughput: 410.1 tokens/s, Avg generation throughput: 142.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=327) INFO 10-25 15:03:41 [loggers.py:335] Engine 000: Avg prompt throughput: 2068.6 tokens/s, Avg generation throughput: 360.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.2%",
+      "(APIServer pid=327) INFO 10-25 15:03:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1226.7 tokens/s, Avg generation throughput: 304.6 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.0%",
+      "(APIServer pid=327) INFO 10-25 15:04:01 [loggers.py:335] Engine 000: Avg prompt throughput: 416.7 tokens/s, Avg generation throughput: 283.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=327) INFO 10-25 15:04:11 [loggers.py:335] Engine 000: Avg prompt throughput: 1233.4 tokens/s, Avg generation throughput: 223.6 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.1%",
+      "(APIServer pid=327) INFO 10-25 15:04:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1260.5 tokens/s, Avg generation throughput: 285.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.1%",
+      "(APIServer pid=327) INFO 10-25 15:04:31 [loggers.py:335] Engine 000: Avg prompt throughput: 412.6 tokens/s, Avg generation throughput: 155.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=327) INFO 10-25 15:04:41 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 51.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=327) INFO 10-25 15:04:51 [loggers.py:335] Engine 000: Avg prompt throughput: 803.3 tokens/s, Avg generation throughput: 107.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
+      "(APIServer pid=327) INFO 10-25 15:05:01 [loggers.py:335] Engine 000: Avg prompt throughput: 402.3 tokens/s, Avg generation throughput: 113.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
+      "(APIServer pid=327) INFO 10-25 15:05:11 [loggers.py:335] Engine 000: Avg prompt throughput: 815.8 tokens/s, Avg generation throughput: 254.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=327) INFO 10-25 15:05:21 [loggers.py:335] Engine 000: Avg prompt throughput: 827.5 tokens/s, Avg generation throughput: 123.1 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=327) INFO 10-25 15:05:31 [loggers.py:335] Engine 000: Avg prompt throughput: 1624.1 tokens/s, Avg generation throughput: 418.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=327) INFO 10-25 15:05:41 [loggers.py:335] Engine 000: Avg prompt throughput: 404.1 tokens/s, Avg generation throughput: 135.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=327) INFO 10-25 15:05:51 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 74.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=327) INFO 10-25 15:06:01 [loggers.py:335] Engine 000: Avg prompt throughput: 820.2 tokens/s, Avg generation throughput: 187.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=327) INFO 10-25 15:06:11 [loggers.py:335] Engine 000: Avg prompt throughput: 824.4 tokens/s, Avg generation throughput: 216.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=327) INFO 10-25 15:06:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1662.3 tokens/s, Avg generation throughput: 318.4 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.2%",
+      "(APIServer pid=327) INFO 10-25 15:06:31 [loggers.py:335] Engine 000: Avg prompt throughput: 792.7 tokens/s, Avg generation throughput: 238.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=327) INFO 10-25 15:06:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1217.3 tokens/s, Avg generation throughput: 242.4 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.1%",
+      "(APIServer pid=327) INFO 10-25 15:06:51 [loggers.py:335] Engine 000: Avg prompt throughput: 2893.9 tokens/s, Avg generation throughput: 534.5 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.0%",
+      "(APIServer pid=327) INFO 10-25 15:07:01 [loggers.py:335] Engine 000: Avg prompt throughput: 2472.9 tokens/s, Avg generation throughput: 632.7 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.1%",
+      "(APIServer pid=327) INFO 10-25 15:07:11 [loggers.py:335] Engine 000: Avg prompt throughput: 1239.4 tokens/s, Avg generation throughput: 531.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=327) INFO 10-25 15:07:21 [loggers.py:335] Engine 000: Avg prompt throughput: 2045.2 tokens/s, Avg generation throughput: 461.9 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.4%"
     ],
     "runs": [
       {
         "rate": 0.25,
         "completed": 40,
-        "duration_s": 196.77357914699996,
-        "request_throughput": 0.20327932323738415,
-        "output_token_throughput": 208.15802699508137,
-        "goodput_req_s": 0.20327932323738415,
+        "duration_s": 196.49523397500002,
+        "request_throughput": 0.20356727840579164,
+        "output_token_throughput": 208.45289308753064,
+        "goodput_req_s": 0.20356727840579164,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 0.9999755859375,
         "ttft_ms": {
-          "mean": 118.24093900000037,
-          "p50": 118.08743599993932,
-          "p90": 124.96990929997764,
-          "p95": 125.31451689998221,
-          "p99": 152.65081683999935
+          "mean": 115.03856644999928,
+          "p50": 114.85358050003924,
+          "p90": 120.70261050000681,
+          "p95": 122.29098584993494,
+          "p99": 151.9371507999983
         },
         "tpot_ms": {
-          "mean": 7.007039838269792,
-          "p50": 7.037965586021516,
-          "p90": 7.3428787819159105,
-          "p95": 7.365228409139791,
-          "p99": 7.418098489804521
+          "mean": 6.758803075953084,
+          "p50": 6.797243600684258,
+          "p90": 7.093168497067526,
+          "p95": 7.122210773167126,
+          "p99": 7.1703348683871
         },
         "itl_ms": {
-          "mean": 7.007211079987289,
-          "p50": 6.901620000007824,
-          "p90": 7.431573000053504,
-          "p95": 7.6016569999296735,
-          "p99": 8.10195440000598
+          "mean": 6.7589682511302875,
+          "p50": 6.640478000008443,
+          "p90": 6.9989975999760645,
+          "p95": 7.106697300037013,
+          "p99": 7.836428759949284
         },
         "e2e_ms": {
-          "mean": 7286.442693549997,
-          "p50": 7315.708803999996,
-          "p90": 7632.839448799985,
-          "p95": 7647.502038499931,
-          "p99": 7705.736520500044
+          "mean": 7029.294113150005,
+          "p50": 7064.851360000034,
+          "p90": 7377.261174100011,
+          "p95": 7400.712975749974,
+          "p99": 7451.1735673000585
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 0.9880300345059823,
+          "max": 1.91159583042122
+        },
+        "sent_rate": 0.2054499599349491,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -544,7 +563,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -553,60 +572,65 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 4.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.04214260376019863,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.04217807733238732,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       },
       {
         "rate": 0.5,
         "completed": 40,
-        "duration_s": 69.11932349099993,
-        "request_throughput": 0.578709367796524,
-        "output_token_throughput": 592.5983926236406,
-        "goodput_req_s": 0.578709367796524,
+        "duration_s": 68.78984641199997,
+        "request_throughput": 0.5814811645374199,
+        "output_token_throughput": 595.436712486318,
+        "goodput_req_s": 0.5814811645374199,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 132.40162182499944,
-          "p50": 122.612284000013,
-          "p90": 171.50532160000012,
-          "p95": 204.1316321999545,
-          "p99": 219.0525647099753
+          "mean": 128.37057325000671,
+          "p50": 119.08854950002024,
+          "p90": 163.00038490003317,
+          "p95": 191.65020455000666,
+          "p99": 212.39311652003607
         },
         "tpot_ms": {
-          "mean": 8.366090934677414,
-          "p50": 8.108152900293238,
-          "p90": 9.518117271749771,
-          "p95": 9.546855625806455,
-          "p99": 9.585986149481924
+          "mean": 8.052374340078199,
+          "p50": 7.805860278592298,
+          "p90": 9.167802626392882,
+          "p95": 9.24627692996096,
+          "p99": 9.272367204310838
         },
         "itl_ms": {
-          "mean": 8.366090934677414,
-          "p50": 7.855510500064611,
-          "p90": 9.074706099977448,
-          "p95": 9.358034000013049,
-          "p99": 11.229174790007598
+          "mean": 8.052374340078199,
+          "p50": 7.497935000003508,
+          "p90": 8.782873900042887,
+          "p95": 8.934713949952311,
+          "p99": 9.543950139981227
         },
         "e2e_ms": {
-          "mean": 8690.912647999994,
-          "p50": 8465.671346999956,
-          "p90": 9867.629006800053,
-          "p95": 9884.710603649995,
-          "p99": 9931.363393750033
+          "mean": 8365.949523150004,
+          "p50": 8141.682481500027,
+          "p90": 9534.405666600036,
+          "p95": 9576.685811250025,
+          "p99": 9604.885712470053
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 1.0116697770712335,
+          "max": 2.6185382008776514
+        },
+        "sent_rate": 0.6330394109316444,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -614,7 +638,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -623,60 +647,65 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 13.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.1324583185526782,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.13316778999645262,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       },
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 83.16603049200012,
-        "request_throughput": 0.7214484044152077,
-        "output_token_throughput": 738.7631661211727,
-        "goodput_req_s": 0.7214484044152077,
+        "duration_s": 82.80844536799998,
+        "request_throughput": 0.7245637776842754,
+        "output_token_throughput": 741.953308348698,
+        "goodput_req_s": 0.7245637776842754,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 131.89828718333843,
-          "p50": 124.15404399996532,
-          "p90": 133.572891599988,
-          "p95": 191.2153162499805,
-          "p99": 277.32529567997057
+          "mean": 128.54054250000027,
+          "p50": 120.46412099994086,
+          "p90": 129.63806770001156,
+          "p95": 183.860869,
+          "p99": 270.67529638996683
         },
         "tpot_ms": {
-          "mean": 9.039628143515804,
-          "p50": 8.98181815591403,
-          "p90": 10.310501674682365,
-          "p95": 10.416473857184748,
-          "p99": 10.603884140078195
+          "mean": 8.715415018295861,
+          "p50": 8.653956969696967,
+          "p90": 10.000111310166178,
+          "p95": 10.113094423216026,
+          "p99": 10.29813026886609
         },
         "itl_ms": {
-          "mean": 9.039628143515804,
-          "p50": 8.377232000043477,
-          "p90": 9.941749099994013,
-          "p95": 10.66625249995923,
-          "p99": 16.58695050002279
+          "mean": 8.715415018295861,
+          "p50": 8.084850000045662,
+          "p90": 9.52880099999902,
+          "p95": 10.126113900076918,
+          "p99": 10.774081199925831
         },
         "e2e_ms": {
-          "mean": 9379.437878000006,
-          "p50": 9310.296494000113,
-          "p90": 10663.548944800004,
-          "p95": 10921.075154249957,
-          "p99": 10968.206081190156
+          "mean": 9044.410106216666,
+          "p50": 8978.373619000024,
+          "p90": 10347.463143699986,
+          "p95": 10604.665452149959,
+          "p99": 10648.899839060025
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 0.953010698303558,
+          "max": 1.8106311102643602
+        },
+        "sent_rate": 0.7830073625536914,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -684,7 +713,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -693,60 +722,65 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 17.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.17538134090102875,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.17609081234480317,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       },
       {
         "rate": 2.0,
         "completed": 120,
-        "duration_s": 79.88913990099991,
-        "request_throughput": 1.5020815113131298,
-        "output_token_throughput": 1538.131467584645,
-        "goodput_req_s": 1.5020815113131298,
+        "duration_s": 79.39126574200009,
+        "request_throughput": 1.5115012826469754,
+        "output_token_throughput": 1547.7773134305028,
+        "goodput_req_s": 1.5115012826469754,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
-        "text_chunks_per_token": 0.9999593098958334,
+        "text_chunks_per_token": 0.99990234375,
         "ttft_ms": {
-          "mean": 150.8789589749919,
-          "p50": 136.54274649991294,
-          "p90": 218.36841619995084,
-          "p95": 237.6627057999599,
-          "p99": 290.94520326987106
+          "mean": 145.11749037500388,
+          "p50": 131.5757490000351,
+          "p90": 214.91651919998276,
+          "p95": 228.16010345004543,
+          "p99": 285.26087314995726
         },
         "tpot_ms": {
-          "mean": 12.729745896839347,
-          "p50": 12.925673592375311,
-          "p90": 13.662565391104549,
-          "p95": 14.093801210410591,
-          "p99": 14.259185834017586
+          "mean": 12.279494870544145,
+          "p50": 12.516014284457519,
+          "p90": 13.24869664594325,
+          "p95": 13.524677767644132,
+          "p99": 13.60313625422287
         },
         "itl_ms": {
-          "mean": 12.730264398973551,
-          "p50": 11.129312000093705,
-          "p90": 12.145489400109,
-          "p95": 12.961696999991547,
-          "p99": 96.51493725991259
+          "mean": 12.280695329520638,
+          "p50": 10.809125999912794,
+          "p90": 11.495956999988266,
+          "p95": 11.878661700097835,
+          "p99": 101.61486845004674
         },
         "e2e_ms": {
-          "mean": 13173.409011441643,
-          "p50": 13391.447170999982,
-          "p90": 14116.96185749995,
-          "p95": 14556.287625649884,
-          "p99": 14765.86409714996
+          "mean": 12707.040742941665,
+          "p50": 12965.887797999927,
+          "p90": 13682.849278999947,
+          "p95": 13993.315696199898,
+          "p99": 14080.154103010156
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 1.0219022329636118,
+          "max": 2.795813471024644
+        },
+        "sent_rate": 1.7187815050618738,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -754,7 +788,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -763,60 +797,65 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 32.0,
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.3312167435260731,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.29819084781837535,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       },
       {
         "rate": 4.0,
         "completed": 240,
-        "duration_s": 95.95051904499996,
-        "request_throughput": 2.5012892310404498,
-        "output_token_throughput": 2561.3201725854206,
-        "goodput_req_s": 1.3861311155349159,
-        "slo_attainment": 0.5541666666666667,
+        "duration_s": 99.7749026250001,
+        "request_throughput": 2.405414524953537,
+        "output_token_throughput": 2463.144473552422,
+        "goodput_req_s": 1.0824365362290915,
+        "slo_attainment": 0.45,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
-        "text_chunks_per_token": 0.9998779296875,
+        "text_chunks_per_token": 0.99986572265625,
         "ttft_ms": {
-          "mean": 4185.3402514208365,
-          "p50": 536.823977499921,
-          "p90": 9638.404231000117,
-          "p95": 10033.29899240007,
-          "p99": 17393.484977140044
+          "mean": 6533.794063087498,
+          "p50": 5706.615446499882,
+          "p90": 15865.032963500014,
+          "p95": 20448.402315650008,
+          "p99": 23229.408683099988
         },
         "tpot_ms": {
-          "mean": 29.878840655950636,
-          "p50": 32.81756103421317,
-          "p90": 36.38678109716522,
-          "p95": 36.64853257429114,
-          "p99": 37.35078845403702
+          "mean": 31.896934109188656,
+          "p50": 34.19774137536659,
+          "p90": 37.136454031671555,
+          "p95": 37.400088326832986,
+          "p99": 37.88572007945252
         },
         "itl_ms": {
-          "mean": 29.88249198683857,
-          "p50": 25.535124499924677,
-          "p90": 27.958955899907778,
-          "p95": 115.38420149997818,
-          "p99": 216.78208091002486
+          "mean": 31.901221907832184,
+          "p50": 25.303608000058375,
+          "p90": 26.966650000031223,
+          "p95": 120.80946129999575,
+          "p99": 220.72230885999065
         },
         "e2e_ms": {
-          "mean": 34751.39424245834,
-          "p50": 36640.17726050008,
-          "p90": 43896.772768299976,
-          "p95": 44312.33306460011,
-          "p99": 45226.965579429954
+          "mean": 39164.35765678749,
+          "p50": 39329.95197899993,
+          "p90": 47793.812409900056,
+          "p95": 48897.92340090006,
+          "p99": 50554.280243379886
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 1.124718088053811,
+          "max": 2.8903437438021484
+        },
+        "sent_rate": 3.845541906010988,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -824,7 +863,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -832,69 +871,74 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 42.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 100.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 5.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 5.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 46.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 46.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.9998935792834338,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 42.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       },
       {
         "rate": 6.0,
         "completed": 300,
-        "duration_s": 123.64659638800003,
-        "request_throughput": 2.4262697782525873,
-        "output_token_throughput": 2484.5002529306494,
-        "goodput_req_s": 0.8087565927508624,
-        "slo_attainment": 0.3333333333333333,
+        "duration_s": 123.86943478700005,
+        "request_throughput": 2.4219049720850476,
+        "output_token_throughput": 2480.0306914150888,
+        "goodput_req_s": 0.8234476905089163,
+        "slo_attainment": 0.34,
+        "failed": 0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
-        "text_chunks_per_token": 0.9998990885416666,
+        "text_chunks_per_token": 0.9999609375,
         "ttft_ms": {
-          "mean": 19152.653173043323,
-          "p50": 17444.591365499946,
-          "p90": 39512.87830420012,
-          "p95": 40547.73712319998,
-          "p99": 57353.72334975983
+          "mean": 18901.696037766662,
+          "p50": 17654.61941400008,
+          "p90": 40360.679412800164,
+          "p95": 40749.47754339998,
+          "p99": 41939.6840710999
         },
         "tpot_ms": {
-          "mean": 33.81654121026067,
-          "p50": 35.70259648338227,
-          "p90": 36.61699682541531,
-          "p95": 36.70609388206277,
-          "p99": 43.39896150936459
+          "mean": 34.62349833415119,
+          "p50": 35.85076555620734,
+          "p90": 37.60717947741931,
+          "p95": 37.97279370048871,
+          "p99": 48.42150321654936
         },
         "itl_ms": {
-          "mean": 33.819957367570524,
-          "p50": 26.332812000191552,
-          "p90": 28.21438699997998,
-          "p95": 122.42746600013561,
-          "p99": 219.33960156005014
+          "mean": 34.62485218956427,
+          "p50": 25.65102100004424,
+          "p90": 26.841713500039077,
+          "p95": 123.67408879998722,
+          "p99": 220.5508105701847
         },
         "e2e_ms": {
-          "mean": 53746.97483113999,
-          "p50": 54776.47384850002,
-          "p90": 72365.60823759984,
-          "p95": 73503.55277275012,
-          "p99": 74532.80054685009
+          "mean": 54321.534833603335,
+          "p50": 55918.29478349996,
+          "p90": 73541.8796689999,
+          "p95": 74771.5871348999,
+          "p99": 75750.48359956004
         },
-        "failed": 0,
+        "send_lag_ms": {
+          "p50": 1.0886968415939613,
+          "max": 2.831437737498277
+        },
+        "sent_rate": 5.5871195426846905,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 42.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -902,17 +946,17 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 72.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 99.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         },
         "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 100.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 9.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 9.0,
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 104.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 114.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 114.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 72.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 99.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940579.9374874
         }
       }
     ],
@@ -922,414 +966,407 @@
       "tpot_ms": 50
     }
   },
-  "long_wall_s": 763.3,
+  "long_wall_s": 745.7,
   "prefix": {
     "prefix_on": {
       "first_turn": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 78.20279838900001,
-        "request_throughput": 3.8361798577555497,
-        "output_token_throughput": 491.03102179271036,
-        "goodput_req_s": 3.8361798577555497,
+        "duration_s": 77.88749522700004,
+        "request_throughput": 3.8517094319911274,
+        "output_token_throughput": 493.0188072948643,
+        "goodput_req_s": 3.8517094319911274,
         "slo_attainment": 1.0,
-        "slo": {
-          "ttft_ms": 500.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.999921875,
-        "ttft_ms": {
-          "mean": 29.88144034333497,
-          "p50": 29.472564999991846,
-          "p90": 34.73272689998339,
-          "p95": 39.169804300149735,
-          "p99": 42.07922136997695
-        },
-        "tpot_ms": {
-          "mean": 6.838486526902846,
-          "p50": 6.81548334251856,
-          "p90": 7.090318211810982,
-          "p95": 7.171590220472476,
-          "p99": 7.462079328269047
-        },
-        "itl_ms": {
-          "mean": 6.839025032810941,
-          "p50": 6.687625000040498,
-          "p90": 7.202684000048976,
-          "p95": 7.560355999976308,
-          "p99": 15.584090159964035
-        },
-        "e2e_ms": {
-          "mean": 898.3692292599964,
-          "p50": 895.3700170000047,
-          "p90": 931.0864099000128,
-          "p95": 946.8786781499603,
-          "p99": 977.7105788099516
-        },
-        "failed": 0
-      },
-      "follow_up": {
-        "rate": 4.0,
-        "completed": 300,
-        "duration_s": 78.1979219110001,
-        "request_throughput": 3.8364190846585533,
-        "output_token_throughput": 491.0616428362948,
-        "goodput_req_s": 3.8364190846585533,
-        "slo_attainment": 1.0,
-        "slo": {
-          "ttft_ms": 500.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.9999739583333334,
-        "ttft_ms": {
-          "mean": 22.18017127000091,
-          "p50": 22.125370500020836,
-          "p90": 25.161663099925136,
-          "p95": 25.697011649981505,
-          "p99": 27.731489969883107
-        },
-        "tpot_ms": {
-          "mean": 6.636915821994801,
-          "p50": 6.617904263779973,
-          "p90": 6.751915155116583,
-          "p95": 6.82288281102331,
-          "p99": 6.913455185589999
-        },
-        "itl_ms": {
-          "mean": 6.637090023832697,
-          "p50": 6.662915000106295,
-          "p90": 7.1547020000252814,
-          "p95": 7.383597000102782,
-          "p99": 8.656896180000327
-        },
-        "e2e_ms": {
-          "mean": 865.0684806633406,
-          "p50": 862.4137634999443,
-          "p90": 880.4206038998245,
-          "p95": 888.3664950000025,
-          "p99": 899.8410269998021
-        },
-        "failed": 0
-      },
-      "metrics": {
-        "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 307899.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884904.3104773,
-        "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 149296.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884904.3104928
-      },
-      "startup": [
-        "rver pid=524) INFO 10-24 23:34:23 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
-        "(APIServer pid=524) INFO 10-24 23:34:23 [model.py:2152] Using max model len 2048",
-        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=546) INFO 10-24 23:34:36 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=546) INFO 10-24 23:34:39 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=546) INFO 10-24 23:34:39 [flash_attn.py:1117] Using FlashAttention version 3",
-        "(EngineCore pid=546) INFO 10-24 23:34:47 [utils.py:347] Using LBNHC KV cache layout.",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.38it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 11.98it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 11.81it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 12.06it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 12.40it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:00<00:03, 12.68it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:02, 12.86it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.96it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 13.26it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.80it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.90it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 13.05it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 13.23it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 13.28it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 13.33it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 13.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 13.38it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 13.39it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:00, 13.33it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 13.35it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.36it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 13.37it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.86it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 14.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 15.07it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.37it/s]",
-        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.23it/s]",
-        "(EngineCore pid=546) INFO 10-24 23:34:56 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
-        "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=546) INFO 10-24 23:34:56 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
-      ]
-    },
-    "prefix_off": {
-      "first_turn": {
-        "rate": 4.0,
-        "completed": 300,
-        "duration_s": 78.18724597699998,
-        "request_throughput": 3.8369429214612545,
-        "output_token_throughput": 491.1286939470406,
-        "goodput_req_s": 3.8369429214612545,
-        "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 29.653585373330316,
-          "p50": 29.323277499997857,
-          "p90": 34.98501529998066,
-          "p95": 37.550421999890204,
-          "p99": 42.53000223984827
+          "mean": 28.421556236662582,
+          "p50": 27.905828500024654,
+          "p90": 33.455698600096184,
+          "p95": 35.60462509989293,
+          "p99": 38.68956161012874
         },
         "tpot_ms": {
-          "mean": 6.834918414671914,
-          "p50": 6.80538132283392,
-          "p90": 7.082876059054769,
-          "p95": 7.177991543306066,
-          "p99": 7.465524708188946
+          "mean": 6.60031492908137,
+          "p50": 6.570940440944583,
+          "p90": 6.847629592913846,
+          "p95": 6.944443855118385,
+          "p99": 7.195329808897319
         },
         "itl_ms": {
-          "mean": 6.834918414671914,
-          "p50": 6.69857100012905,
-          "p90": 7.2109388999706425,
-          "p95": 7.5652650499364436,
-          "p99": 15.3210995099903
+          "mean": 6.60031492908137,
+          "p50": 6.407512500118173,
+          "p90": 6.774429900042378,
+          "p95": 7.015477449931495,
+          "p99": 12.323891989967722
         },
         "e2e_ms": {
-          "mean": 897.6882240366633,
-          "p50": 894.3158485001277,
-          "p90": 930.8497597000041,
-          "p95": 947.9102998000258,
-          "p99": 979.5290760300259
+          "mean": 866.6615522299965,
+          "p50": 863.8769529999308,
+          "p90": 899.1432385999587,
+          "p95": 912.1249802000648,
+          "p99": 944.0428404000204
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8674990587707043,
+          "max": 1.9815701633922878
+        },
+        "sent_rate": 3.8803954118397934
       },
       "follow_up": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 78.19806738300008,
-        "request_throughput": 3.8364119477614955,
-        "output_token_throughput": 491.0607293134714,
-        "goodput_req_s": 3.8364119477614955,
+        "duration_s": 77.88041019100001,
+        "request_throughput": 3.8520598346138204,
+        "output_token_throughput": 493.063658830569,
+        "goodput_req_s": 3.8520598346138204,
         "slo_attainment": 1.0,
+        "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
         "text_chunks_per_token": 0.9999739583333334,
         "ttft_ms": {
-          "mean": 31.257342049990864,
-          "p50": 30.82908999999745,
-          "p90": 36.44566239997858,
-          "p95": 40.27706925000985,
-          "p99": 43.588500809894406
+          "mean": 20.813030656670435,
+          "p50": 21.18499300001986,
+          "p90": 23.431231900008243,
+          "p95": 23.901660749970688,
+          "p99": 24.449298990002713
         },
         "tpot_ms": {
-          "mean": 6.878161364225821,
-          "p50": 6.851698283464508,
-          "p90": 7.162138056692379,
-          "p95": 7.269934537401341,
-          "p99": 7.534922602991445
+          "mean": 6.396186481496046,
+          "p50": 6.38631264567044,
+          "p90": 6.5058949283467,
+          "p95": 6.574352060236408,
+          "p99": 6.669143929684919
         },
         "itl_ms": {
-          "mean": 6.878341898133908,
-          "p50": 6.674635000081253,
-          "p90": 7.218443199963076,
-          "p95": 7.6604510999231925,
-          "p99": 15.468944400081437
+          "mean": 6.396354364812708,
+          "p50": 6.378918000109479,
+          "p90": 6.6645188000165945,
+          "p95": 6.804878500179257,
+          "p99": 7.121808560077623
         },
         "e2e_ms": {
-          "mean": 904.7838353066701,
-          "p50": 901.6960890000973,
-          "p90": 940.8013364000681,
-          "p95": 956.6251275499212,
-          "p99": 995.193211559872
+          "mean": 833.1287138066682,
+          "p50": 831.7501724999374,
+          "p90": 848.6500486998239,
+          "p95": 853.8591367998833,
+          "p99": 867.9615899998703
         },
-        "failed": 0
+        "send_lag_ms": {
+          "p50": 0.8937905529649015,
+          "max": 2.2752604526132814
+        },
+        "sent_rate": 3.880364330452089
+      },
+      "metrics": {
+        "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 307899.0,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941305.7975583,
+        "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 149296.0,
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941305.797572
+      },
+      "startup": [
+        "rver pid=514) INFO 10-25 15:14:27 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
+        "(APIServer pid=514) INFO 10-25 15:14:27 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=514) INFO 10-25 15:14:27 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
+        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+        "(EngineCore pid=535) INFO 10-25 15:14:37 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=535) INFO 10-25 15:14:39 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=535) INFO 10-25 15:14:39 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=535) INFO 10-25 15:14:48 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=535) INFO 10-25 15:14:56 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=535) INFO 10-25 15:14:56 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+        "(EngineCore pid=535) INFO 10-25 15:15:03 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.9%).",
+        "(APIServer pid=514) INFO 10-25 15:15:17 [loggers.py:335] Engine 000: Avg prompt throughput: 1358.7 tokens/s, Avg generation throughput: 334.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:15:27 [loggers.py:335] Engine 000: Avg prompt throughput: 1864.8 tokens/s, Avg generation throughput: 454.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:15:37 [loggers.py:335] Engine 000: Avg prompt throughput: 1465.9 tokens/s, Avg generation throughput: 390.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:15:47 [loggers.py:335] Engine 000: Avg prompt throughput: 2424.9 tokens/s, Avg generation throughput: 566.1 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:15:57 [loggers.py:335] Engine 000: Avg prompt throughput: 2014.3 tokens/s, Avg generation throughput: 547.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:16:07 [loggers.py:335] Engine 000: Avg prompt throughput: 1920.2 tokens/s, Avg generation throughput: 485.0 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=514) INFO 10-25 15:16:17 [loggers.py:335] Engine 000: Avg prompt throughput: 1943.6 tokens/s, Avg generation throughput: 499.8 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 0.1%",
+        "(APIServer pid=514) INFO 10-25 15:16:27 [loggers.py:335] Engine 000: Avg prompt throughput: 1972.5 tokens/s, Avg generation throughput: 542.1 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%, Prefix cache hit rate: 1.1%",
+        "(APIServer pid=514) INFO 10-25 15:16:37 [loggers.py:335] Engine 000: Avg prompt throughput: 75.7 tokens/s, Avg generation throughput: 408.6 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 10.4%",
+        "(APIServer pid=514) INFO 10-25 15:16:47 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 545.3 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%, Prefix cache hit rate: 20.4%",
+        "(APIServer pid=514) INFO 10-25 15:16:57 [loggers.py:335] Engine 000: Avg prompt throughput: 65.8 tokens/s, Avg generation throughput: 322.4 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%, Prefix cache hit rate: 24.9%",
+        "(APIServer pid=514) INFO 10-25 15:17:07 [loggers.py:335] Engine 000: Avg prompt throughput: 110.7 tokens/s, Avg generation throughput: 587.3 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 32.3%",
+        "(APIServer pid=514) INFO 10-25 15:17:17 [loggers.py:335] Engine 000: Avg prompt throughput: 115.3 tokens/s, Avg generation throughput: 590.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 38.4%",
+        "(APIServer pid=514) INFO 10-25 15:17:27 [loggers.py:335] Engine 000: Avg prompt throughput: 93.2 tokens/s, Avg generation throughput: 465.0 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 42.4%",
+        "(APIServer pid=514) INFO 10-25 15:17:37 [loggers.py:335] Engine 000: Avg prompt throughput: 92.5 tokens/s, Avg generation throughput: 486.1 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 46.0%"
+      ]
+    },
+    "prefix_off": {
+      "first_turn": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 77.89412892900009,
+        "request_throughput": 3.85138140864824,
+        "output_token_throughput": 492.97682030697473,
+        "goodput_req_s": 3.85138140864824,
+        "slo_attainment": 1.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.999921875,
+        "ttft_ms": {
+          "mean": 28.70033446665654,
+          "p50": 27.981861000057506,
+          "p90": 34.08425329989768,
+          "p95": 37.652166200018655,
+          "p99": 40.327153070018085
+        },
+        "tpot_ms": {
+          "mean": 6.604977418661487,
+          "p50": 6.571491783464751,
+          "p90": 6.85177272204754,
+          "p95": 6.957203433859194,
+          "p99": 7.208066843701129
+        },
+        "itl_ms": {
+          "mean": 6.605497536577753,
+          "p50": 6.4118309999230405,
+          "p90": 6.801608599971587,
+          "p95": 7.094470599986378,
+          "p99": 12.383490999955034
+        },
+        "e2e_ms": {
+          "mean": 867.5324666366654,
+          "p50": 862.964945500039,
+          "p90": 899.1349960998151,
+          "p95": 914.045060100068,
+          "p99": 947.3948227499955
+        },
+        "send_lag_ms": {
+          "p50": 0.9669990907639203,
+          "max": 2.313852027501895
+        },
+        "sent_rate": 3.880366278727359
+      },
+      "follow_up": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 77.89475711099999,
+        "request_throughput": 3.8513503491961614,
+        "output_token_throughput": 492.97284469710866,
+        "goodput_req_s": 3.8513503491961614,
+        "slo_attainment": 1.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999739583333334,
+        "ttft_ms": {
+          "mean": 29.960045589996298,
+          "p50": 29.85503799993694,
+          "p90": 34.66429930008417,
+          "p95": 38.179893349888516,
+          "p99": 42.5757000300996
+        },
+        "tpot_ms": {
+          "mean": 6.648651069422522,
+          "p50": 6.625040232282075,
+          "p90": 6.932019366142527,
+          "p95": 7.034860103544011,
+          "p99": 7.292055538267096
+        },
+        "itl_ms": {
+          "mean": 6.6488255792802455,
+          "p50": 6.417830000145841,
+          "p90": 6.775824600072156,
+          "p95": 7.153868299951682,
+          "p99": 14.658852999932606
+        },
+        "e2e_ms": {
+          "mean": 874.3387314066566,
+          "p50": 871.0017559999415,
+          "p90": 908.9597805001631,
+          "p95": 928.6034622499869,
+          "p99": 965.0654571101177
+        },
+        "send_lag_ms": {
+          "p50": 0.9189488235961107,
+          "max": 2.0897993053168307
+        },
+        "sent_rate": 3.88040658385896
       },
       "metrics": {
         "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885123.3563209,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941518.1164389,
         "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885123.3563359
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941518.1164527
       },
       "startup": [
-        "ver pid=652) INFO 10-24 23:38:03 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-        "(APIServer pid=652) INFO 10-24 23:38:03 [model.py:2152] Using max model len 2048",
+        "ver pid=641) INFO 10-25 15:17:59 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=641) INFO 10-25 15:18:00 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=641) INFO 10-25 15:18:00 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=673) INFO 10-24 23:38:16 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=673) INFO 10-24 23:38:18 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=673) INFO 10-24 23:38:18 [flash_attn.py:1117] Using FlashAttention version 3",
-        "(EngineCore pid=673) INFO 10-24 23:38:27 [utils.py:347] Using LBNHC KV cache layout.",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.87it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.54it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.76it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 12.05it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 12.13it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.62it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:02, 12.72it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 13.05it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 13.23it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.78it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 13.04it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 13.19it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.26it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.32it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 13.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 13.53it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.56it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.51it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.40it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:02<00:00, 13.45it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.49it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.56it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.91it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.39it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 15.13it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.83it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.49it/s]",
-        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.48it/s]",
-        "(EngineCore pid=673) INFO 10-24 23:38:35 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "(EngineCore pid=662) INFO 10-25 15:18:11 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=662) INFO 10-25 15:18:13 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=662) INFO 10-25 15:18:13 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=662) INFO 10-25 15:18:20 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=662) INFO 10-25 15:18:29 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
         "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=673) INFO 10-24 23:38:35 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x"
+        "(EngineCore pid=662) INFO 10-25 15:18:29 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+        "(EngineCore pid=662) INFO 10-25 15:18:35 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.9%).",
+        "(APIServer pid=641) INFO 10-25 15:18:49 [loggers.py:335] Engine 000: Avg prompt throughput: 1321.0 tokens/s, Avg generation throughput: 332.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=641) INFO 10-25 15:18:59 [loggers.py:335] Engine 000: Avg prompt throughput: 2026.2 tokens/s, Avg generation throughput: 480.6 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+        "(APIServer pid=641) INFO 10-25 15:19:09 [loggers.py:335] Engine 000: Avg prompt throughput: 1355.2 tokens/s, Avg generation throughput: 367.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=641) INFO 10-25 15:19:19 [loggers.py:335] Engine 000: Avg prompt throughput: 2374.5 tokens/s, Avg generation throughput: 603.0 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+        "(APIServer pid=641) INFO 10-25 15:19:29 [loggers.py:335] Engine 000: Avg prompt throughput: 2267.2 tokens/s, Avg generation throughput: 531.0 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+        "(APIServer pid=641) INFO 10-25 15:19:39 [loggers.py:335] Engine 000: Avg prompt throughput: 1820.7 tokens/s, Avg generation throughput: 477.5 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+        "(APIServer pid=641) INFO 10-25 15:19:49 [loggers.py:335] Engine 000: Avg prompt throughput: 1856.4 tokens/s, Avg generation throughput: 493.2 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+        "(APIServer pid=641) INFO 10-25 15:19:59 [loggers.py:335] Engine 000: Avg prompt throughput: 2289.8 tokens/s, Avg generation throughput: 559.4 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+        "(APIServer pid=641) INFO 10-25 15:20:09 [loggers.py:335] Engine 000: Avg prompt throughput: 1675.2 tokens/s, Avg generation throughput: 408.7 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
+        "(APIServer pid=641) INFO 10-25 15:20:19 [loggers.py:335] Engine 000: Avg prompt throughput: 2086.0 tokens/s, Avg generation throughput: 534.5 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+        "(APIServer pid=641) INFO 10-25 15:20:29 [loggers.py:335] Engine 000: Avg prompt throughput: 1460.1 tokens/s, Avg generation throughput: 326.5 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+        "(APIServer pid=641) INFO 10-25 15:20:39 [loggers.py:335] Engine 000: Avg prompt throughput: 2191.5 tokens/s, Avg generation throughput: 575.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=641) INFO 10-25 15:20:49 [loggers.py:335] Engine 000: Avg prompt throughput: 2546.2 tokens/s, Avg generation throughput: 605.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
+        "(APIServer pid=641) INFO 10-25 15:20:59 [loggers.py:335] Engine 000: Avg prompt throughput: 1869.8 tokens/s, Avg generation throughput: 467.0 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+        "(APIServer pid=641) INFO 10-25 15:21:09 [loggers.py:335] Engine 000: Avg prompt throughput: 2023.6 tokens/s, Avg generation throughput: 493.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%"
       ]
     }
   },
-  "prefix_wall_s": 438.8,
+  "prefix_wall_s": 424.2,
   "spec": {
     "no_spec": {
       "runs": {
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 154.1750255840002,
-          "request_throughput": 0.19458404424687384,
-          "output_token_throughput": 24.90675766359985,
-          "goodput_req_s": 0.19458404424687384,
+          "duration_s": 141.34469185000012,
+          "request_throughput": 0.21224709331028177,
+          "output_token_throughput": 27.167627943716067,
+          "goodput_req_s": 0.21224709331028177,
           "slo_attainment": 1.0,
+          "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
           "text_chunks_per_token": 1.0,
           "ttft_ms": {
-            "mean": 23.062011466655957,
-            "p50": 21.811732999935884,
-            "p90": 26.605653500087104,
-            "p95": 28.749709949931912,
-            "p99": 29.782464929917296
+            "mean": 21.741125300006086,
+            "p50": 20.9759635000637,
+            "p90": 25.715514900070957,
+            "p95": 26.06385485012197,
+            "p99": 27.808567160004717
           },
           "tpot_ms": {
-            "mean": 6.448711889238809,
-            "p50": 6.446633913385522,
-            "p90": 6.4545181614164004,
-            "p95": 6.4661527326781805,
-            "p99": 6.505496497480835
+            "mean": 6.182073497112837,
+            "p50": 6.175516275590322,
+            "p90": 6.199307304723334,
+            "p95": 6.2114664937002715,
+            "p99": 6.254973520865924
           },
           "itl_ms": {
-            "mean": 6.448711889238809,
-            "p50": 6.442829999969035,
-            "p90": 6.831685099973583,
-            "p95": 6.964539499938383,
-            "p99": 7.17572340009383
+            "mean": 6.182073497112837,
+            "p50": 6.18810499997835,
+            "p90": 6.37902749992918,
+            "p95": 6.448950899846295,
+            "p99": 6.6308824198904395
           },
           "e2e_ms": {
-            "mean": 842.0484213999846,
-            "p50": 841.2143984999148,
-            "p90": 846.0496166999519,
-            "p95": 847.5992300999337,
-            "p99": 851.1671134900439
+            "mean": 806.8644594333364,
+            "p50": 806.2850004999973,
+            "p90": 812.7272556999969,
+            "p95": 813.775493449964,
+            "p99": 814.4036427999777
           },
-          "failed": 0
+          "send_lag_ms": {
+            "p50": 1.3777725754025028,
+            "max": 2.9933004558131415
+          },
+          "sent_rate": 0.2063461944186172
         },
         "32": {
           "rate": 32.0,
           "completed": 600,
-          "duration_s": 20.692005694999807,
-          "request_throughput": 28.99670572509987,
-          "output_token_throughput": 3711.578332812783,
-          "goodput_req_s": 28.99670572509987,
+          "duration_s": 20.079215098000077,
+          "request_throughput": 29.881646123695393,
+          "output_token_throughput": 3824.8507038330104,
+          "goodput_req_s": 29.881646123695393,
           "slo_attainment": 1.0,
+          "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.9999479166666667,
+          "text_chunks_per_token": 0.9999739583333334,
           "ttft_ms": {
-            "mean": 48.55954306000134,
-            "p50": 48.121260500010976,
-            "p90": 62.94708130026265,
-            "p95": 67.96924264999686,
-            "p99": 77.62924634979296
+            "mean": 45.954459173334875,
+            "p50": 43.383382499996515,
+            "p90": 61.517128000082266,
+            "p95": 68.30353049989526,
+            "p99": 83.13453807015092
           },
           "tpot_ms": {
-            "mean": 10.878450481062908,
-            "p50": 10.96394879133852,
-            "p90": 11.981951298427639,
-            "p95": 12.333043658268467,
-            "p99": 12.67880695551308
+            "mean": 10.832839109448823,
+            "p50": 10.8207223779537,
+            "p90": 11.926090587401518,
+            "p95": 12.33636526181139,
+            "p99": 12.748796203543568
           },
           "itl_ms": {
-            "mean": 10.879021558310063,
-            "p50": 8.482219000143232,
-            "p90": 17.339062000019112,
-            "p95": 18.384059249910933,
-            "p99": 26.20868699987114
+            "mean": 10.833123443397469,
+            "p50": 8.227127499935705,
+            "p90": 18.492821000154436,
+            "p95": 21.98082764995206,
+            "p99": 29.305938220124972
           },
           "e2e_ms": {
-            "mean": 1430.1227541549906,
-            "p50": 1441.870941000161,
-            "p90": 1573.4122238001419,
-            "p95": 1622.5549605501328,
-            "p99": 1658.3432339498495
+            "mean": 1421.7250260733356,
+            "p50": 1420.229873500034,
+            "p90": 1571.6862317998448,
+            "p95": 1618.1189422999976,
+            "p99": 1658.9738767600056
           },
-          "failed": 0
+          "send_lag_ms": {
+            "p50": 0.8519522474799146,
+            "max": 2.9813207550546394
+          },
+          "sent_rate": 31.36172625613695
         }
       },
       "metrics": {},
       "startup": [
-        "(APIServer pid=779) INFO 10-24 23:41:42 [model.py:2152] Using max model len 2048",
+        "ver pid=767) INFO 10-25 15:21:30 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=767) INFO 10-25 15:21:30 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=767) INFO 10-25 15:21:30 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=801) INFO 10-24 23:41:55 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=801) INFO 10-24 23:41:57 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=801) INFO 10-24 23:41:57 [flash_attn.py:1117] Using FlashAttention version 3",
-        "(EngineCore pid=801) INFO 10-24 23:42:05 [utils.py:347] Using LBNHC KV cache layout.",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.95it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.80it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.88it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 12.02it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 11.99it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.15it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 12.32it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 12.76it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 13.06it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.79it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.95it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 12.94it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.02it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.14it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 13.30it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 13.41it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.45it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.48it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.50it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:03<00:00, 13.52it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.54it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.64it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.95it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.40it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 14.96it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.61it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.39it/s]",
-        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.29it/s]",
-        "(EngineCore pid=801) INFO 10-24 23:42:13 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "(EngineCore pid=788) INFO 10-25 15:21:40 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=788) INFO 10-25 15:21:42 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=788) INFO 10-25 15:21:42 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=788) INFO 10-25 15:21:48 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=788) INFO 10-25 15:21:58 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
         "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=801) INFO 10-24 23:42:13 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
+        "(EngineCore pid=788) INFO 10-25 15:21:58 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+        "(EngineCore pid=788) INFO 10-25 15:22:15 [gpu_worker.py:971] CUDA graph pool memory: 0.45 GiB (actual), 0.9 GiB (estimated), difference: 0.45 GiB (100.9%).",
+        "(APIServer pid=767) INFO 10-25 15:22:29 [loggers.py:335] Engine 000: Avg prompt throughput: 469.7 tokens/s, Avg generation throughput: 116.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=767) INFO 10-25 15:22:39 [loggers.py:335] Engine 000: Avg prompt throughput: 54.5 tokens/s, Avg generation throughput: 19.7 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:22:49 [loggers.py:335] Engine 000: Avg prompt throughput: 196.7 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:22:59 [loggers.py:335] Engine 000: Avg prompt throughput: 154.1 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:09 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:19 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:29 [loggers.py:335] Engine 000: Avg prompt throughput: 149.2 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:39 [loggers.py:335] Engine 000: Avg prompt throughput: 50.5 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:49 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:23:59 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:09 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:19 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:29 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:39 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:49 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=767) INFO 10-25 15:24:59 [loggers.py:335] Engine 000: Avg prompt throughput: 13312.5 tokens/s, Avg generation throughput: 3156.0 tokens/s, Running: 42 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.4%",
+        "(APIServer pid=767) INFO 10-25 15:25:09 [loggers.py:335] Engine 000: Avg prompt throughput: 16254.8 tokens/s, Avg generation throughput: 3948.4 tokens/s, Running: 55 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.8%"
       ]
     },
     "ngram": {
@@ -1337,153 +1374,155 @@
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 154.17998664800007,
-          "request_throughput": 0.19457778309769455,
-          "output_token_throughput": 24.905956236504903,
-          "goodput_req_s": 0.19457778309769455,
+          "duration_s": 141.3229964799998,
+          "request_throughput": 0.2122796766784211,
+          "output_token_throughput": 27.1717986148379,
+          "goodput_req_s": 0.2122796766784211,
           "slo_attainment": 1.0,
+          "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.5854166666666667,
+          "text_chunks_per_token": 0.5953125,
           "ttft_ms": {
-            "mean": 23.223048533373003,
-            "p50": 22.188137500052107,
-            "p90": 26.71746509995501,
-            "p95": 29.25497430010182,
-            "p99": 31.9705559400245
+            "mean": 21.56113983337491,
+            "p50": 20.715069999823754,
+            "p90": 25.43218920009167,
+            "p95": 26.562362049980948,
+            "p99": 27.828100420001647
           },
           "tpot_ms": {
-            "mean": 4.735345181364608,
-            "p50": 4.568121480314238,
-            "p90": 6.517058612599062,
-            "p95": 6.8104080822839625,
-            "p99": 7.515887655826206
+            "mean": 4.360770538582423,
+            "p50": 4.396536740157927,
+            "p90": 5.996730935430606,
+            "p95": 6.091428981890598,
+            "p99": 6.559048394410424
           },
           "itl_ms": {
-            "mean": 8.134204301622704,
-            "p50": 8.114260999946055,
-            "p90": 8.499337300054322,
-            "p95": 8.59987150008692,
-            "p99": 8.813986530003604
+            "mean": 7.364599180850633,
+            "p50": 7.327427000063835,
+            "p90": 7.602160500255195,
+            "p95": 7.760806499845785,
+            "p99": 8.152549599844857
           },
           "e2e_ms": {
-            "mean": 624.6118865666782,
-            "p50": 602.9920050000328,
-            "p90": 849.3845609002619,
-            "p95": 888.823023750092,
-            "p99": 977.2359257100562
+            "mean": 575.3789982333425,
+            "p50": 583.6518690000503,
+            "p90": 782.3713603997021,
+            "p95": 795.552817450357,
+            "p99": 853.5741864201192
           },
-          "failed": 0
+          "send_lag_ms": {
+            "p50": 1.1937572416229614,
+            "max": 2.7511321263631316
+          },
+          "sent_rate": 0.20634551160451883
         },
         "32": {
           "rate": 32.0,
           "completed": 600,
-          "duration_s": 21.04296242700002,
-          "request_throughput": 28.51309562907102,
-          "output_token_throughput": 3649.6762405210907,
-          "goodput_req_s": 28.51309562907102,
+          "duration_s": 20.240194270999837,
+          "request_throughput": 29.643984240787667,
+          "output_token_throughput": 3794.4299828208214,
+          "goodput_req_s": 29.643984240787667,
           "slo_attainment": 1.0,
+          "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.6478515625,
+          "text_chunks_per_token": 0.6511588541666666,
           "ttft_ms": {
-            "mean": 52.38330428499845,
-            "p50": 49.46180799993272,
-            "p90": 73.65285360001509,
-            "p95": 83.95607510010441,
-            "p99": 110.20457780025481
+            "mean": 51.65869895999625,
+            "p50": 48.315688999991835,
+            "p90": 74.6082574999946,
+            "p95": 85.21255314990411,
+            "p99": 100.14314224016744
           },
           "tpot_ms": {
-            "mean": 11.844311502480332,
-            "p50": 11.74771792519876,
-            "p90": 17.013041481100583,
-            "p95": 17.928423530314486,
-            "p99": 19.149666298344954
+            "mean": 11.891815714593237,
+            "p50": 11.801657952756205,
+            "p90": 17.26162151338775,
+            "p95": 18.28127089409259,
+            "p99": 19.710209722598616
           },
           "itl_ms": {
-            "mean": 18.361032173512385,
-            "p50": 13.61795599996185,
-            "p90": 30.307114999868634,
-            "p95": 34.91819299988493,
-            "p99": 48.46382919995445
+            "mean": 18.339904824060486,
+            "p50": 13.587702999757312,
+            "p90": 32.59026679979797,
+            "p95": 35.74648040012107,
+            "p99": 47.767921360027685
           },
           "e2e_ms": {
-            "mean": 1556.6108651000004,
-            "p50": 1545.800322499872,
-            "p90": 2216.1396495999725,
-            "p95": 2327.2481452498596,
-            "p99": 2505.1232193399346
+            "mean": 1561.9192947133372,
+            "p50": 1541.046551999898,
+            "p90": 2241.4182833000723,
+            "p95": 2372.3564447001986,
+            "p99": 2561.02757734006
           },
-          "failed": 0
+          "send_lag_ms": {
+            "p50": 0.9208363665029751,
+            "max": 2.8285002329264675
+          },
+          "sent_rate": 31.36103637853405
         }
       },
       "metrics": {
-        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 52217.0,
-        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581435,
-        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 208868.0,
-        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581707,
-        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29780.0,
-        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581903,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 10213.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 7802.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 6304.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 5461.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 1792885624.1582177,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 1792885624.1582248,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 1792885624.158231,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 1792885624.1582372
+        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 52460.0,
+        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941991.8002496,
+        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 209840.0,
+        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941991.800274,
+        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29525.0,
+        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941991.80029,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 10134.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 7704.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 6250.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 5437.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 1792941991.8003163,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 1792941991.8003232,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 1792941991.8003283,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 1792941991.8003333
       },
       "startup": [
-        "(APIServer pid=911) INFO 10-24 23:45:48 [model.py:2152] Using max model len 2048",
+        "'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False, 'speculative_config': {'method': 'ngram', 'num_speculative_tokens': 4, 'prompt_lookup_min': 2, 'prompt_lookup_max': 5}}",
+        "(APIServer pid=926) INFO 10-25 15:25:26 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=926) INFO 10-25 15:25:26 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=8192.",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=933) INFO 10-24 23:46:00 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=933) INFO 10-24 23:46:03 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=933) INFO 10-24 23:46:03 [flash_attn.py:1117] Using FlashAttention version 3",
-        "(EngineCore pid=933) INFO 10-24 23:46:11 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=933) INFO 10-24 23:46:19 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3edf7d5eba/rank_0_0/backbone for vLLM's torch.compile",
-        "(EngineCore pid=933) INFO 10-24 23:46:26 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 6.94 s",
-        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/57 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   4%|\u258e         | 2/57 [00:00<00:04, 11.85it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   7%|\u258b         | 4/57 [00:00<00:04, 12.29it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  11%|\u2588         | 6/57 [00:00<00:04, 12.10it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258d        | 8/57 [00:00<00:03, 12.36it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 10/57 [00:00<00:03, 12.21it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  21%|\u2588\u2588        | 12/57 [00:00<00:03, 12.57it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258d       | 14/57 [00:01<00:03, 12.65it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  28%|\u2588\u2588\u258a       | 16/57 [00:01<00:03, 12.62it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  32%|\u2588\u2588\u2588\u258f      | 18/57 [00:01<00:03, 12.52it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 20/57 [00:01<00:02, 12.79it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u258a      | 22/57 [00:01<00:02, 12.44it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  42%|\u2588\u2588\u2588\u2588\u258f     | 24/57 [00:01<00:02, 12.70it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  46%|\u2588\u2588\u2588\u2588\u258c     | 26/57 [00:02<00:02, 12.86it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 28/57 [00:02<00:02, 12.70it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 30/57 [00:02<00:02, 12.74it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  56%|\u2588\u2588\u2588\u2588\u2588\u258c    | 32/57 [00:02<00:01, 12.80it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2589    | 34/57 [00:02<00:01, 12.90it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 36/57 [00:02<00:01, 12.89it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 38/57 [00:02<00:01, 13.00it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 40/57 [00:03<00:01, 13.04it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 42/57 [00:03<00:01, 12.89it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  77%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 44/57 [00:03<00:00, 13.02it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  81%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 46/57 [00:03<00:00, 13.18it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 48/57 [00:03<00:00, 13.32it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 50/57 [00:03<00:00, 14.04it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 52/57 [00:04<00:00, 14.56it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  95%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 54/57 [00:04<00:00, 14.99it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 56/57 [00:04<00:00, 15.53it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 57/57 [00:04<00:00, 13.23it/s]",
-        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 25.99it/s]"
+        "(EngineCore pid=947) INFO 10-25 15:25:36 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=947) INFO 10-25 15:25:38 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=947) INFO 10-25 15:25:38 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=947) INFO 10-25 15:25:44 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=947) INFO 10-25 15:25:50 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3edf7d5eba/rank_0_0/backbone for vLLM's torch.compile",
+        "(EngineCore pid=947) INFO 10-25 15:25:55 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 5.34 s",
+        "(EngineCore pid=947) INFO 10-25 15:26:06 [gpu_worker.py:759] Available KV cache memory: 54.97 GiB",
+        "ivalent to --gpu-memory-utilization=0.9086 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9314. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=947) INFO 10-25 15:26:06 [kv_cache_utils.py:2327] GPU KV cache size: 450,304 tokens, Maximum concurrency for 2,048 tokens per request: 219.88x",
+        "(EngineCore pid=947) INFO 10-25 15:26:29 [gpu_worker.py:971] CUDA graph pool memory: 0.44 GiB (actual), 0.91 GiB (estimated), difference: 0.46 GiB (104.4%).",
+        "(APIServer pid=926) INFO 10-25 15:26:43 [loggers.py:335] Engine 000: Avg prompt throughput: 456.9 tokens/s, Avg generation throughput: 113.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=926) INFO 10-25 15:26:53 [loggers.py:335] Engine 000: Avg prompt throughput: 54.5 tokens/s, Avg generation throughput: 19.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:03 [loggers.py:335] Engine 000: Avg prompt throughput: 196.7 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:13 [loggers.py:335] Engine 000: Avg prompt throughput: 154.1 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:23 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:33 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:43 [loggers.py:335] Engine 000: Avg prompt throughput: 149.2 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:27:53 [loggers.py:335] Engine 000: Avg prompt throughput: 50.5 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:03 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:13 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:23 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:33 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:43 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:28:53 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:29:03 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=926) INFO 10-25 15:29:13 [loggers.py:335] Engine 000: Avg prompt throughput: 13471.3 tokens/s, Avg generation throughput: 3089.7 tokens/s, Running: 51 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.6%",
+        "(APIServer pid=926) INFO 10-25 15:29:23 [loggers.py:335] Engine 000: Avg prompt throughput: 16344.2 tokens/s, Avg generation throughput: 4005.7 tokens/s, Running: 57 reqs, Waiting: 0 reqs, GPU KV cache usage: 7.0%"
       ]
     }
   },
-  "spec_wall_s": 528.6,
+  "spec_wall_s": 488.8,
   "knee": {
     "rates": [
+      24,
       32,
       48,
       64
@@ -1491,143 +1530,495 @@
     "repeats": [
       {
         "order": [
+          24,
           32,
           48,
           64
         ],
-        "warmup_rate": 32,
+        "warmup_rate": 24,
         "runs": {
-          "32": {
-            "rate": 32.0,
-            "completed": 960,
-            "duration_s": 31.340714362,
-            "request_throughput": 30.63108226926637,
-            "output_token_throughput": 3920.778530466095,
-            "goodput_req_s": 30.63108226926637,
+          "24": {
+            "rate": 24.0,
+            "completed": 720,
+            "duration_s": 29.659581696999993,
+            "request_throughput": 24.275460367427453,
+            "output_token_throughput": 3107.258927030714,
+            "goodput_req_s": 24.275460367427453,
             "slo_attainment": 1.0,
+            "failed": 0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
-            "text_chunks_per_token": 0.9999674479166667,
+            "text_chunks_per_token": 0.9999782986111111,
             "ttft_ms": {
-              "mean": 45.69026751770802,
-              "p50": 43.46890300000439,
-              "p90": 60.674070000001734,
-              "p95": 66.85090565001843,
-              "p99": 76.63327481000461
+              "mean": 40.16179877499933,
+              "p50": 38.199966499988136,
+              "p90": 51.14180330000693,
+              "p95": 56.43042675002049,
+              "p99": 67.67661800000012
             },
             "tpot_ms": {
-              "mean": 11.240894989681761,
-              "p50": 11.240878826771517,
-              "p90": 12.647536410236306,
-              "p95": 12.826409007874192,
-              "p99": 13.044116940866214
+              "mean": 9.400699102854334,
+              "p50": 9.381348362204783,
+              "p90": 10.376861070866122,
+              "p95": 10.515538390551171,
+              "p99": 10.717959753622223
             },
             "itl_ms": {
-              "mean": 11.241263797549136,
-              "p50": 8.841101000001572,
-              "p90": 17.653898999995477,
-              "p95": 20.311627749997285,
-              "p99": 27.82829224998412
+              "mean": 9.40090472194274,
+              "p50": 7.630810999998516,
+              "p90": 14.935210699985646,
+              "p95": 17.450089900005132,
+              "p99": 22.358252280023986
             },
             "e2e_ms": {
-              "mean": 1473.2839312072917,
-              "p50": 1475.8162090000155,
-              "p90": 1652.4897111000002,
-              "p95": 1676.1396471999944,
-              "p99": 1711.827922649995
+              "mean": 1234.0505848374999,
+              "p50": 1231.738716500004,
+              "p90": 1354.714271100005,
+              "p95": 1374.645792999985,
+              "p99": 1414.947203060006
             },
+            "send_lag_ms": {
+              "p50": 0.8144405813226285,
+              "max": 2.658669945784453
+            },
+            "sent_rate": 25.01392764793548,
+            "gpu": {
+              "samples": 30,
+              "sm_clock_mhz_min": 1800.0,
+              "sm_clock_mhz_p50": 1965.0,
+              "power_w_max": 649.93,
+              "temp_c_max": 43.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 0
+          },
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 30.200465581000003,
+            "request_throughput": 31.787589413984534,
+            "output_token_throughput": 4068.8114449900204,
+            "goodput_req_s": 31.787589413984534,
+            "slo_attainment": 1.0,
             "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999755859375,
+            "ttft_ms": {
+              "mean": 48.45740030833345,
+              "p50": 45.70453299999144,
+              "p90": 65.59098069999152,
+              "p95": 76.00626070001226,
+              "p99": 98.72817130000747
+            },
+            "tpot_ms": {
+              "mean": 11.233177123786087,
+              "p50": 11.158016814960652,
+              "p90": 12.904119113385933,
+              "p95": 13.473909652755905,
+              "p99": 13.763555549448835
+            },
+            "itl_ms": {
+              "mean": 11.233453537505023,
+              "p50": 8.81571200000053,
+              "p90": 18.18778699999939,
+              "p95": 22.450251199990134,
+              "p99": 29.211637359993563
+            },
+            "e2e_ms": {
+              "mean": 1475.0708950291666,
+              "p50": 1463.7115765000033,
+              "p90": 1703.7384992999876,
+              "p95": 1764.454966750013,
+              "p99": 1794.1289116200028
+            },
+            "send_lag_ms": {
+              "p50": 0.8653536203252488,
+              "max": 2.927414666700656
+            },
+            "sent_rate": 32.79793524979673,
+            "gpu": {
+              "samples": 31,
+              "sm_clock_mhz_min": 1590.0,
+              "sm_clock_mhz_p50": 1890.0,
+              "power_w_max": 691.79,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 1
+          },
+          "48": {
+            "rate": 48.0,
+            "completed": 1440,
+            "duration_s": 31.10803611,
+            "request_throughput": 46.29028958652575,
+            "output_token_throughput": 5925.157067075296,
+            "goodput_req_s": 46.29028958652575,
+            "slo_attainment": 1.0,
+            "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999728732638888,
+            "ttft_ms": {
+              "mean": 91.87539769513872,
+              "p50": 87.35112000000811,
+              "p90": 136.39682300000118,
+              "p95": 155.18744015000578,
+              "p99": 194.2897257599853
+            },
+            "tpot_ms": {
+              "mean": 21.25941654756124,
+              "p50": 21.484078980315072,
+              "p90": 26.578735803936855,
+              "p95": 27.852210260236195,
+              "p99": 28.616159527244132
+            },
+            "itl_ms": {
+              "mean": 21.259997802969238,
+              "p50": 17.789775000011332,
+              "p90": 40.849139200014406,
+              "p95": 48.68721709999875,
+              "p99": 65.66279000001319
+            },
+            "e2e_ms": {
+              "mean": 2791.8212992354165,
+              "p50": 2828.4704464999922,
+              "p90": 3492.17947049999,
+              "p95": 3643.2619088999872,
+              "p99": 3759.3338603499983
+            },
+            "send_lag_ms": {
+              "p50": 1.039386397508224,
+              "max": 15.122439011622024
+            },
+            "sent_rate": 47.84447126348682,
+            "gpu": {
+              "samples": 32,
+              "sm_clock_mhz_min": 1515.0,
+              "sm_clock_mhz_p50": 1635.0,
+              "power_w_max": 700.08,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 2
+          },
+          "64": {
+            "rate": 64.0,
+            "completed": 1920,
+            "duration_s": 35.89841692000002,
+            "request_throughput": 53.484252642079994,
+            "output_token_throughput": 6845.984338186239,
+            "goodput_req_s": 5.989122040649582,
+            "slo_attainment": 0.11197916666666667,
+            "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.999951171875,
+            "ttft_ms": {
+              "mean": 920.5514806479163,
+              "p50": 393.52386899999203,
+              "p90": 2332.1736855999857,
+              "p95": 2393.3836531999814,
+              "p99": 2548.964037720006
+            },
+            "tpot_ms": {
+              "mean": 79.74254737463501,
+              "p50": 84.47285029133847,
+              "p90": 108.9737740141732,
+              "p95": 110.52538891496059,
+              "p99": 111.30410362574818
+            },
+            "itl_ms": {
+              "mean": 79.74647190573272,
+              "p50": 51.11766450001198,
+              "p90": 181.83734520000883,
+              "p95": 204.89059549999666,
+              "p99": 260.3554383799957
+            },
+            "e2e_ms": {
+              "mean": 11047.854997226563,
+              "p50": 12667.276983499989,
+              "p90": 14305.399680400029,
+              "p95": 14425.09049380001,
+              "p99": 14572.734283230024
+            },
+            "send_lag_ms": {
+              "p50": 1.0845384289590587,
+              "max": 24.840924495379113
+            },
+            "sent_rate": 63.29766650208884,
+            "gpu": {
+              "samples": 37,
+              "sm_clock_mhz_min": 1395.0,
+              "sm_clock_mhz_p50": 1545.0,
+              "power_w_max": 701.24,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 3
+          }
+        }
+      },
+      {
+        "order": [
+          32,
+          48,
+          64,
+          24
+        ],
+        "warmup_rate": 24,
+        "runs": {
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 31.12922974099996,
+            "request_throughput": 30.839182594216094,
+            "output_token_throughput": 3947.41537205966,
+            "goodput_req_s": 30.839182594216094,
+            "slo_attainment": 1.0,
+            "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.999951171875,
+            "ttft_ms": {
+              "mean": 48.477318032290626,
+              "p50": 45.98365350003064,
+              "p90": 67.22349139998869,
+              "p95": 73.40585529998405,
+              "p99": 85.61407281002913
+            },
+            "tpot_ms": {
+              "mean": 11.001453770497049,
+              "p50": 10.896515862204897,
+              "p90": 12.696469251968361,
+              "p95": 13.001554464566999,
+              "p99": 13.515855329212268
+            },
+            "itl_ms": {
+              "mean": 11.00199520726906,
+              "p50": 8.682247500019002,
+              "p90": 17.91437150000092,
+              "p95": 20.990647149969288,
+              "p99": 29.132306370022718
+            },
+            "e2e_ms": {
+              "mean": 1445.6619468854158,
+              "p50": 1429.8725364999996,
+              "p90": 1668.7625879000052,
+              "p95": 1705.6945672000325,
+              "p99": 1766.0685134200007
+            },
+            "send_lag_ms": {
+              "p50": 0.8739756569022816,
+              "max": 3.8768280267404975
+            },
+            "sent_rate": 31.726440348528108,
+            "gpu": {
+              "samples": 32,
+              "sm_clock_mhz_min": 1590.0,
+              "sm_clock_mhz_p50": 1935.0,
+              "power_w_max": 694.88,
+              "temp_c_max": 45.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
             "position_in_repeat": 0
           },
           "48": {
             "rate": 48.0,
             "completed": 1440,
-            "duration_s": 31.213771731999998,
-            "request_throughput": 46.133482757667785,
-            "output_token_throughput": 5905.0857929814765,
-            "goodput_req_s": 46.133482757667785,
+            "duration_s": 31.789965329999973,
+            "request_throughput": 45.2973126913442,
+            "output_token_throughput": 5798.056024492058,
+            "goodput_req_s": 45.2973126913442,
             "slo_attainment": 1.0,
+            "failed": 0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
-            "text_chunks_per_token": 0.9999674479166667,
+            "text_chunks_per_token": 0.9998318142361111,
             "ttft_ms": {
-              "mean": 88.58499602222203,
-              "p50": 81.54033099998514,
-              "p90": 135.22382230000005,
-              "p95": 148.87215744997917,
-              "p99": 171.08899756000423
+              "mean": 86.297453326389,
+              "p50": 79.20586350002168,
+              "p90": 125.0435955999933,
+              "p95": 139.7258220500504,
+              "p99": 196.7439652800009
             },
             "tpot_ms": {
-              "mean": 21.798429170926294,
-              "p50": 21.00258955118101,
-              "p90": 28.610504862204788,
-              "p95": 29.017249560629885,
-              "p99": 29.685209818346443
+              "mean": 19.484958953368327,
+              "p50": 19.532160976377853,
+              "p90": 23.79793772677145,
+              "p95": 24.241263835432928,
+              "p99": 25.664393198031505
             },
             "itl_ms": {
-              "mean": 21.79914436595142,
-              "p50": 18.142584499997838,
-              "p90": 38.501128299981254,
-              "p95": 47.1625809000017,
-              "p99": 70.75725308998497
+              "mean": 19.488262409922942,
+              "p50": 15.80977100002201,
+              "p90": 34.94617400001517,
+              "p95": 45.05758259998629,
+              "p99": 65.85789027996496
             },
             "e2e_ms": {
-              "mean": 2856.985500729861,
-              "p50": 2757.0017164999854,
-              "p90": 3734.627759499986,
-              "p95": 3784.3600517,
-              "p99": 3876.5441372100036
+              "mean": 2560.8872404041667,
+              "p50": 2564.5092830000067,
+              "p90": 3108.9579172000354,
+              "p95": 3184.4170044000207,
+              "p99": 3347.0958382999866
             },
-            "failed": 0,
+            "send_lag_ms": {
+              "p50": 1.0090007468517292,
+              "max": 18.09931049882607
+            },
+            "sent_rate": 46.93479535176066,
+            "gpu": {
+              "samples": 33,
+              "sm_clock_mhz_min": 1455.0,
+              "sm_clock_mhz_p50": 1695.0,
+              "power_w_max": 701.89,
+              "temp_c_max": 46.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
             "position_in_repeat": 1
           },
           "64": {
             "rate": 64.0,
             "completed": 1920,
-            "duration_s": 35.68580610799998,
-            "request_throughput": 53.8029039946383,
-            "output_token_throughput": 6886.771711313702,
-            "goodput_req_s": 19.839820848022875,
-            "slo_attainment": 0.36875,
+            "duration_s": 35.50347248200001,
+            "request_throughput": 54.07921720821606,
+            "output_token_throughput": 6922.139802651655,
+            "goodput_req_s": 3.0701222269247657,
+            "slo_attainment": 0.05677083333333333,
+            "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.999951171875,
+            "ttft_ms": {
+              "mean": 1107.7222240317703,
+              "p50": 392.5318209999773,
+              "p90": 3109.797534800003,
+              "p95": 3229.4920010499964,
+              "p99": 3340.9234451299762
+            },
+            "tpot_ms": {
+              "mean": 82.59593390070539,
+              "p50": 92.29717181889762,
+              "p90": 109.11564925826798,
+              "p95": 110.25917999566892,
+              "p99": 111.12564413385844
+            },
+            "itl_ms": {
+              "mean": 82.59999886127927,
+              "p50": 66.24329550001562,
+              "p90": 163.57885710002049,
+              "p95": 191.7808727999727,
+              "p99": 239.66506835998473
+            },
+            "e2e_ms": {
+              "mean": 11597.405829421354,
+              "p50": 12932.307848499988,
+              "p90": 14311.906793200018,
+              "p95": 14404.196050950031,
+              "p99": 14507.356448310022
+            },
+            "send_lag_ms": {
+              "p50": 0.9906401043728863,
+              "max": 29.380321213430705
+            },
+            "sent_rate": 65.60366770489993,
+            "gpu": {
+              "samples": 36,
+              "sm_clock_mhz_min": 1380.0,
+              "sm_clock_mhz_p50": 1515.0,
+              "power_w_max": 699.69,
+              "temp_c_max": 46.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 2
+          },
+          "24": {
+            "rate": 24.0,
+            "completed": 720,
+            "duration_s": 29.228368999999986,
+            "request_throughput": 24.633601690193537,
+            "output_token_throughput": 3153.1010163447727,
+            "goodput_req_s": 24.633601690193537,
+            "slo_attainment": 1.0,
+            "failed": 0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
             "text_chunks_per_token": 0.9999674479166667,
             "ttft_ms": {
-              "mean": 240.94754728020825,
-              "p50": 260.55779700000414,
-              "p90": 426.3751379000098,
-              "p95": 466.81068079998056,
-              "p99": 529.2614514100023
+              "mean": 39.1468635236119,
+              "p50": 36.791753499983315,
+              "p90": 51.47872490004489,
+              "p95": 58.27469384996958,
+              "p99": 68.55353478999234
             },
             "tpot_ms": {
-              "mean": 59.21659137648869,
-              "p50": 66.28242757480305,
-              "p90": 94.95500526614173,
-              "p95": 95.76162619212612,
-              "p99": 96.80944309393699
+              "mean": 9.415238371062992,
+              "p50": 9.309986523621944,
+              "p90": 10.546944871653542,
+              "p95": 10.750616877165356,
+              "p99": 11.120464093936794
             },
             "itl_ms": {
-              "mean": 59.218534241785335,
-              "p50": 42.56867499999828,
-              "p90": 147.17157439999366,
-              "p95": 177.6772888999915,
-              "p99": 202.30693424001856
+              "mean": 9.41554728009449,
+              "p50": 7.624878000001445,
+              "p90": 15.693029199974259,
+              "p95": 17.638245199964327,
+              "p99": 24.327765399980308
             },
             "e2e_ms": {
-              "mean": 7761.454652094271,
-              "p50": 8685.777363,
-              "p90": 12388.464103399987,
-              "p95": 12504.852164599983,
-              "p99": 12646.689860759983
+              "mean": 1234.8821366486118,
+              "p50": 1224.2262375000337,
+              "p90": 1380.1148236000074,
+              "p95": 1403.3144351499743,
+              "p99": 1456.5425099700285
             },
-            "failed": 0,
-            "position_in_repeat": 2
+            "send_lag_ms": {
+              "p50": 0.8029195027852154,
+              "max": 2.543329472210587
+            },
+            "sent_rate": 25.39308899166227,
+            "gpu": {
+              "samples": 30,
+              "sm_clock_mhz_min": 1725.0,
+              "sm_clock_mhz_p50": 1965.0,
+              "power_w_max": 655.22,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 3
           }
         }
       },
@@ -1635,290 +2026,257 @@
         "order": [
           48,
           64,
+          24,
           32
         ],
-        "warmup_rate": 32,
+        "warmup_rate": 24,
         "runs": {
           "48": {
             "rate": 48.0,
             "completed": 1440,
-            "duration_s": 33.12877575300001,
-            "request_throughput": 43.466743556607256,
-            "output_token_throughput": 5563.743175245729,
-            "goodput_req_s": 43.466743556607256,
+            "duration_s": 30.026976450999996,
+            "request_throughput": 47.9568764557393,
+            "output_token_throughput": 6138.48018633463,
+            "goodput_req_s": 47.9568764557393,
             "slo_attainment": 1.0,
+            "failed": 0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
-            "text_chunks_per_token": 0.9999674479166667,
+            "text_chunks_per_token": 0.9999457465277778,
             "ttft_ms": {
-              "mean": 54.084990774304174,
-              "p50": 52.042497000002186,
-              "p90": 88.29387380001205,
-              "p95": 103.34249135001414,
-              "p99": 134.7091712900258
+              "mean": 94.72577936597352,
+              "p50": 87.28334950001226,
+              "p90": 144.2303399999786,
+              "p95": 165.92438615007833,
+              "p99": 212.69375458999863
             },
             "tpot_ms": {
-              "mean": 13.720386952542656,
-              "p50": 15.10096552755919,
-              "p90": 19.16991907559037,
-              "p95": 19.831219619291684,
-              "p99": 20.880103329684804
+              "mean": 23.589691869663163,
+              "p50": 24.713278425196666,
+              "p90": 28.927609110236318,
+              "p95": 29.579887086614157,
+              "p99": 30.626586521575337
             },
             "itl_ms": {
-              "mean": 13.72083711124053,
-              "p50": 10.156562999981134,
-              "p90": 25.183738299983844,
-              "p95": 30.810086250002662,
-              "p99": 43.72636854001712
+              "mean": 23.590981840236225,
+              "p50": 20.559217499965143,
+              "p90": 43.26399039997568,
+              "p95": 54.839725000056156,
+              "p99": 77.56307842001773
             },
             "e2e_ms": {
-              "mean": 1796.5741337472214,
-              "p50": 1977.1630774999949,
-              "p90": 2500.9765689000287,
-              "p95": 2579.7444076000147,
-              "p99": 2708.9589572799987
+              "mean": 3090.616646813195,
+              "p50": 3227.168666500006,
+              "p90": 3784.6002619999695,
+              "p95": 3886.7564022000406,
+              "p99": 3993.4075456700243
             },
-            "failed": 0,
+            "send_lag_ms": {
+              "p50": 1.0094448008164392,
+              "max": 10.9119625358165
+            },
+            "sent_rate": 49.80086697316686,
+            "gpu": {
+              "samples": 31,
+              "sm_clock_mhz_min": 1545.0,
+              "sm_clock_mhz_p50": 1650.0,
+              "power_w_max": 696.78,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
             "position_in_repeat": 0
           },
           "64": {
             "rate": 64.0,
             "completed": 1920,
-            "duration_s": 35.86150049700001,
-            "request_throughput": 53.53931021822741,
-            "output_token_throughput": 6853.031707933109,
-            "goodput_req_s": 23.9532643111757,
-            "slo_attainment": 0.4473958333333333,
-            "slo": {
-              "ttft_ms": 500.0,
-              "tpot_ms": 50.0
-            },
-            "text_chunks_per_token": 0.9956868489583334,
-            "ttft_ms": {
-              "mean": 214.5482809276049,
-              "p50": 215.86359549999656,
-              "p90": 387.11705459999735,
-              "p95": 439.00579415000885,
-              "p99": 528.7556878000328
-            },
-            "tpot_ms": {
-              "mean": 52.22653206879921,
-              "p50": 51.7969265787402,
-              "p90": 86.68872319212589,
-              "p95": 90.85636628149601,
-              "p99": 91.42567659669297
-            },
-            "itl_ms": {
-              "mean": 52.45455795228602,
-              "p50": 36.58938750001539,
-              "p90": 119.95249889998831,
-              "p95": 147.2857220500032,
-              "p99": 203.3100430599853
-            },
-            "e2e_ms": {
-              "mean": 6847.317853665105,
-              "p50": 6853.67763650001,
-              "p90": 11303.293326699992,
-              "p95": 11800.673685949976,
-              "p99": 11910.770281980002
-            },
+            "duration_s": 35.54362629100001,
+            "request_throughput": 54.01812365122021,
+            "output_token_throughput": 6914.319827356187,
+            "goodput_req_s": 1.3504530912805053,
+            "slo_attainment": 0.025,
             "failed": 0,
-            "position_in_repeat": 1
-          },
-          "32": {
-            "rate": 32.0,
-            "completed": 960,
-            "duration_s": 31.71389621899999,
-            "request_throughput": 30.27064203561523,
-            "output_token_throughput": 3874.6421805587493,
-            "goodput_req_s": 30.27064203561523,
-            "slo_attainment": 1.0,
-            "slo": {
-              "ttft_ms": 500.0,
-              "tpot_ms": 50.0
-            },
-            "text_chunks_per_token": 0.9996337890625,
-            "ttft_ms": {
-              "mean": 47.24232229062508,
-              "p50": 45.65890800000716,
-              "p90": 61.75230619999752,
-              "p95": 66.8630768499952,
-              "p99": 78.73963279999366
-            },
-            "tpot_ms": {
-              "mean": 11.232002038221792,
-              "p50": 11.152275681102026,
-              "p90": 12.66595289055105,
-              "p95": 12.842983976377592,
-              "p99": 13.01549749732279
-            },
-            "itl_ms": {
-              "mean": 11.236149238974367,
-              "p50": 9.430989000009049,
-              "p90": 17.204232400024466,
-              "p95": 20.083146199999646,
-              "p99": 28.097436200013135
-            },
-            "e2e_ms": {
-              "mean": 1473.7065811447926,
-              "p50": 1460.0927764999767,
-              "p90": 1657.2609047000071,
-              "p95": 1679.8613816500078,
-              "p99": 1704.2141873400333
-            },
-            "failed": 0,
-            "position_in_repeat": 2
-          }
-        }
-      },
-      {
-        "order": [
-          64,
-          32,
-          48
-        ],
-        "warmup_rate": 32,
-        "runs": {
-          "64": {
-            "rate": 64.0,
-            "completed": 1920,
-            "duration_s": 35.679630739000004,
-            "request_throughput": 53.8122161085407,
-            "output_token_throughput": 6887.96366189321,
-            "goodput_req_s": 10.117817716241246,
-            "slo_attainment": 0.18802083333333333,
-            "slo": {
-              "ttft_ms": 500.0,
-              "tpot_ms": 50.0
-            },
-            "text_chunks_per_token": 0.99774169921875,
-            "ttft_ms": {
-              "mean": 425.89965463697837,
-              "p50": 291.6370520000555,
-              "p90": 1159.6164736999754,
-              "p95": 1254.8408226500044,
-              "p99": 1420.886745719973
-            },
-            "tpot_ms": {
-              "mean": 68.83658577398705,
-              "p50": 77.31683018897638,
-              "p90": 107.83870633622061,
-              "p95": 108.54413024094525,
-              "p99": 110.07950075590568
-            },
-            "itl_ms": {
-              "mean": 68.99362095948786,
-              "p50": 55.61363899994376,
-              "p90": 135.81352019998576,
-              "p95": 179.58790019997645,
-              "p99": 250.88511471999027
-            },
-            "e2e_ms": {
-              "mean": 9168.146047933335,
-              "p50": 10263.837248499953,
-              "p90": 13995.35674040004,
-              "p95": 14163.059080899937,
-              "p99": 14306.457862799984
-            },
-            "failed": 0,
-            "position_in_repeat": 0
-          },
-          "32": {
-            "rate": 32.0,
-            "completed": 960,
-            "duration_s": 30.94721981500004,
-            "request_throughput": 31.02055712076244,
-            "output_token_throughput": 3970.6313114575923,
-            "goodput_req_s": 31.02055712076244,
-            "slo_attainment": 1.0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
             "text_chunks_per_token": 0.9999593098958334,
             "ttft_ms": {
-              "mean": 46.957538061458834,
-              "p50": 44.24873599998591,
-              "p90": 62.464725599988924,
-              "p95": 69.61591684996615,
-              "p99": 92.19711777998778
+              "mean": 1073.5203252979165,
+              "p50": 625.4372810000177,
+              "p90": 2450.8882765999147,
+              "p95": 2621.912422799983,
+              "p99": 2857.7327421299924
             },
             "tpot_ms": {
-              "mean": 11.438407370915346,
-              "p50": 11.455329653543904,
-              "p90": 13.023414380315058,
-              "p95": 13.469725213778917,
-              "p99": 14.41216759992124
+              "mean": 87.8282132027518,
+              "p50": 99.98734679133871,
+              "p90": 109.95746330000007,
+              "p95": 110.35221636850368,
+              "p99": 111.00544473433068
             },
             "itl_ms": {
-              "mean": 11.438876484944421,
-              "p50": 9.143945999994685,
-              "p90": 18.00932600001488,
-              "p95": 22.091607199922695,
-              "p99": 27.696341179998853
+              "mean": 87.83181522929499,
+              "p50": 74.1965739999273,
+              "p90": 175.1625596000281,
+              "p95": 198.05616050003323,
+              "p99": 261.7309120300024
             },
             "e2e_ms": {
-              "mean": 1499.6352741677078,
-              "p50": 1501.7632034999906,
-              "p90": 1704.263704199991,
-              "p95": 1778.609054149996,
-              "p99": 1875.436466929965
+              "mean": 12227.703402047395,
+              "p50": 13357.026188500015,
+              "p90": 14724.673883900005,
+              "p95": 14980.701009800008,
+              "p99": 15217.099256090085
             },
-            "failed": 0,
+            "send_lag_ms": {
+              "p50": 1.079982105022026,
+              "max": 18.3738416568886
+            },
+            "sent_rate": 63.96029587154815,
+            "gpu": {
+              "samples": 36,
+              "sm_clock_mhz_min": 1395.0,
+              "sm_clock_mhz_p50": 1515.0,
+              "power_w_max": 700.55,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
             "position_in_repeat": 1
           },
-          "48": {
-            "rate": 48.0,
-            "completed": 1440,
-            "duration_s": 31.546276511999963,
-            "request_throughput": 45.6472255751716,
-            "output_token_throughput": 5842.844873621965,
-            "goodput_req_s": 45.6472255751716,
+          "24": {
+            "rate": 24.0,
+            "completed": 720,
+            "duration_s": 29.404177119999986,
+            "request_throughput": 24.486316929109844,
+            "output_token_throughput": 3134.24856692606,
+            "goodput_req_s": 24.486316929109844,
             "slo_attainment": 1.0,
+            "failed": 0,
             "slo": {
               "ttft_ms": 500.0,
               "tpot_ms": 50.0
             },
-            "text_chunks_per_token": 0.9999620225694444,
+            "text_chunks_per_token": 0.9999782986111111,
             "ttft_ms": {
-              "mean": 79.10683483402931,
-              "p50": 75.71802050000542,
-              "p90": 109.97933090006877,
-              "p95": 121.50197179994393,
-              "p99": 150.0540271999477
+              "mean": 39.552005049999806,
+              "p50": 37.42905899991911,
+              "p90": 53.25728610007445,
+              "p95": 56.72923680000394,
+              "p99": 65.19221264997894
             },
             "tpot_ms": {
-              "mean": 20.7220936891787,
-              "p50": 20.295611204724402,
-              "p90": 26.187394983464117,
-              "p95": 26.765724398425334,
-              "p99": 27.04412090606302
+              "mean": 9.505554182469385,
+              "p50": 9.5498091181103,
+              "p90": 10.5149620944884,
+              "p95": 10.786066362992031,
+              "p99": 11.577299459133846
             },
             "itl_ms": {
-              "mean": 20.722886888042524,
-              "p50": 19.051122999940162,
-              "p90": 33.704429799968224,
-              "p95": 43.7390917999437,
-              "p99": 56.813455960050305
+              "mean": 9.505762095026144,
+              "p50": 7.708287000014025,
+              "p90": 15.720101600015823,
+              "p95": 17.68291934999411,
+              "p99": 24.62923960002741
             },
             "e2e_ms": {
-              "mean": 2710.8127333597245,
-              "p50": 2650.3896399999576,
-              "p90": 3400.9525823999866,
-              "p95": 3483.697933400026,
-              "p99": 3539.165826119973
+              "mean": 1246.7573862236118,
+              "p50": 1252.7172974999985,
+              "p90": 1376.7461049999383,
+              "p95": 1409.9569760500344,
+              "p99": 1508.7353432500242
             },
-            "failed": 0,
+            "send_lag_ms": {
+              "p50": 0.8297399747050349,
+              "max": 2.8369558774055115
+            },
+            "sent_rate": 25.211212220701025,
+            "gpu": {
+              "samples": 30,
+              "sm_clock_mhz_min": 1740.0,
+              "sm_clock_mhz_p50": 1935.0,
+              "power_w_max": 667.86,
+              "temp_c_max": 43.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
             "position_in_repeat": 2
+          },
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 31.32086171900005,
+            "request_throughput": 30.650497697438478,
+            "output_token_throughput": 3923.263705272125,
+            "goodput_req_s": 30.650497697438478,
+            "slo_attainment": 1.0,
+            "failed": 0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999430338541667,
+            "ttft_ms": {
+              "mean": 45.64122560833337,
+              "p50": 42.78239599995004,
+              "p90": 61.301889399965155,
+              "p95": 70.09629229993948,
+              "p99": 91.46722996996229
+            },
+            "tpot_ms": {
+              "mean": 10.965677170628298,
+              "p50": 10.947177866141399,
+              "p90": 12.283586820472923,
+              "p95": 12.737895269291705,
+              "p99": 14.106693252992283
+            },
+            "itl_ms": {
+              "mean": 10.966306797823053,
+              "p50": 8.526975999984643,
+              "p90": 18.11105999997835,
+              "p95": 20.554948800008784,
+              "p99": 27.79708340005074
+            },
+            "e2e_ms": {
+              "mean": 1438.2822262781272,
+              "p50": 1434.302220500058,
+              "p90": 1607.884200300066,
+              "p95": 1662.8239662500107,
+              "p99": 1831.6723882800395
+            },
+            "send_lag_ms": {
+              "p50": 0.8361411967410248,
+              "max": 5.349987967591119
+            },
+            "sent_rate": 31.558983813078846,
+            "gpu": {
+              "samples": 32,
+              "sm_clock_mhz_min": 1620.0,
+              "sm_clock_mhz_p50": 1950.0,
+              "power_w_max": 691.3,
+              "temp_c_max": 44.0,
+              "clock_event_reasons": [
+                "0x0000000000000004"
+              ]
+            },
+            "position_in_repeat": 3
           }
         }
       }
     ]
   },
-  "knee_wall_s": 713.6,
-  "env_knee": {
+  "knee_wall_s": 746.4,
+  "knee_low": {
+    "skipped": "no knee rates defined for llama on H100"
+  },
+  "knee_low_wall_s": 0.0,
+  "env_knee_knee_low": {
     "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
     "vllm": "0.32.0",
     "model": "meta-llama/Llama-3.1-8B-Instruct",

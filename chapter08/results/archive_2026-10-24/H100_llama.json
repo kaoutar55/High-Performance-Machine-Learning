@@ -1,0 +1,1937 @@
+{
+  "env": {
+    "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+    "vllm": "0.32.0",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "slo": {
+      "ttft_ms": 500,
+      "tpot_ms": 50
+    },
+    "slo_long": {
+      "ttft_ms": 2000,
+      "tpot_ms": 50
+    },
+    "max_tokens": 128,
+    "max_tokens_long": 1024
+  },
+  "single": {
+    "startup": [
+      "(APIServer pid=10) INFO 10-24 23:11:31 [model.py:2152] Using max model len 2048",
+      "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+      "(EngineCore pid=39) INFO 10-24 23:11:43 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=39) INFO 10-24 23:11:46 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=39) INFO 10-24 23:11:46 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=39) INFO 10-24 23:11:56 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=39) INFO 10-24 23:12:03 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3ef3c894f4/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=39) INFO 10-24 23:12:10 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 7.42 s",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.47it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 12.14it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 12.08it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 12.15it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 12.29it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:00<00:03, 12.53it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:02, 12.60it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.69it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 13.02it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.74it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.65it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 12.79it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 12.85it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 12.83it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 12.91it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 12.83it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 12.88it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 12.86it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:01, 12.88it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 12.98it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.12it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 13.08it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.54it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 13.99it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 14.76it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.10it/s]",
+      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 24.37it/s]",
+      "(EngineCore pid=39) INFO 10-24 23:12:22 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
+      "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=39) INFO 10-24 23:12:22 [kv_cache_utils.py:2327] GPU KV cache size: 451,040 tokens, Maximum concurrency for 2,048 tokens per request: 220.23x"
+    ],
+    "result": {
+      "rate": 0.25,
+      "completed": 30,
+      "duration_s": 154.17628861799997,
+      "request_throughput": 0.19458245018681505,
+      "output_token_throughput": 24.906553623912327,
+      "goodput_req_s": 0.19458245018681505,
+      "slo_attainment": 1.0,
+      "slo": {
+        "ttft_ms": 500.0,
+        "tpot_ms": 50.0
+      },
+      "text_chunks_per_token": 1.0,
+      "ttft_ms": {
+        "mean": 23.163565633331967,
+        "p50": 22.478143999990152,
+        "p90": 26.81822020002471,
+        "p95": 26.95795560000107,
+        "p99": 28.60360477999166
+      },
+      "tpot_ms": {
+        "mean": 6.456043167979024,
+        "p50": 6.453326913385835,
+        "p90": 6.457593921260017,
+        "p95": 6.465208909842553,
+        "p99": 6.514590941810998
+      },
+      "itl_ms": {
+        "mean": 6.456043167979024,
+        "p50": 6.440313499993522,
+        "p90": 6.856126000008089,
+        "p95": 7.009903450021682,
+        "p99": 7.175349689982795
+      },
+      "e2e_ms": {
+        "mean": 843.081047966668,
+        "p50": 841.9869930000061,
+        "p90": 847.0578175000185,
+        "p95": 849.041319349999,
+        "p99": 852.698653429992
+      },
+      "failed": 0
+    }
+  },
+  "single_wall_s": 275.3,
+  "sweep": {
+    "startup": [
+      "(APIServer pid=189) INFO 10-24 23:15:57 [model.py:2152] Using max model len 2048",
+      "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+      "(EngineCore pid=211) INFO 10-24 23:16:10 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=211) INFO 10-24 23:16:12 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=211) INFO 10-24 23:16:12 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=211) INFO 10-24 23:16:19 [utils.py:347] Using LBNHC KV cache layout.",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.83it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.38it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.74it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 11.89it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 11.82it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.26it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 12.31it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 12.67it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 12.90it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.65it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.83it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 12.97it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.03it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.05it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 12.78it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 12.82it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.04it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.09it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.17it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:03<00:00, 13.30it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.31it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.37it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.76it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.24it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 14.94it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.66it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.22it/s]",
+      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 26.96it/s]",
+      "(EngineCore pid=211) INFO 10-24 23:16:27 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+      "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=211) INFO 10-24 23:16:27 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
+    ],
+    "runs": [
+      {
+        "rate": 1.0,
+        "completed": 60,
+        "duration_s": 67.88329483399997,
+        "request_throughput": 0.8838698850243264,
+        "output_token_throughput": 113.13534528311378,
+        "goodput_req_s": 0.8838698850243264,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 25.50650903332894,
+          "p50": 25.799005500033445,
+          "p90": 31.584226000006765,
+          "p95": 31.97987840003691,
+          "p99": 33.57066868999993
+        },
+        "tpot_ms": {
+          "mean": 6.514796414829449,
+          "p50": 6.510254870078608,
+          "p90": 6.59003532204753,
+          "p95": 6.596310766535206,
+          "p99": 6.648746055275484
+        },
+        "itl_ms": {
+          "mean": 6.514796414829449,
+          "p50": 6.482080500035181,
+          "p90": 6.90991599998938,
+          "p95": 7.050638500004425,
+          "p99": 7.400571890004815
+        },
+        "e2e_ms": {
+          "mean": 852.8856537166689,
+          "p50": 853.3500085000014,
+          "p90": 863.7715384000103,
+          "p95": 866.3198466000239,
+          "p99": 870.6348804599918
+        },
+        "failed": 0
+      },
+      {
+        "rate": 2.0,
+        "completed": 80,
+        "duration_s": 38.36889151899999,
+        "request_throughput": 2.0850224448205545,
+        "output_token_throughput": 266.882872937031,
+        "goodput_req_s": 2.0850224448205545,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 28.494824362503834,
+          "p50": 27.810533500030488,
+          "p90": 34.97856189995331,
+          "p95": 39.7572945000121,
+          "p99": 42.88480001000209
+        },
+        "tpot_ms": {
+          "mean": 6.654769153543316,
+          "p50": 6.638641255905419,
+          "p90": 6.8574695456692725,
+          "p95": 6.9099646854331604,
+          "p99": 7.03292514110254
+        },
+        "itl_ms": {
+          "mean": 6.654769153543316,
+          "p50": 6.57045249997168,
+          "p90": 6.958561099997951,
+          "p95": 7.1499730499908765,
+          "p99": 9.923188600021714
+        },
+        "e2e_ms": {
+          "mean": 873.650506862505,
+          "p50": 871.2114950000114,
+          "p90": 900.4536736999682,
+          "p95": 907.7963688500233,
+          "p99": 921.3013574600262
+        },
+        "failed": 0
+      },
+      {
+        "rate": 4.0,
+        "completed": 160,
+        "duration_s": 43.79616913799998,
+        "request_throughput": 3.653287562568461,
+        "output_token_throughput": 467.620808008763,
+        "goodput_req_s": 3.653287562568461,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 29.849826887499727,
+          "p50": 29.15376249998758,
+          "p90": 35.16287430001057,
+          "p95": 37.30043214995078,
+          "p99": 43.93440660999829
+        },
+        "tpot_ms": {
+          "mean": 6.850680862303143,
+          "p50": 6.846563299212568,
+          "p90": 7.067068974803251,
+          "p95": 7.202669368897647,
+          "p99": 7.483326845275376
+        },
+        "itl_ms": {
+          "mean": 6.850680862303143,
+          "p50": 6.717180999999073,
+          "p90": 7.298133899990944,
+          "p95": 7.614314999989347,
+          "p99": 15.688558290008245
+        },
+        "e2e_ms": {
+          "mean": 899.8862963999991,
+          "p50": 898.5490290000087,
+          "p90": 926.8459258999712,
+          "p95": 958.3172969000003,
+          "p99": 985.5910815300109
+        },
+        "failed": 0
+      },
+      {
+        "rate": 8.0,
+        "completed": 320,
+        "duration_s": 41.419491179999966,
+        "request_throughput": 7.725831266476709,
+        "output_token_throughput": 988.9064021090187,
+        "goodput_req_s": 7.725831266476709,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.999951171875,
+        "ttft_ms": {
+          "mean": 30.429190943751117,
+          "p50": 29.78239100002611,
+          "p90": 38.310582800068026,
+          "p95": 43.07379690004609,
+          "p99": 48.109884219990136
+        },
+        "tpot_ms": {
+          "mean": 7.228057864000962,
+          "p50": 7.2933498937004515,
+          "p90": 7.6316653488183555,
+          "p95": 7.6962213956686645,
+          "p99": 7.756629280866063
+        },
+        "itl_ms": {
+          "mean": 7.228413593016366,
+          "p50": 6.911389999913808,
+          "p90": 7.779961300013838,
+          "p95": 9.514824500053022,
+          "p99": 16.167469699956882
+        },
+        "e2e_ms": {
+          "mean": 948.3925396718735,
+          "p50": 958.8177565000251,
+          "p90": 1001.4073192000069,
+          "p95": 1007.6968074499689,
+          "p99": 1017.7994441900444
+        },
+        "failed": 0
+      },
+      {
+        "rate": 16.0,
+        "completed": 600,
+        "duration_s": 41.831868902,
+        "request_throughput": 14.343131582421693,
+        "output_token_throughput": 1835.9208425499767,
+        "goodput_req_s": 14.343131582421693,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999479166666667,
+        "ttft_ms": {
+          "mean": 32.48520846833458,
+          "p50": 31.78962499998761,
+          "p90": 44.204728000079285,
+          "p95": 47.88332415000695,
+          "p99": 55.83457266997584
+        },
+        "tpot_ms": {
+          "mean": 7.678201020971123,
+          "p50": 7.7283794921260505,
+          "p90": 8.435227061417347,
+          "p95": 8.561640861416917,
+          "p99": 8.704503929921781
+        },
+        "itl_ms": {
+          "mean": 7.67860409730169,
+          "p50": 7.107749500050886,
+          "p90": 9.152107999966574,
+          "p95": 15.382812250038569,
+          "p99": 17.041831499938105
+        },
+        "e2e_ms": {
+          "mean": 1007.6167381316671,
+          "p50": 1020.2201740000305,
+          "p90": 1107.6545064999777,
+          "p95": 1127.4623140000074,
+          "p99": 1146.4218657600554
+        },
+        "failed": 0
+      },
+      {
+        "rate": 32.0,
+        "completed": 600,
+        "duration_s": 19.707494981999957,
+        "request_throughput": 30.44526970820067,
+        "output_token_throughput": 3896.9945226496857,
+        "goodput_req_s": 30.44526970820067,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999739583333334,
+        "ttft_ms": {
+          "mean": 34.52131851333396,
+          "p50": 29.437520000044515,
+          "p90": 54.696431699926514,
+          "p95": 73.57828584994758,
+          "p99": 96.96774449006853
+        },
+        "tpot_ms": {
+          "mean": 8.403828408976366,
+          "p50": 7.624780783464668,
+          "p90": 12.074367107873702,
+          "p95": 13.729914061023445,
+          "p99": 14.287141360865519
+        },
+        "itl_ms": {
+          "mean": 8.404048987689954,
+          "p50": 7.75479850000238,
+          "p90": 9.855782299996463,
+          "p95": 15.256529149985433,
+          "p99": 24.008807799989423
+        },
+        "e2e_ms": {
+          "mean": 1101.8075264533325,
+          "p50": 996.8206670000086,
+          "p90": 1609.0051744000334,
+          "p95": 1789.3843031999268,
+          "p99": 1871.4300945399873
+        },
+        "failed": 0
+      },
+      {
+        "rate": 48.0,
+        "completed": 600,
+        "duration_s": 14.58104640700003,
+        "request_throughput": 41.14931008737162,
+        "output_token_throughput": 5267.111691183567,
+        "goodput_req_s": 41.14931008737162,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.999921875,
+        "ttft_ms": {
+          "mean": 51.20920734000265,
+          "p50": 33.176491999995505,
+          "p90": 93.94918539995845,
+          "p95": 154.593932649925,
+          "p99": 351.8455678699904
+        },
+        "tpot_ms": {
+          "mean": 9.304356999947501,
+          "p50": 8.057268169291163,
+          "p90": 14.548535355905504,
+          "p95": 16.02765917362154,
+          "p99": 17.127722872834486
+        },
+        "itl_ms": {
+          "mean": 9.3050896841746,
+          "p50": 8.393711999985953,
+          "p90": 10.802459999968049,
+          "p95": 17.74286299996107,
+          "p99": 25.992332869995064
+        },
+        "e2e_ms": {
+          "mean": 1232.862546333335,
+          "p50": 1058.03445250001,
+          "p90": 1920.505353099918,
+          "p95": 2083.663722150055,
+          "p99": 2222.8806601099473
+        },
+        "failed": 0
+      }
+    ]
+  },
+  "sweep_wall_s": 342.4,
+  "long": {
+    "startup": [
+      "(APIServer pid=335) INFO 10-24 23:21:40 [model.py:2152] Using max model len 6144",
+      "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+      "(EngineCore pid=357) INFO 10-24 23:21:53 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=357) INFO 10-24 23:21:55 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=357) INFO 10-24 23:21:55 [flash_attn.py:1117] Using FlashAttention version 3",
+      "(EngineCore pid=357) INFO 10-24 23:22:04 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=357) INFO 10-24 23:22:11 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/d5658fb15e/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=357) INFO 10-24 23:22:18 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 6.93 s",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.70it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 11.95it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 11.75it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 11.81it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 11.89it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:01<00:03, 12.10it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:03, 12.28it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.52it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 12.82it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.60it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.71it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 12.86it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 12.97it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 12.86it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 12.94it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 12.99it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 12.99it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 12.63it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:03<00:01, 12.76it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 12.89it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.05it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 12.93it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.53it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 13.93it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 14.68it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 12.99it/s]",
+      "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 23.95it/s]",
+      "(EngineCore pid=357) INFO 10-24 23:22:29 [gpu_worker.py:759] Available KV cache memory: 55.06 GiB",
+      "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=357) INFO 10-24 23:22:29 [kv_cache_utils.py:2327] GPU KV cache size: 451,056 tokens, Maximum concurrency for 6,144 tokens per request: 73.41x"
+    ],
+    "runs": [
+      {
+        "rate": 0.25,
+        "completed": 40,
+        "duration_s": 196.77357914699996,
+        "request_throughput": 0.20327932323738415,
+        "output_token_throughput": 208.15802699508137,
+        "goodput_req_s": 0.20327932323738415,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999755859375,
+        "ttft_ms": {
+          "mean": 118.24093900000037,
+          "p50": 118.08743599993932,
+          "p90": 124.96990929997764,
+          "p95": 125.31451689998221,
+          "p99": 152.65081683999935
+        },
+        "tpot_ms": {
+          "mean": 7.007039838269792,
+          "p50": 7.037965586021516,
+          "p90": 7.3428787819159105,
+          "p95": 7.365228409139791,
+          "p99": 7.418098489804521
+        },
+        "itl_ms": {
+          "mean": 7.007211079987289,
+          "p50": 6.901620000007824,
+          "p90": 7.431573000053504,
+          "p95": 7.6016569999296735,
+          "p99": 8.10195440000598
+        },
+        "e2e_ms": {
+          "mean": 7286.442693549997,
+          "p50": 7315.708803999996,
+          "p90": 7632.839448799985,
+          "p95": 7647.502038499931,
+          "p99": 7705.736520500044
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 4.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.04214260376019863,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      },
+      {
+        "rate": 0.5,
+        "completed": 40,
+        "duration_s": 69.11932349099993,
+        "request_throughput": 0.578709367796524,
+        "output_token_throughput": 592.5983926236406,
+        "goodput_req_s": 0.578709367796524,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 132.40162182499944,
+          "p50": 122.612284000013,
+          "p90": 171.50532160000012,
+          "p95": 204.1316321999545,
+          "p99": 219.0525647099753
+        },
+        "tpot_ms": {
+          "mean": 8.366090934677414,
+          "p50": 8.108152900293238,
+          "p90": 9.518117271749771,
+          "p95": 9.546855625806455,
+          "p99": 9.585986149481924
+        },
+        "itl_ms": {
+          "mean": 8.366090934677414,
+          "p50": 7.855510500064611,
+          "p90": 9.074706099977448,
+          "p95": 9.358034000013049,
+          "p99": 11.229174790007598
+        },
+        "e2e_ms": {
+          "mean": 8690.912647999994,
+          "p50": 8465.671346999956,
+          "p90": 9867.629006800053,
+          "p95": 9884.710603649995,
+          "p99": 9931.363393750033
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 13.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.1324583185526782,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      },
+      {
+        "rate": 1.0,
+        "completed": 60,
+        "duration_s": 83.16603049200012,
+        "request_throughput": 0.7214484044152077,
+        "output_token_throughput": 738.7631661211727,
+        "goodput_req_s": 0.7214484044152077,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 131.89828718333843,
+          "p50": 124.15404399996532,
+          "p90": 133.572891599988,
+          "p95": 191.2153162499805,
+          "p99": 277.32529567997057
+        },
+        "tpot_ms": {
+          "mean": 9.039628143515804,
+          "p50": 8.98181815591403,
+          "p90": 10.310501674682365,
+          "p95": 10.416473857184748,
+          "p99": 10.603884140078195
+        },
+        "itl_ms": {
+          "mean": 9.039628143515804,
+          "p50": 8.377232000043477,
+          "p90": 9.941749099994013,
+          "p95": 10.66625249995923,
+          "p99": 16.58695050002279
+        },
+        "e2e_ms": {
+          "mean": 9379.437878000006,
+          "p50": 9310.296494000113,
+          "p90": 10663.548944800004,
+          "p95": 10921.075154249957,
+          "p99": 10968.206081190156
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 17.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.17538134090102875,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      },
+      {
+        "rate": 2.0,
+        "completed": 120,
+        "duration_s": 79.88913990099991,
+        "request_throughput": 1.5020815113131298,
+        "output_token_throughput": 1538.131467584645,
+        "goodput_req_s": 1.5020815113131298,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999593098958334,
+        "ttft_ms": {
+          "mean": 150.8789589749919,
+          "p50": 136.54274649991294,
+          "p90": 218.36841619995084,
+          "p95": 237.6627057999599,
+          "p99": 290.94520326987106
+        },
+        "tpot_ms": {
+          "mean": 12.729745896839347,
+          "p50": 12.925673592375311,
+          "p90": 13.662565391104549,
+          "p95": 14.093801210410591,
+          "p99": 14.259185834017586
+        },
+        "itl_ms": {
+          "mean": 12.730264398973551,
+          "p50": 11.129312000093705,
+          "p90": 12.145489400109,
+          "p95": 12.961696999991547,
+          "p99": 96.51493725991259
+        },
+        "e2e_ms": {
+          "mean": 13173.409011441643,
+          "p50": 13391.447170999982,
+          "p90": 14116.96185749995,
+          "p95": 14556.287625649884,
+          "p99": 14765.86409714996
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 32.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.3312167435260731,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      },
+      {
+        "rate": 4.0,
+        "completed": 240,
+        "duration_s": 95.95051904499996,
+        "request_throughput": 2.5012892310404498,
+        "output_token_throughput": 2561.3201725854206,
+        "goodput_req_s": 1.3861311155349159,
+        "slo_attainment": 0.5541666666666667,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9998779296875,
+        "ttft_ms": {
+          "mean": 4185.3402514208365,
+          "p50": 536.823977499921,
+          "p90": 9638.404231000117,
+          "p95": 10033.29899240007,
+          "p99": 17393.484977140044
+        },
+        "tpot_ms": {
+          "mean": 29.878840655950636,
+          "p50": 32.81756103421317,
+          "p90": 36.38678109716522,
+          "p95": 36.64853257429114,
+          "p99": 37.35078845403702
+        },
+        "itl_ms": {
+          "mean": 29.88249198683857,
+          "p50": 25.535124499924677,
+          "p90": 27.958955899907778,
+          "p95": 115.38420149997818,
+          "p99": 216.78208091002486
+        },
+        "e2e_ms": {
+          "mean": 34751.39424245834,
+          "p50": 36640.17726050008,
+          "p90": 43896.772768299976,
+          "p95": 44312.33306460011,
+          "p99": 45226.965579429954
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 100.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 5.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 5.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.9998935792834338,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      },
+      {
+        "rate": 6.0,
+        "completed": 300,
+        "duration_s": 123.64659638800003,
+        "request_throughput": 2.4262697782525873,
+        "output_token_throughput": 2484.5002529306494,
+        "goodput_req_s": 0.8087565927508624,
+        "slo_attainment": 0.3333333333333333,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9998990885416666,
+        "ttft_ms": {
+          "mean": 19152.653173043323,
+          "p50": 17444.591365499946,
+          "p90": 39512.87830420012,
+          "p95": 40547.73712319998,
+          "p99": 57353.72334975983
+        },
+        "tpot_ms": {
+          "mean": 33.81654121026067,
+          "p50": 35.70259648338227,
+          "p90": 36.61699682541531,
+          "p95": 36.70609388206277,
+          "p99": 43.39896150936459
+        },
+        "itl_ms": {
+          "mean": 33.819957367570524,
+          "p50": 26.332812000191552,
+          "p90": 28.21438699997998,
+          "p95": 122.42746600013561,
+          "p99": 219.33960156005014
+        },
+        "e2e_ms": {
+          "mean": 53746.97483113999,
+          "p50": 54776.47384850002,
+          "p90": 72365.60823759984,
+          "p95": 73503.55277275012,
+          "p99": 74532.80054685009
+        },
+        "failed": 0,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 31.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 72.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 100.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 9.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 9.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 72.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884171.982906
+        }
+      }
+    ],
+    "preemption_log_lines": 0,
+    "slo": {
+      "ttft_ms": 2000,
+      "tpot_ms": 50
+    }
+  },
+  "long_wall_s": 763.3,
+  "prefix": {
+    "prefix_on": {
+      "first_turn": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 78.20279838900001,
+        "request_throughput": 3.8361798577555497,
+        "output_token_throughput": 491.03102179271036,
+        "goodput_req_s": 3.8361798577555497,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.999921875,
+        "ttft_ms": {
+          "mean": 29.88144034333497,
+          "p50": 29.472564999991846,
+          "p90": 34.73272689998339,
+          "p95": 39.169804300149735,
+          "p99": 42.07922136997695
+        },
+        "tpot_ms": {
+          "mean": 6.838486526902846,
+          "p50": 6.81548334251856,
+          "p90": 7.090318211810982,
+          "p95": 7.171590220472476,
+          "p99": 7.462079328269047
+        },
+        "itl_ms": {
+          "mean": 6.839025032810941,
+          "p50": 6.687625000040498,
+          "p90": 7.202684000048976,
+          "p95": 7.560355999976308,
+          "p99": 15.584090159964035
+        },
+        "e2e_ms": {
+          "mean": 898.3692292599964,
+          "p50": 895.3700170000047,
+          "p90": 931.0864099000128,
+          "p95": 946.8786781499603,
+          "p99": 977.7105788099516
+        },
+        "failed": 0
+      },
+      "follow_up": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 78.1979219110001,
+        "request_throughput": 3.8364190846585533,
+        "output_token_throughput": 491.0616428362948,
+        "goodput_req_s": 3.8364190846585533,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999739583333334,
+        "ttft_ms": {
+          "mean": 22.18017127000091,
+          "p50": 22.125370500020836,
+          "p90": 25.161663099925136,
+          "p95": 25.697011649981505,
+          "p99": 27.731489969883107
+        },
+        "tpot_ms": {
+          "mean": 6.636915821994801,
+          "p50": 6.617904263779973,
+          "p90": 6.751915155116583,
+          "p95": 6.82288281102331,
+          "p99": 6.913455185589999
+        },
+        "itl_ms": {
+          "mean": 6.637090023832697,
+          "p50": 6.662915000106295,
+          "p90": 7.1547020000252814,
+          "p95": 7.383597000102782,
+          "p99": 8.656896180000327
+        },
+        "e2e_ms": {
+          "mean": 865.0684806633406,
+          "p50": 862.4137634999443,
+          "p90": 880.4206038998245,
+          "p95": 888.3664950000025,
+          "p99": 899.8410269998021
+        },
+        "failed": 0
+      },
+      "metrics": {
+        "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 307899.0,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884904.3104773,
+        "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 149296.0,
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792884904.3104928
+      },
+      "startup": [
+        "rver pid=524) INFO 10-24 23:34:23 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
+        "(APIServer pid=524) INFO 10-24 23:34:23 [model.py:2152] Using max model len 2048",
+        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+        "(EngineCore pid=546) INFO 10-24 23:34:36 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=546) INFO 10-24 23:34:39 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=546) INFO 10-24 23:34:39 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=546) INFO 10-24 23:34:47 [utils.py:347] Using LBNHC KV cache layout.",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 11.38it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:03, 11.98it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:03, 11.81it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:03, 12.06it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 12.40it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:00<00:03, 12.68it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:02, 12.86it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:02, 12.96it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 13.26it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.80it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.90it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:01<00:02, 13.05it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 13.23it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 13.28it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 13.33it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 13.34it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 13.38it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:02<00:01, 13.39it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:00, 13.33it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 13.35it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.36it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 13.37it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 13.86it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 14.34it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 15.07it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.37it/s]",
+        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.23it/s]",
+        "(EngineCore pid=546) INFO 10-24 23:34:56 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=546) INFO 10-24 23:34:56 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
+      ]
+    },
+    "prefix_off": {
+      "first_turn": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 78.18724597699998,
+        "request_throughput": 3.8369429214612545,
+        "output_token_throughput": 491.1286939470406,
+        "goodput_req_s": 3.8369429214612545,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 29.653585373330316,
+          "p50": 29.323277499997857,
+          "p90": 34.98501529998066,
+          "p95": 37.550421999890204,
+          "p99": 42.53000223984827
+        },
+        "tpot_ms": {
+          "mean": 6.834918414671914,
+          "p50": 6.80538132283392,
+          "p90": 7.082876059054769,
+          "p95": 7.177991543306066,
+          "p99": 7.465524708188946
+        },
+        "itl_ms": {
+          "mean": 6.834918414671914,
+          "p50": 6.69857100012905,
+          "p90": 7.2109388999706425,
+          "p95": 7.5652650499364436,
+          "p99": 15.3210995099903
+        },
+        "e2e_ms": {
+          "mean": 897.6882240366633,
+          "p50": 894.3158485001277,
+          "p90": 930.8497597000041,
+          "p95": 947.9102998000258,
+          "p99": 979.5290760300259
+        },
+        "failed": 0
+      },
+      "follow_up": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 78.19806738300008,
+        "request_throughput": 3.8364119477614955,
+        "output_token_throughput": 491.0607293134714,
+        "goodput_req_s": 3.8364119477614955,
+        "slo_attainment": 1.0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999739583333334,
+        "ttft_ms": {
+          "mean": 31.257342049990864,
+          "p50": 30.82908999999745,
+          "p90": 36.44566239997858,
+          "p95": 40.27706925000985,
+          "p99": 43.588500809894406
+        },
+        "tpot_ms": {
+          "mean": 6.878161364225821,
+          "p50": 6.851698283464508,
+          "p90": 7.162138056692379,
+          "p95": 7.269934537401341,
+          "p99": 7.534922602991445
+        },
+        "itl_ms": {
+          "mean": 6.878341898133908,
+          "p50": 6.674635000081253,
+          "p90": 7.218443199963076,
+          "p95": 7.6604510999231925,
+          "p99": 15.468944400081437
+        },
+        "e2e_ms": {
+          "mean": 904.7838353066701,
+          "p50": 901.6960890000973,
+          "p90": 940.8013364000681,
+          "p95": 956.6251275499212,
+          "p99": 995.193211559872
+        },
+        "failed": 0
+      },
+      "metrics": {
+        "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885123.3563209,
+        "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885123.3563359
+      },
+      "startup": [
+        "ver pid=652) INFO 10-24 23:38:03 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=652) INFO 10-24 23:38:03 [model.py:2152] Using max model len 2048",
+        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+        "(EngineCore pid=673) INFO 10-24 23:38:16 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=673) INFO 10-24 23:38:18 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=673) INFO 10-24 23:38:18 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=673) INFO 10-24 23:38:27 [utils.py:347] Using LBNHC KV cache layout.",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.87it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.54it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.76it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 12.05it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 12.13it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.62it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:02, 12.72it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 13.05it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 13.23it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.78it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 13.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 13.19it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.26it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.32it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 13.34it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 13.53it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.56it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.51it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.40it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:02<00:00, 13.45it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.49it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.56it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.91it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.39it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 15.13it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.83it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.49it/s]",
+        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.48it/s]",
+        "(EngineCore pid=673) INFO 10-24 23:38:35 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=673) INFO 10-24 23:38:35 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x"
+      ]
+    }
+  },
+  "prefix_wall_s": 438.8,
+  "spec": {
+    "no_spec": {
+      "runs": {
+        "0.25": {
+          "rate": 0.25,
+          "completed": 30,
+          "duration_s": 154.1750255840002,
+          "request_throughput": 0.19458404424687384,
+          "output_token_throughput": 24.90675766359985,
+          "goodput_req_s": 0.19458404424687384,
+          "slo_attainment": 1.0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 23.062011466655957,
+            "p50": 21.811732999935884,
+            "p90": 26.605653500087104,
+            "p95": 28.749709949931912,
+            "p99": 29.782464929917296
+          },
+          "tpot_ms": {
+            "mean": 6.448711889238809,
+            "p50": 6.446633913385522,
+            "p90": 6.4545181614164004,
+            "p95": 6.4661527326781805,
+            "p99": 6.505496497480835
+          },
+          "itl_ms": {
+            "mean": 6.448711889238809,
+            "p50": 6.442829999969035,
+            "p90": 6.831685099973583,
+            "p95": 6.964539499938383,
+            "p99": 7.17572340009383
+          },
+          "e2e_ms": {
+            "mean": 842.0484213999846,
+            "p50": 841.2143984999148,
+            "p90": 846.0496166999519,
+            "p95": 847.5992300999337,
+            "p99": 851.1671134900439
+          },
+          "failed": 0
+        },
+        "32": {
+          "rate": 32.0,
+          "completed": 600,
+          "duration_s": 20.692005694999807,
+          "request_throughput": 28.99670572509987,
+          "output_token_throughput": 3711.578332812783,
+          "goodput_req_s": 28.99670572509987,
+          "slo_attainment": 1.0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9999479166666667,
+          "ttft_ms": {
+            "mean": 48.55954306000134,
+            "p50": 48.121260500010976,
+            "p90": 62.94708130026265,
+            "p95": 67.96924264999686,
+            "p99": 77.62924634979296
+          },
+          "tpot_ms": {
+            "mean": 10.878450481062908,
+            "p50": 10.96394879133852,
+            "p90": 11.981951298427639,
+            "p95": 12.333043658268467,
+            "p99": 12.67880695551308
+          },
+          "itl_ms": {
+            "mean": 10.879021558310063,
+            "p50": 8.482219000143232,
+            "p90": 17.339062000019112,
+            "p95": 18.384059249910933,
+            "p99": 26.20868699987114
+          },
+          "e2e_ms": {
+            "mean": 1430.1227541549906,
+            "p50": 1441.870941000161,
+            "p90": 1573.4122238001419,
+            "p95": 1622.5549605501328,
+            "p99": 1658.3432339498495
+          },
+          "failed": 0
+        }
+      },
+      "metrics": {},
+      "startup": [
+        "(APIServer pid=779) INFO 10-24 23:41:42 [model.py:2152] Using max model len 2048",
+        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+        "(EngineCore pid=801) INFO 10-24 23:41:55 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=801) INFO 10-24 23:41:57 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=801) INFO 10-24 23:41:57 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=801) INFO 10-24 23:42:05 [utils.py:347] Using LBNHC KV cache layout.",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:05,  9.95it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04, 11.80it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:03, 11.88it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:03, 12.02it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 11.99it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:00<00:03, 12.15it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 12.32it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 12.76it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 13.06it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.79it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.95it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 12.94it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:01<00:01, 13.02it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 13.14it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 13.30it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 13.41it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 13.45it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 13.48it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:01, 13.50it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:03<00:00, 13.52it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.54it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 13.64it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 13.95it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 14.40it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 14.96it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 15.61it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.39it/s]",
+        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 27.29it/s]",
+        "(EngineCore pid=801) INFO 10-24 23:42:13 [gpu_worker.py:759] Available KV cache memory: 55.29 GiB",
+        "ivalent to --gpu-memory-utilization=0.9087 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9313. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=801) INFO 10-24 23:42:13 [kv_cache_utils.py:2327] GPU KV cache size: 452,912 tokens, Maximum concurrency for 2,048 tokens per request: 221.15x",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
+      ]
+    },
+    "ngram": {
+      "runs": {
+        "0.25": {
+          "rate": 0.25,
+          "completed": 30,
+          "duration_s": 154.17998664800007,
+          "request_throughput": 0.19457778309769455,
+          "output_token_throughput": 24.905956236504903,
+          "goodput_req_s": 0.19457778309769455,
+          "slo_attainment": 1.0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.5854166666666667,
+          "ttft_ms": {
+            "mean": 23.223048533373003,
+            "p50": 22.188137500052107,
+            "p90": 26.71746509995501,
+            "p95": 29.25497430010182,
+            "p99": 31.9705559400245
+          },
+          "tpot_ms": {
+            "mean": 4.735345181364608,
+            "p50": 4.568121480314238,
+            "p90": 6.517058612599062,
+            "p95": 6.8104080822839625,
+            "p99": 7.515887655826206
+          },
+          "itl_ms": {
+            "mean": 8.134204301622704,
+            "p50": 8.114260999946055,
+            "p90": 8.499337300054322,
+            "p95": 8.59987150008692,
+            "p99": 8.813986530003604
+          },
+          "e2e_ms": {
+            "mean": 624.6118865666782,
+            "p50": 602.9920050000328,
+            "p90": 849.3845609002619,
+            "p95": 888.823023750092,
+            "p99": 977.2359257100562
+          },
+          "failed": 0
+        },
+        "32": {
+          "rate": 32.0,
+          "completed": 600,
+          "duration_s": 21.04296242700002,
+          "request_throughput": 28.51309562907102,
+          "output_token_throughput": 3649.6762405210907,
+          "goodput_req_s": 28.51309562907102,
+          "slo_attainment": 1.0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.6478515625,
+          "ttft_ms": {
+            "mean": 52.38330428499845,
+            "p50": 49.46180799993272,
+            "p90": 73.65285360001509,
+            "p95": 83.95607510010441,
+            "p99": 110.20457780025481
+          },
+          "tpot_ms": {
+            "mean": 11.844311502480332,
+            "p50": 11.74771792519876,
+            "p90": 17.013041481100583,
+            "p95": 17.928423530314486,
+            "p99": 19.149666298344954
+          },
+          "itl_ms": {
+            "mean": 18.361032173512385,
+            "p50": 13.61795599996185,
+            "p90": 30.307114999868634,
+            "p95": 34.91819299988493,
+            "p99": 48.46382919995445
+          },
+          "e2e_ms": {
+            "mean": 1556.6108651000004,
+            "p50": 1545.800322499872,
+            "p90": 2216.1396495999725,
+            "p95": 2327.2481452498596,
+            "p99": 2505.1232193399346
+          },
+          "failed": 0
+        }
+      },
+      "metrics": {
+        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 52217.0,
+        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581435,
+        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 208868.0,
+        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581707,
+        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29780.0,
+        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792885624.1581903,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 10213.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 7802.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 6304.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 5461.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 1792885624.1582177,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 1792885624.1582248,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 1792885624.158231,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 1792885624.1582372
+      },
+      "startup": [
+        "(APIServer pid=911) INFO 10-24 23:45:48 [model.py:2152] Using max model len 2048",
+        "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+        "(EngineCore pid=933) INFO 10-24 23:46:00 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=933) INFO 10-24 23:46:03 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=933) INFO 10-24 23:46:03 [flash_attn.py:1117] Using FlashAttention version 3",
+        "(EngineCore pid=933) INFO 10-24 23:46:11 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=933) INFO 10-24 23:46:19 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3edf7d5eba/rank_0_0/backbone for vLLM's torch.compile",
+        "(EngineCore pid=933) INFO 10-24 23:46:26 [backends.py:398] [backbone] Compiling a graph for compile range (1, 8192) takes 6.94 s",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/57 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258e         | 2/57 [00:00<00:04, 11.85it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   7%|\u258b         | 4/57 [00:00<00:04, 12.29it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  11%|\u2588         | 6/57 [00:00<00:04, 12.10it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258d        | 8/57 [00:00<00:03, 12.36it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 10/57 [00:00<00:03, 12.21it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  21%|\u2588\u2588        | 12/57 [00:00<00:03, 12.57it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258d       | 14/57 [00:01<00:03, 12.65it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  28%|\u2588\u2588\u258a       | 16/57 [00:01<00:03, 12.62it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  32%|\u2588\u2588\u2588\u258f      | 18/57 [00:01<00:03, 12.52it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 20/57 [00:01<00:02, 12.79it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u258a      | 22/57 [00:01<00:02, 12.44it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  42%|\u2588\u2588\u2588\u2588\u258f     | 24/57 [00:01<00:02, 12.70it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  46%|\u2588\u2588\u2588\u2588\u258c     | 26/57 [00:02<00:02, 12.86it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 28/57 [00:02<00:02, 12.70it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 30/57 [00:02<00:02, 12.74it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  56%|\u2588\u2588\u2588\u2588\u2588\u258c    | 32/57 [00:02<00:01, 12.80it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2589    | 34/57 [00:02<00:01, 12.90it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 36/57 [00:02<00:01, 12.89it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 38/57 [00:02<00:01, 13.00it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 40/57 [00:03<00:01, 13.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 42/57 [00:03<00:01, 12.89it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  77%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 44/57 [00:03<00:00, 13.02it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  81%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 46/57 [00:03<00:00, 13.18it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 48/57 [00:03<00:00, 13.32it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 50/57 [00:03<00:00, 14.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 52/57 [00:04<00:00, 14.56it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  95%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 54/57 [00:04<00:00, 14.99it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 56/57 [00:04<00:00, 15.53it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 57/57 [00:04<00:00, 13.23it/s]",
+        "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 25.99it/s]"
+      ]
+    }
+  },
+  "spec_wall_s": 528.6,
+  "knee": {
+    "rates": [
+      32,
+      48,
+      64
+    ],
+    "repeats": [
+      {
+        "order": [
+          32,
+          48,
+          64
+        ],
+        "warmup_rate": 32,
+        "runs": {
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 31.340714362,
+            "request_throughput": 30.63108226926637,
+            "output_token_throughput": 3920.778530466095,
+            "goodput_req_s": 30.63108226926637,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999674479166667,
+            "ttft_ms": {
+              "mean": 45.69026751770802,
+              "p50": 43.46890300000439,
+              "p90": 60.674070000001734,
+              "p95": 66.85090565001843,
+              "p99": 76.63327481000461
+            },
+            "tpot_ms": {
+              "mean": 11.240894989681761,
+              "p50": 11.240878826771517,
+              "p90": 12.647536410236306,
+              "p95": 12.826409007874192,
+              "p99": 13.044116940866214
+            },
+            "itl_ms": {
+              "mean": 11.241263797549136,
+              "p50": 8.841101000001572,
+              "p90": 17.653898999995477,
+              "p95": 20.311627749997285,
+              "p99": 27.82829224998412
+            },
+            "e2e_ms": {
+              "mean": 1473.2839312072917,
+              "p50": 1475.8162090000155,
+              "p90": 1652.4897111000002,
+              "p95": 1676.1396471999944,
+              "p99": 1711.827922649995
+            },
+            "failed": 0,
+            "position_in_repeat": 0
+          },
+          "48": {
+            "rate": 48.0,
+            "completed": 1440,
+            "duration_s": 31.213771731999998,
+            "request_throughput": 46.133482757667785,
+            "output_token_throughput": 5905.0857929814765,
+            "goodput_req_s": 46.133482757667785,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999674479166667,
+            "ttft_ms": {
+              "mean": 88.58499602222203,
+              "p50": 81.54033099998514,
+              "p90": 135.22382230000005,
+              "p95": 148.87215744997917,
+              "p99": 171.08899756000423
+            },
+            "tpot_ms": {
+              "mean": 21.798429170926294,
+              "p50": 21.00258955118101,
+              "p90": 28.610504862204788,
+              "p95": 29.017249560629885,
+              "p99": 29.685209818346443
+            },
+            "itl_ms": {
+              "mean": 21.79914436595142,
+              "p50": 18.142584499997838,
+              "p90": 38.501128299981254,
+              "p95": 47.1625809000017,
+              "p99": 70.75725308998497
+            },
+            "e2e_ms": {
+              "mean": 2856.985500729861,
+              "p50": 2757.0017164999854,
+              "p90": 3734.627759499986,
+              "p95": 3784.3600517,
+              "p99": 3876.5441372100036
+            },
+            "failed": 0,
+            "position_in_repeat": 1
+          },
+          "64": {
+            "rate": 64.0,
+            "completed": 1920,
+            "duration_s": 35.68580610799998,
+            "request_throughput": 53.8029039946383,
+            "output_token_throughput": 6886.771711313702,
+            "goodput_req_s": 19.839820848022875,
+            "slo_attainment": 0.36875,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999674479166667,
+            "ttft_ms": {
+              "mean": 240.94754728020825,
+              "p50": 260.55779700000414,
+              "p90": 426.3751379000098,
+              "p95": 466.81068079998056,
+              "p99": 529.2614514100023
+            },
+            "tpot_ms": {
+              "mean": 59.21659137648869,
+              "p50": 66.28242757480305,
+              "p90": 94.95500526614173,
+              "p95": 95.76162619212612,
+              "p99": 96.80944309393699
+            },
+            "itl_ms": {
+              "mean": 59.218534241785335,
+              "p50": 42.56867499999828,
+              "p90": 147.17157439999366,
+              "p95": 177.6772888999915,
+              "p99": 202.30693424001856
+            },
+            "e2e_ms": {
+              "mean": 7761.454652094271,
+              "p50": 8685.777363,
+              "p90": 12388.464103399987,
+              "p95": 12504.852164599983,
+              "p99": 12646.689860759983
+            },
+            "failed": 0,
+            "position_in_repeat": 2
+          }
+        }
+      },
+      {
+        "order": [
+          48,
+          64,
+          32
+        ],
+        "warmup_rate": 32,
+        "runs": {
+          "48": {
+            "rate": 48.0,
+            "completed": 1440,
+            "duration_s": 33.12877575300001,
+            "request_throughput": 43.466743556607256,
+            "output_token_throughput": 5563.743175245729,
+            "goodput_req_s": 43.466743556607256,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999674479166667,
+            "ttft_ms": {
+              "mean": 54.084990774304174,
+              "p50": 52.042497000002186,
+              "p90": 88.29387380001205,
+              "p95": 103.34249135001414,
+              "p99": 134.7091712900258
+            },
+            "tpot_ms": {
+              "mean": 13.720386952542656,
+              "p50": 15.10096552755919,
+              "p90": 19.16991907559037,
+              "p95": 19.831219619291684,
+              "p99": 20.880103329684804
+            },
+            "itl_ms": {
+              "mean": 13.72083711124053,
+              "p50": 10.156562999981134,
+              "p90": 25.183738299983844,
+              "p95": 30.810086250002662,
+              "p99": 43.72636854001712
+            },
+            "e2e_ms": {
+              "mean": 1796.5741337472214,
+              "p50": 1977.1630774999949,
+              "p90": 2500.9765689000287,
+              "p95": 2579.7444076000147,
+              "p99": 2708.9589572799987
+            },
+            "failed": 0,
+            "position_in_repeat": 0
+          },
+          "64": {
+            "rate": 64.0,
+            "completed": 1920,
+            "duration_s": 35.86150049700001,
+            "request_throughput": 53.53931021822741,
+            "output_token_throughput": 6853.031707933109,
+            "goodput_req_s": 23.9532643111757,
+            "slo_attainment": 0.4473958333333333,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9956868489583334,
+            "ttft_ms": {
+              "mean": 214.5482809276049,
+              "p50": 215.86359549999656,
+              "p90": 387.11705459999735,
+              "p95": 439.00579415000885,
+              "p99": 528.7556878000328
+            },
+            "tpot_ms": {
+              "mean": 52.22653206879921,
+              "p50": 51.7969265787402,
+              "p90": 86.68872319212589,
+              "p95": 90.85636628149601,
+              "p99": 91.42567659669297
+            },
+            "itl_ms": {
+              "mean": 52.45455795228602,
+              "p50": 36.58938750001539,
+              "p90": 119.95249889998831,
+              "p95": 147.2857220500032,
+              "p99": 203.3100430599853
+            },
+            "e2e_ms": {
+              "mean": 6847.317853665105,
+              "p50": 6853.67763650001,
+              "p90": 11303.293326699992,
+              "p95": 11800.673685949976,
+              "p99": 11910.770281980002
+            },
+            "failed": 0,
+            "position_in_repeat": 1
+          },
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 31.71389621899999,
+            "request_throughput": 30.27064203561523,
+            "output_token_throughput": 3874.6421805587493,
+            "goodput_req_s": 30.27064203561523,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9996337890625,
+            "ttft_ms": {
+              "mean": 47.24232229062508,
+              "p50": 45.65890800000716,
+              "p90": 61.75230619999752,
+              "p95": 66.8630768499952,
+              "p99": 78.73963279999366
+            },
+            "tpot_ms": {
+              "mean": 11.232002038221792,
+              "p50": 11.152275681102026,
+              "p90": 12.66595289055105,
+              "p95": 12.842983976377592,
+              "p99": 13.01549749732279
+            },
+            "itl_ms": {
+              "mean": 11.236149238974367,
+              "p50": 9.430989000009049,
+              "p90": 17.204232400024466,
+              "p95": 20.083146199999646,
+              "p99": 28.097436200013135
+            },
+            "e2e_ms": {
+              "mean": 1473.7065811447926,
+              "p50": 1460.0927764999767,
+              "p90": 1657.2609047000071,
+              "p95": 1679.8613816500078,
+              "p99": 1704.2141873400333
+            },
+            "failed": 0,
+            "position_in_repeat": 2
+          }
+        }
+      },
+      {
+        "order": [
+          64,
+          32,
+          48
+        ],
+        "warmup_rate": 32,
+        "runs": {
+          "64": {
+            "rate": 64.0,
+            "completed": 1920,
+            "duration_s": 35.679630739000004,
+            "request_throughput": 53.8122161085407,
+            "output_token_throughput": 6887.96366189321,
+            "goodput_req_s": 10.117817716241246,
+            "slo_attainment": 0.18802083333333333,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.99774169921875,
+            "ttft_ms": {
+              "mean": 425.89965463697837,
+              "p50": 291.6370520000555,
+              "p90": 1159.6164736999754,
+              "p95": 1254.8408226500044,
+              "p99": 1420.886745719973
+            },
+            "tpot_ms": {
+              "mean": 68.83658577398705,
+              "p50": 77.31683018897638,
+              "p90": 107.83870633622061,
+              "p95": 108.54413024094525,
+              "p99": 110.07950075590568
+            },
+            "itl_ms": {
+              "mean": 68.99362095948786,
+              "p50": 55.61363899994376,
+              "p90": 135.81352019998576,
+              "p95": 179.58790019997645,
+              "p99": 250.88511471999027
+            },
+            "e2e_ms": {
+              "mean": 9168.146047933335,
+              "p50": 10263.837248499953,
+              "p90": 13995.35674040004,
+              "p95": 14163.059080899937,
+              "p99": 14306.457862799984
+            },
+            "failed": 0,
+            "position_in_repeat": 0
+          },
+          "32": {
+            "rate": 32.0,
+            "completed": 960,
+            "duration_s": 30.94721981500004,
+            "request_throughput": 31.02055712076244,
+            "output_token_throughput": 3970.6313114575923,
+            "goodput_req_s": 31.02055712076244,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999593098958334,
+            "ttft_ms": {
+              "mean": 46.957538061458834,
+              "p50": 44.24873599998591,
+              "p90": 62.464725599988924,
+              "p95": 69.61591684996615,
+              "p99": 92.19711777998778
+            },
+            "tpot_ms": {
+              "mean": 11.438407370915346,
+              "p50": 11.455329653543904,
+              "p90": 13.023414380315058,
+              "p95": 13.469725213778917,
+              "p99": 14.41216759992124
+            },
+            "itl_ms": {
+              "mean": 11.438876484944421,
+              "p50": 9.143945999994685,
+              "p90": 18.00932600001488,
+              "p95": 22.091607199922695,
+              "p99": 27.696341179998853
+            },
+            "e2e_ms": {
+              "mean": 1499.6352741677078,
+              "p50": 1501.7632034999906,
+              "p90": 1704.263704199991,
+              "p95": 1778.609054149996,
+              "p99": 1875.436466929965
+            },
+            "failed": 0,
+            "position_in_repeat": 1
+          },
+          "48": {
+            "rate": 48.0,
+            "completed": 1440,
+            "duration_s": 31.546276511999963,
+            "request_throughput": 45.6472255751716,
+            "output_token_throughput": 5842.844873621965,
+            "goodput_req_s": 45.6472255751716,
+            "slo_attainment": 1.0,
+            "slo": {
+              "ttft_ms": 500.0,
+              "tpot_ms": 50.0
+            },
+            "text_chunks_per_token": 0.9999620225694444,
+            "ttft_ms": {
+              "mean": 79.10683483402931,
+              "p50": 75.71802050000542,
+              "p90": 109.97933090006877,
+              "p95": 121.50197179994393,
+              "p99": 150.0540271999477
+            },
+            "tpot_ms": {
+              "mean": 20.7220936891787,
+              "p50": 20.295611204724402,
+              "p90": 26.187394983464117,
+              "p95": 26.765724398425334,
+              "p99": 27.04412090606302
+            },
+            "itl_ms": {
+              "mean": 20.722886888042524,
+              "p50": 19.051122999940162,
+              "p90": 33.704429799968224,
+              "p95": 43.7390917999437,
+              "p99": 56.813455960050305
+            },
+            "e2e_ms": {
+              "mean": 2710.8127333597245,
+              "p50": 2650.3896399999576,
+              "p90": 3400.9525823999866,
+              "p95": 3483.697933400026,
+              "p99": 3539.165826119973
+            },
+            "failed": 0,
+            "position_in_repeat": 2
+          }
+        }
+      }
+    ]
+  },
+  "knee_wall_s": 713.6,
+  "env_knee": {
+    "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+    "vllm": "0.32.0",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "slo": {
+      "ttft_ms": 500,
+      "tpot_ms": 50
+    },
+    "slo_long": {
+      "ttft_ms": 2000,
+      "tpot_ms": 50
+    },
+    "max_tokens": 128,
+    "max_tokens_long": 1024
+  }
+}
