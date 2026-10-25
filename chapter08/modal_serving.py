@@ -349,7 +349,15 @@ STUDIES = {"single": study_single, "sweep": study_sweep, "long": study_long, "pr
            "knee_low": study_knee_low}
 
 
+# Modal's "A100-80GB" can be an SXM4 or a PCIe card. They differ in power limit (400 W vs 300 W) and memory
+# bandwidth, so every A100 result in the chapter comes from the SXM4 variant.
+REQUIRED_NAME = {"A100-80GB": "SXM4"}
+
+
 def run_studies(gpu: str, model: str, studies: list) -> dict:
+    name = subprocess.getoutput("nvidia-smi --query-gpu=name --format=csv,noheader")
+    if REQUIRED_NAME.get(gpu, "") not in name:
+        return {"error": f"wrong GPU variant: {name}", "retry": True}
     env = {"gpu": subprocess.getoutput("nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv,noheader"),
            "vllm": subprocess.getoutput(f"{sys.executable} -c 'import vllm; print(vllm.__version__)'"),
            "model": MODELS[model]["id"], "dtype": MODELS[model]["dtype"], "slo": SLO, "slo_long": SLO_LONG,
@@ -389,10 +397,16 @@ def main(gpus: str = "", models: str = "", studies: str = ""):
     outdir = HERE / "results"
     outdir.mkdir(exist_ok=True)
     for (g, m), h in handles.items():
-        try:
-            res = h.get()
-        except Exception as e:
-            res = {"error": f"{type(e).__name__}: {e}"}
+        for attempt in range(6):
+            try:
+                res = h.get()
+            except Exception as e:
+                res = {"error": f"{type(e).__name__}: {e}"}
+            if not res.get("retry"):
+                break
+            print(f"{g} {m}: {res['error']}; retrying on another GPU ({attempt + 1}/5)")
+            h = FUNCS[(g, m)].spawn(g, m, res.get("studies", [s for s in (st or MODELS[m]["studies"])
+                                                              if s in MODELS[m]["studies"] + MODELS[m].get("extra_studies", [])]))
         path = outdir / f"{g}_{m}.json"
         if "error" in res:                                         # never overwrite earlier results with an error
             err = outdir / f"{g}_{m}.error.json"
