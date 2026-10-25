@@ -122,8 +122,10 @@ class Server:
         time.sleep(5)
 
     def startup_lines(self):
-        keys = ("KV cache", "Maximum concurrency", "attention backend", "Using", "graph", "chunked", "prefix")
-        return [l.strip()[-240:] for l in open("/tmp/vllm.log") if any(k in l for k in keys)][:40]
+        keys = ("KV cache", "Maximum concurrency", "attention backend", "Using", "graph", "chunked", "prefix",
+                "max_num_seqs", "max_num_batched_tokens")
+        return [l.strip()[-240:] for l in open("/tmp/vllm.log")
+                if any(k in l for k in keys) and "Capturing CUDA graphs" not in l][:40]
 
     def warnings(self):
         return sum(1 for l in open("/tmp/vllm.log") if "preempt" in l.lower())

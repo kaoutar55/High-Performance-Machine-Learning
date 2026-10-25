@@ -83,7 +83,10 @@ async def run(args):
     rng = random.Random(args.seed)
     results, tasks = [], []
     timeout = aiohttp.ClientTimeout(total=None)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
+    # aiohttp allows only 100 open connections by default, which would cap the requests in flight at 100 and
+    # queue the rest in the client; an open-loop generator must not limit concurrency
+    connector = aiohttp.TCPConnector(limit=0)
+    async with aiohttp.ClientSession(timeout=timeout, connector=connector) as session:
         start = time.perf_counter()
         for i in range(args.num):
             tasks.append(asyncio.create_task(
