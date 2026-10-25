@@ -421,6 +421,7 @@ def main(gpus: str = "", models: str = "", studies: str = ""):
             old = json.loads(path.read_text())
             old.pop("error", None)
             new = {**old, **{k: v for k, v in new.items() if k != "env"},
-                   "env_" + "_".join(st or ["all"]): new["env"], "env": old.get("env", new["env"])}
+                   "env_" + "_".join(st or ["all"]): new["env"],
+                   "env": new["env"] if set(MODELS[m]["studies"]) <= set(new) else old.get("env", new["env"])}
         path.write_text(json.dumps(new, indent=2))
         print(f"wrote {path.relative_to(HERE)}")
