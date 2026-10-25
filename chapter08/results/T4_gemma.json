@@ -17,473 +17,481 @@
   },
   "single": {
     "startup": [
-      "(APIServer pid=10) INFO 10-24 19:32:32 [model.py:2152] Using max model len 2048",
+      "(APIServer pid=10) INFO 10-24 23:11:42 [model.py:2152] Using max model len 2048",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=38) INFO 10-24 19:32:53 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=38) INFO 10-24 19:32:57 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=38) INFO 10-24 19:33:07 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=38) INFO 10-24 19:33:13 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/a4aaffed36/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=38) INFO 10-24 19:33:22 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.52 s",
+      "(EngineCore pid=39) INFO 10-24 23:12:03 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=39) INFO 10-24 23:12:06 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=39) INFO 10-24 23:12:15 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=39) INFO 10-24 23:12:21 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/a4aaffed36/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=39) INFO 10-24 23:12:30 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.65 s",
       "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:01<01:29,  1.79s/it]",
-      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:01<00:39,  1.25it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:02<00:23,  2.01it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:02<00:16,  2.83it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:02<00:13,  3.34it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:02<00:10,  4.17it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:02<00:06,  6.15it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:02<00:05,  7.53it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:02<00:04,  9.14it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:03<00:03,  9.91it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:03<00:03, 10.87it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:05<00:11,  2.97it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:05<00:07,  3.91it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:05<00:05,  5.15it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:05<00:04,  6.32it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:05<00:03,  7.92it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:05<00:02,  8.88it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:05<00:02, 10.39it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:05<00:01, 10.95it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:08<00:07,  2.27it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:08<00:04,  3.05it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:08<00:03,  4.07it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:08<00:02,  5.18it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:08<00:01,  6.59it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:09<00:00,  8.11it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:09<00:00, 10.69it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:09<00:00, 12.57it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:10<00:00,  4.81it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:01<01:32,  1.84s/it]",
+      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:01<00:41,  1.18it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:02<00:17,  2.66it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:02<00:13,  3.44it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:02<00:08,  5.08it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:02<00:06,  6.53it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:02<00:05,  6.96it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:02<00:04,  8.50it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:03<00:03,  9.90it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:03<00:03, 10.46it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:04<00:11,  2.88it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:05<00:07,  3.88it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:05<00:05,  5.09it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:05<00:04,  6.49it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:05<00:03,  8.07it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:05<00:02,  9.73it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:05<00:01, 11.39it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:05<00:01, 12.88it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:08<00:07,  2.29it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:08<00:04,  3.11it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:08<00:02,  4.67it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:08<00:01,  5.87it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:08<00:01,  7.26it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:08<00:00,  9.66it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:09<00:00, 12.15it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:10<00:00,  4.93it/s]",
       "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 19.09it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 19.06it/s]",
-      "(EngineCore pid=38) INFO 10-24 19:33:39 [gpu_worker.py:759] Available KV cache memory: 7.06 GiB"
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.83it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.80it/s]",
+      "(EngineCore pid=39) INFO 10-24 23:12:46 [gpu_worker.py:759] Available KV cache memory: 7.06 GiB",
+      "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=39) INFO 10-24 23:12:46 [kv_cache_utils.py:2327] GPU KV cache size: 411,472 tokens, Maximum concurrency for 2,048 tokens per request: 200.91x"
     ],
     "result": {
       "rate": 0.25,
       "completed": 30,
-      "duration_s": 154.17040144499998,
-      "request_throughput": 0.19458988054008827,
-      "output_token_throughput": 24.9075047091313,
-      "goodput_req_s": 0.19458988054008827,
+      "duration_s": 154.170325,
+      "request_throughput": 0.19458997702703165,
+      "output_token_throughput": 24.90751705946005,
+      "goodput_req_s": 0.19458997702703165,
       "slo_attainment": 1.0,
       "slo": {
         "ttft_ms": 500.0,
         "tpot_ms": 50.0
       },
+      "text_chunks_per_token": 1.0,
       "ttft_ms": {
-        "mean": 177.85661743333017,
-        "p50": 170.58930650000548,
-        "p90": 211.4640256000115,
-        "p95": 223.7968391999715,
-        "p99": 232.706960219989
+        "mean": 187.21197270000496,
+        "p50": 180.98808300000258,
+        "p90": 230.51427530001263,
+        "p95": 231.22582104998912,
+        "p99": 232.3032234800084
       },
       "tpot_ms": {
-        "mean": 9.652997015748007,
-        "p50": 5.007657452755703,
-        "p90": 21.942544917322657,
-        "p95": 22.569192266929132,
-        "p99": 23.862277785826922
+        "mean": 22.288218060367456,
+        "p50": 22.127469755905437,
+        "p90": 23.27711504251976,
+        "p95": 23.68082241338582,
+        "p99": 24.47831163196853
       },
       "itl_ms": {
-        "mean": 24.29188813077933,
-        "p50": 21.234843999991426,
-        "p90": 22.831488600007788,
-        "p95": 23.184959250001214,
-        "p99": 129.30139017001088
+        "mean": 22.288218060367452,
+        "p50": 21.52398049999249,
+        "p90": 22.95638080000515,
+        "p95": 23.20318730000821,
+        "p99": 24.82115154998951
       },
       "e2e_ms": {
-        "mean": 1403.787238433327,
-        "p50": 844.5488124999798,
-        "p90": 2995.868338899993,
-        "p95": 3033.118192549999,
-        "p99": 3189.282195390008
+        "mean": 3017.815666366672,
+        "p50": 2985.5777974999996,
+        "p90": 3165.433048600005,
+        "p95": 3191.845280249997,
+        "p99": 3289.1332132400244
       },
       "failed": 0
     }
   },
-  "single_wall_s": 306.7,
+  "single_wall_s": 302.9,
   "sweep": {
     "startup": [
-      "(APIServer pid=198) INFO 10-24 19:37:26 [model.py:2152] Using max model len 2048",
+      "(APIServer pid=199) INFO 10-24 23:16:33 [model.py:2152] Using max model len 2048",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=219) INFO 10-24 19:37:46 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=219) INFO 10-24 19:37:49 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=219) INFO 10-24 19:37:56 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=222) INFO 10-24 23:16:53 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=222) INFO 10-24 23:16:56 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=222) INFO 10-24 23:17:03 [utils.py:347] Using LBNHC KV cache layout.",
       "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:06,  7.99it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:05,  8.10it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:05,  7.92it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:05,  8.25it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:05,  8.49it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:05,  8.41it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:01<00:04, 10.05it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:01<00:04,  8.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:01<00:04,  8.93it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:03,  9.64it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:03, 10.28it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:03, 10.62it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:02<00:02, 10.95it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:02<00:02, 11.54it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:02<00:02, 11.13it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 12.74it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 12.64it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 12.16it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 13.50it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:03<00:01, 11.56it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:03<00:01, 11.76it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:03<00:01, 12.53it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:03<00:00, 13.17it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 13.82it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 14.03it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:04<00:00, 16.45it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:04<00:00, 16.87it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:04<00:00, 16.28it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:04<00:00, 11.91it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:06,  8.16it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:04,  9.93it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:04, 10.42it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:04, 10.01it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 10.73it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:01<00:03, 11.19it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 11.33it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:03, 11.66it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 11.87it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.27it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.67it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 12.66it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:02<00:01, 13.17it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 14.33it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 15.39it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 16.25it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 15.73it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:00, 16.40it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:00, 17.75it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:02<00:00, 19.17it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 20.25it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:03<00:00, 19.85it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:03<00:00, 20.59it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 14.76it/s]",
       "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL):  50%|\u2588\u2588\u2588\u2588\u2588     | 1/2 [00:00<00:00,  7.99it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00,  7.82it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00,  7.84it/s]",
-      "(EngineCore pid=219) INFO 10-24 19:38:06 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB"
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.64it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.62it/s]",
+      "(EngineCore pid=222) INFO 10-24 23:17:12 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
+      "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=222) INFO 10-24 23:17:12 [kv_cache_utils.py:2327] GPU KV cache size: 456,512 tokens, Maximum concurrency for 2,048 tokens per request: 222.91x",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 10.89it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:04, 10.91it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:04, 10.76it/s]"
     ],
     "runs": [
       {
         "rate": 0.5,
         "completed": 60,
-        "duration_s": 136.92128642400002,
-        "request_throughput": 0.4382079774959155,
-        "output_token_throughput": 56.090621119477184,
-        "goodput_req_s": 0.4382079774959155,
+        "duration_s": 137.01398294399996,
+        "request_throughput": 0.43791150881675384,
+        "output_token_throughput": 56.05267312854449,
+        "goodput_req_s": 0.43791150881675384,
         "slo_attainment": 1.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 167.53014028333743,
-          "p50": 162.90444000000548,
-          "p90": 208.81703199999038,
-          "p95": 231.84642405004175,
-          "p99": 267.0635797999688
+          "mean": 175.47688246665984,
+          "p50": 176.13018350002108,
+          "p90": 209.2960849999713,
+          "p95": 217.63956165001446,
+          "p99": 303.6184917199966
         },
         "tpot_ms": {
-          "mean": 9.557593018372723,
-          "p50": 5.545164649606212,
-          "p90": 22.65509463858253,
-          "p95": 23.79368673464545,
-          "p99": 24.649545827401568
+          "mean": 23.863838499081375,
+          "p50": 24.074533724409434,
+          "p90": 25.708236605511527,
+          "p95": 25.9021255,
+          "p99": 26.50550061055109
         },
         "itl_ms": {
-          "mean": 25.38475385151626,
-          "p50": 22.554470999978093,
-          "p90": 23.76448199997867,
-          "p95": 24.126744400007283,
-          "p99": 135.62387580000177
+          "mean": 23.863838499081375,
+          "p50": 22.900563999996848,
+          "p90": 24.076900999955342,
+          "p95": 24.25774604997173,
+          "p99": 26.383787900025485
         },
         "e2e_ms": {
-          "mean": 1381.344453616673,
-          "p50": 880.5255315000124,
-          "p90": 3018.8954098999775,
-          "p95": 3162.402179199992,
-          "p99": 3312.5273355500085
+          "mean": 3206.1843718499945,
+          "p50": 3228.871398999985,
+          "p90": 3424.7320379999965,
+          "p95": 3467.17059424999,
+          "p99": 3540.696482179997
         },
         "failed": 0
       },
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 58.962956814999984,
-        "request_throughput": 1.017588045800583,
-        "output_token_throughput": 130.25126986247463,
-        "goodput_req_s": 1.017588045800583,
+        "duration_s": 59.14010715999996,
+        "request_throughput": 1.014539926985145,
+        "output_token_throughput": 129.86111065409855,
+        "goodput_req_s": 1.014539926985145,
         "slo_attainment": 1.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 187.22103913333402,
-          "p50": 170.43889849998095,
-          "p90": 278.26701069999444,
-          "p95": 296.5283532500223,
-          "p99": 349.303978149935
+          "mean": 201.67095311666307,
+          "p50": 181.5037865000022,
+          "p90": 296.1667370999635,
+          "p95": 321.50208454997363,
+          "p99": 392.51775099000594
         },
         "tpot_ms": {
-          "mean": 11.771197515748064,
-          "p50": 7.378220988188758,
-          "p90": 26.231820826771177,
-          "p95": 26.900188455511614,
-          "p99": 30.623914183779235
+          "mean": 27.66159138464572,
+          "p50": 26.857303507874015,
+          "p90": 32.61942067007877,
+          "p95": 34.53005066732266,
+          "p99": 35.57862892866134
         },
         "itl_ms": {
-          "mean": 29.389424990170458,
-          "p50": 23.729563000017606,
-          "p90": 26.160086299955765,
-          "p95": 27.065019200000506,
-          "p99": 148.87645628998254
+          "mean": 27.66159138464572,
+          "p50": 24.24901050005701,
+          "p90": 26.70407629999545,
+          "p95": 27.169577899968544,
+          "p99": 141.24322288002986
         },
         "e2e_ms": {
-          "mean": 1682.1631236333378,
-          "p50": 1171.582899499981,
-          "p90": 3520.7009268999514,
-          "p95": 3613.483647100048,
-          "p99": 4055.003830499981
+          "mean": 3714.6930589666704,
+          "p50": 3621.9608585000174,
+          "p90": 4332.2245699000405,
+          "p95": 4598.703817699965,
+          "p99": 4703.193668870008
         },
         "failed": 0
       },
       {
         "rate": 2.0,
         "completed": 80,
-        "duration_s": 51.54918948699992,
-        "request_throughput": 1.5519157681455888,
-        "output_token_throughput": 198.64521832263537,
-        "goodput_req_s": 1.5519157681455888,
+        "duration_s": 51.66900034299999,
+        "request_throughput": 1.5483171624944787,
+        "output_token_throughput": 198.18459679929327,
+        "goodput_req_s": 1.5483171624944787,
         "slo_attainment": 1.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 184.47527567499122,
-          "p50": 171.7166639999732,
-          "p90": 228.96581859999958,
-          "p95": 282.0719613999415,
-          "p99": 375.98089759993843
+          "mean": 207.26311262499735,
+          "p50": 189.830334499959,
+          "p90": 286.1561895000363,
+          "p95": 357.4145271500412,
+          "p99": 407.8962660900412
         },
         "tpot_ms": {
-          "mean": 14.290841601082771,
-          "p50": 9.223134267717061,
-          "p90": 28.97888687401549,
-          "p95": 30.54185275118112,
-          "p99": 36.061810608268104
+          "mean": 30.997442859350418,
+          "p50": 30.10826968110277,
+          "p90": 35.77165441889702,
+          "p95": 38.26325256102318,
+          "p99": 41.55199819740122
         },
         "itl_ms": {
-          "mean": 32.554921674215464,
-          "p50": 24.43374950001953,
-          "p90": 30.995971200013628,
-          "p95": 126.84318110003689,
-          "p99": 151.81364918997357
+          "mean": 30.997442859350418,
+          "p50": 25.29045250003037,
+          "p90": 28.847999299978266,
+          "p95": 33.53303475001326,
+          "p99": 144.638787750024
         },
         "e2e_ms": {
-          "mean": 1999.4121590125033,
-          "p50": 1443.4649004999756,
-          "p90": 3842.961265000019,
-          "p95": 4056.9832656000867,
-          "p99": 4908.3378406200045
+          "mean": 4143.938355762501,
+          "p50": 4064.6028849999993,
+          "p90": 4732.25076609998,
+          "p95": 5259.870650449966,
+          "p99": 5448.557650750011
         },
         "failed": 0
       },
       {
         "rate": 4.0,
         "completed": 160,
-        "duration_s": 46.98660489000008,
-        "request_throughput": 3.4052258164763036,
-        "output_token_throughput": 435.86890450896686,
-        "goodput_req_s": 3.043420573475696,
-        "slo_attainment": 0.89375,
+        "duration_s": 47.48249444099997,
+        "request_throughput": 3.3696629017418243,
+        "output_token_throughput": 431.3168514229535,
+        "goodput_req_s": 0.737113759756024,
+        "slo_attainment": 0.21875,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 264.44650415625193,
-          "p50": 228.9521435000097,
-          "p90": 402.5090166000382,
-          "p95": 420.3637361000405,
-          "p99": 490.228578170047
+          "mean": 316.961303987501,
+          "p50": 300.7093305000694,
+          "p90": 483.50028319997585,
+          "p95": 543.361505950054,
+          "p99": 638.5203572200168
         },
         "tpot_ms": {
-          "mean": 25.975203144980316,
-          "p50": 19.02825098031504,
-          "p90": 49.98048783543361,
-          "p95": 60.7805267929137,
-          "p99": 73.91998774574809
+          "mean": 59.96983517396653,
+          "p50": 54.84542180708673,
+          "p90": 84.04281490866197,
+          "p95": 87.62867575433003,
+          "p99": 89.54674359748095
         },
         "itl_ms": {
-          "mean": 58.033658923144586,
-          "p50": 33.621556000070996,
-          "p90": 137.41809659995852,
-          "p95": 146.945526900015,
-          "p99": 263.756073419996
+          "mean": 59.96983517396654,
+          "p50": 36.44995999997036,
+          "p90": 151.0005395000462,
+          "p95": 159.53088565003668,
+          "p99": 281.2396834400397
         },
         "e2e_ms": {
-          "mean": 3563.2973035687523,
-          "p50": 2803.865040000005,
-          "p90": 6661.390478699991,
-          "p95": 7979.693446400066,
-          "p99": 9673.899024779961
+          "mean": 7933.130371081252,
+          "p50": 7226.574507999999,
+          "p90": 10960.975374799944,
+          "p95": 11378.334129399951,
+          "p99": 11602.353974769994
         },
         "failed": 0
       },
       {
         "rate": 8.0,
         "completed": 320,
-        "duration_s": 57.00162486099998,
-        "request_throughput": 5.613875056725641,
-        "output_token_throughput": 718.5760072608821,
-        "goodput_req_s": 0.9999714944792548,
-        "slo_attainment": 0.178125,
+        "duration_s": 61.398396765999905,
+        "request_throughput": 5.211862472884696,
+        "output_token_throughput": 667.1183965292411,
+        "goodput_req_s": 0.4071767556941169,
+        "slo_attainment": 0.078125,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 3588.439267443752,
-          "p50": 3542.544229999976,
-          "p90": 9232.727449800017,
-          "p95": 9503.763431300076,
-          "p99": 10021.481859599966
+          "mean": 5241.749502121873,
+          "p50": 5484.229303500001,
+          "p90": 12949.024954399954,
+          "p95": 13209.71834125001,
+          "p99": 13577.89523186996
         },
         "tpot_ms": {
-          "mean": 52.527542684005915,
-          "p50": 38.54874211023618,
-          "p90": 130.57719894252003,
-          "p95": 133.6981897866144,
-          "p99": 138.34072297543315
+          "mean": 119.35793580214076,
+          "p50": 141.15558503543323,
+          "p90": 150.81598572204726,
+          "p95": 151.7968269637795,
+          "p99": 152.53520813370096
         },
         "itl_ms": {
-          "mean": 127.9961227172323,
-          "p50": 59.357972000043446,
-          "p90": 363.76701650000314,
-          "p95": 417.3485482999638,
-          "p99": 468.8816510700599
+          "mean": 119.35793580214076,
+          "p50": 62.34943999999132,
+          "p90": 298.3288831000323,
+          "p95": 386.35060520002185,
+          "p99": 547.5920095300637
         },
         "e2e_ms": {
-          "mean": 10259.437188312502,
-          "p50": 9570.96228300003,
-          "p90": 20089.97534580002,
-          "p95": 21136.45417785003,
-          "p99": 21446.208619420046
+          "mean": 20400.20734899375,
+          "p50": 22203.586689500014,
+          "p90": 25238.837170199942,
+          "p95": 25517.733308299932,
+          "p99": 25857.968748860025
         },
         "failed": 0
       },
       {
         "rate": 12.0,
         "completed": 480,
-        "duration_s": 71.40818716699994,
-        "request_throughput": 6.721918298772101,
-        "output_token_throughput": 860.4055422428289,
-        "goodput_req_s": 2.772791298243492,
-        "slo_attainment": 0.4125,
+        "duration_s": 75.844509088,
+        "request_throughput": 6.328737647218088,
+        "output_token_throughput": 810.0784188439153,
+        "goodput_req_s": 1.6612936323947483,
+        "slo_attainment": 0.2625,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 6376.417942160418,
-          "p50": 1038.3679369999754,
-          "p90": 19982.812064600024,
-          "p95": 21440.06956075005,
-          "p99": 24124.472377860053
+          "mean": 7552.441774337497,
+          "p50": 1210.9191910000163,
+          "p90": 23129.177955500007,
+          "p95": 25326.98811014994,
+          "p99": 28330.05860146999
         },
         "tpot_ms": {
-          "mean": 48.56709202562339,
-          "p50": 35.17564337007893,
-          "p90": 132.632986864567,
-          "p95": 137.04463570669316,
-          "p99": 138.69758449937052
+          "mean": 101.67334517685367,
+          "p50": 110.71811589763779,
+          "p90": 149.8304938385829,
+          "p95": 150.1699348492128,
+          "p99": 150.92483690338543
         },
         "itl_ms": {
-          "mean": 109.572536265063,
-          "p50": 58.64573850004717,
-          "p90": 267.2920251999244,
-          "p95": 368.49672100005364,
-          "p99": 500.4313584100692
+          "mean": 101.67334517685369,
+          "p50": 61.30049450001707,
+          "p90": 181.9522503000826,
+          "p95": 299.13582725000083,
+          "p99": 430.0388836200409
         },
         "e2e_ms": {
-          "mean": 12544.438629414588,
-          "p50": 9393.148687500001,
-          "p90": 28680.96488639996,
-          "p95": 31430.161176050056,
-          "p99": 32990.096579330006
+          "mean": 20464.956611797916,
+          "p50": 19532.06796149999,
+          "p90": 36356.69154119998,
+          "p95": 36932.800677499974,
+          "p99": 37373.446418199936
         },
         "failed": 0
       }
     ]
   },
-  "sweep_wall_s": 512.5,
+  "sweep_wall_s": 520.1,
   "long": {
     "startup": [
-      "(APIServer pid=337) INFO 10-24 19:45:58 [model.py:2152] Using max model len 6144",
+      "(APIServer pid=341) INFO 10-24 23:25:15 [model.py:2152] Using max model len 6144",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=358) INFO 10-24 19:46:18 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=358) INFO 10-24 19:46:21 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=358) INFO 10-24 19:46:29 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=358) INFO 10-24 19:46:36 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/475d37138d/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=358) INFO 10-24 19:46:44 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 7.78 s",
+      "(EngineCore pid=363) INFO 10-24 23:25:36 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=363) INFO 10-24 23:25:38 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=363) INFO 10-24 23:25:47 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=363) INFO 10-24 23:25:54 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/475d37138d/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=363) INFO 10-24 23:26:02 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.00 s",
       "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:01<01:29,  1.79s/it]",
-      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:01<00:39,  1.25it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:02<00:23,  2.04it/s]",
-      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:02<00:16,  2.90it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:02<00:12,  3.76it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:02<00:07,  5.75it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:02<00:05,  7.35it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:02<00:05,  7.78it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:02<00:04,  9.01it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:03<00:03,  9.57it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:03<00:03,  9.79it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:04<00:11,  2.85it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:05<00:08,  3.80it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:05<00:05,  4.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:05<00:04,  6.03it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:05<00:03,  7.49it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:05<00:02,  8.74it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:05<00:02, 10.03it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:06<00:01,  9.82it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:08<00:07,  2.24it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:08<00:05,  2.97it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:08<00:03,  3.86it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:09<00:02,  4.93it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:09<00:01,  6.28it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:09<00:00,  7.89it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:09<00:00,  9.49it/s]",
-      "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:09<00:00, 10.87it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:10<00:00,  4.38it/s]",
-      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:10<00:00,  4.74it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:01<01:31,  1.84s/it]",
+      "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:01<00:41,  1.19it/s]",
+      "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:02<00:17,  2.69it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:02<00:10,  4.19it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:02<00:07,  5.61it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:02<00:05,  6.84it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:02<00:04,  8.11it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:03<00:04,  9.18it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:03<00:03, 10.15it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:04<00:10,  3.00it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:05<00:07,  3.96it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:05<00:05,  5.04it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:05<00:04,  6.34it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:05<00:03,  7.90it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:05<00:02,  9.55it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:05<00:01, 11.23it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:05<00:01, 12.85it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:08<00:07,  2.33it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:08<00:04,  3.15it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:08<00:03,  4.21it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:08<00:01,  6.16it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:08<00:01,  7.52it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:08<00:00,  9.86it/s]",
+      "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:08<00:00, 12.39it/s]",
+      "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:10<00:00,  4.98it/s]",
       "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 13.91it/s]",
-      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 13.88it/s]"
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.16it/s]",
+      "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.13it/s]",
+      "(EngineCore pid=363) INFO 10-24 23:26:18 [gpu_worker.py:759] Available KV cache memory: 7.06 GiB",
+      "ivalent to --gpu-memory-utilization=0.8987 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9413. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+      "(EngineCore pid=363) INFO 10-24 23:26:18 [kv_cache_utils.py:2327] GPU KV cache size: 411,360 tokens, Maximum concurrency for 6,144 tokens per request: 66.95x",
+      "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
     ],
     "runs": [
       {
         "rate": 0.25,
         "completed": 40,
-        "duration_s": 247.8550627840001,
-        "request_throughput": 0.16138463967895247,
-        "output_token_throughput": 165.25787103124733,
+        "duration_s": 254.88565978600002,
+        "request_throughput": 0.1569331128066745,
+        "output_token_throughput": 160.69950751403468,
         "goodput_req_s": 0.0,
         "slo_attainment": 0.0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 3271.4413519250056,
-          "p50": 2781.6447645000153,
-          "p90": 4196.715381800118,
-          "p95": 5275.33978534999,
-          "p99": 5580.2123858900495
+          "mean": 3762.523277649993,
+          "p50": 3208.8492834999442,
+          "p90": 5222.428402000014,
+          "p95": 5839.2737574001085,
+          "p99": 6765.382309590029
         },
         "tpot_ms": {
-          "mean": 80.79986891490714,
-          "p50": 94.03216291446715,
-          "p90": 111.00997997917892,
-          "p95": 112.11338575136845,
-          "p99": 115.0112304430987
+          "mean": 110.11953560454546,
+          "p50": 120.28445567644187,
+          "p90": 133.30625752453562,
+          "p95": 136.94368484398822,
+          "p99": 139.18377007844586
         },
         "itl_ms": {
-          "mean": 109.22796947466139,
-          "p50": 64.31533849990956,
-          "p90": 72.415939400139,
-          "p95": 209.16369959994586,
-          "p99": 1717.48490465008
+          "mean": 110.11953560454548,
+          "p50": 70.87857900000927,
+          "p90": 83.29199630002222,
+          "p95": 85.66457719997517,
+          "p99": 1831.1108443100875
         },
         "e2e_ms": {
-          "mean": 85929.707251875,
-          "p50": 101205.85440299989,
-          "p90": 116667.49010060007,
-          "p95": 118012.50694054995,
-          "p99": 120399.3910663201
+          "mean": 116414.80820110001,
+          "p50": 127006.96392450004,
+          "p90": 139270.02546629985,
+          "p95": 144340.5039167999,
+          "p99": 145262.87922023007
         },
         "failed": 0,
         "metrics_before": {
@@ -493,7 +501,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
@@ -502,57 +510,58 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 27.0,
+          "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 28.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"capacity\"}": 1.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.3054961297600062,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.32004356451048266,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         }
       },
       {
         "rate": 0.5,
         "completed": 40,
-        "duration_s": 201.72742124900014,
-        "request_throughput": 0.19828737091040496,
-        "output_token_throughput": 203.04626781225468,
+        "duration_s": 213.9476443819999,
+        "request_throughput": 0.1869616284654234,
+        "output_token_throughput": 191.44870754859357,
         "goodput_req_s": 0.0,
         "slo_attainment": 0.0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 18386.166167575004,
-          "p50": 15652.107268500004,
-          "p90": 37156.40539540009,
-          "p95": 39390.8444004001,
-          "p99": 39508.283288789964
+          "mean": 22566.108504124997,
+          "p50": 19524.74103350005,
+          "p90": 44300.650447500135,
+          "p95": 46845.33205835,
+          "p99": 47052.264373209946
         },
         "tpot_ms": {
-          "mean": 125.5275988479472,
-          "p50": 139.8023915464321,
-          "p90": 174.5572072948191,
-          "p95": 182.4682732760996,
-          "p99": 187.33139597264903
+          "mean": 152.50044479437926,
+          "p50": 153.56571747947206,
+          "p90": 190.82105171515147,
+          "p95": 196.26766234257093,
+          "p99": 199.51174859374393
         },
         "itl_ms": {
-          "mean": 166.98382188023797,
-          "p50": 101.36858399982884,
-          "p90": 108.07525299992449,
-          "p95": 580.766856000082,
-          "p99": 1658.3928588000617
+          "mean": 152.50044479437926,
+          "p50": 105.78850800004602,
+          "p90": 112.22212990010121,
+          "p95": 113.55789049994203,
+          "p99": 1716.6017969799918
         },
         "e2e_ms": {
-          "mean": 146800.89978902502,
-          "p50": 155588.1236125,
-          "p90": 185819.7644575999,
-          "p95": 190331.46049064997,
-          "p99": 194930.1286893099
+          "mean": 178574.063528775,
+          "p50": 174178.9573605,
+          "p90": 201902.20058499993,
+          "p95": 204979.18226520016,
+          "p99": 208277.36769410004
         },
         "failed": 0,
         "metrics_before": {
@@ -562,7 +571,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
@@ -571,57 +580,58 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 40.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 13.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"capacity\"}": 13.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 15.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"capacity\"}": 15.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.491812205842312,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.49192889649539073,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         }
       },
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 292.36029903100007,
-        "request_throughput": 0.2052262232555658,
-        "output_token_throughput": 210.15165261369938,
+        "duration_s": 308.2235050930001,
+        "request_throughput": 0.19466393382910963,
+        "output_token_throughput": 199.33586824100826,
         "goodput_req_s": 0.0,
         "slo_attainment": 0.0,
         "slo": {
           "ttft_ms": 2000.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 42995.55540426668,
-          "p50": 46804.75718050002,
-          "p90": 74002.32059489997,
-          "p95": 77558.19941850002,
-          "p99": 80759.91960575008
+          "mean": 48219.10487153336,
+          "p50": 52115.37969200003,
+          "p90": 82916.77935720011,
+          "p95": 86841.03354744994,
+          "p99": 90416.75294118999
         },
         "tpot_ms": {
-          "mean": 163.9656603637178,
-          "p50": 176.8514278616815,
-          "p90": 250.14331940263938,
-          "p95": 256.53407263318667,
-          "p99": 266.0533332710751
+          "mean": 214.45729998369174,
+          "p50": 215.8735990283479,
+          "p90": 272.56375137898334,
+          "p95": 279.5385157533722,
+          "p99": 283.75800005845554
         },
         "itl_ms": {
-          "mean": 236.65464841453664,
-          "p50": 139.6013319999838,
-          "p90": 245.94172479992267,
-          "p95": 1100.9110284999679,
-          "p99": 1649.5847977600715
+          "mean": 214.45729998369174,
+          "p50": 144.58560500008844,
+          "p90": 153.06297229999473,
+          "p95": 1090.9455484999057,
+          "p99": 1679.633623200043
         },
         "e2e_ms": {
-          "mean": 210732.42595635,
-          "p50": 237126.86861550005,
-          "p90": 272041.5374288001,
-          "p95": 273422.72085844993,
-          "p99": 276481.9331920398
+          "mean": 267608.92275485,
+          "p50": 272915.3159205,
+          "p90": 289853.70273879997,
+          "p95": 292123.85388704995,
+          "p99": 293031.57877006
         },
         "failed": 0,
         "metrics_before": {
@@ -631,7 +641,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
@@ -640,16 +650,16 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 60.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 29.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"capacity\"}": 29.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 31.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"capacity\"}": 31.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"google/gemma-2b-it\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.7317281885720954,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.7342175891711074,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792871251.795518
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792884408.615598
         }
       }
     ],
@@ -659,320 +669,325 @@
       "tpot_ms": 50
     }
   },
-  "long_wall_s": 887.4,
+  "long_wall_s": 927.3,
   "prefix": {
     "prefix_on": {
       "first_turn": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 81.74817289099997,
-        "request_throughput": 3.6698067906668577,
-        "output_token_throughput": 469.7352692053578,
-        "goodput_req_s": 2.7156570250934746,
-        "slo_attainment": 0.74,
+        "duration_s": 82.12202142899991,
+        "request_throughput": 3.6531005299153585,
+        "output_token_throughput": 467.5968678291659,
+        "goodput_req_s": 0.621027090085611,
+        "slo_attainment": 0.17,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 282.1513466900001,
-          "p50": 254.84729000004336,
-          "p90": 450.75050040004504,
-          "p95": 530.6175412000925,
-          "p99": 673.2050113801233
+          "mean": 332.0641000966748,
+          "p50": 295.64725200009434,
+          "p90": 535.8560494000586,
+          "p95": 613.6653769999272,
+          "p99": 858.1139941100007
         },
         "tpot_ms": {
-          "mean": 26.75258968359587,
-          "p50": 16.448730507873755,
-          "p90": 55.96214418110126,
-          "p95": 66.17230114566836,
-          "p99": 74.28483764425077
+          "mean": 64.28731664099733,
+          "p50": 64.79813373622025,
+          "p90": 81.95385939763804,
+          "p95": 88.41187636338549,
+          "p99": 94.3058843633072
         },
         "itl_ms": {
-          "mean": 62.76315683158882,
-          "p50": 36.35687699988921,
-          "p90": 138.74148590005007,
-          "p95": 149.1971740501981,
-          "p99": 356.5516722500365
+          "mean": 64.28731664099733,
+          "p50": 39.44292749997658,
+          "p90": 151.054360299986,
+          "p95": 158.27597810009593,
+          "p99": 363.29653316020546
         },
         "e2e_ms": {
-          "mean": 3679.7302365066757,
-          "p50": 2378.6786319999464,
-          "p90": 7397.711751600015,
-          "p95": 8694.235524449949,
-          "p99": 9634.750238609864
+          "mean": 8496.553313503335,
+          "p50": 8562.271082500047,
+          "p90": 10761.908647400105,
+          "p95": 11582.51750389983,
+          "p99": 12275.403281870018
         },
         "failed": 0
       },
       "follow_up": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 80.82923301999995,
-        "request_throughput": 3.7115284754189073,
-        "output_token_throughput": 475.07564485362013,
-        "goodput_req_s": 3.7115284754189073,
+        "duration_s": 80.96069706799994,
+        "request_throughput": 3.705501692358529,
+        "output_token_throughput": 474.3042166218917,
+        "goodput_req_s": 3.705501692358529,
         "slo_attainment": 1.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 90.1123142433327,
-          "p50": 90.17039450009179,
-          "p90": 106.23667280008252,
-          "p95": 110.59911740013604,
-          "p99": 114.60093319007454
+          "mean": 95.52107931000515,
+          "p50": 94.24411750012496,
+          "p90": 113.8272366000365,
+          "p95": 118.72033744998589,
+          "p99": 124.97843597010159
         },
         "tpot_ms": {
-          "mean": 15.644353929160085,
-          "p50": 9.34984596062894,
-          "p90": 31.937359288189878,
-          "p95": 33.490017844882836,
-          "p99": 34.59750062606423
+          "mean": 31.676204276036703,
+          "p50": 31.159524291339274,
+          "p90": 35.96500101811016,
+          "p95": 36.18831962165214,
+          "p99": 36.46291816834718
         },
         "itl_ms": {
-          "mean": 32.971008114890985,
-          "p50": 27.72015749997081,
-          "p90": 39.05757620004806,
-          "p95": 40.894236799920236,
-          "p99": 168.75100021003834
+          "mean": 31.676204276036703,
+          "p50": 32.539346000021396,
+          "p90": 40.38077350001003,
+          "p95": 42.2213436500897,
+          "p99": 43.89394117012445
         },
         "e2e_ms": {
-          "mean": 2076.945263246663,
-          "p50": 1277.0151295000005,
-          "p90": 4150.806558199906,
-          "p95": 4343.7572312499815,
-          "p99": 4480.108500789947
+          "mean": 4118.399022366666,
+          "p50": 4050.467039999944,
+          "p90": 4665.480091900031,
+          "p95": 4699.678609350042,
+          "p99": 4741.723595779922
         },
         "failed": 0
       },
       "metrics": {
         "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 308804.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792872098.5974038,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792885295.9419658,
         "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 151216.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792872098.597424
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792885295.9419866
       },
       "startup": [
-        "(APIServer pid=524) INFO 10-24 20:00:46 [api_utils.py:286] non-default args: {'model_tag': 'google/gemma-2b-it', 'model': 'google/gemma-2b-it', 'dtype': 'float16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
-        "(APIServer pid=524) INFO 10-24 20:00:47 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=528) INFO 10-24 23:40:41 [api_utils.py:286] non-default args: {'model_tag': 'google/gemma-2b-it', 'model': 'google/gemma-2b-it', 'dtype': 'float16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
+        "(APIServer pid=528) INFO 10-24 23:40:42 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=544) INFO 10-24 20:01:07 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=544) INFO 10-24 20:01:10 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=544) INFO 10-24 20:01:19 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=551) INFO 10-24 23:41:03 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=551) INFO 10-24 23:41:08 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=551) INFO 10-24 23:41:17 [utils.py:347] Using LBNHC KV cache layout.",
         "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:06,  7.57it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:05,  8.89it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:05,  8.72it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:05,  8.35it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:05,  8.30it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:05,  7.69it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:01<00:04,  8.30it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:01<00:04,  9.26it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:03, 10.36it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:03, 10.94it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 11.87it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 11.99it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:02<00:02, 13.23it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:02<00:01, 13.55it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 13.95it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 15.11it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 14.33it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 13.84it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 13.25it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:03<00:01, 13.74it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:03<00:00, 13.71it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 16.25it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:03<00:00, 18.08it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 17.80it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 18.12it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 17.84it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 13.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:06,  7.59it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:05,  8.82it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:05,  8.96it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:04,  9.91it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:04,  9.52it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:04,  9.93it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:00<00:03, 10.73it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:01<00:03, 11.29it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:01<00:03, 11.56it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:01<00:03, 11.62it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:02, 12.48it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:01<00:02, 12.38it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:01<00:02, 12.86it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:02<00:01, 13.82it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:02<00:01, 14.84it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:02<00:01, 15.67it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:02<00:01, 16.48it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:02<00:01, 17.14it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:02<00:01, 16.08it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:02<00:00, 17.78it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:02<00:00, 18.00it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 19.16it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 20.39it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 21.83it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 14.77it/s]",
         "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 13.62it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 13.60it/s]",
-        "(EngineCore pid=544) INFO 10-24 20:01:28 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.49it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.46it/s]",
+        "(EngineCore pid=551) INFO 10-24 23:41:26 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
         "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=544) INFO 10-24 20:01:28 [kv_cache_utils.py:2327] GPU KV cache size: 456,512 tokens, Maximum concurrency for 2,048 tokens per request: 222.91x"
+        "(EngineCore pid=551) INFO 10-24 23:41:26 [kv_cache_utils.py:2327] GPU KV cache size: 456,512 tokens, Maximum concurrency for 2,048 tokens per request: 222.91x",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 10.74it/s]"
       ]
     },
     "prefix_off": {
       "first_turn": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 81.75949151099985,
-        "request_throughput": 3.669298749976182,
-        "output_token_throughput": 469.6702399969513,
-        "goodput_req_s": 2.6908190833158665,
-        "slo_attainment": 0.7333333333333333,
+        "duration_s": 82.11480513300012,
+        "request_throughput": 3.6534215664775007,
+        "output_token_throughput": 467.6379605091201,
+        "goodput_req_s": 0.6210816663011751,
+        "slo_attainment": 0.17,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 281.0318917033661,
-          "p50": 249.88543549989117,
-          "p90": 451.4417409001454,
-          "p95": 524.0627996502554,
-          "p99": 681.2495756496717
+          "mean": 331.15381802997945,
+          "p50": 297.9795754999941,
+          "p90": 534.4354672001374,
+          "p95": 622.859391400266,
+          "p99": 836.4848123800532
         },
         "tpot_ms": {
-          "mean": 26.77363897475046,
-          "p50": 16.477366307086186,
-          "p90": 55.92403002676946,
-          "p95": 66.19659942755908,
-          "p99": 74.36997354480165
+          "mean": 64.35488980719175,
+          "p50": 64.9268422440923,
+          "p90": 81.96371552047013,
+          "p95": 88.52513422480527,
+          "p99": 94.42832486228022
         },
         "itl_ms": {
-          "mean": 62.81253971293058,
-          "p50": 36.41319750022376,
-          "p90": 138.44064600007187,
-          "p95": 145.82256560015531,
-          "p99": 347.0658403700976
+          "mean": 64.35488980719177,
+          "p50": 39.25081950001186,
+          "p90": 150.96034529969984,
+          "p95": 158.28684205005175,
+          "p99": 363.79491949995554
         },
         "e2e_ms": {
-          "mean": 3681.284041496675,
-          "p50": 2377.682697000182,
-          "p90": 7402.653071399847,
-          "p95": 8710.935156349775,
-          "p99": 9641.615525870078
+          "mean": 8504.224823543333,
+          "p50": 8543.742930000008,
+          "p90": 10760.511088000294,
+          "p95": 11578.095386200222,
+          "p99": 12385.851309030168
         },
         "failed": 0
       },
       "follow_up": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 81.87827953599981,
-        "request_throughput": 3.663975375399743,
-        "output_token_throughput": 468.9888480511671,
-        "goodput_req_s": 2.296091235250506,
-        "slo_attainment": 0.6266666666666667,
+        "duration_s": 82.32435499800022,
+        "request_throughput": 3.64412208279418,
+        "output_token_throughput": 466.447626597655,
+        "goodput_req_s": 0.4615887971539294,
+        "slo_attainment": 0.12666666666666668,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 309.01510174664656,
-          "p50": 274.45769599989944,
-          "p90": 509.26678999999257,
-          "p95": 591.6165316502202,
-          "p99": 719.1175724099319
+          "mean": 362.67216666667383,
+          "p50": 325.4770705000283,
+          "p90": 575.5562013998772,
+          "p95": 706.5254959001325,
+          "p99": 964.7571928796328
         },
         "tpot_ms": {
-          "mean": 31.13454925530195,
-          "p50": 21.781043598427395,
-          "p90": 65.62736427322808,
-          "p95": 70.93002906141747,
-          "p99": 85.13117703787451
+          "mean": 69.51618360010505,
+          "p50": 70.26495569685027,
+          "p90": 90.28726346456692,
+          "p95": 94.24405648622209,
+          "p99": 101.22927553574819
         },
         "itl_ms": {
-          "mean": 66.0335296496885,
-          "p50": 37.20053300003201,
-          "p90": 144.4653910999932,
-          "p95": 218.92655179992738,
-          "p99": 369.87446095000905
+          "mean": 69.51618360010505,
+          "p50": 40.702474999989136,
+          "p90": 159.02503110005455,
+          "p95": 174.6081260503161,
+          "p99": 367.1506874099123
         },
         "e2e_ms": {
-          "mean": 4263.102857169994,
-          "p50": 3123.065770500034,
-          "p90": 8657.347682599766,
-          "p95": 9317.49979870026,
-          "p99": 11263.385048710128
+          "mean": 9191.227483880015,
+          "p50": 9296.929292999948,
+          "p90": 12053.270081300252,
+          "p95": 12445.756158150016,
+          "p99": 13173.245703480088
         },
         "failed": 0
       },
       "metrics": {
         "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792872336.1291122,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792885533.2616668,
         "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 0.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792872336.1291332
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792885533.2616873
       },
       "startup": [
-        "(APIServer pid=648) INFO 10-24 20:04:44 [api_utils.py:286] non-default args: {'model_tag': 'google/gemma-2b-it', 'model': 'google/gemma-2b-it', 'dtype': 'float16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-        "(APIServer pid=648) INFO 10-24 20:04:44 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=655) INFO 10-24 23:44:43 [api_utils.py:286] non-default args: {'model_tag': 'google/gemma-2b-it', 'model': 'google/gemma-2b-it', 'dtype': 'float16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=655) INFO 10-24 23:44:43 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=670) INFO 10-24 20:05:04 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=670) INFO 10-24 20:05:07 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=670) INFO 10-24 20:05:16 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=676) INFO 10-24 23:45:04 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=676) INFO 10-24 23:45:06 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=676) INFO 10-24 23:45:14 [utils.py:347] Using LBNHC KV cache layout.",
         "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:09,  5.24it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:06,  7.08it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:05,  9.15it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:04, 10.07it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  16%|\u2588\u258c        | 8/51 [00:00<00:04,  9.85it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:04,  9.62it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:01<00:03, 10.76it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 11.56it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:03, 11.44it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:03,  9.18it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:01<00:03,  8.52it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:02<00:03,  8.83it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:02<00:03,  8.95it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:02<00:02,  9.59it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:02<00:02, 11.47it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:02, 11.89it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 12.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:03<00:01, 11.55it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:03<00:01, 11.94it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:03<00:01, 13.13it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  73%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 37/51 [00:03<00:00, 14.09it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  76%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b  | 39/51 [00:03<00:00, 13.70it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  80%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588  | 41/51 [00:03<00:00, 13.53it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 14.29it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 15.30it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:04<00:00, 17.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:04<00:00, 17.02it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:04<00:00, 11.94it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:06,  7.40it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:05,  8.61it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:05,  8.94it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:04,  9.26it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:04,  9.83it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 10.66it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:01<00:03, 10.89it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 10.85it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:03, 11.53it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 11.50it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 12.62it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 13.65it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:01, 14.53it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:02<00:01, 14.89it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 15.71it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 16.45it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 15.42it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 16.13it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:00, 17.08it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:00, 17.58it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:02<00:00, 17.41it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:03<00:00, 17.46it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 45/51 [00:03<00:00, 18.81it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 48/51 [00:03<00:00, 20.58it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 18.78it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 14.52it/s]",
         "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 15.35it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 15.33it/s]",
-        "(EngineCore pid=670) INFO 10-24 20:05:26 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
-        "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0."
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.70it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 14.68it/s]",
+        "(EngineCore pid=676) INFO 10-24 23:45:24 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
+        "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=676) INFO 10-24 23:45:24 [kv_cache_utils.py:2327] GPU KV cache size: 456,512 tokens, Maximum concurrency for 2,048 tokens per request: 222.91x",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]"
       ]
     }
   },
-  "prefix_wall_s": 476.5,
+  "prefix_wall_s": 479.9,
   "budget": {
     "budget_512": {
       "rate": 8,
       "result": {
         "rate": 8.0,
         "completed": 320,
-        "duration_s": 57.54456615500021,
-        "request_throughput": 5.5609073346396976,
-        "output_token_throughput": 711.7961388338813,
-        "goodput_req_s": 0.7298690876714604,
-        "slo_attainment": 0.13125,
+        "duration_s": 61.259066251999684,
+        "request_throughput": 5.223716579087658,
+        "output_token_throughput": 668.6357221232203,
+        "goodput_req_s": 0.0,
+        "slo_attainment": 0.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 4087.4903403812655,
-          "p50": 3193.072943999823,
-          "p90": 9306.77263180037,
-          "p95": 9943.84932484993,
-          "p99": 10719.14447027004
+          "mean": 5586.453235418748,
+          "p50": 4627.287052500151,
+          "p90": 12691.355229299827,
+          "p95": 13126.457983349952,
+          "p99": 13956.35052522006
         },
         "tpot_ms": {
-          "mean": 54.58870840218989,
-          "p50": 32.22351686614046,
-          "p90": 124.15982058976367,
-          "p95": 127.00654502795274,
-          "p99": 127.96751464448982
+          "mean": 120.67013118093,
+          "p50": 132.4020306811031,
+          "p90": 137.67116078503867,
+          "p95": 137.79963583543258,
+          "p99": 138.21082580866045
         },
         "itl_ms": {
-          "mean": 125.15429930412935,
-          "p50": 129.58777199992255,
-          "p90": 137.66900949985938,
-          "p95": 139.8167935001311,
-          "p99": 669.6085312498781
+          "mean": 120.67013118093,
+          "p50": 140.21721650010477,
+          "p90": 146.87364620017433,
+          "p95": 148.4580059998052,
+          "p99": 150.99254284015387
         },
         "e2e_ms": {
-          "mean": 11020.256307459382,
-          "p50": 10959.84656550013,
-          "p90": 19692.61905039994,
-          "p95": 21082.731728750106,
-          "p99": 22361.3581809601
+          "mean": 20911.55989539686,
+          "p50": 21520.67139299993,
+          "p90": 25525.59680599975,
+          "p95": 25919.36818069969,
+          "p99": 26289.009520349704
         },
         "failed": 0
       }
@@ -982,178 +997,181 @@
       "result": {
         "rate": 8.0,
         "completed": 320,
-        "duration_s": 60.454517532999944,
-        "request_throughput": 5.293235527441328,
-        "output_token_throughput": 677.53414751249,
-        "goodput_req_s": 0.5954889968371495,
-        "slo_attainment": 0.1125,
+        "duration_s": 64.70101128599981,
+        "request_throughput": 4.945826867921653,
+        "output_token_throughput": 633.0658390939716,
+        "goodput_req_s": 0.0,
+        "slo_attainment": 0.0,
         "slo": {
           "ttft_ms": 500.0,
           "tpot_ms": 50.0
         },
+        "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 5206.705399293754,
-          "p50": 4510.839606499985,
-          "p90": 11269.158180499928,
-          "p95": 12366.788528249981,
-          "p99": 13080.624757000332
+          "mean": 6952.29982061875,
+          "p50": 6148.114538999835,
+          "p90": 14059.198326900107,
+          "p95": 16700.554439700045,
+          "p99": 17530.878330530053
         },
         "tpot_ms": {
-          "mean": 60.29823429087107,
-          "p50": 40.858470157481285,
-          "p90": 133.61028049921302,
-          "p95": 136.50833390275804,
-          "p99": 137.73770952795144
+          "mean": 129.37371613230815,
+          "p50": 141.43760031495867,
+          "p90": 147.21858507165575,
+          "p95": 147.96254385748173,
+          "p99": 149.180041152519
         },
         "itl_ms": {
-          "mean": 138.455293608735,
-          "p50": 61.44266199999038,
-          "p90": 266.72364980004204,
-          "p95": 362.3746467003002,
-          "p99": 649.9638146599972
+          "mean": 129.37371613230815,
+          "p50": 62.39524900001925,
+          "p90": 293.07312140008435,
+          "p95": 383.00322454992966,
+          "p99": 695.9346835602174
         },
         "e2e_ms": {
-          "mean": 12864.581154234382,
-          "p50": 13497.814048999999,
-          "p90": 22416.396571800036,
-          "p95": 24224.629748850224,
-          "p99": 25598.726402370088
+          "mean": 23382.761769421886,
+          "p50": 24031.877467999948,
+          "p90": 29491.771065300054,
+          "p95": 29811.363847300232,
+          "p99": 29985.15104747001
         },
         "failed": 0
       }
     }
   },
-  "budget_wall_s": 379.2,
+  "budget_wall_s": 392.2,
   "spec": {
     "no_spec": {
       "runs": {
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 154.17293432199995,
-          "request_throughput": 0.19458668366097967,
-          "output_token_throughput": 24.907095508605398,
-          "goodput_req_s": 0.19458668366097967,
+          "duration_s": 154.17350664599962,
+          "request_throughput": 0.19458596131489378,
+          "output_token_throughput": 24.907003048306404,
+          "goodput_req_s": 0.19458596131489378,
           "slo_attainment": 1.0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
+          "text_chunks_per_token": 1.0,
           "ttft_ms": {
-            "mean": 174.1734956000073,
-            "p50": 167.5509819999661,
-            "p90": 216.04581419987883,
-            "p95": 230.556891750075,
-            "p99": 232.03049913988707
+            "mean": 180.65096323331696,
+            "p50": 178.37197750009182,
+            "p90": 220.86813979994986,
+            "p95": 225.4362101501556,
+            "p99": 229.6496436500547
           },
           "tpot_ms": {
-            "mean": 9.01162075459301,
-            "p50": 5.080754984254688,
-            "p90": 21.88550779764063,
-            "p95": 22.603573941730755,
-            "p99": 23.287609994958594
+            "mean": 22.26150638740171,
+            "p50": 22.072732566928565,
+            "p90": 23.30091828346481,
+            "p95": 23.585397691732847,
+            "p99": 24.296841045273958
           },
           "itl_ms": {
-            "mean": 23.81017688973604,
-            "p50": 21.28780499970162,
-            "p90": 22.76435680000759,
-            "p95": 23.08091550003155,
-            "p99": 126.19012817017847
+            "mean": 22.26150638740171,
+            "p50": 21.515187999739283,
+            "p90": 22.884508700099104,
+            "p95": 23.01882329986711,
+            "p99": 23.64058645030127
           },
           "e2e_ms": {
-            "mean": 1318.6493314333197,
-            "p50": 836.2617385000704,
-            "p90": 2991.331740200121,
-            "p95": 3051.687221799739,
-            "p99": 3118.50947823993
+            "mean": 3007.862274433334,
+            "p50": 2975.0255275000654,
+            "p90": 3147.423443599837,
+            "p95": 3171.4333318500394,
+            "p99": 3228.461938450123
           },
           "failed": 0
         },
         "8": {
           "rate": 8.0,
           "completed": 320,
-          "duration_s": 59.547413463999874,
-          "request_throughput": 5.373869012689526,
-          "output_token_throughput": 687.8552336242593,
-          "goodput_req_s": 0.9572204178853219,
-          "slo_attainment": 0.178125,
+          "duration_s": 63.310255078999944,
+          "request_throughput": 5.054473396145647,
+          "output_token_throughput": 646.9725947066428,
+          "goodput_req_s": 0.1737475229925066,
+          "slo_attainment": 0.034375,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
+          "text_chunks_per_token": 1.0,
           "ttft_ms": {
-            "mean": 4811.969344962488,
-            "p50": 4023.316889499938,
-            "p90": 11054.308131100153,
-            "p95": 12106.096838550116,
-            "p99": 12412.006783390003
+            "mean": 6290.97088839999,
+            "p50": 5757.7711530000215,
+            "p90": 13977.846032100118,
+            "p95": 14956.071307699995,
+            "p99": 15383.217524279986
           },
           "tpot_ms": {
-            "mean": 56.66319495137797,
-            "p50": 36.92471111810839,
-            "p90": 132.88457523937228,
-            "p95": 135.4810819795264,
-            "p99": 137.59224834748272
+            "mean": 124.72559902770669,
+            "p50": 140.75946159055022,
+            "p90": 147.22623046929232,
+            "p95": 148.15676767677277,
+            "p99": 149.78623011260078
           },
           "itl_ms": {
-            "mean": 132.75638434359507,
-            "p50": 60.33005749986842,
-            "p90": 268.65285050007515,
-            "p95": 364.13629099990885,
-            "p99": 560.282637650083
+            "mean": 124.72559902770669,
+            "p50": 62.10141500014288,
+            "p90": 294.9287374998221,
+            "p95": 371.46218734992544,
+            "p99": 506.69407353996576
           },
           "e2e_ms": {
-            "mean": 12008.19510378749,
-            "p50": 12455.089489000102,
-            "p90": 21318.10667380023,
-            "p95": 22818.430184849858,
-            "p99": 24564.785994029713
+            "mean": 22131.12196491874,
+            "p50": 23756.084418499995,
+            "p90": 27749.72414129984,
+            "p95": 28561.513470800288,
+            "p99": 29525.949760190033
           },
           "failed": 0
         }
       },
       "metrics": {},
       "startup": [
-        "(APIServer pid=1125) INFO 10-24 20:15:01 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=1134) INFO 10-24 23:55:14 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=1147) INFO 10-24 20:15:22 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=1147) INFO 10-24 20:15:24 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=1147) INFO 10-24 20:15:33 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=1155) INFO 10-24 23:55:35 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=1155) INFO 10-24 23:55:38 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=1155) INFO 10-24 23:55:46 [utils.py:347] Using LBNHC KV cache layout.",
         "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:01<01:32,  1.84s/it]",
-        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:01<00:40,  1.21it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:02<00:24,  1.94it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:02<00:13,  3.50it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:02<00:08,  5.10it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:02<00:06,  6.45it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  20%|\u2588\u2589        | 10/51 [00:02<00:05,  6.99it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  24%|\u2588\u2588\u258e       | 12/51 [00:02<00:04,  7.99it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  27%|\u2588\u2588\u258b       | 14/51 [00:03<00:04,  8.79it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  31%|\u2588\u2588\u2588\u258f      | 16/51 [00:03<00:03,  9.24it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 18/51 [00:05<00:12,  2.74it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:05<00:10,  3.04it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u2589      | 20/51 [00:05<00:09,  3.33it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:05<00:08,  3.70it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  43%|\u2588\u2588\u2588\u2588\u258e     | 22/51 [00:05<00:06,  4.31it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  47%|\u2588\u2588\u2588\u2588\u258b     | 24/51 [00:06<00:04,  5.53it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  51%|\u2588\u2588\u2588\u2588\u2588     | 26/51 [00:06<00:03,  6.80it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  55%|\u2588\u2588\u2588\u2588\u2588\u258d    | 28/51 [00:06<00:02,  8.75it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 30/51 [00:06<00:01, 10.69it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 32/51 [00:06<00:01, 12.08it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 34/51 [00:09<00:07,  2.24it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  71%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 36/51 [00:09<00:04,  3.06it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:09<00:03,  4.05it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:09<00:02,  5.18it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 42/51 [00:09<00:01,  6.63it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 44/51 [00:09<00:00,  8.18it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  92%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f| 47/51 [00:09<00:00, 11.05it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 50/51 [00:09<00:00, 13.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:11<00:00,  4.60it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/51 [00:00<00:07,  6.92it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   6%|\u258c         | 3/51 [00:00<00:05,  9.28it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  10%|\u2589         | 5/51 [00:00<00:04,  9.50it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258e        | 7/51 [00:00<00:04, 10.12it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 9/51 [00:00<00:03, 10.73it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  22%|\u2588\u2588\u258f       | 11/51 [00:01<00:03, 11.09it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258c       | 13/51 [00:01<00:03, 11.72it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  29%|\u2588\u2588\u2589       | 15/51 [00:01<00:02, 12.28it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  33%|\u2588\u2588\u2588\u258e      | 17/51 [00:01<00:02, 11.73it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  37%|\u2588\u2588\u2588\u258b      | 19/51 [00:01<00:02, 11.59it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  41%|\u2588\u2588\u2588\u2588      | 21/51 [00:01<00:02, 12.25it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  45%|\u2588\u2588\u2588\u2588\u258c     | 23/51 [00:01<00:02, 13.01it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 25/51 [00:02<00:01, 14.00it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 27/51 [00:02<00:01, 14.40it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  57%|\u2588\u2588\u2588\u2588\u2588\u258b    | 29/51 [00:02<00:01, 14.85it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  61%|\u2588\u2588\u2588\u2588\u2588\u2588    | 31/51 [00:02<00:01, 15.75it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  65%|\u2588\u2588\u2588\u2588\u2588\u2588\u258d   | 33/51 [00:02<00:01, 15.39it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  69%|\u2588\u2588\u2588\u2588\u2588\u2588\u258a   | 35/51 [00:02<00:01, 15.72it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 38/51 [00:02<00:00, 17.30it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  78%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a  | 40/51 [00:02<00:00, 17.70it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 43/51 [00:03<00:00, 18.93it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  90%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 46/51 [00:03<00:00, 20.25it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c| 49/51 [00:03<00:00, 21.73it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 51/51 [00:03<00:00, 14.49it/s]",
         "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL):  50%|\u2588\u2588\u2588\u2588\u2588     | 1/2 [00:00<00:00,  6.69it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00,  9.05it/s]",
-        "(EngineCore pid=1147) INFO 10-24 20:15:50 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
-        "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0."
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.53it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 18.50it/s]",
+        "(EngineCore pid=1155) INFO 10-24 23:55:55 [gpu_worker.py:759] Available KV cache memory: 7.84 GiB",
+        "ivalent to --gpu-memory-utilization=0.8988 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9412. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+        "(EngineCore pid=1155) INFO 10-24 23:55:55 [kv_cache_utils.py:2327] GPU KV cache size: 456,512 tokens, Maximum concurrency for 2,048 tokens per request: 222.91x",
+        "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258d         | 2/51 [00:00<00:04, 10.57it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   8%|\u258a         | 4/51 [00:00<00:04, 10.33it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  12%|\u2588\u258f        | 6/51 [00:00<00:04, 10.61it/s]"
       ]
     },
     "ngram": {
@@ -1161,147 +1179,149 @@
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 154.17377586199973,
-          "request_throughput": 0.19458562153172448,
-          "output_token_throughput": 24.906959556060734,
-          "goodput_req_s": 0.19458562153172448,
+          "duration_s": 154.1721095769999,
+          "request_throughput": 0.19458772460408452,
+          "output_token_throughput": 24.90722874932282,
+          "goodput_req_s": 0.19458772460408452,
           "slo_attainment": 1.0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
+          "text_chunks_per_token": 0.35052083333333334,
           "ttft_ms": {
-            "mean": 175.20109926669343,
-            "p50": 185.016504000032,
-            "p90": 225.09548940024615,
-            "p95": 231.61828544994023,
-            "p99": 233.07485799983624
+            "mean": 178.46116266669014,
+            "p50": 190.35720350007068,
+            "p90": 230.4810971002098,
+            "p95": 231.26808484996673,
+            "p99": 231.6659321900397
           },
           "tpot_ms": {
-            "mean": 6.6435269769026775,
-            "p50": 5.760139334645965,
-            "p90": 11.668666940942972,
-            "p95": 11.691021261024108,
-            "p99": 12.259131151494595
+            "mean": 10.521972130183876,
+            "p50": 10.53148338582728,
+            "p90": 11.883321660627375,
+            "p95": 12.200056187401877,
+            "p99": 12.83716878637959
           },
           "itl_ms": {
-            "mean": 30.569852393718843,
-            "p50": 29.510747500125944,
-            "p90": 31.117430699760007,
-            "p95": 31.939389200033474,
-            "p99": 59.22367765992931
+            "mean": 30.462548492401645,
+            "p50": 29.87067349999961,
+            "p90": 30.93473199987784,
+            "p95": 31.86450324994894,
+            "p99": 37.268890600103056
           },
           "e2e_ms": {
-            "mean": 1018.9290253333335,
-            "p50": 898.530869500064,
-            "p90": 1690.1947710997774,
-            "p95": 1703.908877400204,
-            "p99": 1713.1097992499235
+            "mean": 1514.751623200042,
+            "p50": 1516.9472220002262,
+            "p90": 1712.1204285000204,
+            "p95": 1718.0677816000525,
+            "p99": 1764.961555829941
           },
           "failed": 0
         },
         "8": {
           "rate": 8.0,
           "completed": 320,
-          "duration_s": 60.46875922199979,
-          "request_throughput": 5.2919888570092795,
-          "output_token_throughput": 677.3745736971878,
-          "goodput_req_s": 0.628423676769852,
-          "slo_attainment": 0.11875,
+          "duration_s": 65.65070806599988,
+          "request_throughput": 4.874281015801049,
+          "output_token_throughput": 623.9079700225343,
+          "goodput_req_s": 0.36557107618507867,
+          "slo_attainment": 0.075,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
+          "text_chunks_per_token": 0.3486083984375,
           "ttft_ms": {
-            "mean": 5078.702580946873,
-            "p50": 3410.165996999922,
-            "p90": 12394.316321599763,
-            "p95": 12921.504472499964,
-            "p99": 14184.688050220062
+            "mean": 7089.935583940627,
+            "p50": 6108.6984025000675,
+            "p90": 17018.474528099934,
+            "p95": 17523.44830990012,
+            "p99": 18589.706408239923
           },
           "tpot_ms": {
-            "mean": 75.7278535305611,
-            "p50": 70.48803766141697,
-            "p90": 143.72954418031512,
-            "p95": 153.59587613307062,
-            "p99": 172.552435414096
+            "mean": 121.46715250081203,
+            "p50": 139.3129328858279,
+            "p90": 164.14838019055375,
+            "p95": 172.01031544645798,
+            "p99": 196.49571681007615
           },
           "itl_ms": {
-            "mean": 337.01050892268984,
-            "p50": 368.96714299996347,
-            "p90": 507.15922050026165,
-            "p95": 509.2285200000333,
-            "p99": 805.2559136199973
+            "mean": 353.6374437734079,
+            "p50": 384.69179100002293,
+            "p90": 571.6768561999743,
+            "p95": 576.6559010002311,
+            "p99": 578.681834740155
           },
           "e2e_ms": {
-            "mean": 14696.139979328134,
-            "p50": 15858.568937999962,
-            "p90": 23353.499819199806,
-            "p95": 24954.14964745014,
-            "p99": 27931.842983840168
+            "mean": 22516.263951543755,
+            "p50": 24394.74525850005,
+            "p90": 30026.746347700147,
+            "p95": 30787.587200849932,
+            "p99": 32830.90275757979
           },
           "failed": 0
         }
       },
       "metrics": {
-        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 15712.0,
-        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792873342.6845787,
-        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 62848.0,
-        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792873342.684615,
-        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 30766.0,
-        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792873342.684642,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"0\"}": 7945.0,
+        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 15715.0,
+        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792886524.3114247,
+        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 62860.0,
+        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792886524.3114576,
+        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 30765.0,
+        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"google/gemma-2b-it\"}": 1792886524.311482,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"0\"}": 7943.0,
         "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"1\"}": 7763.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"2\"}": 7621.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"2\"}": 7622.0,
         "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"3\"}": 7437.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"0\"}": 1792873342.6846805,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"1\"}": 1792873342.684692,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"2\"}": 1792873342.6847014,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"3\"}": 1792873342.6847105
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"0\"}": 1792886524.3115156,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"1\"}": 1792886524.3115258,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"2\"}": 1792886524.3115344,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"google/gemma-2b-it\",position=\"3\"}": 1792886524.3115423
       },
       "startup": [
-        "(APIServer pid=1300) INFO 10-24 20:20:33 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=1262) INFO 10-25 00:00:18 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=1321) INFO 10-24 20:20:53 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=1321) INFO 10-24 20:20:56 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=1321) INFO 10-24 20:21:05 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=1321) INFO 10-24 20:21:11 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/9bbabdd80c/rank_0_0/backbone for vLLM's torch.compile",
-        "(EngineCore pid=1321) INFO 10-24 20:21:20 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.02 s",
+        "(EngineCore pid=1282) INFO 10-25 00:00:39 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=1282) INFO 10-25 00:00:42 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=1282) INFO 10-25 00:00:50 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=1282) INFO 10-25 00:00:57 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/9bbabdd80c/rank_0_0/backbone for vLLM's torch.compile",
+        "(EngineCore pid=1282) INFO 10-25 00:01:06 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.67 s",
         "Capturing CUDA graphs (PIECEWISE):   0%|          | 0/57 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/57 [00:01<01:46,  1.90s/it]",
-        "Capturing CUDA graphs (PIECEWISE):   4%|\u258e         | 2/57 [00:02<00:47,  1.16it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   5%|\u258c         | 3/57 [00:02<00:28,  1.91it/s]",
-        "Capturing CUDA graphs (PIECEWISE):   9%|\u2589         | 5/57 [00:02<00:15,  3.46it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  11%|\u2588         | 6/57 [00:02<00:12,  4.21it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258d        | 8/57 [00:02<00:08,  5.88it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 10/57 [00:02<00:06,  7.06it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  21%|\u2588\u2588        | 12/57 [00:03<00:05,  8.55it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258d       | 14/57 [00:03<00:04,  8.92it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  28%|\u2588\u2588\u258a       | 16/57 [00:03<00:04,  9.67it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  32%|\u2588\u2588\u2588\u258f      | 18/57 [00:03<00:03, 10.36it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 20/57 [00:03<00:03, 11.00it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u258a      | 22/57 [00:05<00:11,  3.07it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  42%|\u2588\u2588\u2588\u2588\u258f     | 24/57 [00:05<00:08,  4.10it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  46%|\u2588\u2588\u2588\u2588\u258c     | 26/57 [00:05<00:05,  5.36it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 28/57 [00:05<00:04,  6.82it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 30/57 [00:05<00:03,  7.68it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  56%|\u2588\u2588\u2588\u2588\u2588\u258c    | 32/57 [00:06<00:02,  8.79it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2589    | 34/57 [00:06<00:02, 10.17it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 36/57 [00:07<00:05,  3.71it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 38/57 [00:08<00:07,  2.51it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 40/57 [00:09<00:05,  3.23it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 42/57 [00:09<00:03,  4.13it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  79%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589  | 45/57 [00:09<00:02,  5.94it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  82%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258f | 47/57 [00:09<00:01,  7.34it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 49/57 [00:09<00:00,  8.89it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 52/57 [00:09<00:00, 11.39it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  95%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 54/57 [00:09<00:00, 12.13it/s]",
-        "Capturing CUDA graphs (PIECEWISE):  98%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a| 56/57 [00:10<00:00, 12.49it/s]",
-        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 57/57 [00:11<00:00,  5.03it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   2%|\u258f         | 1/57 [00:01<01:42,  1.84s/it]",
+        "Capturing CUDA graphs (PIECEWISE):   4%|\u258e         | 2/57 [00:01<00:45,  1.21it/s]",
+        "Capturing CUDA graphs (PIECEWISE):   7%|\u258b         | 4/57 [00:02<00:19,  2.73it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  11%|\u2588         | 6/57 [00:02<00:12,  4.23it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  14%|\u2588\u258d        | 8/57 [00:02<00:08,  5.64it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  18%|\u2588\u258a        | 10/57 [00:02<00:06,  6.98it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  21%|\u2588\u2588        | 12/57 [00:02<00:05,  7.93it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  25%|\u2588\u2588\u258d       | 14/57 [00:03<00:04,  9.03it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  28%|\u2588\u2588\u258a       | 16/57 [00:03<00:04,  9.82it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  32%|\u2588\u2588\u2588\u258f      | 18/57 [00:03<00:03, 10.30it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  35%|\u2588\u2588\u2588\u258c      | 20/57 [00:03<00:03, 10.75it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  39%|\u2588\u2588\u2588\u258a      | 22/57 [00:05<00:11,  3.03it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  42%|\u2588\u2588\u2588\u2588\u258f     | 24/57 [00:05<00:08,  4.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  46%|\u2588\u2588\u2588\u2588\u258c     | 26/57 [00:05<00:05,  5.25it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  49%|\u2588\u2588\u2588\u2588\u2589     | 28/57 [00:05<00:04,  6.66it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  53%|\u2588\u2588\u2588\u2588\u2588\u258e    | 30/57 [00:05<00:03,  8.23it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  56%|\u2588\u2588\u2588\u2588\u2588\u258c    | 32/57 [00:05<00:02,  9.45it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  60%|\u2588\u2588\u2588\u2588\u2588\u2589    | 34/57 [00:05<00:02, 11.08it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  63%|\u2588\u2588\u2588\u2588\u2588\u2588\u258e   | 36/57 [00:07<00:05,  3.78it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  67%|\u2588\u2588\u2588\u2588\u2588\u2588\u258b   | 38/57 [00:08<00:07,  2.62it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 40/57 [00:08<00:04,  3.52it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  74%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e  | 42/57 [00:08<00:03,  4.61it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  79%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589  | 45/57 [00:08<00:01,  6.66it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  84%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d | 48/57 [00:09<00:01,  8.78it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  88%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258a | 50/57 [00:09<00:00, 10.08it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 | 52/57 [00:09<00:00, 11.59it/s]",
+        "Capturing CUDA graphs (PIECEWISE):  96%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b| 55/57 [00:09<00:00, 14.04it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 57/57 [00:10<00:00,  4.52it/s]",
+        "Capturing CUDA graphs (PIECEWISE): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 57/57 [00:10<00:00,  5.28it/s]",
         "Capturing CUDA graphs (FULL):   0%|          | 0/2 [00:00<?, ?it/s]",
-        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 11.04it/s]"
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 12.52it/s]",
+        "Capturing CUDA graphs (FULL): 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 2/2 [00:00<00:00, 12.50it/s]"
       ]
     }
   },
-  "spec_wall_s": 689.5
+  "spec_wall_s": 664.3
 }
