@@ -48,7 +48,7 @@ MODELS = {
               "rates": {"A100-80GB": [1, 2, 4, 8, 16, 24, 32], "H100": [1, 2, 4, 8, 16, 32, 48]},
               "long_rates": {"A100-80GB": [0.25, 0.5, 1, 2, 3, 4], "H100": [0.25, 0.5, 1, 2, 4, 6]},
               "studies": ["single", "sweep", "long", "prefix", "spec"],
-              "extra_studies": ["knee"]},
+              "extra_studies": ["knee", "knee_low"]},
 }
 SLO = {"ttft_ms": 500, "tpot_ms": 50}
 SLO_LONG = {"ttft_ms": 2000, "tpot_ms": 50}
@@ -245,14 +245,46 @@ def study_sweep_high(gpu, model):
 
 KNEE_RATES = {("gemma", "A100-80GB"): [48, 64, 96, 128], ("gemma", "H100"): [96, 128, 160, 192],
               ("llama", "A100-80GB"): [16, 24, 32], ("llama", "H100"): [32, 48, 64]}
+KNEE_LOW_RATES = {("llama", "A100-80GB"): [8, 12, 16]}   # follow-up: Llama on the A100 failed at 16 in two repeats
 KNEE_REPEATS = 3
+GPU_QUERY = "clocks.sm,clocks.mem,power.draw,temperature.gpu,clocks_event_reasons.active"
 
 
-def study_knee(gpu, model):
+class GpuLog:
+    """Sample SM clock, power, temperature and clock-event (throttle) reasons once per second during a run."""
+
+    def __enter__(self):
+        self.f = open("/tmp/gpu.csv", "w")
+        self.p = subprocess.Popen(["nvidia-smi", f"--query-gpu={GPU_QUERY}", "--format=csv,noheader,nounits",
+                                   "-lms", "1000"], stdout=self.f, stderr=subprocess.STDOUT)
+        return self
+
+    def __exit__(self, *exc):
+        self.p.terminate(); self.p.wait(10); self.f.close()
+
+    def summary(self):
+        rows = []
+        for line in open("/tmp/gpu.csv"):
+            parts = [x.strip() for x in line.split(",")]
+            try:
+                rows.append((float(parts[0]), float(parts[2]), float(parts[3]), parts[4]))
+            except (ValueError, IndexError):
+                if not rows:
+                    return {"error": line.strip()[:300]}
+        if not rows:
+            return {}
+        sm = sorted(r[0] for r in rows)
+        reasons = sorted({r[3] for r in rows if r[3] not in ("0x0000000000000000", "0x0")})
+        return {"samples": len(rows), "sm_clock_mhz_min": sm[0], "sm_clock_mhz_p50": sm[len(sm) // 2],
+                "power_w_max": max(r[1] for r in rows), "temp_c_max": max(r[2] for r in rows),
+                "clock_event_reasons": reasons}
+
+
+def study_knee(gpu, model, table=None):
     """Repeat the load points near the capacity knee. Each repeat starts a fresh server, warms it up for about
     60 s at a mid rate, and visits the rates in a different order, so cold-start and order effects show up as
     differences between repeats rather than as one unexplained point."""
-    rates = KNEE_RATES.get((model, gpu))
+    rates = (table or KNEE_RATES).get((model, gpu))
     if not rates:
         return {"skipped": f"no knee rates defined for {model} on {gpu}"}
     repeats = []
@@ -263,12 +295,18 @@ def study_knee(gpu, model):
         with Server(model, []) as s:
             s.load(SINGLE, warm, int(warm * 60), offset=850, seed=900 + rep)
             for i, rate in enumerate(order):
-                r = s.load(SINGLE, rate, int(min(3000, rate * 30)), offset=(rep * 211 + i * 131) % 800,
-                           seed=200 + 10 * rep + i)
+                with GpuLog() as g:
+                    r = s.load(SINGLE, rate, int(min(3000, rate * 30)), offset=(rep * 211 + i * 131) % 800,
+                               seed=200 + 10 * rep + i)
+                r["gpu"] = g.summary()
                 r["position_in_repeat"] = i
                 runs[str(rate)] = r
             repeats.append({"order": order, "warmup_rate": warm, "runs": runs})
     return {"rates": rates, "repeats": repeats}
+
+
+def study_knee_low(gpu, model):
+    return study_knee(gpu, model, KNEE_LOW_RATES)
 
 
 def study_budget_long(gpu, model):
@@ -300,7 +338,8 @@ def study_spec(gpu, model):
 
 STUDIES = {"single": study_single, "sweep": study_sweep, "long": study_long, "prefix": study_prefix,
            "budget": study_budget, "spec": study_spec, "sweep_high": study_sweep_high,
-           "budget_long": study_budget_long, "knee": study_knee}
+           "budget_long": study_budget_long, "knee": study_knee,
+           "knee_low": study_knee_low}
 
 
 def run_studies(gpu: str, model: str, studies: list) -> dict:

@@ -88,11 +88,19 @@ async def run(args):
     connector = aiohttp.TCPConnector(limit=0)
     async with aiohttp.ClientSession(timeout=timeout, connector=connector) as session:
         start = time.perf_counter()
+        sched, sent, t_next = [], [], 0.0
         for i in range(args.num):
+            if args.rate > 0 and i > 0:
+                # Poisson arrivals on an absolute schedule: a busy event loop sends late requests at once
+                # instead of stretching every later gap, and the lag is recorded
+                t_next += rng.expovariate(args.rate)
+                delay = start + t_next - time.perf_counter()
+                if delay > 0:
+                    await asyncio.sleep(delay)
+            sched.append(t_next)
+            sent.append(time.perf_counter() - start)
             tasks.append(asyncio.create_task(
                 one_request(session, args.url, args.model, prompts[i % len(prompts)], args.max_tokens)))
-            if args.rate > 0:
-                await asyncio.sleep(rng.expovariate(args.rate))     # Poisson arrivals
         failed = 0
         for t in tasks:
             r = await t
@@ -103,6 +111,9 @@ async def run(args):
         duration = time.perf_counter() - start
     out = summarize(results, duration, args)
     out["failed"] = failed
+    lags = sorted(a - b for a, b in zip(sent, sched))
+    out["send_lag_ms"] = {"p50": 1e3 * lags[len(lags) // 2], "max": 1e3 * lags[-1]}
+    out["sent_rate"] = (len(sent) - 1) / sent[-1] if len(sent) > 1 and sent[-1] > 0 else None
     return out
 
 

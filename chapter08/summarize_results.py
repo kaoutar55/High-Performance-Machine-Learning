@@ -55,9 +55,11 @@ def main():
                 print(f"high-rate sweep {r['rate']:>5}: req/s {r['request_throughput']:.1f}, out tok/s "
                       f"{r['output_token_throughput']:.0f}, TTFT p99 {f(r['ttft_ms']['p99'])} ms, "
                       f"TPOT p99 {f(r['tpot_ms']['p99'], 1)} ms, within objectives {100 * r['slo_attainment']:.1f}%")
-        knee = d.get("knee", {})
-        if knee.get("repeats"):
-            print("knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)")
+        for kname in ("knee", "knee_low"):
+            knee = d.get(kname, {})
+            if not knee.get("repeats"):
+                continue
+            print(f"{kname} repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)")
             for rate in knee["rates"]:
                 rs = [rep["runs"].get(str(rate), {}) for rep in knee["repeats"]]
                 ok = [r for r in rs if "ttft_ms" in r]
@@ -67,6 +69,13 @@ def main():
                 med = att[len(att) // 2] if att else None
                 print(f"  {rate:>5}  {cells}  median {f(med, 1)}%  TTFT p99 {f(min(p99) if p99 else None)}–"
                       f"{f(max(p99) if p99 else None)}  {'all repeats >= 90%' if att and att[0] >= 90 else ''}")
+                for r in ok:
+                    g, sr = r.get("gpu", {}), r.get("sent_rate")
+                    if g or sr:
+                        print(f"         sent {f(sr, 1)} req/s, send lag max {f(r.get('send_lag_ms', {}).get('max'))} ms, "
+                              f"SM clock p50/min {g.get('sm_clock_mhz_p50')}/{g.get('sm_clock_mhz_min')} MHz, "
+                              f"power max {g.get('power_w_max')} W, temp max {g.get('temp_c_max')} C, "
+                              f"reasons {g.get('clock_event_reasons', g.get('error'))}")
         for name, b in d.get("budget_long", {}).items():
             r = b.get("result", {}) if isinstance(b, dict) else {}
             if "ttft_ms" in r:
