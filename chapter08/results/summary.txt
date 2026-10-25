@@ -20,6 +20,11 @@ prefix_off: follow-up TTFT p50 28 ms, p99 40 ms
 high-rate sweep  64.0: req/s 55.1, out tok/s 7056, TTFT p99 2089 ms, TPOT p99 31.9 ms, within objectives 78.8%
 high-rate sweep  96.0: req/s 84.0, out tok/s 10753, TTFT p99 210 ms, TPOT p99 6.2 ms, within objectives 100.0%
 high-rate sweep 128.0: req/s 93.4, out tok/s 11961, TTFT p99 6627 ms, TPOT p99 31.0 ms, within objectives 50.5%
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     48  100.0% (0), 100.0% (3), 100.0% (2)  median 100.0%  TTFT p99 40–47  all repeats >= 90%
+     64  100.0% (1), 100.0% (0), 100.0% (3)  median 100.0%  TTFT p99 71–91  all repeats >= 90%
+     96  100.0% (2), 100.0% (1), 100.0% (0)  median 100.0%  TTFT p99 184–254  all repeats >= 90%
+    128  99.8% (3), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 284–431  all repeats >= 90%
 long-prompt budget_512 @ 3 req/s: TTFT p50/p99 160/340 ms, ITL p99 18.3 ms, TPOT p50 6.0 ms
 long-prompt budget_8192 @ 3 req/s: TTFT p50/p99 113/253 ms, ITL p99 86.4 ms, TPOT p50 5.9 ms
 budget_512 @ 32 req/s: TTFT p99 77 ms, ITL p99 13.4 ms, TPOT p50 6.0 ms
@@ -49,6 +54,10 @@ long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  p
     4.0       1004   67821/148388     89.3    0.00    1.00      17
 prefix_on: follow-up TTFT p50 38 ms, p99 46 ms
 prefix_off: follow-up TTFT p50 72 ms, p99 535 ms
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     16  100.0% (0), 72.9% (2), 34.4% (1)  median 72.9%  TTFT p99 299–593  
+     24  46.9% (1), 90.7% (0), 43.1% (2)  median 46.9%  TTFT p99 465–4694  
+     32  55.2% (2), 55.9% (1), 30.9% (0)  median 55.2%  TTFT p99 6848–15562  
 no_spec @ 0.25 req/s: TPOT p50 10.85 ms, out tok/s 25
 no_spec @ 24 req/s: TPOT p50 47.31 ms, out tok/s 1990
 ngram @ 0.25 req/s: TPOT p50 7.53 ms, out tok/s 24
@@ -78,6 +87,11 @@ prefix_off: follow-up TTFT p50 15 ms, p99 24 ms
 high-rate sweep  96.0: req/s 87.2, out tok/s 11163, TTFT p99 114 ms, TPOT p99 5.8 ms, within objectives 100.0%
 high-rate sweep 128.0: req/s 117.4, out tok/s 15022, TTFT p99 148 ms, TPOT p99 3.9 ms, within objectives 100.0%
 high-rate sweep 160.0: req/s 138.4, out tok/s 17710, TTFT p99 245 ms, TPOT p99 4.2 ms, within objectives 100.0%
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     96  100.0% (0), 100.0% (3), 100.0% (2)  median 100.0%  TTFT p99 77–93  all repeats >= 90%
+    128  100.0% (1), 100.0% (0), 100.0% (3)  median 100.0%  TTFT p99 117–192  all repeats >= 90%
+    160  100.0% (2), 100.0% (1), 100.0% (0)  median 100.0%  TTFT p99 154–229  all repeats >= 90%
+    192  100.0% (3), 100.0% (2), 94.4% (1)  median 100.0%  TTFT p99 307–765  all repeats >= 90%
 long-prompt budget_512 @ 6 req/s: TTFT p50/p99 65/125 ms, ITL p99 7.0 ms, TPOT p50 3.0 ms
 long-prompt budget_8192 @ 6 req/s: TTFT p50/p99 50/97 ms, ITL p99 27.1 ms, TPOT p50 3.2 ms
 budget_512 @ 48 req/s: TTFT p99 37 ms, ITL p99 6.5 ms, TPOT p50 3.1 ms
@@ -107,6 +121,10 @@ long prompts (4K): rate  out tok/s  TTFT p50/p99 (ms)  TPOT p50 (ms)  goodput  p
     6.0       2485   17445/57354      35.7    0.81    1.00      41
 prefix_on: follow-up TTFT p50 22 ms, p99 28 ms
 prefix_off: follow-up TTFT p50 31 ms, p99 44 ms
+knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)
+     32  100.0% (0), 100.0% (2), 100.0% (1)  median 100.0%  TTFT p99 77–92  all repeats >= 90%
+     48  100.0% (1), 100.0% (0), 100.0% (2)  median 100.0%  TTFT p99 135–171  all repeats >= 90%
+     64  36.9% (2), 44.7% (1), 18.8% (0)  median 36.9%  TTFT p99 529–1421  
 no_spec @ 0.25 req/s: TPOT p50 6.45 ms, out tok/s 25
 no_spec @ 32 req/s: TPOT p50 10.96 ms, out tok/s 3712
 ngram @ 0.25 req/s: TPOT p50 4.57 ms, out tok/s 25
