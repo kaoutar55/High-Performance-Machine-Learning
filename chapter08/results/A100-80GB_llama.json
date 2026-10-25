@@ -1,6 +1,6 @@
 {
   "env": {
-    "gpu": "NVIDIA A100 80GB PCIe, 81920 MiB, 610.57.04",
+    "gpu": "NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04",
     "vllm": "0.32.0",
     "model": "meta-llama/Llama-3.1-8B-Instruct",
     "dtype": "bfloat16",
@@ -17,28 +17,28 @@
   },
   "single": {
     "startup": [
-      "rver pid=10) INFO 10-25 14:52:36 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-      "(APIServer pid=10) INFO 10-25 14:52:51 [model.py:2152] Using max model len 2048",
+      "rver pid=13) INFO 10-25 20:48:50 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+      "(APIServer pid=13) INFO 10-25 20:49:03 [model.py:2152] Using max model len 2048",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=37) INFO 10-25 14:53:07 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=37) INFO 10-25 14:53:11 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=37) INFO 10-25 14:53:11 [flash_attn.py:1117] Using FlashAttention version 2",
-      "(EngineCore pid=37) INFO 10-25 14:53:22 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=37) INFO 10-25 14:53:32 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/defbf483df/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=37) INFO 10-25 14:53:41 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 9.44 s",
-      "(EngineCore pid=37) INFO 10-25 14:53:56 [gpu_worker.py:759] Available KV cache memory: 56.23 GiB",
+      "(EngineCore pid=42) INFO 10-25 20:49:18 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=42) INFO 10-25 20:49:21 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=42) INFO 10-25 20:49:21 [flash_attn.py:1117] Using FlashAttention version 2",
+      "(EngineCore pid=42) INFO 10-25 20:49:33 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=42) INFO 10-25 20:49:41 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/d3d3e6c871/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=42) INFO 10-25 20:49:50 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.19 s",
+      "(EngineCore pid=42) INFO 10-25 20:50:03 [gpu_worker.py:759] Available KV cache memory: 56.23 GiB",
       "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=37) INFO 10-25 14:53:56 [kv_cache_utils.py:2327] GPU KV cache size: 460,640 tokens, Maximum concurrency for 2,048 tokens per request: 224.92x",
-      "(EngineCore pid=37) INFO 10-25 14:54:20 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-      "(APIServer pid=10) INFO 10-25 14:54:35 [loggers.py:335] Engine 000: Avg prompt throughput: 206.8 tokens/s, Avg generation throughput: 45.5 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%"
+      "(EngineCore pid=42) INFO 10-25 20:50:03 [kv_cache_utils.py:2327] GPU KV cache size: 460,640 tokens, Maximum concurrency for 2,048 tokens per request: 224.92x",
+      "(EngineCore pid=42) INFO 10-25 20:50:24 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+      "(APIServer pid=13) INFO 10-25 20:50:38 [loggers.py:335] Engine 000: Avg prompt throughput: 212.2 tokens/s, Avg generation throughput: 51.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%"
     ],
     "result": {
       "rate": 0.25,
       "completed": 30,
-      "duration_s": 141.97932171300002,
-      "request_throughput": 0.21129837527074985,
-      "output_token_throughput": 27.04619203465598,
-      "goodput_req_s": 0.21129837527074985,
+      "duration_s": 141.96653960299997,
+      "request_throughput": 0.21131739974710248,
+      "output_token_throughput": 27.048627167629117,
+      "goodput_req_s": 0.21131739974710248,
       "slo_attainment": 1.0,
       "failed": 0,
       "slo": {
@@ -47,92 +47,92 @@
       },
       "text_chunks_per_token": 1.0,
       "ttft_ms": {
-        "mean": 56.40507903333306,
-        "p50": 53.80589100001032,
-        "p90": 63.28050769997732,
-        "p95": 76.51644229998738,
-        "p99": 79.27031319997042
+        "mean": 54.94144609999599,
+        "p50": 53.647181999991744,
+        "p90": 63.450020500002324,
+        "p95": 65.63144895000903,
+        "p99": 66.68603185999103
       },
       "tpot_ms": {
-        "mean": 10.99527416719159,
-        "p50": 10.959568204724425,
-        "p90": 11.195773595275526,
-        "p95": 11.267451262992132,
-        "p99": 11.319686291338662
+        "mean": 10.83458906036744,
+        "p50": 10.811154870078852,
+        "p90": 10.972945348031317,
+        "p95": 11.015219563385893,
+        "p99": 11.060607835826776
       },
       "itl_ms": {
-        "mean": 10.99527416719159,
-        "p50": 10.933986500020865,
-        "p90": 11.634860099994171,
-        "p95": 11.887976550012525,
-        "p99": 12.707800659994746
+        "mean": 10.83458906036744,
+        "p50": 10.790748499999836,
+        "p90": 11.19767590001004,
+        "p95": 11.355875500031232,
+        "p99": 11.690503290002994
       },
       "e2e_ms": {
-        "mean": 1452.8048982666653,
-        "p50": 1450.4046410000058,
-        "p90": 1475.3684372999885,
-        "p95": 1486.0914628000032,
-        "p99": 1496.3141746300087
+        "mean": 1430.9342567666608,
+        "p50": 1428.8450204999917,
+        "p90": 1441.932939600011,
+        "p95": 1448.5849706499935,
+        "p99": 1463.294214509998
       },
       "send_lag_ms": {
-        "p50": 1.3126499254241253,
-        "max": 2.9681790108142536
+        "p50": 1.2500358520668442,
+        "max": 2.5854085754346556
       },
-      "sent_rate": 0.20634753191397923
+      "sent_rate": 0.20634780768875333
     }
   },
-  "single_wall_s": 292.0,
+  "single_wall_s": 278.7,
   "sweep": {
     "startup": [
-      "ver pid=186) INFO 10-25 14:57:29 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-      "(APIServer pid=186) INFO 10-25 14:57:29 [model.py:2152] Using max model len 2048",
+      "ver pid=192) INFO 10-25 20:53:28 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+      "(APIServer pid=192) INFO 10-25 20:53:29 [model.py:2152] Using max model len 2048",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=207) INFO 10-25 14:57:46 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=207) INFO 10-25 14:57:49 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=207) INFO 10-25 14:57:49 [flash_attn.py:1117] Using FlashAttention version 2",
-      "(EngineCore pid=207) INFO 10-25 14:57:58 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=207) INFO 10-25 14:58:08 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
+      "(EngineCore pid=213) INFO 10-25 20:53:44 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=213) INFO 10-25 20:53:47 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=213) INFO 10-25 20:53:47 [flash_attn.py:1117] Using FlashAttention version 2",
+      "(EngineCore pid=213) INFO 10-25 20:53:52 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=213) INFO 10-25 20:54:02 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
       "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=207) INFO 10-25 14:58:08 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
-      "(EngineCore pid=207) INFO 10-25 14:58:15 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-      "(APIServer pid=186) INFO 10-25 14:58:30 [loggers.py:335] Engine 000: Avg prompt throughput: 770.5 tokens/s, Avg generation throughput: 185.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
-      "(APIServer pid=186) INFO 10-25 14:58:40 [loggers.py:335] Engine 000: Avg prompt throughput: 468.0 tokens/s, Avg generation throughput: 107.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
-      "(APIServer pid=186) INFO 10-25 14:58:50 [loggers.py:335] Engine 000: Avg prompt throughput: 510.0 tokens/s, Avg generation throughput: 136.7 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
-      "(APIServer pid=186) INFO 10-25 14:59:00 [loggers.py:335] Engine 000: Avg prompt throughput: 199.4 tokens/s, Avg generation throughput: 52.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-      "(APIServer pid=186) INFO 10-25 14:59:10 [loggers.py:335] Engine 000: Avg prompt throughput: 455.1 tokens/s, Avg generation throughput: 116.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-      "(APIServer pid=186) INFO 10-25 14:59:20 [loggers.py:335] Engine 000: Avg prompt throughput: 409.7 tokens/s, Avg generation throughput: 101.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-      "(APIServer pid=186) INFO 10-25 14:59:30 [loggers.py:335] Engine 000: Avg prompt throughput: 595.0 tokens/s, Avg generation throughput: 141.8 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
-      "(APIServer pid=186) INFO 10-25 14:59:40 [loggers.py:335] Engine 000: Avg prompt throughput: 395.8 tokens/s, Avg generation throughput: 109.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
-      "(APIServer pid=186) INFO 10-25 14:59:50 [loggers.py:335] Engine 000: Avg prompt throughput: 914.0 tokens/s, Avg generation throughput: 227.1 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
-      "(APIServer pid=186) INFO 10-25 15:00:00 [loggers.py:335] Engine 000: Avg prompt throughput: 1269.7 tokens/s, Avg generation throughput: 334.5 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
-      "(APIServer pid=186) INFO 10-25 15:00:10 [loggers.py:335] Engine 000: Avg prompt throughput: 756.9 tokens/s, Avg generation throughput: 175.4 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
-      "(APIServer pid=186) INFO 10-25 15:00:20 [loggers.py:335] Engine 000: Avg prompt throughput: 1208.4 tokens/s, Avg generation throughput: 302.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
-      "(APIServer pid=186) INFO 10-25 15:00:30 [loggers.py:335] Engine 000: Avg prompt throughput: 1709.4 tokens/s, Avg generation throughput: 394.6 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%",
-      "(APIServer pid=186) INFO 10-25 15:00:40 [loggers.py:335] Engine 000: Avg prompt throughput: 1218.5 tokens/s, Avg generation throughput: 349.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
-      "(APIServer pid=186) INFO 10-25 15:00:50 [loggers.py:335] Engine 000: Avg prompt throughput: 2013.0 tokens/s, Avg generation throughput: 464.5 tokens/s, Running: 11 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%",
-      "(APIServer pid=186) INFO 10-25 15:01:00 [loggers.py:335] Engine 000: Avg prompt throughput: 2246.2 tokens/s, Avg generation throughput: 584.6 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%",
-      "(APIServer pid=186) INFO 10-25 15:01:10 [loggers.py:335] Engine 000: Avg prompt throughput: 2571.5 tokens/s, Avg generation throughput: 621.0 tokens/s, Running: 16 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
-      "(APIServer pid=186) INFO 10-25 15:01:20 [loggers.py:335] Engine 000: Avg prompt throughput: 3134.4 tokens/s, Avg generation throughput: 781.6 tokens/s, Running: 14 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.7%",
-      "(APIServer pid=186) INFO 10-25 15:01:30 [loggers.py:335] Engine 000: Avg prompt throughput: 4666.2 tokens/s, Avg generation throughput: 1163.8 tokens/s, Running: 21 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.7%",
-      "(APIServer pid=186) INFO 10-25 15:01:40 [loggers.py:335] Engine 000: Avg prompt throughput: 4206.3 tokens/s, Avg generation throughput: 950.1 tokens/s, Running: 36 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.3%",
-      "(APIServer pid=186) INFO 10-25 15:01:50 [loggers.py:335] Engine 000: Avg prompt throughput: 4291.6 tokens/s, Avg generation throughput: 990.7 tokens/s, Running: 37 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.4%",
-      "(APIServer pid=186) INFO 10-25 15:02:00 [loggers.py:335] Engine 000: Avg prompt throughput: 7351.8 tokens/s, Avg generation throughput: 1611.2 tokens/s, Running: 104 reqs, Waiting: 0 reqs, GPU KV cache usage: 12.9%",
-      "(APIServer pid=186) INFO 10-25 15:02:10 [loggers.py:335] Engine 000: Avg prompt throughput: 7612.1 tokens/s, Avg generation throughput: 1518.9 tokens/s, Running: 156 reqs, Waiting: 0 reqs, GPU KV cache usage: 19.3%",
-      "(APIServer pid=186) INFO 10-25 15:02:20 [loggers.py:335] Engine 000: Avg prompt throughput: 6925.7 tokens/s, Avg generation throughput: 1657.9 tokens/s, Running: 164 reqs, Waiting: 0 reqs, GPU KV cache usage: 20.2%",
-      "(APIServer pid=186) INFO 10-25 15:02:30 [loggers.py:335] Engine 000: Avg prompt throughput: 6575.2 tokens/s, Avg generation throughput: 2029.0 tokens/s, Running: 156 reqs, Waiting: 0 reqs, GPU KV cache usage: 19.9%",
-      "(APIServer pid=186) INFO 10-25 15:02:40 [loggers.py:335] Engine 000: Avg prompt throughput: 7833.3 tokens/s, Avg generation throughput: 1281.4 tokens/s, Running: 160 reqs, Waiting: 0 reqs, GPU KV cache usage: 18.7%",
-      "(APIServer pid=186) INFO 10-25 15:02:50 [loggers.py:335] Engine 000: Avg prompt throughput: 7126.1 tokens/s, Avg generation throughput: 1982.2 tokens/s, Running: 255 reqs, Waiting: 113 reqs, GPU KV cache usage: 32.2%",
-      "(APIServer pid=186) INFO 10-25 15:03:00 [loggers.py:335] Engine 000: Avg prompt throughput: 7719.8 tokens/s, Avg generation throughput: 1441.6 tokens/s, Running: 252 reqs, Waiting: 147 reqs, GPU KV cache usage: 30.6%",
-      "(APIServer pid=186) INFO 10-25 15:03:10 [loggers.py:335] Engine 000: Avg prompt throughput: 6734.5 tokens/s, Avg generation throughput: 2082.5 tokens/s, Running: 252 reqs, Waiting: 15 reqs, GPU KV cache usage: 31.6%"
+      "(EngineCore pid=213) INFO 10-25 20:54:02 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
+      "(EngineCore pid=213) INFO 10-25 20:54:08 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+      "(APIServer pid=192) INFO 10-25 20:54:22 [loggers.py:335] Engine 000: Avg prompt throughput: 788.6 tokens/s, Avg generation throughput: 194.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=192) INFO 10-25 20:54:32 [loggers.py:335] Engine 000: Avg prompt throughput: 468.1 tokens/s, Avg generation throughput: 112.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+      "(APIServer pid=192) INFO 10-25 20:54:42 [loggers.py:335] Engine 000: Avg prompt throughput: 510.0 tokens/s, Avg generation throughput: 135.3 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+      "(APIServer pid=192) INFO 10-25 20:54:52 [loggers.py:335] Engine 000: Avg prompt throughput: 248.6 tokens/s, Avg generation throughput: 49.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
+      "(APIServer pid=192) INFO 10-25 20:55:02 [loggers.py:335] Engine 000: Avg prompt throughput: 405.9 tokens/s, Avg generation throughput: 114.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+      "(APIServer pid=192) INFO 10-25 20:55:12 [loggers.py:335] Engine 000: Avg prompt throughput: 456.9 tokens/s, Avg generation throughput: 103.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
+      "(APIServer pid=192) INFO 10-25 20:55:22 [loggers.py:335] Engine 000: Avg prompt throughput: 547.9 tokens/s, Avg generation throughput: 146.1 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%",
+      "(APIServer pid=192) INFO 10-25 20:55:32 [loggers.py:335] Engine 000: Avg prompt throughput: 448.6 tokens/s, Avg generation throughput: 109.4 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+      "(APIServer pid=192) INFO 10-25 20:55:42 [loggers.py:335] Engine 000: Avg prompt throughput: 956.8 tokens/s, Avg generation throughput: 239.1 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+      "(APIServer pid=192) INFO 10-25 20:55:52 [loggers.py:335] Engine 000: Avg prompt throughput: 1174.1 tokens/s, Avg generation throughput: 315.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=192) INFO 10-25 20:56:02 [loggers.py:335] Engine 000: Avg prompt throughput: 911.9 tokens/s, Avg generation throughput: 185.2 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+      "(APIServer pid=192) INFO 10-25 20:56:12 [loggers.py:335] Engine 000: Avg prompt throughput: 1053.2 tokens/s, Avg generation throughput: 309.2 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+      "(APIServer pid=192) INFO 10-25 20:56:22 [loggers.py:335] Engine 000: Avg prompt throughput: 1709.6 tokens/s, Avg generation throughput: 425.6 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
+      "(APIServer pid=192) INFO 10-25 20:56:32 [loggers.py:335] Engine 000: Avg prompt throughput: 1319.8 tokens/s, Avg generation throughput: 323.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
+      "(APIServer pid=192) INFO 10-25 20:56:42 [loggers.py:335] Engine 000: Avg prompt throughput: 2014.5 tokens/s, Avg generation throughput: 485.7 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=192) INFO 10-25 20:56:52 [loggers.py:335] Engine 000: Avg prompt throughput: 2247.2 tokens/s, Avg generation throughput: 592.9 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
+      "(APIServer pid=192) INFO 10-25 20:57:02 [loggers.py:335] Engine 000: Avg prompt throughput: 2611.8 tokens/s, Avg generation throughput: 651.8 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=192) INFO 10-25 20:57:12 [loggers.py:335] Engine 000: Avg prompt throughput: 3282.3 tokens/s, Avg generation throughput: 777.1 tokens/s, Running: 18 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.2%",
+      "(APIServer pid=192) INFO 10-25 20:57:22 [loggers.py:335] Engine 000: Avg prompt throughput: 4477.3 tokens/s, Avg generation throughput: 1192.6 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
+      "(APIServer pid=192) INFO 10-25 20:57:32 [loggers.py:335] Engine 000: Avg prompt throughput: 4506.6 tokens/s, Avg generation throughput: 996.2 tokens/s, Running: 32 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.9%",
+      "(APIServer pid=192) INFO 10-25 20:57:42 [loggers.py:335] Engine 000: Avg prompt throughput: 4701.4 tokens/s, Avg generation throughput: 982.0 tokens/s, Running: 54 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.5%",
+      "(APIServer pid=192) INFO 10-25 20:57:52 [loggers.py:335] Engine 000: Avg prompt throughput: 7248.2 tokens/s, Avg generation throughput: 1893.4 tokens/s, Running: 50 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.0%",
+      "(APIServer pid=192) INFO 10-25 20:58:02 [loggers.py:335] Engine 000: Avg prompt throughput: 7571.2 tokens/s, Avg generation throughput: 1891.9 tokens/s, Running: 55 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.8%",
+      "(APIServer pid=192) INFO 10-25 20:58:12 [loggers.py:335] Engine 000: Avg prompt throughput: 7036.3 tokens/s, Avg generation throughput: 1726.1 tokens/s, Running: 60 reqs, Waiting: 0 reqs, GPU KV cache usage: 7.4%",
+      "(APIServer pid=192) INFO 10-25 20:58:22 [loggers.py:335] Engine 000: Avg prompt throughput: 6018.6 tokens/s, Avg generation throughput: 1890.8 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
+      "(APIServer pid=192) INFO 10-25 20:58:32 [loggers.py:335] Engine 000: Avg prompt throughput: 10211.0 tokens/s, Avg generation throughput: 1176.7 tokens/s, Running: 201 reqs, Waiting: 13 reqs, GPU KV cache usage: 24.3%",
+      "(APIServer pid=192) INFO 10-25 20:58:42 [loggers.py:335] Engine 000: Avg prompt throughput: 8429.4 tokens/s, Avg generation throughput: 2026.6 tokens/s, Running: 253 reqs, Waiting: 107 reqs, GPU KV cache usage: 31.4%",
+      "(APIServer pid=192) INFO 10-25 20:58:52 [loggers.py:335] Engine 000: Avg prompt throughput: 8765.3 tokens/s, Avg generation throughput: 1795.9 tokens/s, Running: 256 reqs, Waiting: 53 reqs, GPU KV cache usage: 31.0%",
+      "(APIServer pid=192) INFO 10-25 20:59:02 [loggers.py:335] Engine 000: Avg prompt throughput: 6268.5 tokens/s, Avg generation throughput: 2756.3 tokens/s, Running: 75 reqs, Waiting: 0 reqs, GPU KV cache usage: 8.4%"
     ],
     "runs": [
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 68.45056604799998,
-        "request_throughput": 0.8765449793055891,
-        "output_token_throughput": 112.1977573511154,
-        "goodput_req_s": 0.8765449793055891,
+        "duration_s": 68.41296806399998,
+        "request_throughput": 0.877026705578251,
+        "output_token_throughput": 112.25941831401613,
+        "goodput_req_s": 0.877026705578251,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -141,46 +141,46 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 66.9853348500008,
-          "p50": 63.89757599998802,
-          "p90": 79.79950059997805,
-          "p95": 82.17026210002126,
-          "p99": 108.36810155004396
+          "mean": 58.83591308333015,
+          "p50": 58.188052999980755,
+          "p90": 69.58208530001002,
+          "p95": 70.6786038999951,
+          "p99": 93.66886341000053
         },
         "tpot_ms": {
-          "mean": 11.352924666272976,
-          "p50": 11.353479181102458,
-          "p90": 11.74159007716538,
-          "p95": 11.858268295669635,
-          "p99": 11.98388047125978
+          "mean": 11.02405620971128,
+          "p50": 11.010818499999871,
+          "p90": 11.32781589133881,
+          "p95": 11.427950820472562,
+          "p99": 11.521252502047162
         },
         "itl_ms": {
-          "mean": 11.352924666272978,
-          "p50": 11.04935400002205,
-          "p90": 11.839655099987567,
-          "p95": 12.096263550009212,
-          "p99": 20.609501310008856
+          "mean": 11.024056209711278,
+          "p50": 10.773588999995809,
+          "p90": 11.18437990000416,
+          "p95": 11.359840000048393,
+          "p99": 15.574957700008554
         },
         "e2e_ms": {
-          "mean": 1508.8067674666688,
-          "p50": 1510.9500530000162,
-          "p90": 1558.333517099993,
-          "p95": 1569.9071696999993,
-          "p99": 1590.6513776100235
+          "mean": 1458.8910517166623,
+          "p50": 1459.5163559999946,
+          "p90": 1499.4196555000258,
+          "p95": 1505.9509431000208,
+          "p99": 1526.9354998500062
         },
         "send_lag_ms": {
-          "p50": 1.0106215513339123,
-          "max": 2.6582577677523034
+          "p50": 1.0299792550227949,
+          "max": 2.492826333963194
         },
-        "sent_rate": 0.8809364577820311
+        "sent_rate": 0.8809474103904154
       },
       {
         "rate": 2.0,
         "completed": 80,
-        "duration_s": 37.78130802100003,
-        "request_throughput": 2.117449188247625,
-        "output_token_throughput": 271.033496095696,
-        "goodput_req_s": 2.117449188247625,
+        "duration_s": 37.720193429999995,
+        "request_throughput": 2.120879898149558,
+        "output_token_throughput": 271.4726269631434,
+        "goodput_req_s": 2.120879898149558,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -189,46 +189,46 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 77.33467041250037,
-          "p50": 71.63244550002901,
-          "p90": 106.18937829997888,
-          "p95": 113.47697480003659,
-          "p99": 135.60929255999554
+          "mean": 66.63386563749754,
+          "p50": 62.79073249999101,
+          "p90": 92.33320000003003,
+          "p95": 96.66172905000393,
+          "p99": 115.44577218999278
         },
         "tpot_ms": {
-          "mean": 12.196475808169325,
-          "p50": 12.030351114173136,
-          "p90": 13.454878970866249,
-          "p95": 13.981900974015808,
-          "p99": 14.341233443386068
+          "mean": 11.650985951181088,
+          "p50": 11.513179397637956,
+          "p90": 12.591470624409645,
+          "p95": 13.05381133149625,
+          "p99": 13.521593497637678
         },
         "itl_ms": {
-          "mean": 12.196475808169325,
-          "p50": 11.310367500016127,
-          "p90": 12.4468022999622,
-          "p95": 13.034378450001324,
-          "p99": 41.80440439000847
+          "mean": 11.65098595118109,
+          "p50": 10.911141000008229,
+          "p90": 11.487403000035101,
+          "p95": 11.867515999998087,
+          "p99": 40.2403980100081
         },
         "e2e_ms": {
-          "mean": 1626.2870980500047,
-          "p50": 1602.6198914999839,
-          "p90": 1786.5445707999982,
-          "p95": 1848.7205652000341,
-          "p99": 1920.233813989992
+          "mean": 1546.309081437496,
+          "p50": 1527.7248975000077,
+          "p90": 1669.8088736999978,
+          "p95": 1718.3205750499978,
+          "p99": 1804.6538473000048
         },
         "send_lag_ms": {
-          "p50": 1.097611418369837,
-          "max": 2.7598052846893317
+          "p50": 1.0333959297170736,
+          "max": 2.3564569427136917
         },
-        "sent_rate": 2.1772165694675167
+        "sent_rate": 2.1772496784307163
       },
       {
         "rate": 4.0,
         "completed": 160,
-        "duration_s": 43.83996302699995,
-        "request_throughput": 3.6496381144632797,
-        "output_token_throughput": 467.1536786512998,
-        "goodput_req_s": 3.6496381144632797,
+        "duration_s": 43.780190078999965,
+        "request_throughput": 3.654620953250433,
+        "output_token_throughput": 467.7914820160554,
+        "goodput_req_s": 3.654620953250433,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -237,46 +237,46 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 82.89525578749455,
-          "p50": 75.81880850000289,
-          "p90": 112.05546639998828,
-          "p95": 121.01130645002628,
-          "p99": 178.91692113995643
+          "mean": 71.16296154999873,
+          "p50": 64.86839999999461,
+          "p90": 95.52388260002544,
+          "p95": 106.84925349997631,
+          "p99": 143.3041808999735
         },
         "tpot_ms": {
-          "mean": 13.480248932578784,
-          "p50": 13.481751248030925,
-          "p90": 14.751025256692612,
-          "p95": 15.212002451968742,
-          "p99": 15.727487452756169
+          "mean": 12.58050639625986,
+          "p50": 12.60234214566913,
+          "p90": 13.64044913070873,
+          "p95": 13.943796998425281,
+          "p99": 14.48281526818914
         },
         "itl_ms": {
-          "mean": 13.480248932578782,
-          "p50": 11.678381000024274,
-          "p90": 13.150394099966432,
-          "p95": 22.58102705000055,
-          "p99": 45.64480533990841
+          "mean": 12.580506396259862,
+          "p50": 11.168686999980082,
+          "p90": 11.975412099963023,
+          "p95": 15.968359550021205,
+          "p99": 42.51362569999288
         },
         "e2e_ms": {
-          "mean": 1794.8868702249997,
-          "p50": 1805.467483499939,
-          "p90": 1948.3275562999552,
-          "p95": 2031.7348045000017,
-          "p99": 2076.1638903100106
+          "mean": 1668.887273875001,
+          "p50": 1672.140414499978,
+          "p90": 1793.7914791999958,
+          "p95": 1865.5511757999875,
+          "p99": 1902.5359163700011
         },
         "send_lag_ms": {
-          "p50": 0.9358087018682681,
-          "max": 2.7161448834363
+          "p50": 1.0379324703144732,
+          "max": 2.5108902654591425
         },
-        "sent_rate": 3.7542878548596232
+        "sent_rate": 3.7542901290682087
       },
       {
         "rate": 8.0,
         "completed": 320,
-        "duration_s": 41.86510358800001,
-        "request_throughput": 7.643597473188221,
-        "output_token_throughput": 978.3804765680923,
-        "goodput_req_s": 7.643597473188221,
+        "duration_s": 41.76964234100001,
+        "request_throughput": 7.661066316718164,
+        "output_token_throughput": 980.616488539925,
+        "goodput_req_s": 7.661066316718164,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -285,47 +285,47 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 104.32576956562657,
-          "p50": 93.80670849998296,
-          "p90": 146.24466379991648,
-          "p95": 156.2256080000111,
-          "p99": 192.3767711099936
+          "mean": 85.35870585000396,
+          "p50": 77.00212099996406,
+          "p90": 115.1265881999848,
+          "p95": 131.87668980003195,
+          "p99": 156.44636789995394
         },
         "tpot_ms": {
-          "mean": 19.466726761023583,
-          "p50": 18.9169223070871,
-          "p90": 24.668926039370092,
-          "p95": 25.184202568504105,
-          "p99": 25.6080728670866
+          "mean": 16.860051647810003,
+          "p50": 16.270603035432785,
+          "p90": 20.657251385826807,
+          "p95": 21.198722794488283,
+          "p99": 22.036767604645892
         },
         "itl_ms": {
-          "mean": 19.466726761023583,
-          "p50": 13.753462500005753,
-          "p90": 46.638396499918144,
-          "p95": 50.58615549993988,
-          "p99": 75.64431804996843
+          "mean": 16.86005164781,
+          "p50": 12.723687999994127,
+          "p90": 40.29293389999111,
+          "p95": 46.53330045002804,
+          "p99": 51.78150149999283
         },
         "e2e_ms": {
-          "mean": 2576.6000682156214,
-          "p50": 2490.859379500023,
-          "p90": 3257.1054926999864,
-          "p95": 3340.7754521999723,
-          "p99": 3390.474827579932
+          "mean": 2226.5852651218743,
+          "p50": 2151.6877904999774,
+          "p90": 2742.1289595999956,
+          "p95": 2784.223607750022,
+          "p99": 2880.1461403800104
         },
         "send_lag_ms": {
-          "p50": 1.0236112364090388,
-          "max": 2.978073401533443
+          "p50": 1.0436950886507645,
+          "max": 2.810954192597137
         },
-        "sent_rate": 7.918912554131357
+        "sent_rate": 7.918956460037296
       },
       {
         "rate": 16.0,
         "completed": 600,
-        "duration_s": 44.09416596999995,
-        "request_throughput": 13.607242291604244,
-        "output_token_throughput": 1741.7270133253433,
-        "goodput_req_s": 1.2019730690917083,
-        "slo_attainment": 0.08833333333333333,
+        "duration_s": 42.531648453,
+        "request_throughput": 14.107141900766806,
+        "output_token_throughput": 1805.714163298151,
+        "goodput_req_s": 14.107141900766806,
+        "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
           "ttft_ms": 500.0,
@@ -333,93 +333,45 @@
         },
         "text_chunks_per_token": 0.9999479166666667,
         "ttft_ms": {
-          "mean": 312.0057057616649,
-          "p50": 296.6351204999569,
-          "p90": 459.75067199997284,
-          "p95": 527.0041950999312,
-          "p99": 677.0409366399531
+          "mean": 154.63393993666574,
+          "p50": 147.3410245000082,
+          "p90": 230.66311530002397,
+          "p95": 263.49502029996756,
+          "p99": 302.650866799969
         },
         "tpot_ms": {
-          "mean": 75.55730370392389,
-          "p50": 81.35033157086619,
-          "p90": 102.92968521181106,
-          "p95": 104.38929079291313,
-          "p99": 106.43284164968514
+          "mean": 34.958239446351726,
+          "p50": 34.807991334645514,
+          "p90": 41.90891608346399,
+          "p95": 42.846150799605795,
+          "p99": 44.18674368842546
         },
         "itl_ms": {
-          "mean": 75.5612701747992,
-          "p50": 70.49146349993407,
-          "p90": 167.29157300005681,
-          "p95": 180.0197724999748,
-          "p99": 190.3083268499813
+          "mean": 34.960074620872504,
+          "p50": 18.807001000027412,
+          "p90": 77.8558575000261,
+          "p95": 86.50413550003577,
+          "p99": 122.62350150007822
         },
         "e2e_ms": {
-          "mean": 9907.783276159998,
-          "p50": 10563.110992999951,
-          "p90": 13359.877242000028,
-          "p95": 13634.280420849984,
-          "p99": 13890.46141888997
+          "mean": 4594.330349623335,
+          "p50": 4564.647505000039,
+          "p90": 5483.483622899951,
+          "p95": 5572.306342600006,
+          "p99": 5775.590604780052
         },
         "send_lag_ms": {
-          "p50": 1.2519971293940557,
-          "max": 6.64895350756467
+          "p50": 1.125313168490294,
+          "max": 5.085888004209949
         },
-        "sent_rate": 14.818049422112686
+        "sent_rate": 14.818144649914375
       },
       {
         "rate": 24.0,
         "completed": 600,
-        "duration_s": 42.048449944000026,
-        "request_throughput": 14.269253701363018,
-        "output_token_throughput": 1826.4644737744663,
-        "goodput_req_s": 0.0,
-        "slo_attainment": 0.0,
-        "failed": 0,
-        "slo": {
-          "ttft_ms": 500.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.9999348958333333,
-        "ttft_ms": {
-          "mean": 5083.0261864566655,
-          "p50": 4814.842350000049,
-          "p90": 12385.086393199981,
-          "p95": 14038.289332899994,
-          "p99": 14609.1098810699
-        },
-        "tpot_ms": {
-          "mean": 112.54907024585303,
-          "p50": 126.45816901574813,
-          "p90": 139.15124332126007,
-          "p95": 139.83539551181124,
-          "p99": 140.69417427842515
-        },
-        "itl_ms": {
-          "mean": 112.55645584006825,
-          "p50": 116.33747299993047,
-          "p90": 200.77555920004215,
-          "p95": 202.4116921999621,
-          "p99": 205.2522199600321
-        },
-        "e2e_ms": {
-          "mean": 19376.758107679998,
-          "p50": 19236.712260499982,
-          "p90": 22762.11263979999,
-          "p95": 23001.11551934996,
-          "p99": 23401.132224469973
-        },
-        "send_lag_ms": {
-          "p50": 1.2557036635802987,
-          "max": 13.707284049457868
-        },
-        "sent_rate": 24.756818282111585
-      },
-      {
-        "rate": 32.0,
-        "completed": 600,
-        "duration_s": 39.58186948100001,
-        "request_throughput": 15.158455319752152,
-        "output_token_throughput": 1940.2822809282754,
+        "duration_s": 37.26298657899997,
+        "request_throughput": 16.101768942431942,
+        "output_token_throughput": 2061.0264246312886,
         "goodput_req_s": 0.0,
         "slo_attainment": 0.0,
         "failed": 0,
@@ -429,93 +381,141 @@
         },
         "text_chunks_per_token": 0.9999479166666667,
         "ttft_ms": {
-          "mean": 7236.061893340002,
-          "p50": 7613.32432949996,
-          "p90": 15957.346676199908,
-          "p95": 17190.803043050033,
-          "p99": 17821.789238960017
+          "mean": 3267.737833021666,
+          "p50": 2088.1895414999576,
+          "p90": 7690.965829400011,
+          "p95": 9172.943077100024,
+          "p99": 9944.289856760066
         },
         "tpot_ms": {
-          "mean": 104.86759684362205,
-          "p50": 118.97083082677153,
-          "p90": 129.06865856456685,
-          "p95": 129.1498249251971,
-          "p99": 130.0888994136221
+          "mean": 97.48470837274282,
+          "p50": 108.384576433071,
+          "p90": 122.78746778110256,
+          "p95": 124.19770398622026,
+          "p99": 124.93193528708669
         },
         "itl_ms": {
-          "mean": 104.873101993333,
-          "p50": 42.75283650002848,
-          "p90": 201.475154499974,
-          "p95": 203.2711622499619,
-          "p99": 206.0906515000397
+          "mean": 97.4898259489081,
+          "p50": 104.40181999996412,
+          "p90": 172.23484150002832,
+          "p95": 174.30069175003382,
+          "p99": 177.3090319999028
         },
         "e2e_ms": {
-          "mean": 20554.24669248,
-          "p50": 21693.874220500053,
-          "p90": 24648.539032300007,
-          "p95": 24989.247387150015,
-          "p99": 25285.932344640096
+          "mean": 15648.295796360004,
+          "p50": 15859.71910199993,
+          "p90": 18250.043878099987,
+          "p95": 18468.17428370002,
+          "p99": 18836.90910216002
         },
         "send_lag_ms": {
-          "p50": 1.1884969805535661,
-          "max": 18.105744010606273
+          "p50": 1.2003441779810942,
+          "max": 18.187841192352394
         },
-        "sent_rate": 31.85075697419347
+        "sent_rate": 24.755588928073227
+      },
+      {
+        "rate": 32.0,
+        "completed": 600,
+        "duration_s": 34.74714672099992,
+        "request_throughput": 17.26760487178021,
+        "output_token_throughput": 2210.253423587867,
+        "goodput_req_s": 0.0,
+        "slo_attainment": 0.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9999739583333334,
+        "ttft_ms": {
+          "mean": 5108.178743276667,
+          "p50": 5372.657736500059,
+          "p90": 11692.247180499964,
+          "p95": 12790.524282100034,
+          "p99": 13214.905953849977
+        },
+        "tpot_ms": {
+          "mean": 92.71403012741472,
+          "p50": 104.92475579133892,
+          "p90": 113.318674214174,
+          "p95": 113.7543283240161,
+          "p99": 114.20318711724452
+        },
+        "itl_ms": {
+          "mean": 92.71646363039714,
+          "p50": 39.02752100003681,
+          "p90": 174.08936510000785,
+          "p95": 175.8600232500271,
+          "p99": 178.65039683000305
+        },
+        "e2e_ms": {
+          "mean": 16882.86056945834,
+          "p50": 16906.76089300007,
+          "p90": 20134.696184100027,
+          "p95": 20480.017194749922,
+          "p99": 20761.355978319967
+        },
+        "send_lag_ms": {
+          "p50": 1.187569985585668,
+          "max": 16.402044091627488
+        },
+        "sent_rate": 31.8424055062795
       }
     ]
   },
-  "sweep_wall_s": 408.5,
+  "sweep_wall_s": 385.6,
   "long": {
     "startup": [
-      "ver pid=329) INFO 10-25 15:04:16 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 6144, 'enable_prefix_caching': False}",
-      "(APIServer pid=329) INFO 10-25 15:04:16 [model.py:2152] Using max model len 6144",
+      "ver pid=339) INFO 10-25 20:59:53 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 6144, 'enable_prefix_caching': False}",
+      "(APIServer pid=339) INFO 10-25 20:59:54 [model.py:2152] Using max model len 6144",
       "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-      "(EngineCore pid=350) INFO 10-25 15:04:32 [gpu_worker.py:518] Using V2 Model Runner",
-      "(EngineCore pid=350) INFO 10-25 15:04:35 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-      "(EngineCore pid=350) INFO 10-25 15:04:35 [flash_attn.py:1117] Using FlashAttention version 2",
-      "(EngineCore pid=350) INFO 10-25 15:04:44 [utils.py:347] Using LBNHC KV cache layout.",
-      "(EngineCore pid=350) INFO 10-25 15:04:53 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/637abdcd87/rank_0_0/backbone for vLLM's torch.compile",
-      "(EngineCore pid=350) INFO 10-25 15:05:02 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.67 s",
-      "(EngineCore pid=350) INFO 10-25 15:05:16 [gpu_worker.py:759] Available KV cache memory: 56.23 GiB",
+      "(EngineCore pid=360) INFO 10-25 21:00:09 [gpu_worker.py:518] Using V2 Model Runner",
+      "(EngineCore pid=360) INFO 10-25 21:00:12 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+      "(EngineCore pid=360) INFO 10-25 21:00:12 [flash_attn.py:1117] Using FlashAttention version 2",
+      "(EngineCore pid=360) INFO 10-25 21:00:19 [utils.py:347] Using LBNHC KV cache layout.",
+      "(EngineCore pid=360) INFO 10-25 21:00:26 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/b247e6aeb2/rank_0_0/backbone for vLLM's torch.compile",
+      "(EngineCore pid=360) INFO 10-25 21:00:34 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 7.36 s",
+      "(EngineCore pid=360) INFO 10-25 21:00:47 [gpu_worker.py:759] Available KV cache memory: 56.23 GiB",
       "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-      "(EngineCore pid=350) INFO 10-25 15:05:16 [kv_cache_utils.py:2327] GPU KV cache size: 460,640 tokens, Maximum concurrency for 6,144 tokens per request: 74.97x",
-      "(EngineCore pid=350) INFO 10-25 15:05:40 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-      "(APIServer pid=329) INFO 10-25 15:05:55 [loggers.py:335] Engine 000: Avg prompt throughput: 1402.2 tokens/s, Avg generation throughput: 18.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.8%",
-      "(APIServer pid=329) INFO 10-25 15:06:05 [loggers.py:335] Engine 000: Avg prompt throughput: 2874.9 tokens/s, Avg generation throughput: 50.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
-      "(APIServer pid=329) INFO 10-25 15:06:15 [loggers.py:335] Engine 000: Avg prompt throughput: 410.0 tokens/s, Avg generation throughput: 114.1 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
-      "(APIServer pid=329) INFO 10-25 15:06:25 [loggers.py:335] Engine 000: Avg prompt throughput: 1652.4 tokens/s, Avg generation throughput: 218.2 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.0%",
-      "(APIServer pid=329) INFO 10-25 15:06:35 [loggers.py:335] Engine 000: Avg prompt throughput: 1238.0 tokens/s, Avg generation throughput: 346.7 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.1%",
-      "(APIServer pid=329) INFO 10-25 15:06:45 [loggers.py:335] Engine 000: Avg prompt throughput: 821.3 tokens/s, Avg generation throughput: 322.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.2%",
-      "(APIServer pid=329) INFO 10-25 15:06:55 [loggers.py:335] Engine 000: Avg prompt throughput: 1233.4 tokens/s, Avg generation throughput: 205.1 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.9%",
-      "(APIServer pid=329) INFO 10-25 15:07:05 [loggers.py:335] Engine 000: Avg prompt throughput: 1260.2 tokens/s, Avg generation throughput: 270.5 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.1%",
-      "(APIServer pid=329) INFO 10-25 15:07:15 [loggers.py:335] Engine 000: Avg prompt throughput: 412.5 tokens/s, Avg generation throughput: 247.2 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.2%",
-      "(APIServer pid=329) INFO 10-25 15:07:25 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 108.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
-      "(APIServer pid=329) INFO 10-25 15:07:35 [loggers.py:335] Engine 000: Avg prompt throughput: 400.3 tokens/s, Avg generation throughput: 50.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
-      "(APIServer pid=329) INFO 10-25 15:07:45 [loggers.py:335] Engine 000: Avg prompt throughput: 403.1 tokens/s, Avg generation throughput: 129.7 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%",
-      "(APIServer pid=329) INFO 10-25 15:07:55 [loggers.py:335] Engine 000: Avg prompt throughput: 1218.0 tokens/s, Avg generation throughput: 189.2 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.0%",
-      "(APIServer pid=329) INFO 10-25 15:08:05 [loggers.py:335] Engine 000: Avg prompt throughput: 411.1 tokens/s, Avg generation throughput: 175.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
-      "(APIServer pid=329) INFO 10-25 15:08:15 [loggers.py:335] Engine 000: Avg prompt throughput: 2040.1 tokens/s, Avg generation throughput: 241.1 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.9%",
-      "(APIServer pid=329) INFO 10-25 15:08:25 [loggers.py:335] Engine 000: Avg prompt throughput: 404.1 tokens/s, Avg generation throughput: 315.0 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.0%",
-      "(APIServer pid=329) INFO 10-25 15:08:35 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 115.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
-      "(APIServer pid=329) INFO 10-25 15:08:45 [loggers.py:335] Engine 000: Avg prompt throughput: 820.2 tokens/s, Avg generation throughput: 104.5 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
-      "(APIServer pid=329) INFO 10-25 15:08:55 [loggers.py:335] Engine 000: Avg prompt throughput: 824.4 tokens/s, Avg generation throughput: 201.3 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
-      "(APIServer pid=329) INFO 10-25 15:09:05 [loggers.py:335] Engine 000: Avg prompt throughput: 1662.1 tokens/s, Avg generation throughput: 245.5 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.9%",
-      "(APIServer pid=329) INFO 10-25 15:09:15 [loggers.py:335] Engine 000: Avg prompt throughput: 792.6 tokens/s, Avg generation throughput: 318.3 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.9%",
-      "(APIServer pid=329) INFO 10-25 15:09:25 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 157.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
-      "(APIServer pid=329) INFO 10-25 15:09:35 [loggers.py:335] Engine 000: Avg prompt throughput: 2037.8 tokens/s, Avg generation throughput: 154.9 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.7%",
-      "(APIServer pid=329) INFO 10-25 15:09:45 [loggers.py:335] Engine 000: Avg prompt throughput: 2488.7 tokens/s, Avg generation throughput: 428.1 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 8.9%",
-      "(APIServer pid=329) INFO 10-25 15:09:55 [loggers.py:335] Engine 000: Avg prompt throughput: 2892.7 tokens/s, Avg generation throughput: 523.7 tokens/s, Running: 13 reqs, Waiting: 0 reqs, GPU KV cache usage: 13.0%",
-      "(APIServer pid=329) INFO 10-25 15:10:05 [loggers.py:335] Engine 000: Avg prompt throughput: 789.6 tokens/s, Avg generation throughput: 601.0 tokens/s, Running: 10 reqs, Waiting: 1 reqs, GPU KV cache usage: 9.7%",
-      "(APIServer pid=329) INFO 10-25 15:10:15 [loggers.py:335] Engine 000: Avg prompt throughput: 2877.0 tokens/s, Avg generation throughput: 440.4 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 9.5%"
+      "(EngineCore pid=360) INFO 10-25 21:00:47 [kv_cache_utils.py:2327] GPU KV cache size: 460,640 tokens, Maximum concurrency for 6,144 tokens per request: 74.97x",
+      "(EngineCore pid=360) INFO 10-25 21:01:08 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+      "(APIServer pid=339) INFO 10-25 21:01:23 [loggers.py:335] Engine 000: Avg prompt throughput: 1776.8 tokens/s, Avg generation throughput: 27.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=339) INFO 10-25 21:01:33 [loggers.py:335] Engine 000: Avg prompt throughput: 2463.4 tokens/s, Avg generation throughput: 49.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%",
+      "(APIServer pid=339) INFO 10-25 21:01:43 [loggers.py:335] Engine 000: Avg prompt throughput: 410.0 tokens/s, Avg generation throughput: 124.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+      "(APIServer pid=339) INFO 10-25 21:01:53 [loggers.py:335] Engine 000: Avg prompt throughput: 2068.6 tokens/s, Avg generation throughput: 234.5 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.9%",
+      "(APIServer pid=339) INFO 10-25 21:02:03 [loggers.py:335] Engine 000: Avg prompt throughput: 1226.6 tokens/s, Avg generation throughput: 351.2 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.0%",
+      "(APIServer pid=339) INFO 10-25 21:02:13 [loggers.py:335] Engine 000: Avg prompt throughput: 416.7 tokens/s, Avg generation throughput: 326.8 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.2%",
+      "(APIServer pid=339) INFO 10-25 21:02:23 [loggers.py:335] Engine 000: Avg prompt throughput: 1233.5 tokens/s, Avg generation throughput: 191.5 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.9%",
+      "(APIServer pid=339) INFO 10-25 21:02:33 [loggers.py:335] Engine 000: Avg prompt throughput: 1260.4 tokens/s, Avg generation throughput: 288.2 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.1%",
+      "(APIServer pid=339) INFO 10-25 21:02:43 [loggers.py:335] Engine 000: Avg prompt throughput: 412.5 tokens/s, Avg generation throughput: 229.6 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.1%",
+      "(APIServer pid=339) INFO 10-25 21:02:53 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 79.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=339) INFO 10-25 21:03:03 [loggers.py:335] Engine 000: Avg prompt throughput: 400.2 tokens/s, Avg generation throughput: 57.3 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.9%",
+      "(APIServer pid=339) INFO 10-25 21:03:13 [loggers.py:335] Engine 000: Avg prompt throughput: 805.3 tokens/s, Avg generation throughput: 136.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=339) INFO 10-25 21:03:23 [loggers.py:335] Engine 000: Avg prompt throughput: 815.8 tokens/s, Avg generation throughput: 207.2 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.1%",
+      "(APIServer pid=339) INFO 10-25 21:03:33 [loggers.py:335] Engine 000: Avg prompt throughput: 827.4 tokens/s, Avg generation throughput: 152.0 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.9%",
+      "(APIServer pid=339) INFO 10-25 21:03:43 [loggers.py:335] Engine 000: Avg prompt throughput: 1623.9 tokens/s, Avg generation throughput: 285.2 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.9%",
+      "(APIServer pid=339) INFO 10-25 21:03:53 [loggers.py:335] Engine 000: Avg prompt throughput: 404.0 tokens/s, Avg generation throughput: 286.0 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=339) INFO 10-25 21:04:03 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 103.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%",
+      "(APIServer pid=339) INFO 10-25 21:04:13 [loggers.py:335] Engine 000: Avg prompt throughput: 820.1 tokens/s, Avg generation throughput: 113.3 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=339) INFO 10-25 21:04:23 [loggers.py:335] Engine 000: Avg prompt throughput: 824.4 tokens/s, Avg generation throughput: 202.2 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 2.0%",
+      "(APIServer pid=339) INFO 10-25 21:04:33 [loggers.py:335] Engine 000: Avg prompt throughput: 1661.9 tokens/s, Avg generation throughput: 265.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.0%",
+      "(APIServer pid=339) INFO 10-25 21:04:43 [loggers.py:335] Engine 000: Avg prompt throughput: 792.7 tokens/s, Avg generation throughput: 310.3 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 3.0%",
+      "(APIServer pid=339) INFO 10-25 21:04:53 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 133.7 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+      "(APIServer pid=339) INFO 10-25 21:05:03 [loggers.py:335] Engine 000: Avg prompt throughput: 2447.7 tokens/s, Avg generation throughput: 213.1 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.8%",
+      "(APIServer pid=339) INFO 10-25 21:05:13 [loggers.py:335] Engine 000: Avg prompt throughput: 2489.5 tokens/s, Avg generation throughput: 483.4 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 10.1%",
+      "(APIServer pid=339) INFO 10-25 21:05:23 [loggers.py:335] Engine 000: Avg prompt throughput: 2482.4 tokens/s, Avg generation throughput: 577.0 tokens/s, Running: 11 reqs, Waiting: 0 reqs, GPU KV cache usage: 11.1%",
+      "(APIServer pid=339) INFO 10-25 21:05:33 [loggers.py:335] Engine 000: Avg prompt throughput: 2038.6 tokens/s, Avg generation throughput: 529.4 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 10.0%",
+      "(APIServer pid=339) INFO 10-25 21:05:43 [loggers.py:335] Engine 000: Avg prompt throughput: 2867.0 tokens/s, Avg generation throughput: 451.7 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 11.6%"
     ],
     "runs": [
       {
         "rate": 0.25,
         "completed": 40,
-        "duration_s": 202.471599299,
-        "request_throughput": 0.19755857186137987,
-        "output_token_throughput": 202.299977586053,
-        "goodput_req_s": 0.19755857186137987,
+        "duration_s": 201.89790311599995,
+        "request_throughput": 0.19811993776388107,
+        "output_token_throughput": 202.8748162702142,
+        "goodput_req_s": 0.19811993776388107,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -524,38 +524,38 @@
         },
         "text_chunks_per_token": 0.9999755859375,
         "ttft_ms": {
-          "mean": 389.15409342500027,
-          "p50": 377.4100090000161,
-          "p90": 406.7399414000647,
-          "p95": 420.0041722499574,
-          "p99": 635.0442601899964
+          "mean": 335.348880125008,
+          "p50": 325.0275964999787,
+          "p90": 346.183567099979,
+          "p95": 359.3639158999562,
+          "p99": 534.3689956300283
         },
         "tpot_ms": {
-          "mean": 13.445026370625607,
-          "p50": 13.548170951124192,
-          "p90": 14.493178770772252,
-          "p95": 14.764534772482909,
-          "p99": 14.835544374789892
+          "mean": 12.739166432086986,
+          "p50": 12.799847674486761,
+          "p90": 13.62596603108502,
+          "p95": 13.976427826588377,
+          "p99": 14.02272223319645
         },
         "itl_ms": {
-          "mean": 13.445354947237222,
-          "p50": 12.617057999932513,
-          "p90": 13.90139980001095,
-          "p95": 14.232238999977653,
-          "p99": 16.464300380000616
+          "mean": 12.739477758522922,
+          "p50": 12.050523999960205,
+          "p90": 13.203767199956928,
+          "p95": 13.434629000028051,
+          "p99": 15.335432839999612
         },
         "e2e_ms": {
-          "mean": 14143.416070574996,
-          "p50": 14242.249825000044,
-          "p90": 15189.538003000098,
-          "p95": 15488.42422860004,
-          "p99": 15559.804368590074
+          "mean": 13367.516140149994,
+          "p50": 13425.014311999974,
+          "p90": 14273.239230999969,
+          "p95": 14634.666126949945,
+          "p99": 14672.454110699995
         },
         "send_lag_ms": {
-          "p50": 0.9955416857163613,
-          "max": 2.1064615691557265
+          "p50": 1.2220174180299637,
+          "max": 2.39078800152015
         },
-        "sent_rate": 0.2054495946345766,
+        "sent_rate": 0.20545008593418618,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -563,7 +563,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -572,25 +572,25 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 6.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.061690228906874145,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.06120393205738306,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         }
       },
       {
         "rate": 0.5,
         "completed": 40,
-        "duration_s": 79.23275567900009,
-        "request_throughput": 0.5048417117038583,
-        "output_token_throughput": 516.9579127847509,
-        "goodput_req_s": 0.5048417117038583,
+        "duration_s": 77.62747036799988,
+        "request_throughput": 0.5152815080843993,
+        "output_token_throughput": 527.6482642784249,
+        "goodput_req_s": 0.5152815080843993,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -599,38 +599,38 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 494.0048003250069,
-          "p50": 429.0773435000119,
-          "p90": 781.6907835000166,
-          "p95": 847.2394611999787,
-          "p99": 974.1085611900894
+          "mean": 415.31577340001604,
+          "p50": 362.00875700001234,
+          "p90": 668.2309084999247,
+          "p95": 699.8876879500868,
+          "p99": 793.281350550004
         },
         "tpot_ms": {
-          "mean": 20.47367436207233,
-          "p50": 19.605669698435925,
-          "p90": 23.79659990977508,
-          "p95": 23.967934557722337,
-          "p99": 24.306904750381328
+          "mean": 18.374174985801545,
+          "p50": 17.80448203470186,
+          "p90": 21.204285871749807,
+          "p95": 21.548229342668588,
+          "p99": 21.78335397474095
         },
         "itl_ms": {
-          "mean": 20.473674362072327,
-          "p50": 16.885111000078723,
-          "p90": 21.11225759992976,
-          "p95": 21.66306600004191,
-          "p99": 179.4923396299259
+          "mean": 18.374174985801545,
+          "p50": 15.760969500036026,
+          "p90": 19.399787000133983,
+          "p95": 19.947978000038802,
+          "p99": 150.93060509997483
         },
         "e2e_ms": {
-          "mean": 21438.573672724997,
-          "p50": 20489.030724499913,
-          "p90": 24740.058249599926,
-          "p95": 24899.300863950044,
-          "p99": 25267.39141962009
+          "mean": 19212.096783875,
+          "p50": 18732.544485000006,
+          "p90": 22265.55736720013,
+          "p95": 22370.8249544999,
+          "p99": 22621.56336325997
         },
         "send_lag_ms": {
-          "p50": 1.1742345298557666,
-          "max": 2.308638221364845
+          "p50": 1.139998594041458,
+          "max": 2.1020990247180293
         },
-        "sent_rate": 0.6330374606544757,
+        "sent_rate": 0.6330303613594871,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -638,7 +638,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -647,25 +647,25 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 21.0,
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 19.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 1.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.20872555489944078,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.18774531939282368,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         }
       },
       {
         "rate": 1.0,
         "completed": 60,
-        "duration_s": 93.40896309499999,
-        "request_throughput": 0.6423366453493122,
-        "output_token_throughput": 657.7527248376957,
-        "goodput_req_s": 0.6423366453493122,
+        "duration_s": 90.81623303600009,
+        "request_throughput": 0.6606748374623251,
+        "output_token_throughput": 676.5310335614209,
+        "goodput_req_s": 0.6606748374623251,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -674,38 +674,38 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 619.5379938499779,
-          "p50": 506.77193899991835,
-          "p90": 1097.5978564000118,
-          "p95": 1235.0604668000074,
-          "p99": 1453.3272534799194
+          "mean": 480.90814861667087,
+          "p50": 397.365818499793,
+          "p90": 692.6883660999239,
+          "p95": 948.687524349998,
+          "p99": 1141.2365802300133
         },
         "tpot_ms": {
-          "mean": 29.45479351344088,
-          "p50": 30.428814991202444,
-          "p90": 36.10317354555237,
-          "p95": 36.90468397526892,
-          "p99": 37.3995153103617
+          "mean": 23.29902754692083,
+          "p50": 24.38456285581621,
+          "p90": 27.406587766666615,
+          "p95": 28.16432369892471,
+          "p99": 28.72440150425223
         },
         "itl_ms": {
-          "mean": 29.45479351344088,
-          "p50": 22.38922200012894,
-          "p90": 28.665145199943254,
-          "p95": 44.99084769995538,
-          "p99": 205.91006693006193
+          "mean": 23.29902754692083,
+          "p50": 19.010154999932638,
+          "p90": 22.613637999938874,
+          "p95": 25.812471999972786,
+          "p99": 167.24093860996615
         },
         "e2e_ms": {
-          "mean": 30751.791758099997,
-          "p50": 31578.270954500113,
-          "p90": 37797.34054380012,
-          "p95": 38609.19813084992,
-          "p99": 38723.73831271992
+          "mean": 24315.813329116678,
+          "p50": 25301.769283500107,
+          "p90": 28694.92889080009,
+          "p95": 29235.78903220016,
+          "p99": 29764.897963180087
         },
         "send_lag_ms": {
-          "p50": 1.213863193086695,
-          "max": 2.884566600378058
+          "p50": 0.9492575741916198,
+          "max": 2.7977070619886746
         },
-        "sent_rate": 0.7830124102844592,
+        "sent_rate": 0.7829928004919053,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -713,7 +713,7 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -722,174 +722,24 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 33.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 2.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 2.0,
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 1.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.3400951752405432,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.28059328215637913,
           "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         }
       },
       {
         "rate": 2.0,
         "completed": 120,
-        "duration_s": 144.26061277500003,
-        "request_throughput": 0.8318278821341294,
-        "output_token_throughput": 851.7917513053485,
-        "goodput_req_s": 0.0,
-        "slo_attainment": 0.0,
-        "failed": 0,
-        "slo": {
-          "ttft_ms": 2000.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.9998779296875,
-        "ttft_ms": {
-          "mean": 6065.422229975008,
-          "p50": 1234.128766500021,
-          "p90": 27036.9019899,
-          "p95": 38993.470670250026,
-          "p99": 43789.91956509998
-        },
-        "tpot_ms": {
-          "mean": 80.52748594355653,
-          "p50": 84.63479513587475,
-          "p90": 97.09355965288374,
-          "p95": 97.57549496021508,
-          "p99": 98.29975812231666
-        },
-        "itl_ms": {
-          "mean": 80.53732677038576,
-          "p50": 54.67774799990366,
-          "p90": 257.5679915999899,
-          "p95": 309.35648040012893,
-          "p99": 320.6524390400227
-        },
-        "e2e_ms": {
-          "mean": 88445.04035023335,
-          "p50": 87595.09825600003,
-          "p90": 100090.01465650015,
-          "p95": 100400.69389005005,
-          "p99": 101202.09453103009
-        },
-        "send_lag_ms": {
-          "p50": 1.1569964497191165,
-          "max": 7.005474162966152
-        },
-        "sent_rate": 1.7187851076911158,
-        "metrics_before": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        },
-        "metrics_after": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 12.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        },
-        "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 104.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 23.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 23.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.9999305290215013,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 12.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        }
-      },
-      {
-        "rate": 3.0,
-        "completed": 180,
-        "duration_s": 201.57589003999988,
-        "request_throughput": 0.892963935142648,
-        "output_token_throughput": 914.3950695860716,
-        "goodput_req_s": 0.0,
-        "slo_attainment": 0.0,
-        "failed": 0,
-        "slo": {
-          "ttft_ms": 2000.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.9999077690972222,
-        "ttft_ms": {
-          "mean": 37392.12829856111,
-          "p50": 11025.06754000001,
-          "p90": 88053.93458519995,
-          "p95": 88909.7175654,
-          "p99": 90701.63892934991
-        },
-        "tpot_ms": {
-          "mean": 90.86146952514392,
-          "p50": 99.79498012707722,
-          "p90": 108.190270849951,
-          "p95": 126.66898964726307,
-          "p99": 137.6314736400783
-        },
-        "itl_ms": {
-          "mean": 90.86985872682935,
-          "p50": 54.836441999896124,
-          "p90": 282.716217800089,
-          "p95": 297.8104761000168,
-          "p99": 312.58024612000094
-        },
-        "e2e_ms": {
-          "mean": 130343.41162278333,
-          "p50": 121488.43668649999,
-          "p90": 158481.36553209994,
-          "p95": 160174.0744439499,
-          "p99": 162611.76645563002
-        },
-        "send_lag_ms": {
-          "p50": 1.2390154618131533,
-          "max": 5.864943102054099
-        },
-        "sent_rate": 2.8281492224535154,
-        "metrics_before": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 12.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        },
-        "metrics_after": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 30.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        },
-        "metrics_peak": {
-          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 109.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 89.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 89.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
-          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.9999305290215013,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 30.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
-        }
-      },
-      {
-        "rate": 4.0,
-        "completed": 240,
-        "duration_s": 285.3490920840002,
-        "request_throughput": 0.8410750433695073,
-        "output_token_throughput": 861.2608444103755,
+        "duration_s": 128.83055462800007,
+        "request_throughput": 0.9314560536240923,
+        "output_token_throughput": 953.8109989110706,
         "goodput_req_s": 0.0,
         "slo_attainment": 0.0,
         "failed": 0,
@@ -899,46 +749,46 @@
         },
         "text_chunks_per_token": 0.9998942057291667,
         "ttft_ms": {
-          "mean": 70873.78216025,
-          "p50": 86312.45797999998,
-          "p90": 178418.94897729985,
-          "p95": 183963.40652590006,
-          "p99": 187373.64515203002
+          "mean": 3152.4910436916625,
+          "p50": 941.9234315000722,
+          "p90": 8963.03874889993,
+          "p95": 21976.69964379985,
+          "p99": 25939.93349821996
         },
         "tpot_ms": {
-          "mean": 97.84797193492996,
-          "p50": 106.20652469110462,
-          "p90": 111.77905539208204,
-          "p95": 134.20911992033245,
-          "p99": 161.00457674934515
+          "mean": 69.93315288435973,
+          "p50": 73.00437706402735,
+          "p90": 83.03344416383196,
+          "p95": 83.3284959491203,
+          "p99": 83.55861698870959
         },
         "itl_ms": {
-          "mean": 97.85833490620546,
-          "p50": 56.19501149999451,
-          "p90": 296.481963599922,
-          "p95": 305.9790504500029,
-          "p99": 319.3690502899153
+          "mean": 69.94055942779863,
+          "p50": 49.380850999796166,
+          "p90": 213.87243399981344,
+          "p95": 265.59623119992466,
+          "p99": 272.17517019994375
         },
         "e2e_ms": {
-          "mean": 170972.25744968333,
-          "p50": 199751.75816149998,
-          "p90": 224537.24510510004,
-          "p95": 226016.1529058998,
-          "p99": 226211.16876100004
+          "mean": 74694.10644439165,
+          "p50": 75743.33902550006,
+          "p90": 85666.75597600001,
+          "p95": 85904.41910590004,
+          "p99": 86217.69209114996
         },
         "send_lag_ms": {
-          "p50": 1.2534402370221187,
-          "max": 6.931785575012839
+          "p50": 1.148791264540705,
+          "max": 4.25157413721422
         },
-        "sent_rate": 3.7517774627726217,
+        "sent_rate": 1.7187612394211678,
         "metrics_before": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 30.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_after": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
@@ -946,17 +796,167 @@
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 65.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 9.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 102.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 15.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 15.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 9.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        }
+      },
+      {
+        "rate": 3.0,
+        "completed": 180,
+        "duration_s": 181.36269700799994,
+        "request_throughput": 0.992486343495764,
+        "output_token_throughput": 1016.3060157396624,
+        "goodput_req_s": 0.0,
+        "slo_attainment": 0.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9998914930555556,
+        "ttft_ms": {
+          "mean": 29707.08674841667,
+          "p50": 6654.620486999988,
+          "p90": 71969.35200250006,
+          "p95": 72638.06611974987,
+          "p99": 73724.93354248999
+        },
+        "tpot_ms": {
+          "mean": 83.51869691427176,
+          "p50": 88.56545482111429,
+          "p90": 101.6403246041056,
+          "p95": 114.44096025909099,
+          "p99": 124.79712953364604
+        },
+        "itl_ms": {
+          "mean": 83.5277691168477,
+          "p50": 50.68025749994831,
+          "p90": 259.31613390002894,
+          "p95": 267.6210105501582,
+          "p99": 272.79460381006174
+        },
+        "e2e_ms": {
+          "mean": 115146.71369171666,
+          "p50": 110249.83816399993,
+          "p90": 138449.79264310005,
+          "p95": 140292.000137,
+          "p99": 142672.7235363
+        },
+        "send_lag_ms": {
+          "p50": 1.168006302787461,
+          "max": 5.060376528788879
+        },
+        "sent_rate": 2.8280615613271696,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 9.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 26.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         },
         "metrics_peak": {
           "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 109.0,
-          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 148.0,
-          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 148.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 88.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 88.0,
           "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
           "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
-          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 65.0,
-          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792940743.5289135
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 26.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        }
+      },
+      {
+        "rate": 4.0,
+        "completed": 240,
+        "duration_s": 255.1718917390001,
+        "request_throughput": 0.9405424647848027,
+        "output_token_throughput": 963.115483939638,
+        "goodput_req_s": 0.0,
+        "slo_attainment": 0.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 2000.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.9998942057291667,
+        "ttft_ms": {
+          "mean": 59259.262904283336,
+          "p50": 73453.76849399986,
+          "p90": 152988.82007419993,
+          "p95": 157547.85312795002,
+          "p99": 160183.86311623006
+        },
+        "tpot_ms": {
+          "mean": 87.60648441500896,
+          "p50": 94.8807386490713,
+          "p90": 99.65596231564021,
+          "p95": 118.47981214975574,
+          "p99": 144.98207954854348
+        },
+        "itl_ms": {
+          "mean": 87.61576272158587,
+          "p50": 51.89478150009563,
+          "p90": 259.20833989998755,
+          "p95": 267.46603115004746,
+          "p99": 273.9652053000282
+        },
+        "e2e_ms": {
+          "mean": 148880.6964608375,
+          "p50": 173275.80293999997,
+          "p90": 194289.1584021,
+          "p95": 195917.55153190007,
+          "p99": 196026.86212350018
+        },
+        "send_lag_ms": {
+          "p50": 1.1446819947735776,
+          "max": 3.798212909309484
+        },
+        "sent_rate": 3.751821028161816,
+        "metrics_before": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 26.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        },
+        "metrics_after": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 0.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 60.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
+        },
+        "metrics_peak": {
+          "vllm:num_requests_running{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 109.0,
+          "vllm:num_requests_waiting{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 147.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"capacity\"}": 147.0,
+          "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",reason=\"deferred\"}": 0.0,
+          "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1.0,
+          "vllm:num_preemptions_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 60.0,
+          "vllm:num_preemptions_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792962071.6340134
         }
       }
     ],
@@ -966,64 +966,16 @@
       "tpot_ms": 50
     }
   },
-  "long_wall_s": 1138.3,
+  "long_wall_s": 1054.8,
   "prefix": {
     "prefix_on": {
       "first_turn": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 78.57228685400014,
-        "request_throughput": 3.818140110360386,
-        "output_token_throughput": 488.7219341261294,
-        "goodput_req_s": 3.818140110360386,
-        "slo_attainment": 1.0,
-        "failed": 0,
-        "slo": {
-          "ttft_ms": 500.0,
-          "tpot_ms": 50.0
-        },
-        "text_chunks_per_token": 0.9999739583333334,
-        "ttft_ms": {
-          "mean": 80.76557118666794,
-          "p50": 76.75363499993182,
-          "p90": 107.94243020004615,
-          "p95": 117.55651080001147,
-          "p99": 139.06986912008506
-        },
-        "tpot_ms": {
-          "mean": 13.541380424750672,
-          "p50": 13.440884078739497,
-          "p90": 15.024893547243257,
-          "p95": 15.308255834644584,
-          "p99": 16.035303560079083
-        },
-        "itl_ms": {
-          "mean": 13.54173585088849,
-          "p50": 11.656606000087777,
-          "p90": 13.267144000064942,
-          "p95": 37.93038889998565,
-          "p99": 45.71729114009029
-        },
-        "e2e_ms": {
-          "mean": 1800.5208851300033,
-          "p50": 1784.4762390000142,
-          "p90": 1996.733105099952,
-          "p95": 2026.9007272499607,
-          "p99": 2117.417708820162
-        },
-        "send_lag_ms": {
-          "p50": 1.0172107127388585,
-          "max": 2.933549334207086
-        },
-        "sent_rate": 3.8804097414157446
-      },
-      "follow_up": {
-        "rate": 4.0,
-        "completed": 300,
-        "duration_s": 78.54447637200019,
-        "request_throughput": 3.819492010859532,
-        "output_token_throughput": 488.8949773900201,
-        "goodput_req_s": 3.819492010859532,
+        "duration_s": 78.50920904999998,
+        "request_throughput": 3.8212077746056474,
+        "output_token_throughput": 489.11459514952287,
+        "goodput_req_s": 3.8212077746056474,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -1032,82 +984,130 @@
         },
         "text_chunks_per_token": 0.9999479166666667,
         "ttft_ms": {
-          "mean": 40.996128930002364,
-          "p50": 40.918437999948765,
-          "p90": 46.458234099759466,
-          "p95": 48.28989714990257,
-          "p99": 50.88640504987552
+          "mean": 70.6794563600018,
+          "p50": 67.70313750007517,
+          "p90": 94.41998609984239,
+          "p95": 100.31854074995864,
+          "p99": 116.4319833701688
         },
         "tpot_ms": {
-          "mean": 11.692047264330682,
-          "p50": 11.639024535433357,
-          "p90": 12.03327705354391,
-          "p95": 12.074285575985643,
-          "p99": 12.241447067402715
+          "mean": 12.669761671023602,
+          "p50": 12.60213411810994,
+          "p90": 13.806882760629708,
+          "p95": 14.0015482897641,
+          "p99": 14.726560163149395
         },
         "itl_ms": {
-          "mean": 11.692661052312431,
-          "p50": 11.598420999916925,
-          "p90": 12.71445100019264,
-          "p95": 13.189016600097148,
-          "p99": 14.774576010172495
+          "mean": 12.670426785290546,
+          "p50": 11.153425999964384,
+          "p90": 12.222423000048366,
+          "p95": 17.719192150093523,
+          "p99": 42.80121380010314
         },
         "e2e_ms": {
-          "mean": 1525.886131499999,
-          "p50": 1520.9445404999542,
-          "p90": 1571.8161924001834,
-          "p95": 1578.6303471001474,
-          "p99": 1594.06906832005
+          "mean": 1679.7391885799993,
+          "p50": 1672.126310499948,
+          "p90": 1826.991950400111,
+          "p95": 1866.348170649951,
+          "p99": 1938.8652637501104
         },
         "send_lag_ms": {
-          "p50": 1.0125648940402243,
-          "max": 2.7680620405519107
+          "p50": 1.027598501352145,
+          "max": 2.5287048494320175
         },
-        "sent_rate": 3.880334810655144
+        "sent_rate": 3.8803848926402082
+      },
+      "follow_up": {
+        "rate": 4.0,
+        "completed": 300,
+        "duration_s": 78.47811235599988,
+        "request_throughput": 3.8227219156229375,
+        "output_token_throughput": 489.308405199736,
+        "goodput_req_s": 3.8227219156229375,
+        "slo_attainment": 1.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 0.999921875,
+        "ttft_ms": {
+          "mean": 35.61415938333008,
+          "p50": 35.56246999994528,
+          "p90": 40.16744499988363,
+          "p95": 40.8478646499816,
+          "p99": 42.401892379975834
+        },
+        "tpot_ms": {
+          "mean": 11.155028530656123,
+          "p50": 11.134690472440383,
+          "p90": 11.403486450393665,
+          "p95": 11.455235604723553,
+          "p99": 11.600984449212428
+        },
+        "itl_ms": {
+          "mean": 11.155906948526086,
+          "p50": 11.069374000044263,
+          "p90": 11.738307999939934,
+          "p95": 12.188597800150088,
+          "p99": 13.695473560010214
+        },
+        "e2e_ms": {
+          "mean": 1452.3027827766578,
+          "p50": 1451.1225405000232,
+          "p90": 1486.691165900129,
+          "p95": 1491.6286903000582,
+          "p99": 1504.3961050800885
+        },
+        "send_lag_ms": {
+          "p50": 1.0369020271276952,
+          "max": 2.5280556826769995
+        },
+        "sent_rate": 3.880364456147219
       },
       "metrics": {
         "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 307899.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941850.4078639,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963091.2878327,
         "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 149296.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792941850.4078825
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963091.2878494
       },
       "startup": [
-        "rver pid=516) INFO 10-25 15:23:16 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
-        "(APIServer pid=516) INFO 10-25 15:23:17 [model.py:2152] Using max model len 2048",
+        "rver pid=528) INFO 10-25 21:17:27 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': True}",
+        "(APIServer pid=528) INFO 10-25 21:17:28 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=538) INFO 10-25 15:23:34 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=538) INFO 10-25 15:23:38 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=538) INFO 10-25 15:23:38 [flash_attn.py:1117] Using FlashAttention version 2",
-        "(EngineCore pid=538) INFO 10-25 15:23:49 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=538) INFO 10-25 15:24:00 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
+        "(EngineCore pid=549) INFO 10-25 21:17:41 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=549) INFO 10-25 21:17:44 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=549) INFO 10-25 21:17:44 [flash_attn.py:1117] Using FlashAttention version 2",
+        "(EngineCore pid=549) INFO 10-25 21:17:54 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=549) INFO 10-25 21:18:02 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
         "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=538) INFO 10-25 15:24:00 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
-        "(EngineCore pid=538) INFO 10-25 15:24:06 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-        "(APIServer pid=516) INFO 10-25 15:24:22 [loggers.py:335] Engine 000: Avg prompt throughput: 1294.9 tokens/s, Avg generation throughput: 317.7 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:24:32 [loggers.py:335] Engine 000: Avg prompt throughput: 1971.9 tokens/s, Avg generation throughput: 454.2 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:24:42 [loggers.py:335] Engine 000: Avg prompt throughput: 1409.3 tokens/s, Avg generation throughput: 392.9 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:24:52 [loggers.py:335] Engine 000: Avg prompt throughput: 2374.3 tokens/s, Avg generation throughput: 539.5 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:25:02 [loggers.py:335] Engine 000: Avg prompt throughput: 2112.6 tokens/s, Avg generation throughput: 571.8 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:25:12 [loggers.py:335] Engine 000: Avg prompt throughput: 1872.7 tokens/s, Avg generation throughput: 489.7 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%, Prefix cache hit rate: 0.0%",
-        "(APIServer pid=516) INFO 10-25 15:25:22 [loggers.py:335] Engine 000: Avg prompt throughput: 1892.6 tokens/s, Avg generation throughput: 493.7 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 0.1%",
-        "(APIServer pid=516) INFO 10-25 15:25:32 [loggers.py:335] Engine 000: Avg prompt throughput: 1967.7 tokens/s, Avg generation throughput: 526.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%, Prefix cache hit rate: 0.4%",
-        "(APIServer pid=516) INFO 10-25 15:25:42 [loggers.py:335] Engine 000: Avg prompt throughput: 75.9 tokens/s, Avg generation throughput: 392.4 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 9.9%",
-        "(APIServer pid=516) INFO 10-25 15:25:52 [loggers.py:335] Engine 000: Avg prompt throughput: 99.4 tokens/s, Avg generation throughput: 505.5 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%, Prefix cache hit rate: 19.8%",
-        "(APIServer pid=516) INFO 10-25 15:26:02 [loggers.py:335] Engine 000: Avg prompt throughput: 69.4 tokens/s, Avg generation throughput: 348.8 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 24.7%",
-        "(APIServer pid=516) INFO 10-25 15:26:12 [loggers.py:335] Engine 000: Avg prompt throughput: 111.2 tokens/s, Avg generation throughput: 595.6 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 32.1%",
-        "(APIServer pid=516) INFO 10-25 15:26:22 [loggers.py:335] Engine 000: Avg prompt throughput: 112.5 tokens/s, Avg generation throughput: 561.7 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.3%, Prefix cache hit rate: 38.2%",
-        "(APIServer pid=516) INFO 10-25 15:26:32 [loggers.py:335] Engine 000: Avg prompt throughput: 89.0 tokens/s, Avg generation throughput: 465.8 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%, Prefix cache hit rate: 42.0%",
-        "(APIServer pid=516) INFO 10-25 15:26:42 [loggers.py:335] Engine 000: Avg prompt throughput: 92.7 tokens/s, Avg generation throughput: 482.2 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 45.6%"
+        "(EngineCore pid=549) INFO 10-25 21:18:02 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
+        "(EngineCore pid=549) INFO 10-25 21:18:08 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+        "(APIServer pid=528) INFO 10-25 21:18:22 [loggers.py:335] Engine 000: Avg prompt throughput: 1335.9 tokens/s, Avg generation throughput: 326.5 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:18:32 [loggers.py:335] Engine 000: Avg prompt throughput: 1920.3 tokens/s, Avg generation throughput: 452.5 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:18:42 [loggers.py:335] Engine 000: Avg prompt throughput: 1410.6 tokens/s, Avg generation throughput: 395.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:18:52 [loggers.py:335] Engine 000: Avg prompt throughput: 2425.1 tokens/s, Avg generation throughput: 538.5 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:19:02 [loggers.py:335] Engine 000: Avg prompt throughput: 2112.7 tokens/s, Avg generation throughput: 570.5 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:19:12 [loggers.py:335] Engine 000: Avg prompt throughput: 1872.6 tokens/s, Avg generation throughput: 491.5 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.3%, Prefix cache hit rate: 0.0%",
+        "(APIServer pid=528) INFO 10-25 21:19:22 [loggers.py:335] Engine 000: Avg prompt throughput: 1892.5 tokens/s, Avg generation throughput: 493.2 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%, Prefix cache hit rate: 0.1%",
+        "(APIServer pid=528) INFO 10-25 21:19:32 [loggers.py:335] Engine 000: Avg prompt throughput: 1970.4 tokens/s, Avg generation throughput: 530.5 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%, Prefix cache hit rate: 0.8%",
+        "(APIServer pid=528) INFO 10-25 21:19:42 [loggers.py:335] Engine 000: Avg prompt throughput: 76.0 tokens/s, Avg generation throughput: 397.4 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%, Prefix cache hit rate: 10.2%",
+        "(APIServer pid=528) INFO 10-25 21:19:52 [loggers.py:335] Engine 000: Avg prompt throughput: 101.2 tokens/s, Avg generation throughput: 517.2 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.3%, Prefix cache hit rate: 20.2%",
+        "(APIServer pid=528) INFO 10-25 21:20:02 [loggers.py:335] Engine 000: Avg prompt throughput: 67.8 tokens/s, Avg generation throughput: 340.1 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%, Prefix cache hit rate: 24.9%",
+        "(APIServer pid=528) INFO 10-25 21:20:12 [loggers.py:335] Engine 000: Avg prompt throughput: 108.3 tokens/s, Avg generation throughput: 593.7 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%, Prefix cache hit rate: 32.1%",
+        "(APIServer pid=528) INFO 10-25 21:20:22 [loggers.py:335] Engine 000: Avg prompt throughput: 112.5 tokens/s, Avg generation throughput: 573.8 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%, Prefix cache hit rate: 38.2%",
+        "(APIServer pid=528) INFO 10-25 21:20:32 [loggers.py:335] Engine 000: Avg prompt throughput: 96.4 tokens/s, Avg generation throughput: 461.7 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%, Prefix cache hit rate: 42.3%",
+        "(APIServer pid=528) INFO 10-25 21:20:42 [loggers.py:335] Engine 000: Avg prompt throughput: 92.7 tokens/s, Avg generation throughput: 477.6 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%, Prefix cache hit rate: 45.9%"
       ]
     },
     "prefix_off": {
       "first_turn": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 78.58460594799999,
-        "request_throughput": 3.8175415704000883,
-        "output_token_throughput": 488.6453210112113,
-        "goodput_req_s": 3.8175415704000883,
+        "duration_s": 78.51142925299973,
+        "request_throughput": 3.821099715727538,
+        "output_token_throughput": 489.10076361312485,
+        "goodput_req_s": 3.821099715727538,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -1116,46 +1116,46 @@
         },
         "text_chunks_per_token": 1.0,
         "ttft_ms": {
-          "mean": 81.71777519665436,
-          "p50": 77.26732250011992,
-          "p90": 111.39747489983165,
-          "p95": 119.5782643002076,
-          "p99": 142.34706106005433
+          "mean": 70.91298925998899,
+          "p50": 67.05902800001695,
+          "p90": 93.7973115996556,
+          "p95": 100.2061165502596,
+          "p99": 120.18363991993508
         },
         "tpot_ms": {
-          "mean": 13.571462279212705,
-          "p50": 13.481411255905932,
-          "p90": 15.046874277955494,
-          "p95": 15.365366633463822,
-          "p99": 16.033857668112397
+          "mean": 12.695047440682478,
+          "p50": 12.618631704725434,
+          "p90": 13.821907526773328,
+          "p95": 14.01880280039609,
+          "p99": 14.752113944252313
         },
         "itl_ms": {
-          "mean": 13.571462279212703,
-          "p50": 11.673820499936483,
-          "p90": 13.332345299659208,
-          "p95": 38.48240660022384,
-          "p99": 46.00832197967976
+          "mean": 12.695047440682476,
+          "p50": 11.177321499985737,
+          "p90": 12.238403000128528,
+          "p95": 17.310522049751956,
+          "p99": 42.89280060009788
         },
         "e2e_ms": {
-          "mean": 1805.2934846566675,
-          "p50": 1790.3896705001898,
-          "p90": 2008.4068624002612,
-          "p95": 2029.2619113001365,
-          "p99": 2115.2989416299847
+          "mean": 1683.1840142266637,
+          "p50": 1675.8412594998617,
+          "p90": 1829.127997300202,
+          "p95": 1870.7731230997865,
+          "p99": 1947.1085440099205
         },
         "send_lag_ms": {
-          "p50": 1.0397478944241811,
-          "max": 2.9186634533404643
+          "p50": 0.9701295518045328,
+          "max": 2.8426651172637207
         },
-        "sent_rate": 3.8803441103629672
+        "sent_rate": 3.880335781605177
       },
       "follow_up": {
         "rate": 4.0,
         "completed": 300,
-        "duration_s": 78.57530604699969,
-        "request_throughput": 3.8179934013945234,
-        "output_token_throughput": 488.703155378499,
-        "goodput_req_s": 3.8179934013945234,
+        "duration_s": 78.51443595399996,
+        "request_throughput": 3.8209533871677306,
+        "output_token_throughput": 489.0820335574695,
+        "goodput_req_s": 3.8209533871677306,
         "slo_attainment": 1.0,
         "failed": 0,
         "slo": {
@@ -1164,86 +1164,86 @@
         },
         "text_chunks_per_token": 0.9999739583333334,
         "ttft_ms": {
-          "mean": 85.71579452331662,
-          "p50": 80.51294299980327,
-          "p90": 114.50998170025741,
-          "p95": 122.14580839981863,
-          "p99": 144.17971343993028
+          "mean": 73.40553759000159,
+          "p50": 69.5084135002162,
+          "p90": 96.89489079987655,
+          "p95": 103.10376194997843,
+          "p99": 118.06665992000936
         },
         "tpot_ms": {
-          "mean": 13.881662433254668,
-          "p50": 13.827524484251025,
-          "p90": 15.442096501572909,
-          "p95": 15.787930719684086,
-          "p99": 16.489133233226884
+          "mean": 12.866704641915822,
+          "p50": 12.772585889765615,
+          "p90": 14.123163585824347,
+          "p95": 14.404771227165524,
+          "p99": 15.124638085511272
         },
         "itl_ms": {
-          "mean": 13.882026790913224,
-          "p50": 11.780925000039133,
-          "p90": 13.836777400138086,
-          "p95": 41.46079900019685,
-          "p99": 47.5105915401673
+          "mean": 12.867042359563055,
+          "p50": 11.198276999948575,
+          "p90": 12.336875999790209,
+          "p95": 17.004332999886174,
+          "p99": 43.893146600221364
         },
         "e2e_ms": {
-          "mean": 1848.6869235466595,
-          "p50": 1834.9112189998777,
-          "p90": 2048.173706199941,
-          "p95": 2090.067037599624,
-          "p99": 2170.518567659715
+          "mean": 1707.4770271133107,
+          "p50": 1698.7501220000922,
+          "p90": 1865.9961022999596,
+          "p95": 1901.558956149961,
+          "p99": 1994.3170066298533
         },
         "send_lag_ms": {
-          "p50": 1.0247573916686292,
-          "max": 2.630508921612318
+          "p50": 0.952733514452575,
+          "max": 2.5529329221001262
         },
-        "sent_rate": 3.8803589503964075
+        "sent_rate": 3.8803747215279043
       },
       "metrics": {
         "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792942084.5743754,
+        "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963309.7335489,
         "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 0.0,
-        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792942084.5743935
+        "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963309.7335682
       },
       "startup": [
-        "ver pid=644) INFO 10-25 15:27:13 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-        "(APIServer pid=644) INFO 10-25 15:27:14 [model.py:2152] Using max model len 2048",
+        "ver pid=655) INFO 10-25 21:21:09 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=655) INFO 10-25 21:21:10 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=665) INFO 10-25 15:27:31 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=665) INFO 10-25 15:27:34 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=665) INFO 10-25 15:27:34 [flash_attn.py:1117] Using FlashAttention version 2",
-        "(EngineCore pid=665) INFO 10-25 15:27:44 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=665) INFO 10-25 15:27:55 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
+        "(EngineCore pid=675) INFO 10-25 21:21:24 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=675) INFO 10-25 21:21:26 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=675) INFO 10-25 21:21:26 [flash_attn.py:1117] Using FlashAttention version 2",
+        "(EngineCore pid=675) INFO 10-25 21:21:32 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=675) INFO 10-25 21:21:40 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
         "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=665) INFO 10-25 15:27:55 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
-        "(EngineCore pid=665) INFO 10-25 15:28:01 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-        "(APIServer pid=644) INFO 10-25 15:28:16 [loggers.py:335] Engine 000: Avg prompt throughput: 1303.0 tokens/s, Avg generation throughput: 316.1 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
-        "(APIServer pid=644) INFO 10-25 15:28:26 [loggers.py:335] Engine 000: Avg prompt throughput: 1920.2 tokens/s, Avg generation throughput: 454.0 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
-        "(APIServer pid=644) INFO 10-25 15:28:36 [loggers.py:335] Engine 000: Avg prompt throughput: 1410.5 tokens/s, Avg generation throughput: 396.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=644) INFO 10-25 15:28:46 [loggers.py:335] Engine 000: Avg prompt throughput: 2425.0 tokens/s, Avg generation throughput: 529.6 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%",
-        "(APIServer pid=644) INFO 10-25 15:28:56 [loggers.py:335] Engine 000: Avg prompt throughput: 2113.0 tokens/s, Avg generation throughput: 577.4 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.7%",
-        "(APIServer pid=644) INFO 10-25 15:29:06 [loggers.py:335] Engine 000: Avg prompt throughput: 1821.6 tokens/s, Avg generation throughput: 492.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
-        "(APIServer pid=644) INFO 10-25 15:29:16 [loggers.py:335] Engine 000: Avg prompt throughput: 1959.4 tokens/s, Avg generation throughput: 490.6 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
-        "(APIServer pid=644) INFO 10-25 15:29:26 [loggers.py:335] Engine 000: Avg prompt throughput: 2017.3 tokens/s, Avg generation throughput: 532.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=644) INFO 10-25 15:29:36 [loggers.py:335] Engine 000: Avg prompt throughput: 1734.3 tokens/s, Avg generation throughput: 391.0 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
-        "(APIServer pid=644) INFO 10-25 15:29:46 [loggers.py:335] Engine 000: Avg prompt throughput: 2144.3 tokens/s, Avg generation throughput: 491.2 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%",
-        "(APIServer pid=644) INFO 10-25 15:29:56 [loggers.py:335] Engine 000: Avg prompt throughput: 1350.8 tokens/s, Avg generation throughput: 361.5 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
-        "(APIServer pid=644) INFO 10-25 15:30:06 [loggers.py:335] Engine 000: Avg prompt throughput: 2395.9 tokens/s, Avg generation throughput: 591.0 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%",
-        "(APIServer pid=644) INFO 10-25 15:30:16 [loggers.py:335] Engine 000: Avg prompt throughput: 2400.1 tokens/s, Avg generation throughput: 553.6 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%",
-        "(APIServer pid=644) INFO 10-25 15:30:26 [loggers.py:335] Engine 000: Avg prompt throughput: 1810.5 tokens/s, Avg generation throughput: 475.4 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
-        "(APIServer pid=644) INFO 10-25 15:30:36 [loggers.py:335] Engine 000: Avg prompt throughput: 1986.8 tokens/s, Avg generation throughput: 483.8 tokens/s, Running: 7 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.9%"
+        "(EngineCore pid=675) INFO 10-25 21:21:40 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
+        "(EngineCore pid=675) INFO 10-25 21:21:47 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+        "(APIServer pid=655) INFO 10-25 21:22:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1367.2 tokens/s, Avg generation throughput: 328.6 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
+        "(APIServer pid=655) INFO 10-25 21:22:11 [loggers.py:335] Engine 000: Avg prompt throughput: 2022.7 tokens/s, Avg generation throughput: 461.1 tokens/s, Running: 8 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.0%",
+        "(APIServer pid=655) INFO 10-25 21:22:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1308.1 tokens/s, Avg generation throughput: 385.8 tokens/s, Running: 2 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.2%",
+        "(APIServer pid=655) INFO 10-25 21:22:31 [loggers.py:335] Engine 000: Avg prompt throughput: 2374.6 tokens/s, Avg generation throughput: 566.0 tokens/s, Running: 12 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.5%",
+        "(APIServer pid=655) INFO 10-25 21:22:41 [loggers.py:335] Engine 000: Avg prompt throughput: 2267.0 tokens/s, Avg generation throughput: 550.7 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%",
+        "(APIServer pid=655) INFO 10-25 21:22:51 [loggers.py:335] Engine 000: Avg prompt throughput: 1820.5 tokens/s, Avg generation throughput: 489.0 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+        "(APIServer pid=655) INFO 10-25 21:23:01 [loggers.py:335] Engine 000: Avg prompt throughput: 1856.4 tokens/s, Avg generation throughput: 493.9 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+        "(APIServer pid=655) INFO 10-25 21:23:11 [loggers.py:335] Engine 000: Avg prompt throughput: 2021.0 tokens/s, Avg generation throughput: 523.9 tokens/s, Running: 3 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.4%",
+        "(APIServer pid=655) INFO 10-25 21:23:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1735.1 tokens/s, Avg generation throughput: 400.9 tokens/s, Running: 5 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.6%",
+        "(APIServer pid=655) INFO 10-25 21:23:31 [loggers.py:335] Engine 000: Avg prompt throughput: 2247.1 tokens/s, Avg generation throughput: 518.1 tokens/s, Running: 11 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%",
+        "(APIServer pid=655) INFO 10-25 21:23:41 [loggers.py:335] Engine 000: Avg prompt throughput: 1248.2 tokens/s, Avg generation throughput: 341.7 tokens/s, Running: 6 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
+        "(APIServer pid=655) INFO 10-25 21:23:51 [loggers.py:335] Engine 000: Avg prompt throughput: 2397.0 tokens/s, Avg generation throughput: 591.6 tokens/s, Running: 4 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.5%",
+        "(APIServer pid=655) INFO 10-25 21:24:01 [loggers.py:335] Engine 000: Avg prompt throughput: 2389.1 tokens/s, Avg generation throughput: 575.5 tokens/s, Running: 11 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.4%",
+        "(APIServer pid=655) INFO 10-25 21:24:11 [loggers.py:335] Engine 000: Avg prompt throughput: 1976.8 tokens/s, Avg generation throughput: 462.4 tokens/s, Running: 10 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%",
+        "(APIServer pid=655) INFO 10-25 21:24:21 [loggers.py:335] Engine 000: Avg prompt throughput: 1970.6 tokens/s, Avg generation throughput: 479.1 tokens/s, Running: 9 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.1%"
       ]
     }
   },
-  "prefix_wall_s": 471.3,
+  "prefix_wall_s": 439.5,
   "spec": {
     "no_spec": {
       "runs": {
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 141.98492277499963,
-          "request_throughput": 0.21129003991177525,
-          "output_token_throughput": 27.045125108707232,
-          "goodput_req_s": 0.21129003991177525,
+          "duration_s": 141.9680930059999,
+          "request_throughput": 0.21131508752978834,
+          "output_token_throughput": 27.048331203812907,
+          "goodput_req_s": 0.21131508752978834,
           "slo_attainment": 1.0,
           "failed": 0,
           "slo": {
@@ -1252,120 +1252,119 @@
           },
           "text_chunks_per_token": 1.0,
           "ttft_ms": {
-            "mean": 54.84022883333637,
-            "p50": 53.311613999994734,
-            "p90": 64.91460360011843,
-            "p95": 68.85972544998822,
-            "p99": 70.92998963003083
+            "mean": 52.71169143334191,
+            "p50": 51.413935499795116,
+            "p90": 62.17324140011442,
+            "p95": 64.04013085004863,
+            "p99": 66.51736842027731
           },
           "tpot_ms": {
-            "mean": 11.018786780052533,
-            "p50": 10.989224889764355,
-            "p90": 11.187852370864396,
-            "p95": 11.24534468110292,
-            "p99": 11.300098968581263
+            "mean": 10.828389138582548,
+            "p50": 10.82126745669255,
+            "p90": 10.90617859291292,
+            "p95": 10.985472310236885,
+            "p99": 11.028358620315906
           },
           "itl_ms": {
-            "mean": 11.018786780052533,
-            "p50": 10.96348650003165,
-            "p90": 11.60929379989284,
-            "p95": 11.801352400038922,
-            "p99": 12.181889859734838
+            "mean": 10.828389138582548,
+            "p50": 10.790183999915826,
+            "p90": 11.153825999736,
+            "p95": 11.280653000108032,
+            "p99": 11.631704299948069
           },
           "e2e_ms": {
-            "mean": 1454.2261499000083,
-            "p50": 1453.6695505000807,
-            "p90": 1469.313522900029,
-            "p95": 1481.567300449933,
-            "p99": 1486.038582440101
+            "mean": 1427.9171120333256,
+            "p50": 1426.0165095001867,
+            "p90": 1440.550432600321,
+            "p95": 1444.980371350016,
+            "p99": 1446.125218789848
           },
           "send_lag_ms": {
-            "p50": 1.0908722239157953,
-            "max": 2.3353000140389213
+            "p50": 0.9638361786414862,
+            "max": 2.396751126056529
           },
-          "sent_rate": 0.2063451992581441
+          "sent_rate": 0.20634771061947252
         },
         "24": {
           "rate": 24.0,
           "completed": 600,
-          "duration_s": 41.087034941000184,
-          "request_throughput": 14.603146731361438,
-          "output_token_throughput": 1869.202781614264,
-          "goodput_req_s": 0.0,
-          "slo_attainment": 0.0,
+          "duration_s": 36.89824875300019,
+          "request_throughput": 16.260934333671166,
+          "output_token_throughput": 2081.3995947099093,
+          "goodput_req_s": 0.05420311444557055,
+          "slo_attainment": 0.0033333333333333335,
           "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.9999348958333333,
+          "text_chunks_per_token": 0.9999609375,
           "ttft_ms": {
-            "mean": 4570.359802895004,
-            "p50": 4374.428814000112,
-            "p90": 9723.357874599926,
-            "p95": 11385.212438450184,
-            "p99": 12331.822464100227
+            "mean": 2902.598400888323,
+            "p50": 2048.2616764998056,
+            "p90": 5819.7210927000015,
+            "p95": 7206.8167300502855,
+            "p99": 8203.616113869715
           },
           "tpot_ms": {
-            "mean": 109.54669354270355,
-            "p50": 121.56197183858204,
-            "p90": 135.70417326850438,
-            "p95": 136.44530470039214,
-            "p99": 137.08926615031194
+            "mean": 96.24073375370082,
+            "p50": 107.66107931102472,
+            "p90": 120.86012293779507,
+            "p95": 121.7172260704734,
+            "p99": 122.27028765803077
           },
           "itl_ms": {
-            "mean": 109.55388211764566,
-            "p50": 114.5380779998959,
-            "p90": 195.12669160012592,
-            "p95": 197.2786126997562,
-            "p99": 200.8157481201397
+            "mean": 96.24452290814601,
+            "p50": 98.7552209999194,
+            "p90": 171.9283924001502,
+            "p95": 173.7570065996806,
+            "p99": 177.23710168002071
           },
           "e2e_ms": {
-            "mean": 18482.789882818353,
-            "p50": 18243.608135499926,
-            "p90": 22389.138891299946,
-            "p95": 22748.156445200082,
-            "p99": 23177.839251529982
+            "mean": 15125.171587608325,
+            "p50": 15516.574578000018,
+            "p90": 18374.37737330006,
+            "p95": 18900.982021400112,
+            "p99": 19260.360119190005
           },
           "send_lag_ms": {
-            "p50": 1.3492065720903668,
-            "max": 26.968834237743877
+            "p50": 1.1871407321102367,
+            "max": 12.468579268293922
           },
-          "sent_rate": 23.521441356951755
+          "sent_rate": 23.521646822587222
         }
       },
       "metrics": {},
       "startup": [
-        "ver pid=774) INFO 10-25 15:31:07 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
-        "(APIServer pid=774) INFO 10-25 15:31:07 [model.py:2152] Using max model len 2048",
+        "ver pid=782) INFO 10-25 21:24:47 [api_utils.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False}",
+        "(APIServer pid=782) INFO 10-25 21:24:48 [model.py:2152] Using max model len 2048",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=795) INFO 10-25 15:31:24 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=795) INFO 10-25 15:31:27 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=795) INFO 10-25 15:31:27 [flash_attn.py:1117] Using FlashAttention version 2",
-        "(EngineCore pid=795) INFO 10-25 15:31:38 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=795) INFO 10-25 15:31:47 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
+        "(EngineCore pid=802) INFO 10-25 21:25:01 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=802) INFO 10-25 21:25:03 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=802) INFO 10-25 21:25:03 [flash_attn.py:1117] Using FlashAttention version 2",
+        "(EngineCore pid=802) INFO 10-25 21:25:10 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=802) INFO 10-25 21:25:18 [gpu_worker.py:759] Available KV cache memory: 57.02 GiB",
         "ivalent to --gpu-memory-utilization=0.9145 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9255. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=795) INFO 10-25 15:31:47 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
-        "(EngineCore pid=795) INFO 10-25 15:31:53 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
-        "(APIServer pid=774) INFO 10-25 15:32:09 [loggers.py:335] Engine 000: Avg prompt throughput: 415.9 tokens/s, Avg generation throughput: 106.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=774) INFO 10-25 15:32:19 [loggers.py:335] Engine 000: Avg prompt throughput: 102.3 tokens/s, Avg generation throughput: 28.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:32:29 [loggers.py:335] Engine 000: Avg prompt throughput: 144.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:32:39 [loggers.py:335] Engine 000: Avg prompt throughput: 206.8 tokens/s, Avg generation throughput: 41.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=774) INFO 10-25 15:32:49 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 35.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:32:59 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 30.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=774) INFO 10-25 15:33:09 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 30.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=774) INFO 10-25 15:33:19 [loggers.py:335] Engine 000: Avg prompt throughput: 98.1 tokens/s, Avg generation throughput: 18.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=774) INFO 10-25 15:33:29 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 9.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:33:39 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:33:49 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:33:59 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:34:09 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:34:19 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:34:29 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=774) INFO 10-25 15:34:39 [loggers.py:335] Engine 000: Avg prompt throughput: 7035.0 tokens/s, Avg generation throughput: 572.7 tokens/s, Running: 144 reqs, Waiting: 4 reqs, GPU KV cache usage: 16.8%",
-        "(APIServer pid=774) INFO 10-25 15:34:49 [loggers.py:335] Engine 000: Avg prompt throughput: 7962.2 tokens/s, Avg generation throughput: 1783.8 tokens/s, Running: 255 reqs, Waiting: 90 reqs, GPU KV cache usage: 31.8%",
-        "(APIServer pid=774) INFO 10-25 15:34:59 [loggers.py:335] Engine 000: Avg prompt throughput: 7546.6 tokens/s, Avg generation throughput: 1694.2 tokens/s, Running: 249 reqs, Waiting: 149 reqs, GPU KV cache usage: 30.4%",
-        "(APIServer pid=774) INFO 10-25 15:35:09 [loggers.py:335] Engine 000: Avg prompt throughput: 7072.0 tokens/s, Avg generation throughput: 1973.2 tokens/s, Running: 254 reqs, Waiting: 10 reqs, GPU KV cache usage: 31.5%"
+        "(EngineCore pid=802) INFO 10-25 21:25:18 [kv_cache_utils.py:2327] GPU KV cache size: 467,120 tokens, Maximum concurrency for 2,048 tokens per request: 228.09x",
+        "(EngineCore pid=802) INFO 10-25 21:25:24 [gpu_worker.py:971] CUDA graph pool memory: 0.23 GiB (actual), 0.43 GiB (estimated), difference: 0.2 GiB (85.0%).",
+        "(APIServer pid=782) INFO 10-25 21:25:38 [loggers.py:335] Engine 000: Avg prompt throughput: 430.2 tokens/s, Avg generation throughput: 112.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:25:48 [loggers.py:335] Engine 000: Avg prompt throughput: 102.3 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:25:58 [loggers.py:335] Engine 000: Avg prompt throughput: 196.7 tokens/s, Avg generation throughput: 42.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=782) INFO 10-25 21:26:08 [loggers.py:335] Engine 000: Avg prompt throughput: 154.1 tokens/s, Avg generation throughput: 41.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=782) INFO 10-25 21:26:18 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 30.7 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:26:28 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 35.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=782) INFO 10-25 21:26:38 [loggers.py:335] Engine 000: Avg prompt throughput: 149.2 tokens/s, Avg generation throughput: 32.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=782) INFO 10-25 21:26:48 [loggers.py:335] Engine 000: Avg prompt throughput: 50.5 tokens/s, Avg generation throughput: 16.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=782) INFO 10-25 21:26:58 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 5.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:08 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:18 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:28 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:38 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:48 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:27:58 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=782) INFO 10-25 21:28:08 [loggers.py:335] Engine 000: Avg prompt throughput: 7847.5 tokens/s, Avg generation throughput: 817.2 tokens/s, Running: 150 reqs, Waiting: 0 reqs, GPU KV cache usage: 17.8%",
+        "(APIServer pid=782) INFO 10-25 21:28:18 [loggers.py:335] Engine 000: Avg prompt throughput: 9211.1 tokens/s, Avg generation throughput: 1854.5 tokens/s, Running: 256 reqs, Waiting: 63 reqs, GPU KV cache usage: 31.5%",
+        "(APIServer pid=782) INFO 10-25 21:28:28 [loggers.py:335] Engine 000: Avg prompt throughput: 8714.9 tokens/s, Avg generation throughput: 1942.6 tokens/s, Running: 249 reqs, Waiting: 86 reqs, GPU KV cache usage: 29.9%"
       ]
     },
     "ngram": {
@@ -1373,156 +1372,155 @@
         "0.25": {
           "rate": 0.25,
           "completed": 30,
-          "duration_s": 141.979559633,
-          "request_throughput": 0.21129802119084165,
-          "output_token_throughput": 27.04614671242773,
-          "goodput_req_s": 0.21129802119084165,
+          "duration_s": 141.87432822599976,
+          "request_throughput": 0.2114547457254654,
+          "output_token_throughput": 27.066207452859572,
+          "goodput_req_s": 0.2114547457254654,
           "slo_attainment": 1.0,
           "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.603125,
+          "text_chunks_per_token": 0.60859375,
           "ttft_ms": {
-            "mean": 53.57477343331993,
-            "p50": 52.39191599980586,
-            "p90": 59.9231838999458,
-            "p95": 60.64439315016443,
-            "p99": 62.101798549970226
+            "mean": 51.92846219997591,
+            "p50": 51.474394500019116,
+            "p90": 61.14353379966815,
+            "p95": 62.590446400122346,
+            "p99": 64.31271523003943
           },
           "tpot_ms": {
-            "mean": 7.887656442257057,
-            "p50": 7.678819893701476,
-            "p90": 10.949766632282218,
-            "p95": 11.172217320078142,
-            "p99": 12.099583826456735
+            "mean": 7.361021919422721,
+            "p50": 7.095667440945885,
+            "p90": 10.270830228348032,
+            "p95": 10.517453578740147,
+            "p99": 11.098844409292058
           },
           "itl_ms": {
-            "mean": 13.14609407042843,
-            "p50": 13.01192699997955,
-            "p90": 14.01157600002989,
-            "p95": 14.270542499957628,
-            "p99": 14.957072750144107
+            "mean": 12.156694197226079,
+            "p50": 12.09770400009802,
+            "p90": 12.590495799759083,
+            "p95": 12.786560999802532,
+            "p99": 13.305463999795395
           },
           "e2e_ms": {
-            "mean": 1055.3071415999664,
-            "p50": 1021.544537499949,
-            "p90": 1440.2043430000958,
-            "p95": 1474.096989450095,
-            "p99": 1591.0984076599152
+            "mean": 986.7782459666614,
+            "p50": 952.7389514998958,
+            "p90": 1365.1067611999224,
+            "p95": 1389.9674443500317,
+            "p99": 1463.981272020087
           },
           "send_lag_ms": {
-            "p50": 1.122531241804836,
-            "max": 2.8339536173973556
+            "p50": 1.3948072521117183,
+            "max": 2.164204126060554
           },
-          "sent_rate": 0.20634813693242365
+          "sent_rate": 0.2063466529193827
         },
         "24": {
           "rate": 24.0,
           "completed": 600,
-          "duration_s": 53.327573347,
-          "request_throughput": 11.251215128350738,
-          "output_token_throughput": 1440.1555364288945,
-          "goodput_req_s": 0.16876822692526108,
-          "slo_attainment": 0.015,
+          "duration_s": 46.72388385100021,
+          "request_throughput": 12.8413982432061,
+          "output_token_throughput": 1643.6989751303809,
+          "goodput_req_s": 0.4066442777015265,
+          "slo_attainment": 0.03166666666666667,
           "failed": 0,
           "slo": {
             "ttft_ms": 500.0,
             "tpot_ms": 50.0
           },
-          "text_chunks_per_token": 0.6479557291666667,
+          "text_chunks_per_token": 0.6417578125,
           "ttft_ms": {
-            "mean": 8548.874817068334,
-            "p50": 8119.361396499926,
-            "p90": 18068.877414899864,
-            "p95": 19652.529430850016,
-            "p99": 20958.339188580037
+            "mean": 6181.659804481671,
+            "p50": 5805.030501499914,
+            "p90": 13117.637154299837,
+            "p95": 14434.171196499708,
+            "p99": 15521.604510790385
           },
           "tpot_ms": {
-            "mean": 109.37617128253277,
-            "p50": 108.22841450787499,
-            "p90": 163.1775725511832,
-            "p95": 170.01239588070703,
-            "p99": 182.4450420909441
+            "mean": 94.01210145774274,
+            "p50": 92.35785595275749,
+            "p90": 140.5088044425217,
+            "p95": 147.10128574370168,
+            "p99": 160.4141368196848
           },
           "itl_ms": {
-            "mean": 169.52716985800288,
-            "p50": 191.50621599965234,
-            "p90": 196.1465898003553,
-            "p95": 197.75349289993756,
-            "p99": 204.49788306006667
+            "mean": 147.13829422802795,
+            "p50": 167.67186399965794,
+            "p90": 172.34893900003954,
+            "p95": 173.6028244998579,
+            "p99": 176.5778664001482
           },
           "e2e_ms": {
-            "mean": 22439.648569949994,
-            "p50": 23833.154111999873,
-            "p90": 30363.7828438003,
-            "p95": 31292.04368029998,
-            "p99": 32402.887417289996
+            "mean": 18121.196689614997,
+            "p50": 19209.7622204999,
+            "p90": 24427.04894519984,
+            "p95": 25290.35041690008,
+            "p99": 26465.002149999942
           },
           "send_lag_ms": {
-            "p50": 1.2344762393854958,
-            "max": 10.795946901954068
+            "p50": 1.195800072991915,
+            "max": 13.708000030469236
           },
-          "sent_rate": 23.520767083840465
+          "sent_rate": 23.520885983803257
         }
       },
       "metrics": {
-        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 52313.0,
-        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792942633.8587403,
-        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 209252.0,
-        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792942633.8587732,
-        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 29677.0,
-        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792942633.858796,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 10224.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 7757.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 6275.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 5421.0,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 1792942633.8588314,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 1792942633.8588412,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 1792942633.8588488,
-        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 1792942633.8588564
+        "vllm:spec_decode_num_drafts_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 51823.0,
+        "vllm:spec_decode_num_drafts_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963814.182365,
+        "vllm:spec_decode_num_draft_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 207292.0,
+        "vllm:spec_decode_num_draft_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963814.182394,
+        "vllm:spec_decode_num_accepted_tokens_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 30183.0,
+        "vllm:spec_decode_num_accepted_tokens_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\"}": 1792963814.1824148,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 10326.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 7872.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 6394.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_total{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 5591.0,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"0\"}": 1792963814.1824434,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"1\"}": 1792963814.1824512,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"2\"}": 1792963814.1824582,
+        "vllm:spec_decode_num_accepted_tokens_per_pos_created{engine=\"0\",model_name=\"meta-llama/Llama-3.1-8B-Instruct\",position=\"3\"}": 1792963814.1824644
       },
       "startup": [
         "'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'bfloat16', 'max_model_len': 2048, 'enable_prefix_caching': False, 'speculative_config': {'method': 'ngram', 'num_speculative_tokens': 4, 'prompt_lookup_min': 2, 'prompt_lookup_max': 5}}",
-        "(APIServer pid=904) INFO 10-25 15:35:36 [model.py:2152] Using max model len 2048",
+        "(APIServer pid=910) INFO 10-25 21:28:57 [model.py:2152] Using max model len 2048",
         "duled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.",
         "), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
-        "(EngineCore pid=925) INFO 10-25 15:35:52 [gpu_worker.py:518] Using V2 Model Runner",
-        "(EngineCore pid=925) INFO 10-25 15:35:56 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
-        "(EngineCore pid=925) INFO 10-25 15:35:56 [flash_attn.py:1117] Using FlashAttention version 2",
-        "(EngineCore pid=925) INFO 10-25 15:36:07 [utils.py:347] Using LBNHC KV cache layout.",
-        "(EngineCore pid=925) INFO 10-25 15:36:17 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/3174c78d5b/rank_0_0/backbone for vLLM's torch.compile",
-        "(EngineCore pid=925) INFO 10-25 15:36:26 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 8.63 s",
-        "(EngineCore pid=925) INFO 10-25 15:36:42 [gpu_worker.py:759] Available KV cache memory: 56.15 GiB",
+        "(EngineCore pid=932) INFO 10-25 21:29:10 [gpu_worker.py:518] Using V2 Model Runner",
+        "(EngineCore pid=932) INFO 10-25 21:29:12 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+        "(EngineCore pid=932) INFO 10-25 21:29:12 [flash_attn.py:1117] Using FlashAttention version 2",
+        "(EngineCore pid=932) INFO 10-25 21:29:18 [utils.py:347] Using LBNHC KV cache layout.",
+        "(EngineCore pid=932) INFO 10-25 21:29:26 [backends.py:1104] [backbone] Using cache directory: /root/.cache/vllm/torch_compile_cache/14e745505e/rank_0_0/backbone for vLLM's torch.compile",
+        "(EngineCore pid=932) INFO 10-25 21:29:33 [backends.py:398] [backbone] Compiling a graph for compile range (1, 2048) takes 7.28 s",
+        "(EngineCore pid=932) INFO 10-25 21:29:46 [gpu_worker.py:759] Available KV cache memory: 56.15 GiB",
         "ivalent to --gpu-memory-utilization=0.9137 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9263. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
-        "(EngineCore pid=925) INFO 10-25 15:36:42 [kv_cache_utils.py:2327] GPU KV cache size: 459,952 tokens, Maximum concurrency for 2,048 tokens per request: 224.59x",
-        "(EngineCore pid=925) INFO 10-25 15:37:10 [gpu_worker.py:971] CUDA graph pool memory: 0.3 GiB (actual), 0.5 GiB (estimated), difference: 0.2 GiB (64.5%).",
+        "(EngineCore pid=932) INFO 10-25 21:29:46 [kv_cache_utils.py:2327] GPU KV cache size: 459,952 tokens, Maximum concurrency for 2,048 tokens per request: 224.59x",
+        "(EngineCore pid=932) INFO 10-25 21:30:11 [gpu_worker.py:971] CUDA graph pool memory: 0.3 GiB (actual), 0.5 GiB (estimated), difference: 0.2 GiB (64.5%).",
         "duled_tokens is set to 2048 based on the speculative decoding settings. This may lead to suboptimal performance. Consider increasing max_num_batched_tokens to accommodate the additional draft token slots, or decrease num_speculative_tokens.",
-        "(APIServer pid=904) INFO 10-25 15:37:25 [loggers.py:335] Engine 000: Avg prompt throughput: 414.9 tokens/s, Avg generation throughput: 108.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:37:35 [loggers.py:335] Engine 000: Avg prompt throughput: 102.3 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:37:45 [loggers.py:335] Engine 000: Avg prompt throughput: 196.7 tokens/s, Avg generation throughput: 43.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=904) INFO 10-25 15:37:55 [loggers.py:335] Engine 000: Avg prompt throughput: 154.1 tokens/s, Avg generation throughput: 46.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:38:05 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:38:15 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 36.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=904) INFO 10-25 15:38:25 [loggers.py:335] Engine 000: Avg prompt throughput: 149.2 tokens/s, Avg generation throughput: 32.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
-        "(APIServer pid=904) INFO 10-25 15:38:35 [loggers.py:335] Engine 000: Avg prompt throughput: 50.5 tokens/s, Avg generation throughput: 21.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:38:45 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:38:55 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:05 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:15 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:25 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:35 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:45 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
-        "(APIServer pid=904) INFO 10-25 15:39:55 [loggers.py:335] Engine 000: Avg prompt throughput: 6983.7 tokens/s, Avg generation throughput: 582.7 tokens/s, Running: 132 reqs, Waiting: 16 reqs, GPU KV cache usage: 15.7%",
-        "(APIServer pid=904) INFO 10-25 15:40:05 [loggers.py:335] Engine 000: Avg prompt throughput: 6327.8 tokens/s, Avg generation throughput: 1419.2 tokens/s, Running: 194 reqs, Waiting: 131 reqs, GPU KV cache usage: 24.0%",
-        "(APIServer pid=904) INFO 10-25 15:40:15 [loggers.py:335] Engine 000: Avg prompt throughput: 5578.2 tokens/s, Avg generation throughput: 1538.6 tokens/s, Running: 181 reqs, Waiting: 225 reqs, GPU KV cache usage: 22.4%",
-        "(APIServer pid=904) INFO 10-25 15:40:25 [loggers.py:335] Engine 000: Avg prompt throughput: 5916.5 tokens/s, Avg generation throughput: 1507.4 tokens/s, Running: 173 reqs, Waiting: 109 reqs, GPU KV cache usage: 21.4%",
-        "(APIServer pid=904) INFO 10-25 15:40:35 [loggers.py:335] Engine 000: Avg prompt throughput: 5522.6 tokens/s, Avg generation throughput: 1532.1 tokens/s, Running: 178 reqs, Waiting: 0 reqs, GPU KV cache usage: 22.5%"
+        "(APIServer pid=910) INFO 10-25 21:30:25 [loggers.py:335] Engine 000: Avg prompt throughput: 429.5 tokens/s, Avg generation throughput: 111.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:30:35 [loggers.py:335] Engine 000: Avg prompt throughput: 102.3 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:30:45 [loggers.py:335] Engine 000: Avg prompt throughput: 196.7 tokens/s, Avg generation throughput: 43.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=910) INFO 10-25 21:30:55 [loggers.py:335] Engine 000: Avg prompt throughput: 154.1 tokens/s, Avg generation throughput: 45.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:31:05 [loggers.py:335] Engine 000: Avg prompt throughput: 101.6 tokens/s, Avg generation throughput: 25.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:31:15 [loggers.py:335] Engine 000: Avg prompt throughput: 157.4 tokens/s, Avg generation throughput: 38.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=910) INFO 10-25 21:31:25 [loggers.py:335] Engine 000: Avg prompt throughput: 149.2 tokens/s, Avg generation throughput: 30.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.1%",
+        "(APIServer pid=910) INFO 10-25 21:31:35 [loggers.py:335] Engine 000: Avg prompt throughput: 50.5 tokens/s, Avg generation throughput: 20.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:31:45 [loggers.py:335] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:31:55 [loggers.py:335] Engine 000: Avg prompt throughput: 49.9 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:05 [loggers.py:335] Engine 000: Avg prompt throughput: 48.4 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:15 [loggers.py:335] Engine 000: Avg prompt throughput: 155.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:25 [loggers.py:335] Engine 000: Avg prompt throughput: 48.0 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:35 [loggers.py:335] Engine 000: Avg prompt throughput: 189.6 tokens/s, Avg generation throughput: 51.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:45 [loggers.py:335] Engine 000: Avg prompt throughput: 52.6 tokens/s, Avg generation throughput: 12.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+        "(APIServer pid=910) INFO 10-25 21:32:55 [loggers.py:335] Engine 000: Avg prompt throughput: 7495.6 tokens/s, Avg generation throughput: 781.0 tokens/s, Running: 136 reqs, Waiting: 18 reqs, GPU KV cache usage: 16.5%",
+        "(APIServer pid=910) INFO 10-25 21:33:05 [loggers.py:335] Engine 000: Avg prompt throughput: 7151.9 tokens/s, Avg generation throughput: 1598.6 tokens/s, Running: 199 reqs, Waiting: 111 reqs, GPU KV cache usage: 24.8%",
+        "(APIServer pid=910) INFO 10-25 21:33:15 [loggers.py:335] Engine 000: Avg prompt throughput: 6578.8 tokens/s, Avg generation throughput: 1781.5 tokens/s, Running: 186 reqs, Waiting: 179 reqs, GPU KV cache usage: 23.2%",
+        "(APIServer pid=910) INFO 10-25 21:33:25 [loggers.py:335] Engine 000: Avg prompt throughput: 6836.8 tokens/s, Avg generation throughput: 1668.5 tokens/s, Running: 182 reqs, Waiting: 44 reqs, GPU KV cache usage: 22.5%"
       ]
     }
   },
-  "spec_wall_s": 597.0,
+  "spec_wall_s": 545.8,
   "knee": {
     "rates": [
       16,
@@ -2666,6 +2664,22 @@
   },
   "knee_low_wall_s": 669.9,
   "env_knee_knee_low": {
+    "gpu": "NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04",
+    "vllm": "0.32.0",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "dtype": "bfloat16",
+    "slo": {
+      "ttft_ms": 500,
+      "tpot_ms": 50
+    },
+    "slo_long": {
+      "ttft_ms": 2000,
+      "tpot_ms": 50
+    },
+    "max_tokens": 128,
+    "max_tokens_long": 1024
+  },
+  "env_all": {
     "gpu": "NVIDIA A100-SXM4-80GB, 81920 MiB, 610.57.04",
     "vllm": "0.32.0",
     "model": "meta-llama/Llama-3.1-8B-Instruct",
