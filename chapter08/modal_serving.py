@@ -249,9 +249,11 @@ def study_sweep_high(gpu, model):
         return {"startup": s.startup_lines(), "runs": out}
 
 
-KNEE_RATES = {("gemma", "A100-80GB"): [48, 64, 96, 128], ("gemma", "H100"): [96, 128, 160, 192],
-              ("llama", "A100-80GB"): [16, 24, 32], ("llama", "H100"): [32, 48, 64]}
-KNEE_LOW_RATES = {("llama", "A100-80GB"): [8, 12, 16]}   # follow-up: Llama on the A100 failed at 16 in two repeats
+# With prefix caching off every request pays its full prefill, so the knees sit lower than with caching on;
+# the rate lists bracket them from below.
+KNEE_RATES = {("gemma", "A100-80GB"): [32, 48, 64, 96, 128], ("gemma", "H100"): [64, 96, 128, 160, 192],
+              ("llama", "A100-80GB"): [16, 24, 32], ("llama", "H100"): [24, 32, 48, 64]}
+KNEE_LOW_RATES = {("llama", "A100-80GB"): [4, 8, 12]}    # lower range for Llama on the A100
 KNEE_REPEATS = 3
 GPU_QUERY = "clocks.sm,clocks.mem,power.draw,temperature.gpu,clocks_event_reasons.active"
 
