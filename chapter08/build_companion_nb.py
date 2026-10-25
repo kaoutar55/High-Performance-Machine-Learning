@@ -301,17 +301,53 @@ fig.tight_layout(); plt.show()
 md("""Read the knee of each curve from the plot and compare it with Table 8.8 in the chapter,
 which uses the repeated runs near capacity. The T4 is already at its limit at a few
 requests per second. Llama-3.1-8B reaches its knee at a lower rate than Gemma on the same
-GPU; it reads about four times the weight bytes and does about four times the FLOPs per
+GPU; it reads about three times the weight bytes and does about three times the FLOPs per
 token, while its KV cache at these short contexts is far from full.
+""")
+# ---------------------------------------------------------------------------- measured: knee repeats
+md("""### Capacity from repeated runs near the knee
+
+A single run at the edge of capacity can pass or fail by chance, so the load points
+near each knee ran three times on the A100 and H100, each repeat on a fresh server
+with the rates in a different order. Capacity is the highest load at which every
+repeat kept at least 90% of requests within both objectives. These are the numbers
+in Table 8.8. The GPU columns show the SM clock and power: under sustained load both
+GPUs reach their power limit and lower the clock.
+""")
+code("""
+for stem, d in data.items():
+    pts = {}
+    for kn in ("knee_low", "knee"):
+        for rp in d.get(kn, {}).get("repeats", []):
+            for rate, r in rp["runs"].items():
+                if "ttft_ms" in r:
+                    pts.setdefault(float(rate), []).append(r)
+    if not pts:
+        continue
+    print(f"\\n{stem}")
+    print(f"  {'rate':>5}  {'within objectives per repeat':<30}{'completed req/s':>16}{'SM clock p50 (MHz)':>26}{'power max (W)':>15}")
+    cap = None
+    for rate in sorted(pts):
+        rs = pts[rate]
+        att = [100 * r["slo_attainment"] for r in rs]
+        if min(att) >= 90:
+            cap = rate
+        clk = ", ".join(f"{r.get('gpu', {}).get('sm_clock_mhz_p50', 0):.0f}" for r in rs)
+        pw = max(r.get("gpu", {}).get("power_w_max") or 0 for r in rs)
+        done = [r["request_throughput"] for r in rs]
+        print(f"  {rate:>5.0f}  {', '.join(f'{a:.0f}%' for a in att):<30}"
+              f"{min(done):>7.1f} to {max(done):<6.1f}{clk:>26}{pw:>15.0f}")
+    print(f"  capacity: {cap:g} req/s")
 """)
 
 # ---------------------------------------------------------------------------- measured: long
-md("""### Long context: when the KV cache, not compute, caps the load
+md("""### Long context: KV cache capacity and the sum of prefill and decode
 
 The long-context study sends 4,096-token prompts and 1,024-token answers, which keep
-each request's KV resident far longer. Peak KV usage climbs toward 1.0 and the engine
-starts preempting (evicting and recomputing) requests. That is the regime where
-capacity, not FLOPs, is the limit.
+each request's KV resident far longer. For Llama, peak KV usage reaches 1.0 and the
+engine starts preempting (evicting and recomputing) requests, at 2 req/s on the A100
+and 4 on the H100. Gemma, with a seventh of Llama's KV bytes per token, never fills its
+cache and reaches its compute limit first.
 """)
 
 code("""
@@ -362,7 +398,9 @@ n-gram (prompt-lookup) drafting proposes tokens by matching the recent context
 against the prompt. It helps most at low load, where the target GPU is idle between
 tokens; as the batch fills, the spare compute that verified the draft is no longer
 free, so the benefit shrinks. The acceptance rate below is accepted draft tokens over
-proposed draft tokens, read straight from vLLM's `spec_decode` counters.
+proposed draft tokens, read straight from vLLM's `spec_decode` counters. The load
+generator ignores the end-of-sequence token, so Gemma's acceptance rate includes the
+repetitive special tokens after its natural end and overstates a production rate.
 """)
 
 code("""
@@ -401,6 +439,8 @@ Hugging Face token (as a Modal secret named `huggingface`) that can read
 ```bash
 modal run chapter08/modal_serving.py                    # all five pairs, all studies (a few hours)
 modal run chapter08/modal_serving.py --gpus T4 --models gemma --studies single,sweep   # one quick pair
+modal run chapter08/modal_serving.py --models gemma --gpus A100-80GB,H100 --studies budget_long,knee
+modal run chapter08/modal_serving.py --models llama --gpus A100-80GB,H100 --studies knee,knee_low
 python chapter08/summarize_results.py                   # tables + results/sweep.png
 ```
 
@@ -414,8 +454,9 @@ python chapter08/loadgen.py --model google/gemma-2b-it --prompts data/prompts_si
     --rate 4 --num 200 --max-tokens 128 --slo-ttft-ms 500 --slo-tpot-ms 50
 ```
 
-The results committed here were served on an A100 80GB, an H100 and a T4 for Gemma,
-and an A100 80GB and an H100 for Llama, all on vLLM 0.32.0. Serving engines change
+The results committed here were served on an A100 80GB (SXM4; the script rejects the
+PCIe variant), an H100 and a T4 for Gemma, and an A100 80GB and an H100 for Llama, all
+on vLLM 0.32.0, with prefix caching off except in the prefix-caching study. Serving engines change
 their defaults between releases, so record the version with any new numbers.
 """)
 
