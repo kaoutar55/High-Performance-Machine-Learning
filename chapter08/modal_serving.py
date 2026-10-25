@@ -101,6 +101,11 @@ class Server:
     def __init__(self, model, extra, max_len=2048):
         m = MODELS[model]
         self.model_id = m["id"]
+        if not any("prefix-caching" in a for a in extra):
+            # The prompt sets are smaller than the number of requests in a load study, so prompts repeat on the
+            # same server. With vLLM's default prefix caching on, repeated prompts would skip their prefill.
+            # Only the prefix-caching study turns it on.
+            extra = extra + ["--no-enable-prefix-caching"]
         self.cmd = ["vllm", "serve", m["id"], "--dtype", m["dtype"], "--max-model-len", str(max_len),
                     "--port", "8000"] + extra
         self.log = open("/tmp/vllm.log", "w")
@@ -116,6 +121,7 @@ class Server:
                 return self
             except Exception:
                 time.sleep(1)
+        self.__exit__(None, None, None)                          # do not leave a server holding the GPU and port
         raise TimeoutError("vllm did not become healthy in 20 minutes")
 
     def __exit__(self, *exc):
@@ -127,7 +133,7 @@ class Server:
         time.sleep(5)
 
     def startup_lines(self):
-        keys = ("KV cache", "Maximum concurrency", "attention backend", "Using", "graph", "chunked", "prefix",
+        keys = ("non-default args", "KV cache", "Maximum concurrency", "attention backend", "Using", "graph", "chunked", "prefix",
                 "max_num_seqs", "max_num_batched_tokens")
         return [l.strip()[-240:] for l in open("/tmp/vllm.log")
                 if any(k in l for k in keys) and "Capturing CUDA graphs" not in l][:40]
@@ -269,10 +275,9 @@ class GpuLog:
             try:
                 rows.append((float(parts[0]), float(parts[2]), float(parts[3]), parts[4]))
             except (ValueError, IndexError):
-                if not rows:
-                    return {"error": line.strip()[:300]}
+                bad = line.strip()[:300]                        # e.g. "[N/A]" samples or an nvidia-smi error
         if not rows:
-            return {}
+            return {"error": bad} if "bad" in locals() else {}
         sm = sorted(r[0] for r in rows)
         reasons = sorted({r[3] for r in rows if r[3] not in ("0x0000000000000000", "0x0")})
         return {"samples": len(rows), "sm_clock_mhz_min": sm[0], "sm_clock_mhz_p50": sm[len(sm) // 2],
@@ -290,7 +295,7 @@ def study_knee(gpu, model, table=None):
     repeats = []
     for rep in range(KNEE_REPEATS):
         order = rates[rep:] + rates[:rep]                        # rotate the order in every repeat
-        warm = rates[len(rates) // 2 - 1]
+        warm = rates[(len(rates) - 1) // 2]                     # middle rate (lower middle for an even count)
         runs = {}
         with Server(model, []) as s:
             s.load(SINGLE, warm, int(warm * 60), offset=850, seed=900 + rep)
@@ -387,8 +392,19 @@ def main(gpus: str = "", models: str = "", studies: str = ""):
         except Exception as e:
             res = {"error": f"{type(e).__name__}: {e}"}
         path = outdir / f"{g}_{m}.json"
-        if path.exists() and "error" not in res:                  # merge new studies into earlier results
+        if "error" in res:                                         # never overwrite earlier results with an error
+            err = outdir / f"{g}_{m}.error.json"
+            err.write_text(json.dumps(res, indent=2))
+            print(f"FAILED {g} {m}: wrote {err.relative_to(HERE)}")
+            continue
+        failed = [k for k, v in res.items() if isinstance(v, dict) and "error" in v]
+        for k in failed:                                           # keep an earlier good result of a failed study
+            print(f"FAILED study {k} on {g} {m}: {res[k]['error'][:300]}")
+        new = {k: v for k, v in res.items() if k not in failed}
+        if path.exists():                                          # merge new studies into earlier results
             old = json.loads(path.read_text())
-            res = {**old, **{k: v for k, v in res.items() if k != "env"}, "env_" + "_".join(st or ["all"]): res["env"]}
-        path.write_text(json.dumps(res, indent=2))
+            old.pop("error", None)
+            new = {**old, **{k: v for k, v in new.items() if k != "env"},
+                   "env_" + "_".join(st or ["all"]): new["env"], "env": old.get("env", new["env"])}
+        path.write_text(json.dumps(new, indent=2))
         print(f"wrote {path.relative_to(HERE)}")

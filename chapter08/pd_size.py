@@ -27,7 +27,9 @@ h100 = {"peak": 989e12, "bw": 3.35e12, "mem": 80e9}
 llama8b = {"w": 16.06e9, "kv": 131072, "flop_tok": 2 * 8.03e9}
 workloads = [("RAG", 4000, 200), ("chat", 500, 400),
              ("reasoning", 1000, 4000)]
-for name, prompt, out in workloads:
-    p, d, b, fit = size_pools(20, prompt, out, 0.05, h100, llama8b)
-    print(f"{name:9s} prefill {p:4.1f} decode {d:5.1f} GPUs "
-          f"batch {b:3d} (KV limit {fit})")
+
+if __name__ == "__main__":
+    for name, prompt, out in workloads:
+        p, d, b, fit = size_pools(20, prompt, out, 0.05, h100, llama8b)
+        print(f"{name:9s} prefill {p:4.1f} decode {d:5.1f} GPUs "
+              f"batch {b:3d} (KV limit {fit})")

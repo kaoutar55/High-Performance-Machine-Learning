@@ -64,7 +64,7 @@ def main():
                 rs = [rep["runs"].get(str(rate), {}) for rep in knee["repeats"]]
                 ok = [r for r in rs if "ttft_ms" in r]
                 att = sorted(100 * r["slo_attainment"] for r in ok)
-                p99 = [r["ttft_ms"]["p99"] for r in ok]
+                p99 = [r["ttft_ms"]["p99"] for r in ok if r["ttft_ms"].get("p99") is not None]
                 cells = ", ".join(f"{100 * r['slo_attainment']:.1f}% ({r['position_in_repeat']})" for r in ok)
                 med = att[len(att) // 2] if att else None
                 print(f"  {rate:>5}  {cells}  median {f(med, 1)}%  TTFT p99 {f(min(p99) if p99 else None)}–"
@@ -82,7 +82,7 @@ def main():
                 print(f"long-prompt {name} @ {b['rate']} req/s: TTFT p50/p99 {f(r['ttft_ms']['p50'])}/{f(r['ttft_ms']['p99'])} ms, "
                       f"ITL p99 {f(r['itl_ms']['p99'], 1)} ms, TPOT p50 {f(r['tpot_ms']['p50'], 1)} ms")
         for name, b in d.get("budget", {}).items():
-            r = b.get("result", {})
+            r = b.get("result", {}) if isinstance(b, dict) else {}
             if "ttft_ms" in r:
                 print(f"{name} @ {b['rate']} req/s: TTFT p99 {f(r['ttft_ms']['p99'])} ms, ITL p99 {f(r['itl_ms']['p99'], 1)} ms, "
                       f"TPOT p50 {f(r['tpot_ms']['p50'], 1)} ms")

@@ -37,8 +37,8 @@ def pct(xs, q):
 async def one_request(session, url, model, prompt, max_tokens):
     try:
         return await _one_request(session, url, model, prompt, max_tokens)
-    except (aiohttp.ClientError, asyncio.TimeoutError, json.JSONDecodeError):
-        return {"failed": True}
+    except (aiohttp.ClientError, asyncio.TimeoutError, ValueError, KeyError, UnicodeDecodeError):
+        return {"failed": True}                    # ValueError covers JSONDecodeError and over-long lines
 
 
 async def _one_request(session, url, model, prompt, max_tokens):
@@ -82,7 +82,7 @@ async def run(args):
     prompts = prompts[args.offset:] + prompts[:args.offset]
     rng = random.Random(args.seed)
     results, tasks = [], []
-    timeout = aiohttp.ClientTimeout(total=None)
+    timeout = aiohttp.ClientTimeout(total=None, sock_read=600)   # no total limit, but a stalled stream fails
     # aiohttp allows only 100 open connections by default, which would cap the requests in flight at 100 and
     # queue the rest in the client; an open-loop generator must not limit concurrency
     connector = aiohttp.TCPConnector(limit=0)
@@ -101,6 +101,7 @@ async def run(args):
             sent.append(time.perf_counter() - start)
             tasks.append(asyncio.create_task(
                 one_request(session, args.url, args.model, prompts[i % len(prompts)], args.max_tokens)))
+            await asyncio.sleep(0)                 # let the new request start now, even when behind schedule
         failed = 0
         for t in tasks:
             r = await t
@@ -109,15 +110,14 @@ async def run(args):
             else:
                 failed += 1
         duration = time.perf_counter() - start
-    out = summarize(results, duration, args)
-    out["failed"] = failed
+    out = summarize(results, duration, args, failed)
     lags = sorted(a - b for a, b in zip(sent, sched))
     out["send_lag_ms"] = {"p50": 1e3 * lags[len(lags) // 2], "max": 1e3 * lags[-1]}
     out["sent_rate"] = (len(sent) - 1) / sent[-1] if len(sent) > 1 and sent[-1] > 0 else None
     return out
 
 
-def summarize(rs, duration, args):
+def summarize(rs, duration, args, failed=0):
     ttft = [r["ttft"] * 1e3 for r in rs]
     tpot = [r["tpot"] * 1e3 for r in rs if r["tpot"] is not None]
     itl = [x * 1e3 for r in rs for x in r["itl"]]
@@ -126,7 +126,8 @@ def summarize(rs, duration, args):
     out = {"rate": args.rate, "completed": len(rs), "duration_s": duration,
            "request_throughput": len(rs) / duration,
            "output_token_throughput": sum(r["out_tokens"] for r in rs) / duration,
-           "goodput_req_s": len(ok) / duration, "slo_attainment": len(ok) / max(1, len(rs)),
+           "goodput_req_s": len(ok) / duration, "slo_attainment": len(ok) / max(1, len(rs) + failed),     # failed requests count as missed
+           "failed": failed,
            "slo": {"ttft_ms": args.slo_ttft_ms, "tpot_ms": args.slo_tpot_ms},
            # sanity check: close to 1.0 when every token streams as its own text chunk
            "text_chunks_per_token": sum(r.get("text_chunks", 0) for r in rs) / max(1, sum(r["out_tokens"] for r in rs))}

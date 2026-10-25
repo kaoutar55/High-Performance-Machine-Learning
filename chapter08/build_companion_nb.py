@@ -39,10 +39,9 @@ of cell:
 
 Everything modeled is labeled modeled and everything measured is labeled measured.
 
-The measured numbers here were served with the load generator as of commit 7075525,
-one step before the client's default 100-connection cap was lifted (aac7321). In
-these runs the requests in flight stayed well under 100, so the cap was not binding
-and the results are unaffected; a rerun on the current load generator reproduces them.
+The measured numbers come from the current load generator (Poisson arrivals on an absolute
+schedule, no client connection limit). Prefix caching is off in every study except the
+prefix-caching study, because prompts repeat on a server within a load study.
 """)
 
 # ---------------------------------------------------------------------------- setup
@@ -53,9 +52,9 @@ import sys, os, json, glob, pathlib
 HERE = pathlib.Path(os.path.abspath("")).resolve()
 sys.path.insert(0, str(HERE))
 
-import paged_kv, spec_math, pd_size, tiled_attention, kv_calc
+import paged_kv, spec_math, pd_size, tiled_attention   # kv_calc needs transformers; its formula is reproduced below
 RES = HERE / "results"
-print("modules loaded:", [m.__name__ for m in (kv_calc, paged_kv, spec_math, pd_size, tiled_attention)])
+print("modules loaded:", [m.__name__ for m in (paged_kv, spec_math, pd_size, tiled_attention)])
 print("results dir:", RES, "|", len(sorted(RES.glob("*.json"))), "result files")
 """)
 
@@ -299,10 +298,11 @@ fig.suptitle("Load sweep across five GPU/model pairs (vLLM 0.32.0)", y=1.02)
 fig.tight_layout(); plt.show()
 """)
 
-md("""The A100 and H100 hold 100% of their SLO across the whole sweep for Gemma; the T4
-falls off a cliff above 4 req/s (it drops to the Triton attention backend and has
-only about 7 GiB for KV). For Llama-3.1-8B the goodput knee comes earlier than for
-Gemma on the same GPU, because the 8B model's larger KV footprint limits the batch.
+md("""Read the knee of each curve from the plot and compare it with Table 8.8 in the chapter,
+which uses the repeated runs near capacity. The T4 is already at its limit at a few
+requests per second. Llama-3.1-8B reaches its knee at a lower rate than Gemma on the same
+GPU; it reads about four times the weight bytes and does about four times the FLOPs per
+token, while its KV cache at these short contexts is far from full.
 """)
 
 # ---------------------------------------------------------------------------- measured: long
@@ -389,11 +389,6 @@ for stem, d in data.items():
             print(f"  ngram draft acceptance: {acc:.2f}  (accepted / proposed draft tokens)")
 """)
 
-md("""Note the acceptance line is computed here directly from the `spec_decode` counters;
-the shipped `summarize_results.py` filters those counters with a stricter key suffix
-and prints no acceptance line, which is a display gap in that script, not missing
-data. The counters themselves are in the result files, as this cell shows.
-""")
 
 # ---------------------------------------------------------------------------- reproduce
 md("""## Reproducing the measured cells

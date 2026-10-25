@@ -34,7 +34,7 @@ def split_kv_attention(q, k, v, splits=4):
         outs.append(torch.exp(s - lse) @ vc)
         lses.append(lse)
     w = torch.softmax(torch.cat(lses, dim=-1), dim=-1)          # weight of each chunk
-    return sum(w[:, i:i + 1] * outs[i] for i in range(splits))
+    return sum(w[:, i:i + 1] * o for i, o in enumerate(outs))    # chunk() may return fewer than `splits` chunks
 
 
 if __name__ == "__main__":

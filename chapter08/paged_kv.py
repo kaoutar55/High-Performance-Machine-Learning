@@ -31,19 +31,31 @@ class PagedKVCache:
         """Allocate blocks for a prompt, reusing cached full blocks with the same prefix."""
         table, h, hits = [], None, 0
         bs = self.block_size
+        try:
+            self._fill(prompt_tokens, table, bs)
+        except MemoryError:                                # roll back a partly allocated prompt
+            for b in table:
+                self.refcount[b] -= 1
+                if self.refcount[b] == 0 and b not in self.prefix.values():
+                    self.free.append(b)
+            raise
+        hits = self._hits
+        self.tables[rid], self.lengths[rid] = table, len(prompt_tokens)
+        return hits                                        # blocks whose prefill can be skipped
+
+    def _fill(self, prompt_tokens, table, bs):
+        h, self._hits = None, 0
         for start in range(0, len(prompt_tokens), bs):
             chunk = tuple(prompt_tokens[start:start + bs])
             h = hash((h, chunk))                           # a block's hash depends on its whole prefix
             if len(chunk) == bs and h in self.prefix:
-                b = self.prefix[h]; self.prefix.move_to_end(h); self.refcount[b] += 1; hits += 1
+                b = self.prefix[h]; self.prefix.move_to_end(h); self.refcount[b] += 1; self._hits += 1
             else:
                 b = self._alloc()
                 if len(chunk) == bs:
                     # simplification: a real engine publishes the block only after its K and V are computed
                     self.prefix[h] = b                     # full blocks become reusable prefixes
             table.append(b)
-        self.tables[rid], self.lengths[rid] = table, len(prompt_tokens)
-        return hits                                        # blocks whose prefill can be skipped
 
     def append_token(self, rid):
         """Decode step: room for one more token, allocating or copying on write when needed."""
@@ -51,8 +63,9 @@ class PagedKVCache:
         if n % self.block_size == 0:
             table.append(self._alloc())
         elif self.refcount[table[-1]] > 1:                 # last block is shared: copy before writing
+            nb = self._alloc()                             # allocate first, so a full cache changes nothing
             self.refcount[table[-1]] -= 1
-            table[-1] = self._alloc()                      # (a real engine also copies the block's K and V)
+            table[-1] = nb                                 # (a real engine also copies the block's K and V)
         self.lengths[rid] = n + 1
 
     def fork(self, rid, new_rid):
