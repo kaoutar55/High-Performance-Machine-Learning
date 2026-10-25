@@ -289,7 +289,7 @@ class GpuLog:
 
 def study_knee(gpu, model, table=None):
     """Repeat the load points near the capacity knee. Each repeat starts a fresh server, warms it up for about
-    60 s at a mid rate, and visits the rates in a different order, so cold-start and order effects show up as
+    60 s at the lowest rate, and visits the rates in a different order, so cold-start and order effects show up as
     differences between repeats rather than as one unexplained point."""
     rates = (table or KNEE_RATES).get((model, gpu))
     if not rates:
@@ -297,7 +297,7 @@ def study_knee(gpu, model, table=None):
     repeats = []
     for rep in range(KNEE_REPEATS):
         order = rates[rep:] + rates[:rep]                        # rotate the order in every repeat
-        warm = rates[(len(rates) - 1) // 2]                     # middle rate (lower middle for an even count)
+        warm = rates[0]                                          # lowest rate: warms up without building a backlog
         runs = {}
         with Server(model, []) as s:
             s.load(SINGLE, warm, int(warm * 60), offset=850, seed=900 + rep)
