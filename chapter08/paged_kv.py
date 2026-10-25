@@ -39,6 +39,7 @@ class PagedKVCache:
             else:
                 b = self._alloc()
                 if len(chunk) == bs:
+                    # simplification: a real engine publishes the block only after its K and V are computed
                     self.prefix[h] = b                     # full blocks become reusable prefixes
             table.append(b)
         self.tables[rid], self.lengths[rid] = table, len(prompt_tokens)

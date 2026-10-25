@@ -14,8 +14,11 @@ def size_pools(rate, prompt, out, tpot_s, gpu, m, prefill_eff=0.5):
     n_prefill = rate * prompt / prefill_tok_s
     ctx = prompt + out / 2                                          # mean context
     kv_fit = int((0.92 * gpu["mem"] - m["w"]) // (ctx * m["kv"]))    # sequences that fit
-    batch = max(b for b in range(1, kv_fit + 1)
-                if decode_step_s(b, ctx, gpu, m) <= tpot_s)
+    fits = [b for b in range(1, kv_fit + 1)
+            if decode_step_s(b, ctx, gpu, m) <= tpot_s]
+    if not fits:
+        raise ValueError("no batch size meets the TPOT objective")
+    batch = max(fits)
     step = decode_step_s(batch, ctx, gpu, m)
     n_decode = rate * out * step / batch
     return n_prefill, n_decode, batch, kv_fit

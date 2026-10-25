@@ -43,11 +43,12 @@ MODELS = {
               # follow-up studies, run only when named with --studies
               "high_rates": {"A100-80GB": [64, 96, 128], "H100": [96, 128, 160]},
               "budget_long_rate": {"A100-80GB": 3, "H100": 6},
-              "extra_studies": ["sweep_high", "budget_long"]},
+              "extra_studies": ["sweep_high", "budget_long", "knee"]},
     "llama": {"id": "meta-llama/Llama-3.1-8B-Instruct", "dtype": "bfloat16", "gpus": ["A100-80GB", "H100"],
               "rates": {"A100-80GB": [1, 2, 4, 8, 16, 24, 32], "H100": [1, 2, 4, 8, 16, 32, 48]},
               "long_rates": {"A100-80GB": [0.25, 0.5, 1, 2, 3, 4], "H100": [0.25, 0.5, 1, 2, 4, 6]},
-              "studies": ["single", "sweep", "long", "prefix", "spec"]},
+              "studies": ["single", "sweep", "long", "prefix", "spec"],
+              "extra_studies": ["knee"]},
 }
 SLO = {"ttft_ms": 500, "tpot_ms": 50}
 SLO_LONG = {"ttft_ms": 2000, "tpot_ms": 50}
@@ -242,6 +243,34 @@ def study_sweep_high(gpu, model):
         return {"startup": s.startup_lines(), "runs": out}
 
 
+KNEE_RATES = {("gemma", "A100-80GB"): [48, 64, 96, 128], ("gemma", "H100"): [96, 128, 160, 192],
+              ("llama", "A100-80GB"): [16, 24, 32], ("llama", "H100"): [32, 48, 64]}
+KNEE_REPEATS = 3
+
+
+def study_knee(gpu, model):
+    """Repeat the load points near the capacity knee. Each repeat starts a fresh server, warms it up for about
+    60 s at a mid rate, and visits the rates in a different order, so cold-start and order effects show up as
+    differences between repeats rather than as one unexplained point."""
+    rates = KNEE_RATES.get((model, gpu))
+    if not rates:
+        return {"skipped": f"no knee rates defined for {model} on {gpu}"}
+    repeats = []
+    for rep in range(KNEE_REPEATS):
+        order = rates[rep:] + rates[:rep]                        # rotate the order in every repeat
+        warm = rates[len(rates) // 2 - 1]
+        runs = {}
+        with Server(model, []) as s:
+            s.load(SINGLE, warm, int(warm * 60), offset=850, seed=900 + rep)
+            for i, rate in enumerate(order):
+                r = s.load(SINGLE, rate, int(min(3000, rate * 30)), offset=(rep * 211 + i * 131) % 800,
+                           seed=200 + 10 * rep + i)
+                r["position_in_repeat"] = i
+                runs[str(rate)] = r
+            repeats.append({"order": order, "warmup_rate": warm, "runs": runs})
+    return {"rates": rates, "repeats": repeats}
+
+
 def study_budget_long(gpu, model):
     """Token budget 512 vs 8192 on the 4,096-token prompts, where a 512-token budget must split each prefill."""
     rate = MODELS[model].get("budget_long_rate", {}).get(gpu)
@@ -271,7 +300,7 @@ def study_spec(gpu, model):
 
 STUDIES = {"single": study_single, "sweep": study_sweep, "long": study_long, "prefix": study_prefix,
            "budget": study_budget, "spec": study_spec, "sweep_high": study_sweep_high,
-           "budget_long": study_budget_long}
+           "budget_long": study_budget_long, "knee": study_knee}
 
 
 def run_studies(gpu: str, model: str, studies: list) -> dict:

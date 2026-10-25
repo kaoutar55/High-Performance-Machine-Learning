@@ -55,6 +55,18 @@ def main():
                 print(f"high-rate sweep {r['rate']:>5}: req/s {r['request_throughput']:.1f}, out tok/s "
                       f"{r['output_token_throughput']:.0f}, TTFT p99 {f(r['ttft_ms']['p99'])} ms, "
                       f"TPOT p99 {f(r['tpot_ms']['p99'], 1)} ms, within objectives {100 * r['slo_attainment']:.1f}%")
+        knee = d.get("knee", {})
+        if knee.get("repeats"):
+            print("knee repeats: rate  within objectives per repeat (position in repeat)  median  TTFT p99 range (ms)")
+            for rate in knee["rates"]:
+                rs = [rep["runs"].get(str(rate), {}) for rep in knee["repeats"]]
+                ok = [r for r in rs if "ttft_ms" in r]
+                att = sorted(100 * r["slo_attainment"] for r in ok)
+                p99 = [r["ttft_ms"]["p99"] for r in ok]
+                cells = ", ".join(f"{100 * r['slo_attainment']:.1f}% ({r['position_in_repeat']})" for r in ok)
+                med = att[len(att) // 2] if att else None
+                print(f"  {rate:>5}  {cells}  median {f(med, 1)}%  TTFT p99 {f(min(p99) if p99 else None)}–"
+                      f"{f(max(p99) if p99 else None)}  {'all repeats >= 90%' if att and att[0] >= 90 else ''}")
         for name, b in d.get("budget_long", {}).items():
             r = b.get("result", {}) if isinstance(b, dict) else {}
             if "ttft_ms" in r:
