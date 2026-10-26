@@ -109,7 +109,7 @@ if modal is not None:
     @app.function(image=image, cpu=8, memory=16384, timeout=1800)
     def listings():
         out = {}
-        for script in ("quant_basics.py", "smoothquant_demo.py", "prune24.py"):
+        for script in ("quant_basics.py", "smoothquant_demo.py", "gptq_demo.py", "prune24.py"):
             r = subprocess.run([sys.executable, script], cwd="/root/ch09", capture_output=True, text=True)
             out[script] = {"stdout": r.stdout, "stderr": r.stderr[-2000:], "returncode": r.returncode}
         out["torch"] = subprocess.getoutput(f"{sys.executable} -c 'import torch; print(torch.__version__)'")

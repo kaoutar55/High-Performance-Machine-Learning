@@ -21,13 +21,14 @@ def fake_quant(x, bits=8, granularity="tensor", group=128, symmetric=True):
     elif granularity in ("channel", "token"):
         v = x.reshape(x.shape[0], -1)
     else:                                                   # "group"
+        assert x.shape[1] % group == 0, "groups must stay inside a row"
         v = x.reshape(-1, group)
-    if symmetric:                                           # zero point 0, range [-2^(b-1), 2^(b-1)-1]
+    if symmetric:                                           # zero point 0, levels -(2^(b-1)-1) .. 2^(b-1)-1
         qmax = 2 ** (bits - 1) - 1
         scale = v.abs().amax(1, keepdim=True).clamp(min=1e-12) / qmax
-        q = torch.clamp(torch.round(v / scale), -qmax - 1, qmax)
+        q = torch.clamp(torch.round(v / scale), -qmax, qmax)
         out = q * scale
-    else:                                                   # zero point maps the real 0 to an integer
+    else:   # unsigned levels 0 .. 2^b-1; equivalent to the signed form with the zero point shifted by 2^(b-1)
         qmax = 2 ** bits - 1
         lo, hi = v.amin(1, keepdim=True), v.amax(1, keepdim=True)
         scale = (hi - lo).clamp(min=1e-12) / qmax

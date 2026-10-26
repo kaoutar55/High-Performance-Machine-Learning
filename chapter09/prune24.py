@@ -20,7 +20,8 @@ def mask_unstructured(score, sparsity=0.5):
 
 def mask_24(score):
     """In every group of 4 consecutive weights of a row, keep the 2 highest-scoring ones."""
-    g = score.reshape(-1, 4)
+    assert score.shape[1] % 4 == 0, "rows must split into groups of 4"
+    g = score.reshape(-1, 4)                              # each group lies inside one row
     drop = g.argsort(dim=1)[:, :2]
     return torch.ones_like(g).scatter_(1, drop, 0.0).reshape(score.shape)
 
