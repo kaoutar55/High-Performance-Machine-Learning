@@ -106,10 +106,29 @@ data_vol = modal.Volume.from_name("hpml-ch08-data", create_if_missing=True)
 ckpt_vol = modal.Volume.from_name("hpml-ch09-ckpt", create_if_missing=True)
 vllm_cache = modal.Volume.from_name("hpml-ch09-vllm-cache", create_if_missing=True)
 
+# vLLM 0.32 JIT-compiles the FlashInfer (fp8 KV cache) and "Humming" FP8 kernels at runtime. The pip vllm
+# image ships CUDA runtime libraries only (torch is built for CUDA 13.0), so these fail: FlashInfer with
+# "Could not find nvcc", and the Humming FP8 W8A16 path with "NVRTCCompiler failed ... failed to open
+# libnvrtc-builtins.so.13.0". FlashInfer shells out to the nvcc binary; Humming compiles in-process through
+# the NVRTC shared library and needs its builtins .so. Install the matching CUDA 13.0 nvcc + NVRTC runtime
+# and point CUDA_HOME / PATH / LD_LIBRARY_PATH at them.
+CUDA = "13.0"
+CUDA_DASH = CUDA.replace(".", "-")
 image = (modal.Image.debian_slim(python_version="3.11")
-         .pip_install(f"vllm=={VLLM_VERSION}", "aiohttp", f"lm-eval[api]=={LMEVAL_VERSION}", "numpy")
+         .apt_install("wget")
+         .run_commands(
+             "wget -q https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/"
+             "cuda-keyring_1.1-1_all.deb -O /tmp/cuda-keyring.deb",
+             "dpkg -i /tmp/cuda-keyring.deb",
+             "apt-get update",
+             f"apt-get install -y --no-install-recommends cuda-minimal-build-{CUDA_DASH} cuda-nvrtc-{CUDA_DASH}")
+         .pip_install(f"vllm=={VLLM_VERSION}", "aiohttp", f"lm-eval[api,ifeval]=={LMEVAL_VERSION}", "numpy")
+         .run_commands("python -c \"import nltk; nltk.download('punkt'); nltk.download('punkt_tab')\"")  # ifeval
          .env({"HF_HOME": "/cache/hf", "TOKENIZERS_PARALLELISM": "false", "VLLM_CACHE_ROOT": "/vllm_cache",
-               "VLLM_USE_FLASHINFER_SAMPLER": "0"})                      # same reason as in Ch 8
+               "VLLM_USE_FLASHINFER_SAMPLER": "0",                       # same reason as in Ch 8
+               "CUDA_HOME": f"/usr/local/cuda-{CUDA}",                   # so FlashInfer (nvcc) finds the toolkit
+               "PATH": f"/usr/local/cuda-{CUDA}/bin:/usr/local/bin:/usr/bin:/bin",
+               "LD_LIBRARY_PATH": f"/usr/local/cuda-{CUDA}/lib64"})      # so Humming's NVRTC finds its builtins .so
          .add_local_file(str(HERE.parent / "chapter08" / "loadgen.py"), "/root/ch09/loadgen.py"))
 app = modal.App("hpml-ch09-quant")
 COMMON = dict(image=image, timeout=8 * 3600, memory=65536,

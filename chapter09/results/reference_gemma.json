@@ -1,0 +1,18 @@
+{
+  "model": "gemma",
+  "prompts": 200,
+  "answer_tokens": 5856,
+  "noise_floor": {
+    "kl_mean": 1.1307588621778321e-06,
+    "kl_p50": 2.6699547167602616e-08,
+    "kl_p99": 1.921816862730269e-05,
+    "kl_max": 9.761517834040778e-05,
+    "top1_agreement": 1.0,
+    "tokens": 5856,
+    "method": "prompt_logprob_token_ids"
+  },
+  "env": {
+    "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+    "vllm": "0.32.0"
+  }
+}

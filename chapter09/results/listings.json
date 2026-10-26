@@ -1,0 +1,18 @@
+{
+  "quant_basics.py": {
+    "stdout": "weights only (activations kept in FP32)\n  INT8 per-tensor        0.0400\n  INT8 per-channel       0.0086\n  FP8 per-channel        0.0265\n  INT4 per-channel       0.1561\n  INT4 group 128         0.1166\n  INT4 group 128 asym    0.0998\nweights INT8 per-channel, plus activations\n  INT8 per-tensor        0.1900\n  INT8 per-token         0.0862\n  FP8 per-token          0.0229\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "smoothquant_demo.py": {
+    "stdout": "activation range: outlier channels 202.4, others 4.9\nW8A8 no smoothing  per-tensor A 0.1900   per-token A 0.0862\nW8A8 alpha = 0.5   per-tensor A 0.0330   per-token A 0.0188\nW8A8 alpha = 0.8   per-tensor A 0.0441   per-token A 0.0431\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "prune24.py": {
+    "stdout": "magnitude unstructured 50% output error 0.2649\nmagnitude 2:4              output error 0.3582\nWanda     unstructured 50% output error 0.1101\nWanda     2:4              output error 0.1502\n",
+    "stderr": "",
+    "returncode": 0
+  },
+  "torch": "2.14.1+cu130"
+}

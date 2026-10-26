@@ -1,0 +1,140 @@
+[
+  {
+    "variant": "fp8_dynamic",
+    "skipped": "exists",
+    "path": "/ckpt/gemma-fp8_dynamic"
+  },
+  {
+    "variant": "w8a8_int8",
+    "model": "google/gemma-2b-it",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 293.4,
+    "size_gb": 3.032
+  },
+  {
+    "variant": "w4a16_gptq_rag",
+    "skipped": "exists",
+    "path": "/ckpt/gemma-w4a16_gptq_rag"
+  },
+  {
+    "variant": "w4a16_gptq_wikitext",
+    "model": "google/gemma-2b-it",
+    "calibration": {
+      "domain": "wikitext",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 249.0,
+    "size_gb": 2.071
+  },
+  {
+    "variant": "w4a16_awq_rag",
+    "model": "google/gemma-2b-it",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 353.9,
+    "size_gb": 2.078
+  },
+  {
+    "variant": "sparse24_magnitude",
+    "model": "google/gemma-2b-it",
+    "layers_pruned": 126,
+    "linear_sparsity": 0.5,
+    "valid_2_4": true,
+    "build_s": 51.7,
+    "size_gb": 5.012
+  },
+  {
+    "variant": "sparse24_wanda",
+    "skipped": "exists",
+    "path": "/ckpt/gemma-sparse24_wanda"
+  },
+  {
+    "variant": "sparse24_sparsegpt",
+    "model": "google/gemma-2b-it",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "linear_sparsity": 0.5,
+    "valid_2_4": true,
+    "build_s": 380.1,
+    "size_gb": 5.012
+  },
+  {
+    "variant": "w4a16_gptq_rag",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 487.2,
+    "size_gb": 5.701
+  },
+  {
+    "variant": "w4a16_gptq_ultrachat",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "ultrachat",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 768.0,
+    "size_gb": 5.701
+  },
+  {
+    "variant": "w4a16_gptq_wikitext",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "wikitext",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 485.9,
+    "size_gb": 5.701
+  },
+  {
+    "variant": "w4a16_awq_rag",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 951.5,
+    "size_gb": 5.728
+  },
+  {
+    "variant": "fp8_dynamic_kv",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "build_s": 134.2,
+    "size_gb": 9.084
+  },
+  {
+    "variant": "sparse24_sparsegpt",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "calibration": {
+      "domain": "rag",
+      "samples": 512,
+      "max_seq_length": 1024
+    },
+    "linear_sparsity": 0.5,
+    "valid_2_4": true,
+    "build_s": 772.1,
+    "size_gb": 16.061
+  }
+]

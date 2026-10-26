@@ -1,0 +1,18 @@
+{
+  "model": "llama",
+  "prompts": 200,
+  "answer_tokens": 25527,
+  "noise_floor": {
+    "kl_mean": 0.0,
+    "kl_p50": 0.0,
+    "kl_p99": 0.0,
+    "kl_max": 0.0,
+    "top1_agreement": 1.0,
+    "tokens": 25527,
+    "method": "prompt_logprob_token_ids"
+  },
+  "env": {
+    "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+    "vllm": "0.32.0"
+  }
+}

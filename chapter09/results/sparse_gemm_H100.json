@@ -1,0 +1,646 @@
+{
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "torch": "2.14.1+cu130",
+  "rows": [
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.022346880435943604,
+        "tflops": 2.2522896716735725,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 159.999208984375,
+        "tflops": 0.0003145743552076887,
+        "correct": true,
+        "speedup": 0.00013966869322538917
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.022666239738464357,
+        "tflops": 17.76444565336093,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 161.157744140625,
+        "tflops": 0.0024985034764984544,
+        "correct": true,
+        "speedup": 0.0001406462957106546
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.023260159492492674,
+        "tflops": 69.24340895082138,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 160.079248046875,
+        "tflops": 0.010061346212273403,
+        "correct": true,
+        "speedup": 0.0001453040277005896
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.02297856092453003,
+        "tflops": 280.3679031580505,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 162.587705078125,
+        "tflops": 0.039624465705474704,
+        "correct": true,
+        "speedup": 0.00014133024950126828
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.03591871976852417,
+        "tflops": 717.4477248095646,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 162.54732421875,
+        "tflops": 0.15853723769282096,
+        "correct": true,
+        "speedup": 0.0002209739221556556
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.1309119987487793,
+        "tflops": 787.3931808329462,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 165.0669140625,
+        "tflops": 0.6244692686565321,
+        "correct": true,
+        "speedup": 0.0007930844257451346
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 0.525681266784668,
+        "tflops": 784.3476388990197,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 163.566962890625,
+        "tflops": 2.520783250659919,
+        "correct": true,
+        "speedup": 0.0032138596785964892
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 1.0601856231689453,
+        "tflops": 777.8201315040761,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 165.5858984375,
+        "tflops": 4.980096304174452,
+        "correct": true,
+        "speedup": 0.006402632308506088
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.01645248055458069,
+        "tflops": 2.0394755604593495,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 163.90830078125,
+        "tflops": 0.00020471465959970712,
+        "correct": true,
+        "speedup": 0.00010037612784808236
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.012320640087127686,
+        "tflops": 21.787460237593905,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 162.47677734375,
+        "tflops": 0.0016521466045087453,
+        "correct": true,
+        "speedup": 7.583016039923705e-05
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.011777280569076539,
+        "tflops": 91.17060748466083,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 167.731171875,
+        "tflops": 0.006401563954970728,
+        "correct": true,
+        "speedup": 7.021521663160764e-05
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.012087039947509766,
+        "tflops": 355.3365683121508,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 167.6699609375,
+        "tflops": 0.025615603844513182,
+        "correct": true,
+        "speedup": 7.208828510442179e-05
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.025907199382781982,
+        "tflops": 663.1310829922359,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 200.413828125,
+        "tflops": 0.08572197509886768,
+        "correct": true,
+        "speedup": 0.00012926852216316837
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.09127103805541992,
+        "tflops": 752.9165680604336,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 171.25650390625,
+        "tflops": 0.40126637627507983,
+        "correct": true,
+        "speedup": 0.000532949324396952
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 0.3595750427246094,
+        "tflops": 764.4521289941777,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 174.5300390625,
+        "tflops": 1.5749604390196976,
+        "correct": true,
+        "speedup": 0.0020602473055990316
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 0.7172313690185547,
+        "tflops": 766.4971690240975,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 206.57685546875,
+        "tflops": 2.66126528376343,
+        "correct": true,
+        "speedup": 0.0034719831870373983
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.08404224395751952,
+        "tflops": 2.7947971512841123,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 191.45544921875,
+        "tflops": 0.0012268181707987508,
+        "correct": true,
+        "speedup": 0.00043896501405659094
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.08517631530761718,
+        "tflops": 22.060688880632522,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 196.496015625,
+        "tflops": 0.009562780120621082,
+        "correct": true,
+        "speedup": 0.0004334760429451694
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.08690943717956542,
+        "tflops": 86.48304501697135,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 193.58775390625,
+        "tflops": 0.03882576566098244,
+        "correct": true,
+        "speedup": 0.0004489407797026956
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.0898374366760254,
+        "tflops": 334.6574900664244,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 176.36828125,
+        "tflops": 0.17046586188240695,
+        "correct": true,
+        "speedup": 0.0005093741121663587
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.16450048446655274,
+        "tflops": 731.0561101262399,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 179.800546875,
+        "tflops": 0.6688471552403336,
+        "correct": true,
+        "speedup": 0.0009149053622229297
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.6229043197631836,
+        "tflops": 772.2475537412887,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 169.555234375,
+        "tflops": 2.837047991618513,
+        "correct": true,
+        "speedup": 0.0036737545853967896
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 2.5880673217773436,
+        "tflops": 743.4680436699775,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 165.8128125,
+        "tflops": 11.60432248628555,
+        "correct": true,
+        "speedup": 0.015608367548661798
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 5.492818603515625,
+        "tflops": 700.6040022426628,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 168.19744140625,
+        "tflops": 22.879603072683853,
+        "correct": true,
+        "speedup": 0.032656968843234255
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.04537856101989746,
+        "tflops": 2.588017543097169,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 166.6622265625,
+        "tflops": 0.0007046618446319546,
+        "correct": true,
+        "speedup": 0.0002722786197919902
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.04572735786437988,
+        "tflops": 20.54621434254916,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 174.68537109375,
+        "tflops": 0.005378378796789898,
+        "correct": true,
+        "speedup": 0.0002617698183772868
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.04727488040924072,
+        "tflops": 79.49457198976674,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 167.692890625,
+        "tflops": 0.022410588606311108,
+        "correct": true,
+        "speedup": 0.00028191344447009545
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.055048317909240724,
+        "tflops": 273.0762011799198,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 167.40564453125,
+        "tflops": 0.0897961689290224,
+        "correct": true,
+        "speedup": 0.00032883191043755236
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.0815436840057373,
+        "tflops": 737.3905517902449,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 168.9459375,
+        "tflops": 0.355909961694107,
+        "correct": true,
+        "speedup": 0.0004826614076218157
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.30286464691162107,
+        "tflops": 794.1440872304439,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 173.5766796875,
+        "tflops": 1.3856594619105433,
+        "correct": true,
+        "speedup": 0.001744846412875771
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 8192,
+      "dense": {
+        "ms": 1.2436115264892578,
+        "tflops": 773.6118987413633,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 198.6277734375,
+        "tflops": 4.8435959264615365,
+        "correct": true,
+        "speedup": 0.006261015289891326
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 16384,
+      "dense": {
+        "ms": 2.724568176269531,
+        "tflops": 706.2202977216496,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 196.16357421875,
+        "tflops": 9.808881981637972,
+        "correct": true,
+        "speedup": 0.013889266583362994
+      },
+      "cutlass": {
+        "error": "sparse_semi_structured_mad_op : Supported only on GPUs with compute capability 8.x"
+      }
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+
+=== checkpoints built
+                               fp8_dynamic            None GB, None s
+  google/gemma-2b-it           w8a8_int8              3.032 GB, 293.4 s
+                               w4a16_gptq_rag         None GB, None s
+  google/gemma-2b-it           w4a16_gptq_wikitext    2.071 GB, 249.0 s
+  google/gemma-2b-it           w4a16_awq_rag          2.078 GB, 353.9 s
+  google/gemma-2b-it           sparse24_magnitude     5.012 GB, 51.7 s, sparsity 0.500 valid 2:4 True
+                               sparse24_wanda         None GB, None s
+  google/gemma-2b-it           sparse24_sparsegpt     5.012 GB, 380.1 s, sparsity 0.500 valid 2:4 True
+  -llama/Llama-3.1-8B-Instruct w4a16_gptq_rag         5.701 GB, 487.2 s
+  -llama/Llama-3.1-8B-Instruct w4a16_gptq_ultrachat   5.701 GB, 768.0 s
+  -llama/Llama-3.1-8B-Instruct w4a16_gptq_wikitext    5.701 GB, 485.9 s
+  -llama/Llama-3.1-8B-Instruct w4a16_awq_rag          5.728 GB, 951.5 s
+  -llama/Llama-3.1-8B-Instruct fp8_dynamic_kv         9.084 GB, 134.2 s
+  -llama/Llama-3.1-8B-Instruct sparse24_sparsegpt     16.061 GB, 772.1 s, sparsity 0.500 valid 2:4 True
+
+=== 2:4 GEMM NVIDIA A100-SXM4-80GB (torch 2.14.1+cu130): speedup over dense FP16
+  qkv_proj      tokens      1  dense 0.0358 ms  cuSPARSELt 0.09  CUTLASS 0.54
+  qkv_proj      tokens      8  dense 0.0362 ms  cuSPARSELt 0.09  CUTLASS 0.61
+  qkv_proj      tokens     32  dense 0.0416 ms  cuSPARSELt 0.11  CUTLASS 0.68
+  qkv_proj      tokens    128  dense 0.0541 ms  cuSPARSELt 0.14  CUTLASS 0.69
+  qkv_proj      tokens    512  dense 0.1616 ms  cuSPARSELt 0.42  CUTLASS 1.13
+  qkv_proj      tokens   2048  dense 0.4853 ms  cuSPARSELt 1.34  CUTLASS 0.92
+  qkv_proj      tokens   8192  dense 2.0127 ms  cuSPARSELt 2.15  CUTLASS 1.15
+  qkv_proj      tokens  16384  dense 3.1898 ms  cuSPARSELt 1.73  CUTLASS 0.94
+  o_proj        tokens      1  dense 0.0231 ms  cuSPARSELt 0.06  CUTLASS 0.42
+  o_proj        tokens      8  dense 0.0235 ms  cuSPARSELt 0.06  CUTLASS 0.49
+  o_proj        tokens     32  dense 0.0258 ms  cuSPARSELt 0.07  CUTLASS 0.54
+  o_proj        tokens    128  dense 0.0319 ms  cuSPARSELt 0.08  CUTLASS 0.59
+  o_proj        tokens    512  dense 0.0816 ms  cuSPARSELt 0.22  CUTLASS 0.83
+  o_proj        tokens   2048  dense 0.2602 ms  cuSPARSELt 0.68  CUTLASS 0.89
+  o_proj        tokens   8192  dense 1.0773 ms  cuSPARSELt 1.72  CUTLASS 0.92
+  o_proj        tokens  16384  dense 2.0680 ms  cuSPARSELt 1.71  CUTLASS 0.89
+  gate_up_proj  tokens      1  dense 0.1507 ms  cuSPARSELt 0.37  CUTLASS 1.14
+  gate_up_proj  tokens      8  dense 0.1495 ms  cuSPARSELt 0.39  CUTLASS 1.18
+  gate_up_proj  tokens     32  dense 0.1686 ms  cuSPARSELt 0.44  CUTLASS 1.24
+  gate_up_proj  tokens    128  dense 0.1861 ms  cuSPARSELt 0.47  CUTLASS 1.05
+  gate_up_proj  tokens    512  dense 0.4689 ms  cuSPARSELt 1.16  CUTLASS 0.83
+  gate_up_proj  tokens   2048  dense 1.8942 ms  cuSPARSELt 1.31  CUTLASS 0.86
+  gate_up_proj  tokens   8192  dense 6.8683 ms  cuSPARSELt 1.17  CUTLASS 0.79
+  gate_up_proj  tokens  16384  dense 13.6953 ms  cuSPARSELt 1.15  CUTLASS 0.77
+  down_proj     tokens      1  dense 0.0763 ms  cuSPARSELt 0.18  CUTLASS 0.48
+  down_proj     tokens      8  dense 0.0765 ms  cuSPARSELt 0.18  CUTLASS 0.50
+  down_proj     tokens     32  dense 0.0829 ms  cuSPARSELt 0.21  CUTLASS 0.54
+  down_proj     tokens    128  dense 0.1089 ms  cuSPARSELt 0.24  CUTLASS 0.64
+  down_proj     tokens    512  dense 0.2648 ms  cuSPARSELt 0.65  CUTLASS 1.03
+  down_proj     tokens   2048  dense 0.8904 ms  cuSPARSELt 1.47  CUTLASS 1.09
+  down_proj     tokens   8192  dense 3.4779 ms  cuSPARSELt 1.69  CUTLASS 1.13
+  down_proj     tokens  16384  dense 6.7267 ms  cuSPARSELt 1.70  CUTLASS 1.08
+
+=== 2:4 GEMM NVIDIA H100 80GB HBM3 (torch 2.14.1+cu130): speedup over dense FP16
+  qkv_proj      tokens      1  dense 0.0223 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens      8  dense 0.0227 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens     32  dense 0.0233 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens    128  dense 0.0230 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens    512  dense 0.0359 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens   2048  dense 0.1309 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens   8192  dense 0.5257 ms  cuSPARSELt 0.00  CUTLASS -
+  qkv_proj      tokens  16384  dense 1.0602 ms  cuSPARSELt 0.01  CUTLASS -
+  o_proj        tokens      1  dense 0.0165 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens      8  dense 0.0123 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens     32  dense 0.0118 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens    128  dense 0.0121 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens    512  dense 0.0259 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens   2048  dense 0.0913 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens   8192  dense 0.3596 ms  cuSPARSELt 0.00  CUTLASS -
+  o_proj        tokens  16384  dense 0.7172 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens      1  dense 0.0840 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens      8  dense 0.0852 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens     32  dense 0.0869 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens    128  dense 0.0898 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens    512  dense 0.1645 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens   2048  dense 0.6229 ms  cuSPARSELt 0.00  CUTLASS -
+  gate_up_proj  tokens   8192  dense 2.5881 ms  cuSPARSELt 0.02  CUTLASS -
+  gate_up_proj  tokens  16384  dense 5.4928 ms  cuSPARSELt 0.03  CUTLASS -
+  down_proj     tokens      1  dense 0.0454 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens      8  dense 0.0457 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens     32  dense 0.0473 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens    128  dense 0.0550 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens    512  dense 0.0815 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens   2048  dense 0.3029 ms  cuSPARSELt 0.00  CUTLASS -
+  down_proj     tokens   8192  dense 1.2436 ms  cuSPARSELt 0.01  CUTLASS -
+  down_proj     tokens  16384  dense 2.7246 ms  cuSPARSELt 0.01  CUTLASS -
+
+=== listings
+-- quant_basics.py
+weights only (activations kept in FP32)
+  INT8 per-tensor        0.0400
+  INT8 per-channel       0.0086
+  FP8 per-channel        0.0265
+  INT4 per-channel       0.1561
+  INT4 group 128         0.1166
+  INT4 group 128 asym    0.0998
+weights INT8 per-channel, plus activations
+  INT8 per-tensor        0.1900
+  INT8 per-token         0.0862
+  FP8 per-token          0.0229
+
+-- smoothquant_demo.py
+activation range: outlier channels 202.4, others 4.9
+W8A8 no smoothing  per-tensor A 0.1900   per-token A 0.0862
+W8A8 alpha = 0.5   per-tensor A 0.0330   per-token A 0.0188
+W8A8 alpha = 0.8   per-tensor A 0.0441   per-token A 0.0431
+
+-- prune24.py
+magnitude unstructured 50% output error 0.2649
+magnitude 2:4              output error 0.3582
+Wanda     unstructured 50% output error 0.1101
+Wanda     2:4              output error 0.1502
+
+-- torch
+2.14.1+cu130
+
+=== quality llama  (reference noise floor: {'kl_mean': 0.0, 'kl_p50': 0.0, 'kl_p99': 0.0, 'kl_max': 0.0, 'top1_agreement': 1.0, 'tokens': 25527, 'method': 'prompt_logprob_token_ids'})
+  variant               KL mean   KL p99   top-1   same answer  lm-eval
+  bf16                   0.0000    0.000   1.000       0.970  gsm8k_cot_llama=0.8499 ifeval=0.7449 arc_challenge_llama=0.8309 arc_challenge=0.5384 wikitext=9.01
+  fp8_dynamic            0.0062    0.056   0.976       0.070  gsm8k_cot_llama=0.8461 ifeval=0.7579 arc_challenge_llama=0.8258 arc_challenge=0.5435 wikitext=9.07
+  fp8_online             0.0060    0.053   0.976       0.070  gsm8k_cot_llama=0.8438 ifeval=0.7394 arc_challenge_llama=0.8318 arc_challenge=0.5324 wikitext=9.071
+  w8a8_int8              0.0102    0.093   0.967       0.035  gsm8k_cot_llama=0.8469 ifeval=0.7505 arc_challenge_llama=0.8369 arc_challenge=0.535 wikitext=9.121
+  w4a16_gptq           ERROR UserCodeException(SerializationError("Failed to serialize exception 1 validation error for VllmConfig\n  Value error, GPTQ group activation ordering (desc_act=True) is no longer supported. Use a check
+  kv_fp8                 0.0067    0.059   0.975       0.070  gsm8k_cot_llama=0.8461 ifeval=0.756 arc_challenge_llama=0.8309 arc_challenge=0.5307 wikitext=9.078
+  fp8_dynamic_kv_cal     0.0125    0.111   0.966       0.020  gsm8k_cot_llama=0.8355 ifeval=0.7431 arc_challenge_llama=0.8292 arc_challenge=0.5299 wikitext=9.14
+  w4a16_gptq_rag         0.0287    0.261   0.947       0.020  gsm8k_cot_llama=0.8264 ifeval=0.7061 arc_challenge_llama=0.818 arc_challenge=0.5256 wikitext=9.548
+  w4a16_gptq_ultrachat   0.0525    0.687   0.934       0.015  gsm8k_cot_llama=0.8256 ifeval=0.7209 arc_challenge_llama=0.8292 arc_challenge=0.5085 wikitext=9.603
+  w4a16_gptq_wikitext    0.0354    0.321   0.940       0.010  gsm8k_cot_llama=0.8112 ifeval=0.7616 arc_challenge_llama=0.8249 arc_challenge=0.5162 wikitext=9.427
+  w4a16_awq_rag          0.0405    0.352   0.936       0.015  gsm8k_cot_llama=0.8264 ifeval=0.7061 arc_challenge_llama=0.8283 arc_challenge=0.5205 wikitext=9.549
+  sparse24_sparsegpt     0.4083    3.050   0.803       0.000  gsm8k_cot_llama=0.09932 ifeval=0.2514 arc_challenge_llama=0.5047 arc_challenge=0.3737 wikitext=25.29
+
+=== quality gemma  (reference noise floor: {'kl_mean': 1.1307588621778321e-06, 'kl_p50': 2.6699547167602616e-08, 'kl_p99': 1.921816862730269e-05, 'kl_max': 9.761517834040778e-05, 'top1_agreement': 1.0, 'tokens': 5856, 'method': 'prompt_logprob_token_ids'})
+  variant               KL mean   KL p99   top-1   same answer  lm-eval
+  fp16                   0.0000    0.000   1.000       1.000  ifeval=0.2366 arc_challenge=0.4019 wikitext=28.53
+  w4a16_gptq_rag         0.0129    0.219   0.976       0.510  ifeval=0.2421 arc_challenge=0.3942 wikitext=29.34
+  fp8_dynamic            0.0029    0.047   0.990       0.760  ifeval=0.2255 arc_challenge=0.401 wikitext=28.78
+  w8a8_int8              0.0033    0.057   0.987       0.720  ifeval=0.2421 arc_challenge=0.3976 wikitext=28.55
+  w4a16_gptq_wikitext    0.0199    0.315   0.968       0.390  ifeval=0.2421 arc_challenge=0.3959 wikitext=29.22
+  w4a16_awq_rag          0.0168    0.259   0.975       0.515  ifeval=0.2255 arc_challenge=0.3874 wikitext=28.9
+  kv_fp8               ERROR UserCodeException(RuntimeError('Engine core initialization failed. See root cause above. Failed core proc(s): {}'))
+  sparse24_magnitude     3.1205   15.131   0.548       0.000  ifeval=0.09797 arc_challenge=0.2142 wikitext=1275
+  sparse24_wanda        13.7894   53.113   0.398       0.000  ifeval=0.1146 arc_challenge=0.1971 wikitext=1.682e+11
+  sparse24_sparsegpt     3.6284   44.536   0.627       0.000  ifeval=0.122 arc_challenge=0.2193 wikitext=6.621e+05
+
+=== A100-80GB_llama
+  bf16                 weights 15.00 GiB  KV 460640 tok  TTFT p50 53 ms  TPOT p50 10.85 ms  sweep pass [4.0, 8.0, 12.0]  capacity 12 req/s
+      knee  12.0: within [100.0, 100.0, 100.0]  out tok/s [1461, 1485, 1489]
+      knee    16: within [35.2, 42.9, 29.4]  out tok/s [1948, 1892, 1954]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+      Using FlashAttention version 2
+  w8a8_int8            weights 8.52 GiB  KV 513456 tok  TTFT p50 39 ms  TPOT p50 7.66 ms  sweep pass [4.0, 8.0, 12.0, 16.0, 20.0]  capacity 20 req/s
+      knee  20.0: within [100.0, 100.0, 100.0]  out tok/s [2514, 2411, 2581]
+      knee    24: within [14.2, 20.8, 16.7]  out tok/s [2772, 2722, 2730]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+  kv_fp8               weights 15.00 GiB  KV 915632 tok  TTFT p50 61 ms  TPOT p50 11.01 ms  sweep pass [4.0, 8.0, 12.0, 16.0]  capacity 0 req/s
+      knee  16.0: within [100.0, 100.0, 79.0]  out tok/s [1949, 1924, 2008]
+      knee    20: within [13.3, 25.5, 7.7]  out tok/s [2395, 2344, 2403]
+      Using max model len 2048
+      Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may
+      Using V2 Model Runner
+      Using FLASHINFER attention backend out of potential backends: ['FLASHINFER', 'TRITON_ATTN'].
+  fp8_dynamic          weights 8.52 GiB  KV 513664 tok  TTFT p50 60 ms  TPOT p50 6.83 ms  sweep pass [4.0, 8.0, 12.0]  capacity 12 req/s
+      knee  12.0: within [100.0, 100.0, 100.0]  out tok/s [1486, 1512, 1518]
+      knee    16: within [21.2, 31.5, 17.5]  out tok/s [1909, 1864, 1893]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+      Using FlashAttention version 2
+  prefill bf16                 KV 460640 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 300/477 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 292/737 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.58/s  TTFT p50/p99 292/1006 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.32/s  TTFT p50/p99 776/1690 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 3.85/s  TTFT p50/p99 8684/15074 ms  TPOT p50 -  within 6.7%
+  prefill w8a8_int8            KV 513456 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 208/317 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 200/491 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.58/s  TTFT p50/p99 201/568 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.43/s  TTFT p50/p99 264/735 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 5.64/s  TTFT p50/p99 904/1971 ms  TPOT p50 -  within 98.9%
+      rate   8.0: done 5.77/s  TTFT p50/p99 4423/9634 ms  TPOT p50 -  within 20.4%
+      rate  12.0: done 5.78/s  TTFT p50/p99 15670/31507 ms  TPOT p50 -  within 5.0%
+  prefill fp8_dynamic          KV 513664 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 338/557 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 367/873 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.58/s  TTFT p50/p99 343/1313 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.15/s  TTFT p50/p99 1746/3428 ms  TPOT p50 -  within 63.3%
+      rate   6.0: done 3.19/s  TTFT p50/p99 13420/24614 ms  TPOT p50 -  within 3.9%
+  long bf16                 KV 467120 tok
+      rate   0.5: done 0.37/s  TTFT p50/p99 313/513 ms  TPOT p50 14.6  within 100.0%  KV 11%  preempt 0
+      rate   1.0: done 0.79/s  TTFT p50/p99 438/892 ms  TPOT p50 31.4  within 100.0%  KV 41%  preempt 0
+      rate   1.5: done 0.89/s  TTFT p50/p99 522/1158 ms  TPOT p50 42.4  within 100.0%  KV 62%  preempt 0
+      rate   2.0: done 0.97/s  TTFT p50/p99 842/17754 ms  TPOT p50 69.7  within 0.0%  KV 100%  preempt 6
+      rate   3.0: done 1.02/s  TTFT p50/p99 5482/70233 ms  TPOT p50 87.2  within 0.0%  KV 100%  preempt 18
+  long kv_fp8               KV 915664 tok
+      rate   0.5: done 0.37/s  TTFT p50/p99 339/563 ms  TPOT p50 13.6  within 100.0%  KV 5%  preempt 0
+      rate   1.0: done 0.84/s  TTFT p50/p99 394/871 ms  TPOT p50 25.8  within 100.0%  KV 17%  preempt 0
+      rate   1.5: done 0.98/s  TTFT p50/p99 403/1172 ms  TPOT p50 28.8  within 100.0%  KV 23%  preempt 0
+      rate   2.0: done 1.24/s  TTFT p50/p99 521/1513 ms  TPOT p50 42.4  within 93.3%  KV 42%  preempt 0
+      rate   3.0: done 1.55/s  TTFT p50/p99 1684/4287 ms  TPOT p50 78.6  within 0.0%  KV 96%  preempt 0
+  long fp8_dynamic_kv_cal   KV 1021680 tok
+      rate   0.5: done 0.39/s  TTFT p50/p99 351/596 ms  TPOT p50 9.2  within 100.0%  KV 4%  preempt 0
+      rate   1.0: done 0.91/s  TTFT p50/p99 397/935 ms  TPOT p50 17.4  within 100.0%  KV 13%  preempt 0
+      rate   1.5: done 1.04/s  TTFT p50/p99 416/1290 ms  TPOT p50 23.0  within 100.0%  KV 16%  preempt 0
+      rate   2.0: done 1.32/s  TTFT p50/p99 570/1676 ms  TPOT p50 36.4  within 99.2%  KV 35%  preempt 0
+      rate   3.0: done 1.55/s  TTFT p50/p99 2914/6357 ms  TPOT p50 79.1  within 0.0%  KV 87%  preempt 0
+
+=== H100_gemma
+  fp16                 weights 4.67 GiB  KV 3801616 tok  TTFT p50 14 ms  TPOT p50 2.36 ms  sweep pass [32.0, 64.0, 96.0, 128.0]  capacity 128 req/s
+      knee 128.0: within [100.0, 100.0, 98.6]  out tok/s [16193, 16277, 16818]
+      knee   160: within [9.5, 17.6, 13.0]  out tok/s [17174, 17367, 17058]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+      Using FlashAttention version 3
+  fp8_dynamic          weights 2.83 GiB  KV 3911408 tok  TTFT p50 16 ms  TPOT p50 1.97 ms  sweep pass [32.0, 64.0, 96.0, 128.0]  capacity 128 req/s
+      knee 128.0: within [100.0, 99.6, 99.9]  out tok/s [16169, 16271, 16753]
+      knee   160: within [8.9, 10.9, 9.6]  out tok/s [14000, 15712, 14516]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassFP8ScaledMMLinearKernel for CompressedTensorsW8A8Fp8
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+  w4a16_gptq_rag       weights 1.94 GiB  KV 3963520 tok  TTFT p50 15 ms  TPOT p50 1.99 ms  sweep pass [32.0, 64.0, 96.0, 128.0]  capacity 0 req/s
+      knee 128.0: within [99.0, 94.2, 46.4]  out tok/s [16193, 16186, 15991]
+      knee   160: within [15.8, 9.1, 8.9]  out tok/s [15037, 15121, 15219]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MacheteLinearKernel for mixed-precision linear
+      Using MacheteLinearKernel for CompressedTensorsWNA16
+
+=== H100_llama
+  bf16                 weights 15.00 GiB  KV 451040 tok  TTFT p50 24 ms  TPOT p50 6.44 ms  sweep pass [16.0, 32.0, 48.0]  capacity 48 req/s
+      knee  48.0: within [100.0, 100.0, 100.0]  out tok/s [5960, 5788, 6123]
+      knee    64: within [3.2, 3.3, 1.9]  out tok/s [6746, 6761, 6741]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+      Using FlashAttention version 3
+  fp8_dynamic          weights 8.52 GiB  KV 504272 tok  TTFT p50 22 ms  TPOT p50 4.23 ms  sweep pass [16.0, 32.0, 48.0, 64.0]  capacity 64 req/s
+      knee  64.0: within [100.0, 100.0, 100.0]  out tok/s [7945, 7793, 8068]
+      knee    80: within [8.6, 4.7, 3.9]  out tok/s [8897, 8520, 8814]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassFP8ScaledMMLinearKernel for CompressedTensorsW8A8Fp8
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+  fp8_online           weights 8.51 GiB  KV 504304 tok  TTFT p50 23 ms  TPOT p50 4.22 ms  sweep pass [16.0, 32.0, 48.0, 64.0]  capacity 64 req/s
+      knee  64.0: within [100.0, 100.0, 100.0]  out tok/s [7936, 7781, 8052]
+      knee    80: within [8.9, 4.7, 3.5]  out tok/s [8710, 8719, 8633]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassFP8ScaledMMLinearKernel for Fp8PerTensorOnlineLinearMethod
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+  w8a8_int8            weights 8.52 GiB  KV 504320 tok  TTFT p50 25 ms  TPOT p50 4.39 ms  sweep pass [16.0, 32.0, 48.0, 64.0]  capacity 64 req/s
+      knee  64.0: within [100.0, 100.0, 100.0]  out tok/s [7931, 7765, 8048]
+      knee    80: within [9.2, 4.3, 4.1]  out tok/s [8846, 8691, 8529]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
+  kv_fp8               weights 15.00 GiB  KV 902128 tok  TTFT p50 25 ms  TPOT p50 6.53 ms  sweep pass [16.0, 32.0, 48.0]  capacity 48 req/s
+      knee  48.0: within [100.0, 100.0, 100.0]  out tok/s [5979, 5798, 6139]
+      knee    64: within [4.2, 3.5, 2.1]  out tok/s [6680, 6631, 6812]
+      Using max model len 2048
+      Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may
+      Using V2 Model Runner
+      Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN'].
+  prefill bf16                 KV 451056 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 106/158 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 107/263 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.59/s  TTFT p50/p99 108/280 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.46/s  TTFT p50/p99 109/291 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 5.67/s  TTFT p50/p99 161/604 ms  TPOT p50 -  within 100.0%
+      rate   8.0: done 7.34/s  TTFT p50/p99 212/1291 ms  TPOT p50 -  within 100.0%
+      rate  12.0: done 10.11/s  TTFT p50/p99 2513/5110 ms  TPOT p50 -  within 35.8%
+      rate  16.0: done 10.16/s  TTFT p50/p99 9281/18650 ms  TPOT p50 -  within 7.3%
+  prefill fp8_dynamic          KV 504272 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 87/120 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 88/216 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.59/s  TTFT p50/p99 85/194 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.46/s  TTFT p50/p99 87/203 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 5.67/s  TTFT p50/p99 91/286 ms  TPOT p50 -  within 100.0%
+      rate   8.0: done 7.51/s  TTFT p50/p99 107/519 ms  TPOT p50 -  within 100.0%
+      rate  12.0: done 11.72/s  TTFT p50/p99 220/845 ms  TPOT p50 -  within 100.0%
+      rate  16.0: done 14.20/s  TTFT p50/p99 2806/5351 ms  TPOT p50 -  within 26.0%
+  prefill w8a8_int8            KV 504320 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 87/119 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 88/180 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.59/s  TTFT p50/p99 89/196 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.46/s  TTFT p50/p99 89/191 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 5.67/s  TTFT p50/p99 93/271 ms  TPOT p50 -  within 100.0%
+      rate   8.0: done 7.51/s  TTFT p50/p99 107/496 ms  TPOT p50 -  within 100.0%
+      rate  12.0: done 11.73/s  TTFT p50/p99 212/777 ms  TPOT p50 -  within 100.0%
+      rate  16.0: done 14.92/s  TTFT p50/p99 2033/3778 ms  TPOT p50 -  within 46.9%
+  long bf16                 KV 452928 tok
+      rate   1.0: done 0.80/s  TTFT p50/p99 122/218 ms  TPOT p50 9.3  within 100.0%  KV 13%  preempt 0
+      rate   2.0: done 1.73/s  TTFT p50/p99 139/307 ms  TPOT p50 15.8  within 100.0%  KV 41%  preempt 0
+      rate   3.0: done 2.18/s  TTFT p50/p99 170/1526 ms  TPOT p50 25.4  within 99.4%  KV 100%  preempt 4
+      rate   4.0: done 2.39/s  TTFT p50/p99 312/17823 ms  TPOT p50 32.5  within 56.7%  KV 100%  preempt 28
+      rate   6.0: done 2.41/s  TTFT p50/p99 20081/42662 ms  TPOT p50 36.4  within 34.0%  KV 100%  preempt 56
+  long kv_fp8               KV 902160 tok
+      rate   1.0: done 0.80/s  TTFT p50/p99 121/220 ms  TPOT p50 8.7  within 100.0%  KV 6%  preempt 0
+      rate   2.0: done 1.78/s  TTFT p50/p99 131/300 ms  TPOT p50 12.2  within 100.0%  KV 17%  preempt 0
+      rate   3.0: done 2.41/s  TTFT p50/p99 150/466 ms  TPOT p50 16.8  within 100.0%  KV 41%  preempt 0
+      rate   4.0: done 2.99/s  TTFT p50/p99 179/403 ms  TPOT p50 27.0  within 100.0%  KV 73%  preempt 0
+      rate   6.0: done 3.34/s  TTFT p50/p99 396/19691 ms  TPOT p50 44.6  within 51.3%  KV 100%  preempt 26
+  long fp8_dynamic_kv_cal   KV 1008560 tok
+      rate   1.0: done 0.83/s  TTFT p50/p99 95/163 ms  TPOT p50 5.8  within 100.0%  KV 4%  preempt 0
+      rate   2.0: done 1.85/s  TTFT p50/p99 106/226 ms  TPOT p50 8.7  within 100.0%  KV 12%  preempt 0
+      rate   3.0: done 2.55/s  TTFT p50/p99 115/343 ms  TPOT p50 10.6  within 100.0%  KV 23%  preempt 0
+      rate   4.0: done 3.24/s  TTFT p50/p99 132/267 ms  TPOT p50 16.5  within 100.0%  KV 44%  preempt 0
+      rate   6.0: done 3.96/s  TTFT p50/p99 227/1236 ms  TPOT p50 35.4  within 100.0%  KV 100%  preempt 9
+
+=== T4_gemma
+  fp16                 weights 4.67 GiB  KV 456512 tok  TTFT p50 178 ms  TPOT p50 22.02 ms  sweep pass [0.5, 1.0, 2.0, 3.0]  capacity 0 req/s
+      knee   3.0: within [70.0, 86.7, 47.8]  out tok/s [360, 338, 384]
+      knee     4: within [15.8, 27.5, 35.0]  out tok/s [467, 422, 436]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+      Using LBNHC KV cache layout.
+  w4a16_gptq_rag       weights 1.94 GiB  KV 617856 tok  TTFT p50 223 ms  TPOT p50 10.24 ms  sweep pass [0.5, 1.0, 2.0, 3.0]  capacity 4 req/s
+      knee   3.0: within [95.6, 98.9, 100.0]  out tok/s [381, 359, 409]
+      knee     4: within [92.5, 92.5, 99.2]  out tok/s [499, 448, 464]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MarlinLinearKernel for mixed-precision linear
+      Using MarlinLinearKernel for CompressedTensorsWNA16
+  w8a8_int8            weights 2.83 GiB  KV 563024 tok  TTFT p50 164 ms  TPOT p50 19.68 ms  sweep pass [0.5, 1.0, 2.0, 3.0]  capacity 3 req/s
+      knee   3.0: within [94.4, 98.9, 100.0]  out tok/s [367, 345, 392]
+      knee     4: within [82.5, 95.0, 96.7]  out tok/s [480, 433, 448]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+      Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+  fp8_dynamic          weights 2.83 GiB  KV 519664 tok  TTFT p50 187 ms  TPOT p50 13.26 ms  sweep pass [0.5, 1.0, 2.0, 3.0, 4.0]  capacity 0 req/s
+      knee   4.0: within [83.3, 95.0, 99.2]  out tok/s [517, 474, 518]
+      knee     6: within [0, 7.8, 8.9]  out tok/s [689, 646, 657]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+      Using LBNHC KV cache layout.
+
+=== T4_llama
+  w8a8_int8            weights 8.52 GiB  KV 26400 tok  TTFT p50 372 ms  TPOT p50 50.95 ms  sweep pass []  capacity 0 req/s
+      knee  0.25: within [31.7, 40.0, 13.3]  out tok/s [35, 30, 36]
+      knee   0.5: within [0, 6.7, 3.3]  out tok/s [71, 61, 59]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8
+      Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+  fp8_online           weights 8.49 GiB  KV 26656 tok  TTFT p50 509 ms  TPOT p50 39.62 ms  sweep pass []  capacity 0 req/s
+      knee  0.25: within [53.3, 43.3, 60.0]  out tok/s [35, 30, 37]
+      knee   0.5: within [16.7, 21.7, 31.7]  out tok/s [73, 62, 59]
+      Using max model len 2048
+      Using V2 Model Runner
+      Selected MarlinFP8ScaledMMLinearKernel for Fp8PerTensorOnlineLinearMethod
+      Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].

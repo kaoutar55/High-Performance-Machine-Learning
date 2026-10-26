@@ -1,0 +1,960 @@
+{
+  "perf": {
+    "w8a8_int8": {
+      "startup": {
+        "weights_gib": 8.52,
+        "load_s": 86.853513,
+        "kv_cache_gib": 3.22,
+        "kv_cache_tokens": 26400,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 05:25:50 [api_utils.py:347]   \u2588\u2584\u2588\u2580 \u2588     \u2588     \u2588     \u2588  model   RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8",
+          ".py:286] non-default args: {'model_tag': 'RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8', 'model': 'RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8', 'dtype': 'float16', 'max_model_len': 2048, 'served_model_name': ['m'], 'enable_prefix_caching': False}",
+          "(APIServer pid=7) INFO 10-26 05:25:51 [model.py:2152] Using max model len 2048",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=71) INFO 10-26 05:26:10 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=71) INFO 10-26 05:26:11 [__init__.py:846] Selected CutlassInt8ScaledMMLinearKernel for CompressedTensorsW8A8Int8",
+          "(EngineCore pid=71) INFO 10-26 05:26:13 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "(EngineCore pid=71) INFO 10-26 05:27:33 [weight_utils.py:532] Time spent downloading weights for RedHatAI/Meta-Llama-3.1-8B-Instruct-quantized.w8a8: 79.690341 seconds",
+          "(EngineCore pid=71) INFO 10-26 05:27:37 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=71) INFO 10-26 05:27:50 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/98e531d178/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=71) INFO 10-26 05:28:26 [gpu_worker.py:759] Available KV cache memory: 3.22 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.8880 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9520. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=71) INFO 10-26 05:28:26 [kv_cache_utils.py:2327] GPU KV cache size: 26,400 tokens, Maximum concurrency for 2,048 tokens per request: 12.89x",
+          "24 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=3050269840` (2.84 GiB) to fit into requested memory, or `--kv-cache-memory=4191595008` (3.9 GiB) to fully utilize gpu memory. Current kv cache memory in use is 3.22 GiB.",
+          "(EngineCore pid=71) INFO 10-26 05:29:02 [core.py:395] init engine (profile, create kv cache, warmup model) took 84.30 s (compilation: 28.83 s)"
+        ]
+      },
+      "single": {
+        "rate": 0.25,
+        "completed": 30,
+        "duration_s": 146.743066476,
+        "request_throughput": 0.20443896069806158,
+        "output_token_throughput": 26.168186969351883,
+        "goodput_req_s": 0.08859021630249335,
+        "slo_attainment": 0.43333333333333335,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 362.2954485333291,
+          "p50": 371.9960924999839,
+          "p90": 399.0592749999962,
+          "p95": 402.90336204999164,
+          "p99": 413.26210385996944
+        },
+        "tpot_ms": {
+          "mean": 50.5851440152231,
+          "p50": 50.954590625984224,
+          "p90": 55.21573249527569,
+          "p95": 56.018482770472495,
+          "p99": 56.85914985582702
+        },
+        "itl_ms": {
+          "mean": 50.5851440152231,
+          "p50": 48.18865650000248,
+          "p90": 51.32021329997656,
+          "p95": 52.49501140004327,
+          "p99": 58.80382693997715
+        },
+        "e2e_ms": {
+          "mean": 6786.6087384666625,
+          "p50": 6818.587200499991,
+          "p90": 7408.846806399993,
+          "p95": 7455.979071000022,
+          "p99": 7586.329401580022
+        },
+        "send_lag_ms": {
+          "p50": 1.1751310710081952,
+          "max": 2.258056496017957
+        },
+        "sent_rate": 0.2063480187742303
+      },
+      "sweep": [
+        {
+          "rate": 0.25,
+          "completed": 60,
+          "duration_s": 274.22103239500007,
+          "request_throughput": 0.2188015976599977,
+          "output_token_throughput": 28.006604500479707,
+          "goodput_req_s": 0.08752063906399908,
+          "slo_attainment": 0.4,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 370.10250253332896,
+            "p50": 366.0122819999856,
+            "p90": 408.90629869994655,
+            "p95": 432.6097486999795,
+            "p99": 615.5234362299461
+          },
+          "tpot_ms": {
+            "mean": 51.05726419160106,
+            "p50": 51.35225148818894,
+            "p90": 55.41157253464577,
+            "p95": 56.8072982551185,
+            "p99": 57.223707637401624
+          },
+          "itl_ms": {
+            "mean": 51.05726419160106,
+            "p50": 48.55366499998581,
+            "p90": 52.14648430004445,
+            "p95": 52.608708900021384,
+            "p99": 53.54552673997319
+          },
+          "e2e_ms": {
+            "mean": 6854.375054866663,
+            "p50": 6868.340094499956,
+            "p90": 7432.655847100012,
+            "p95": 7483.665351249999,
+            "p99": 7654.777021009997
+          },
+          "send_lag_ms": {
+            "p50": 1.1439580086971546,
+            "max": 2.309816685743371
+          },
+          "sent_rate": 0.22023892101261983
+        }
+      ],
+      "knee": {
+        "rates": [
+          0.25,
+          0.5
+        ],
+        "repeats": [
+          {
+            "order": [
+              0.25,
+              0.5
+            ],
+            "runs": {
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 222.14957230999994,
+                "request_throughput": 0.2700882985103057,
+                "output_token_throughput": 34.57130220931913,
+                "goodput_req_s": 0.08552796119493013,
+                "slo_attainment": 0.31666666666666665,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 370.9094860833223,
+                  "p50": 366.4030495000361,
+                  "p90": 416.131648600026,
+                  "p95": 443.1673576499971,
+                  "p99": 627.0621101398365
+                },
+                "tpot_ms": {
+                  "mean": 53.99990711246721,
+                  "p50": 53.153474645669334,
+                  "p90": 61.47008586456679,
+                  "p95": 66.32525697086659,
+                  "p99": 67.79941284685017
+                },
+                "itl_ms": {
+                  "mean": 53.99990711246721,
+                  "p50": 49.648995000097784,
+                  "p90": 56.56199250011018,
+                  "p95": 58.533063750167,
+                  "p99": 272.6753171799374
+                },
+                "e2e_ms": {
+                  "mean": 7228.897689366659,
+                  "p50": 7126.682942499997,
+                  "p90": 8201.414967799838,
+                  "p95": 8703.57343464982,
+                  "p99": 9148.921975029893
+                },
+                "send_lag_ms": {
+                  "p50": 1.0630390797672362,
+                  "max": 2.620484577292359
+                },
+                "sent_rate": 0.27391261385999155,
+                "position_in_repeat": 0
+              },
+              "0.5": {
+                "rate": 0.5,
+                "completed": 59,
+                "duration_s": 106.33649275800008,
+                "request_throughput": 0.5548424484365102,
+                "output_token_throughput": 71.0198333998733,
+                "goodput_req_s": 0.0,
+                "slo_attainment": 0.0,
+                "failed": 1,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 406.6326056779378,
+                  "p50": 387.3962149998533,
+                  "p90": 516.3799668001047,
+                  "p95": 600.7315638000136,
+                  "p99": 642.150902319877
+                },
+                "tpot_ms": {
+                  "mean": 64.41469228880297,
+                  "p50": 63.37777806299176,
+                  "p90": 76.19943967244123,
+                  "p95": 79.76981913700742,
+                  "p99": 82.38050793417284
+                },
+                "itl_ms": {
+                  "mean": 64.41469228880297,
+                  "p50": 55.166040999893085,
+                  "p90": 63.88831039998877,
+                  "p95": 66.6522049998548,
+                  "p99": 321.2401044399667
+                },
+                "e2e_ms": {
+                  "mean": 8587.298526355915,
+                  "p50": 8434.954315999903,
+                  "p90": 10086.954881200109,
+                  "p95": 10561.502070799885,
+                  "p99": 10854.438574439997
+                },
+                "send_lag_ms": {
+                  "p50": 1.178755640808049,
+                  "max": 2.3439305049297587
+                },
+                "sent_rate": 0.5926357681313716,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              0.5,
+              0.25
+            ],
+            "runs": {
+              "0.5": {
+                "rate": 0.5,
+                "completed": 60,
+                "duration_s": 124.97200035299988,
+                "request_throughput": 0.4801075427337491,
+                "output_token_throughput": 61.45376546991989,
+                "goodput_req_s": 0.03200716951558327,
+                "slo_attainment": 0.06666666666666667,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 430.07251668335203,
+                  "p50": 386.3102564998826,
+                  "p90": 610.5464056000073,
+                  "p95": 695.7832126000649,
+                  "p99": 885.4924169400805
+                },
+                "tpot_ms": {
+                  "mean": 64.59665818412068,
+                  "p50": 63.763437830708995,
+                  "p90": 79.356163970867,
+                  "p95": 83.28318867086469,
+                  "p99": 86.42107234433105
+                },
+                "itl_ms": {
+                  "mean": 64.59665818412068,
+                  "p50": 56.338240499940184,
+                  "p90": 64.40294479991735,
+                  "p95": 71.23316839997642,
+                  "p99": 320.2070867801126
+                },
+                "e2e_ms": {
+                  "mean": 8633.848106066678,
+                  "p50": 8633.548092999945,
+                  "p90": 10697.199284199996,
+                  "p95": 10932.157951349925,
+                  "p99": 11362.962441159998
+                },
+                "send_lag_ms": {
+                  "p50": 1.1857711806158022,
+                  "max": 2.3158828496252504
+                },
+                "sent_rate": 0.4994685547614874,
+                "position_in_repeat": 0
+              },
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 256.10873623700013,
+                "request_throughput": 0.23427549126819586,
+                "output_token_throughput": 29.98726288232907,
+                "goodput_req_s": 0.09371019650727834,
+                "slo_attainment": 0.4,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 377.01960823334656,
+                  "p50": 371.1122825001212,
+                  "p90": 421.38967809983114,
+                  "p95": 455.42725099986643,
+                  "p99": 609.4358017900094
+                },
+                "tpot_ms": {
+                  "mean": 52.832472701180954,
+                  "p50": 51.151413476378096,
+                  "p90": 60.296889125196344,
+                  "p95": 62.22212740039387,
+                  "p99": 63.119950964644566
+                },
+                "itl_ms": {
+                  "mean": 52.83247270118096,
+                  "p50": 48.78355749997354,
+                  "p90": 54.888811799992254,
+                  "p95": 56.58532934987761,
+                  "p99": 271.2141428001087
+                },
+                "e2e_ms": {
+                  "mean": 7086.7436412833285,
+                  "p50": 6884.133127500036,
+                  "p90": 8103.23350800013,
+                  "p95": 8232.066088349837,
+                  "p99": 8361.198296149942
+                },
+                "send_lag_ms": {
+                  "p50": 1.2177975910532268,
+                  "max": 2.6473992193842832
+                },
+                "sent_rate": 0.23644488644925357,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              0.25,
+              0.5
+            ],
+            "runs": {
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 211.24111214700042,
+                "request_throughput": 0.2840356187778762,
+                "output_token_throughput": 36.35655920356815,
+                "goodput_req_s": 0.03787141583705016,
+                "slo_attainment": 0.13333333333333333,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 376.0450920999877,
+                  "p50": 367.8268064998065,
+                  "p90": 407.38628859994606,
+                  "p95": 457.47302220020157,
+                  "p99": 588.4325445197873
+                },
+                "tpot_ms": {
+                  "mean": 53.07371857335931,
+                  "p50": 53.18795188582509,
+                  "p90": 57.38973815905661,
+                  "p95": 58.52801792637555,
+                  "p99": 59.21668096873851
+                },
+                "itl_ms": {
+                  "mean": 53.073718573359315,
+                  "p50": 50.26619650016073,
+                  "p90": 52.992193899990525,
+                  "p95": 54.63191830006053,
+                  "p99": 272.99672704984033
+                },
+                "e2e_ms": {
+                  "mean": 7116.40735091662,
+                  "p50": 7122.737076500016,
+                  "p90": 7642.358662200013,
+                  "p95": 7781.20018395,
+                  "p99": 7893.385931239868
+                },
+                "send_lag_ms": {
+                  "p50": 0.9514150818574763,
+                  "max": 2.568796313383359
+                },
+                "sent_rate": 0.288147020305297,
+                "position_in_repeat": 0
+              },
+              "0.5": {
+                "rate": 0.5,
+                "completed": 60,
+                "duration_s": 131.195925085,
+                "request_throughput": 0.4573312773329419,
+                "output_token_throughput": 58.53840349861656,
+                "goodput_req_s": 0.015244375911098063,
+                "slo_attainment": 0.03333333333333333,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9994791666666667,
+                "ttft_ms": {
+                  "mean": 404.2822222666473,
+                  "p50": 386.86079750004865,
+                  "p90": 543.016678299864,
+                  "p95": 584.530307100249,
+                  "p99": 607.8016563100799
+                },
+                "tpot_ms": {
+                  "mean": 58.483869719816184,
+                  "p50": 58.82211525984237,
+                  "p90": 62.99510671732226,
+                  "p95": 64.32573403267502,
+                  "p99": 66.56891742606385
+                },
+                "itl_ms": {
+                  "mean": 58.51458603794634,
+                  "p50": 53.14257499981068,
+                  "p90": 56.63822350015835,
+                  "p95": 57.34229124993817,
+                  "p99": 306.22301809987675
+                },
+                "e2e_ms": {
+                  "mean": 7831.733676683302,
+                  "p50": 7885.071281999899,
+                  "p90": 8383.292776500048,
+                  "p95": 8676.52339304975,
+                  "p99": 8854.243360989889
+                },
+                "send_lag_ms": {
+                  "p50": 1.010362450031721,
+                  "max": 2.217465466510582
+                },
+                "sent_rate": 0.47416760479653,
+                "position_in_repeat": 1
+              }
+            }
+          }
+        ]
+      },
+      "env": {
+        "gpu": "Tesla T4, 15360 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 2538.2
+    },
+    "fp8_online": {
+      "startup": {
+        "weights_gib": 8.49,
+        "load_s": 22.295233,
+        "kv_cache_gib": 3.25,
+        "kv_cache_tokens": 26656,
+        "lines": [
+          "ls.py:286] non-default args: {'model_tag': 'meta-llama/Llama-3.1-8B-Instruct', 'model': 'meta-llama/Llama-3.1-8B-Instruct', 'dtype': 'float16', 'max_model_len': 2048, 'quantization': 'fp8_per_tensor', 'served_model_name': ['m'], 'enable_prefix_caching': False}",
+          "(APIServer pid=7) INFO 10-26 05:25:50 [model.py:2152] Using max model len 2048",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=71) INFO 10-26 05:26:08 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=71) INFO 10-26 05:26:09 [__init__.py:797] Selected MarlinFP8ScaledMMLinearKernel for Fp8PerTensorOnlineLinearMethod",
+          "(EngineCore pid=71) INFO 10-26 05:26:11 [cuda.py:506] Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "26 05:26:13 [marlin_utils_fp8.py:108] Your GPU does not have native support for FP8 computation but FP8 quantization is being used. Weight-only FP8 compression will be used leveraging the Marlin kernel. This may degrade performance for compute-heavy workloads.",
+          "(EngineCore pid=71) INFO 10-26 05:26:29 [base_loader.py:164] Online quantization as part of model loading took 1.06 seconds",
+          "(EngineCore pid=71) INFO 10-26 05:26:31 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=71) INFO 10-26 05:26:42 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/1883fcac20/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=71) INFO 10-26 05:27:19 [gpu_worker.py:759] Available KV cache memory: 3.25 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.8894 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9506. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=71) INFO 10-26 05:27:19 [kv_cache_utils.py:2327] GPU KV cache size: 26,656 tokens, Maximum concurrency for 2,048 tokens per request: 13.02x",
+          "3 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=3090116752` (2.88 GiB) to fit into requested memory, or `--kv-cache-memory=4231769600` (3.94 GiB) to fully utilize gpu memory. Current kv cache memory in use is 3.25 GiB.",
+          "(EngineCore pid=71) INFO 10-26 05:27:59 [core.py:395] init engine (profile, create kv cache, warmup model) took 87.76 s (compilation: 23.74 s)"
+        ]
+      },
+      "single": {
+        "rate": 0.25,
+        "completed": 30,
+        "duration_s": 145.48455100500001,
+        "request_throughput": 0.20620746184224714,
+        "output_token_throughput": 26.394555115807634,
+        "goodput_req_s": 0.08248298473689886,
+        "slo_attainment": 0.4,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 490.0376245999998,
+          "p50": 508.58119999999474,
+          "p90": 540.2564035999944,
+          "p95": 550.0965399000137,
+          "p99": 556.2416372299928
+        },
+        "tpot_ms": {
+          "mean": 39.21772211889765,
+          "p50": 39.615650610236244,
+          "p90": 44.78591129055125,
+          "p95": 45.43734385157473,
+          "p99": 46.283591787008085
+        },
+        "itl_ms": {
+          "mean": 39.21772211889765,
+          "p50": 36.590441000001306,
+          "p90": 39.2587643999974,
+          "p95": 39.64312630001103,
+          "p99": 41.35620672998754
+        },
+        "e2e_ms": {
+          "mean": 5470.688333700002,
+          "p50": 5511.767307,
+          "p90": 6157.37147980002,
+          "p95": 6264.314104750014,
+          "p99": 6353.697500800034
+        },
+        "send_lag_ms": {
+          "p50": 1.2654736921149379,
+          "max": 2.469187852071286
+        },
+        "sent_rate": 0.2063457872784579
+      },
+      "sweep": [
+        {
+          "rate": 0.25,
+          "completed": 60,
+          "duration_s": 272.812518907,
+          "request_throughput": 0.2199312562355454,
+          "output_token_throughput": 28.151200798149812,
+          "goodput_req_s": 0.12096219092954998,
+          "slo_attainment": 0.55,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 505.0515855166756,
+            "p50": 495.6180565000068,
+            "p90": 550.8517538000092,
+            "p95": 618.8017748499924,
+            "p99": 851.7850191700142
+          },
+          "tpot_ms": {
+            "mean": 39.942717214173236,
+            "p50": 40.39263406692913,
+            "p90": 45.411516683464285,
+            "p95": 46.193771743700864,
+            "p99": 47.46953254173255
+          },
+          "itl_ms": {
+            "mean": 39.942717214173236,
+            "p50": 36.83645149999393,
+            "p90": 39.527353500102436,
+            "p95": 40.61517594998918,
+            "p99": 46.34682096003644
+          },
+          "e2e_ms": {
+            "mean": 5577.776671716676,
+            "p50": 5618.426985500037,
+            "p90": 6267.638315899933,
+            "p95": 6372.770798750065,
+            "p99": 6544.072772820003
+          },
+          "send_lag_ms": {
+            "p50": 1.2060153301547416,
+            "max": 2.6237738737791005
+          },
+          "sent_rate": 0.22024021137559333
+        },
+        {
+          "rate": 0.5,
+          "completed": 60,
+          "duration_s": 117.15701125999999,
+          "request_throughput": 0.5121332420032921,
+          "output_token_throughput": 65.5530549764214,
+          "goodput_req_s": 0.10242664840065843,
+          "slo_attainment": 0.2,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 592.2330128333385,
+            "p50": 511.28030950007997,
+            "p90": 918.60309279989,
+            "p95": 993.2535806499969,
+            "p99": 1282.157708000037
+          },
+          "tpot_ms": {
+            "mean": 54.53946809055124,
+            "p50": 50.25411960629948,
+            "p90": 80.30999071574828,
+            "p95": 83.67443843070836,
+            "p99": 86.29960108228369
+          },
+          "itl_ms": {
+            "mean": 54.53946809055123,
+            "p50": 41.46317950005596,
+            "p90": 57.24505470003578,
+            "p95": 59.23105244995668,
+            "p99": 447.01636445004965
+          },
+          "e2e_ms": {
+            "mean": 7518.745460333345,
+            "p50": 7051.601062499969,
+            "p90": 10792.634670400015,
+            "p95": 11409.807091500039,
+            "p99": 11449.195644779973
+          },
+          "send_lag_ms": {
+            "p50": 1.1870055138416546,
+            "max": 2.8763934308102534
+          },
+          "sent_rate": 0.5279508811158404
+        }
+      ],
+      "knee": {
+        "rates": [
+          0.25,
+          0.5
+        ],
+        "repeats": [
+          {
+            "order": [
+              0.25,
+              0.5
+            ],
+            "runs": {
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 220.73413576800021,
+                "request_throughput": 0.2718202139023129,
+                "output_token_throughput": 34.792987379496054,
+                "goodput_req_s": 0.14497078074790024,
+                "slo_attainment": 0.5333333333333333,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 503.29065640000863,
+                  "p50": 489.65707849993123,
+                  "p90": 542.5455189000331,
+                  "p95": 708.7087310001262,
+                  "p99": 874.7506702299893
+                },
+                "tpot_ms": {
+                  "mean": 43.5751956456691,
+                  "p50": 41.753426614173435,
+                  "p90": 53.905406482677854,
+                  "p95": 59.718367019290525,
+                  "p99": 63.11109965858303
+                },
+                "itl_ms": {
+                  "mean": 43.575195645669105,
+                  "p50": 37.364857500051585,
+                  "p90": 44.791582800007745,
+                  "p95": 46.67935355001873,
+                  "p99": 404.18124386997573
+                },
+                "e2e_ms": {
+                  "mean": 6037.340503399984,
+                  "p50": 5818.882851000012,
+                  "p90": 7344.803219200049,
+                  "p95": 8099.156342650053,
+                  "p99": 8747.554736819986
+                },
+                "send_lag_ms": {
+                  "p50": 1.0778811465286253,
+                  "max": 2.513814327457453
+                },
+                "sent_rate": 0.27391307892703376,
+                "position_in_repeat": 0
+              },
+              "0.5": {
+                "rate": 0.5,
+                "completed": 60,
+                "duration_s": 104.8604554389999,
+                "request_throughput": 0.5721890082282123,
+                "output_token_throughput": 73.24019305321117,
+                "goodput_req_s": 0.09536483470470204,
+                "slo_attainment": 0.16666666666666666,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 541.5452437166664,
+                  "p50": 506.83195099986733,
+                  "p90": 770.7799462000821,
+                  "p95": 858.5538623001639,
+                  "p99": 888.411657080055
+                },
+                "tpot_ms": {
+                  "mean": 55.62971923937009,
+                  "p50": 54.46610593307064,
+                  "p90": 72.16295858346528,
+                  "p95": 73.88123883503971,
+                  "p99": 80.12754328189038
+                },
+                "itl_ms": {
+                  "mean": 55.62971923937009,
+                  "p50": 43.0195785000933,
+                  "p90": 51.3571100998206,
+                  "p95": 52.93968500013762,
+                  "p99": 450.40214227998604
+                },
+                "e2e_ms": {
+                  "mean": 7606.519587116668,
+                  "p50": 7414.625237999871,
+                  "p90": 9607.209693599998,
+                  "p95": 9890.213886899879,
+                  "p99": 10747.176841630064
+                },
+                "send_lag_ms": {
+                  "p50": 1.125977202079298,
+                  "max": 2.5231257668565377
+                },
+                "sent_rate": 0.5926347127018936,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              0.5,
+              0.25
+            ],
+            "runs": {
+              "0.5": {
+                "rate": 0.5,
+                "completed": 60,
+                "duration_s": 123.45970742100008,
+                "request_throughput": 0.48598851603785836,
+                "output_token_throughput": 62.20653005284587,
+                "goodput_req_s": 0.10529751180820265,
+                "slo_attainment": 0.21666666666666667,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 610.2312129833269,
+                  "p50": 517.4949204998711,
+                  "p90": 963.3860113999617,
+                  "p95": 1045.0354310998705,
+                  "p99": 1230.6122372600425
+                },
+                "tpot_ms": {
+                  "mean": 56.173302194619396,
+                  "p50": 53.850456799211756,
+                  "p90": 76.06683503464664,
+                  "p95": 84.47066475944955,
+                  "p99": 90.16084579314946
+                },
+                "itl_ms": {
+                  "mean": 56.173302194619396,
+                  "p50": 43.557193999959054,
+                  "p90": 51.80329589993562,
+                  "p95": 59.26130364996425,
+                  "p99": 447.75161933009264
+                },
+                "e2e_ms": {
+                  "mean": 7744.24059169999,
+                  "p50": 7473.022252499959,
+                  "p90": 10819.445071000087,
+                  "p95": 11651.617857950077,
+                  "p99": 11955.075093180123
+                },
+                "send_lag_ms": {
+                  "p50": 1.203431325802029,
+                  "max": 3.088267024068614
+                },
+                "sent_rate": 0.4994668160120282,
+                "position_in_repeat": 0
+              },
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 254.93871264999984,
+                "request_throughput": 0.2353506824299877,
+                "output_token_throughput": 30.124887351038424,
+                "goodput_req_s": 0.10198529571966133,
+                "slo_attainment": 0.43333333333333335,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 513.5860516000245,
+                  "p50": 496.36653650009066,
+                  "p90": 565.947464500232,
+                  "p95": 725.8642263000181,
+                  "p99": 851.531315600073
+                },
+                "tpot_ms": {
+                  "mean": 41.88370672795281,
+                  "p50": 39.93115224409394,
+                  "p90": 51.35264350236362,
+                  "p95": 54.3458989279534,
+                  "p99": 55.770287469054345
+                },
+                "itl_ms": {
+                  "mean": 41.88370672795281,
+                  "p50": 37.05836849997013,
+                  "p90": 42.56067909986996,
+                  "p95": 43.455439099989235,
+                  "p99": 389.45023131995475
+                },
+                "e2e_ms": {
+                  "mean": 5832.816806050031,
+                  "p50": 5556.8936334999535,
+                  "p90": 7261.2182025002085,
+                  "p95": 7346.839919500064,
+                  "p99": 7560.327035149966
+                },
+                "send_lag_ms": {
+                  "p50": 1.2020087226574105,
+                  "max": 2.722286219366765
+                },
+                "sent_rate": 0.23644445092761435,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              0.25,
+              0.5
+            ],
+            "runs": {
+              "0.25": {
+                "rate": 0.25,
+                "completed": 60,
+                "duration_s": 209.89046150900003,
+                "request_throughput": 0.28586339545223793,
+                "output_token_throughput": 36.590514617886456,
+                "goodput_req_s": 0.17151803727134277,
+                "slo_attainment": 0.6,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 507.9313912333494,
+                  "p50": 483.8303835001625,
+                  "p90": 583.673040200074,
+                  "p95": 756.6295778501396,
+                  "p99": 875.5261331900418
+                },
+                "tpot_ms": {
+                  "mean": 41.65810036640432,
+                  "p50": 41.14378019685175,
+                  "p90": 47.35137823858361,
+                  "p95": 49.71947273110306,
+                  "p99": 50.57576802598509
+                },
+                "itl_ms": {
+                  "mean": 41.65810036640432,
+                  "p50": 37.32422100006261,
+                  "p90": 41.026757900226585,
+                  "p95": 42.14115964994107,
+                  "p99": 49.9290848698373
+                },
+                "e2e_ms": {
+                  "mean": 5798.510137766698,
+                  "p50": 5745.67730800004,
+                  "p90": 6515.448217099993,
+                  "p95": 6806.512383549989,
+                  "p99": 6882.785829450049
+                },
+                "send_lag_ms": {
+                  "p50": 1.1624706283157593,
+                  "max": 2.9028655860088293
+                },
+                "sent_rate": 0.28814532165635953,
+                "position_in_repeat": 0
+              },
+              "0.5": {
+                "rate": 0.5,
+                "completed": 60,
+                "duration_s": 129.71658001100013,
+                "request_throughput": 0.462546884869397,
+                "output_token_throughput": 59.206001263282815,
+                "goodput_req_s": 0.1464731802086424,
+                "slo_attainment": 0.31666666666666665,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9998697916666667,
+                "ttft_ms": {
+                  "mean": 539.1375141666534,
+                  "p50": 498.7383479997334,
+                  "p90": 793.6996619998808,
+                  "p95": 824.2046347500263,
+                  "p99": 853.3870999000601
+                },
+                "tpot_ms": {
+                  "mean": 47.42270268254581,
+                  "p50": 47.78730331102409,
+                  "p90": 54.582779441729656,
+                  "p95": 54.86751032795268,
+                  "p99": 56.16543090921443
+                },
+                "itl_ms": {
+                  "mean": 47.42892695117458,
+                  "p50": 40.63908600028299,
+                  "p90": 43.800437599929865,
+                  "p95": 44.840668400047434,
+                  "p99": 414.8465926000244
+                },
+                "e2e_ms": {
+                  "mean": 6561.820754849972,
+                  "p50": 6635.593031499866,
+                  "p90": 7437.395380799944,
+                  "p95": 7450.247678649862,
+                  "p99": 7706.212251369911
+                },
+                "send_lag_ms": {
+                  "p50": 1.229619828798434,
+                  "max": 2.3112894704553355
+                },
+                "sent_rate": 0.4741693843753911,
+                "position_in_repeat": 1
+              }
+            }
+          }
+        ]
+      },
+      "env": {
+        "gpu": "Tesla T4, 15360 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 2609.9
+    }
+  }
+}

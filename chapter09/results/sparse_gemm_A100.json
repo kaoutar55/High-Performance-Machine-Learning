@@ -1,0 +1,742 @@
+{
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.14.1+cu130",
+  "rows": [
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.03575808048248291,
+        "tflops": 1.40756011846487,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.41478145599365235,
+        "tflops": 0.12134498124904179,
+        "correct": true,
+        "speedup": 0.08620944829083714
+      },
+      "cutlass": {
+        "ms": 0.0662937593460083,
+        "tflops": 0.7592215088799393,
+        "correct": true,
+        "speedup": 0.5393883351199028
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.03620863914489746,
+        "tflops": 11.120362253568485,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.38561790466308593,
+        "tflops": 1.0441765777234795,
+        "correct": true,
+        "speedup": 0.09389771249478918
+      },
+      "cutlass": {
+        "ms": 0.05957632064819336,
+        "tflops": 6.758611133066176,
+        "correct": true,
+        "speedup": 0.6077689718154067
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.04159488201141357,
+        "tflops": 38.72141614821867,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3871129608154297,
+        "tflops": 4.160575591701562,
+        "correct": true,
+        "speedup": 0.1074489521709542
+      },
+      "cutlass": {
+        "ms": 0.0613375997543335,
+        "tflops": 26.258163711177993,
+        "correct": true,
+        "speedup": 0.6781302525369016
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.05410816192626953,
+        "tflops": 119.0661577596889,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.38791168212890625,
+        "tflops": 16.608035387444506,
+        "correct": true,
+        "speedup": 0.13948577580679547
+      },
+      "cutlass": {
+        "ms": 0.07833600044250488,
+        "tflops": 82.24125443739588,
+        "correct": true,
+        "speedup": 0.6907189749364661
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.16160768508911133,
+        "tflops": 159.45902425240726,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3887308883666992,
+        "tflops": 66.29214334954192,
+        "correct": true,
+        "speedup": 0.4157315251384472
+      },
+      "cutlass": {
+        "ms": 0.1426841640472412,
+        "tflops": 180.6073151009799,
+        "correct": true,
+        "speedup": 1.1326252367824416
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.48533504486083984,
+        "tflops": 212.38774367417855,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3611033630371094,
+        "tflops": 285.4562589421437,
+        "correct": true,
+        "speedup": 1.3440335774745016
+      },
+      "cutlass": {
+        "ms": 0.5286297607421875,
+        "tflops": 194.99321218555397,
+        "correct": true,
+        "speedup": 0.9181001163828488
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 2.0126719665527344,
+        "tflops": 204.86043789947965,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.9343590545654297,
+        "tflops": 441.2831003256757,
+        "correct": true,
+        "speedup": 2.154066958219641
+      },
+      "cutlass": {
+        "ms": 1.7455923461914062,
+        "tflops": 236.2045533228919,
+        "correct": true,
+        "speedup": 1.1530022865556506
+      }
+    },
+    {
+      "layer": "qkv_proj",
+      "n": 6144,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 3.189821472167969,
+        "tflops": 258.5203366480369,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 1.8399232482910157,
+        "tflops": 448.18919571669545,
+        "correct": true,
+        "speedup": 1.7336709425954508
+      },
+      "cutlass": {
+        "ms": 3.380756530761719,
+        "tflops": 243.91987808900325,
+        "correct": true,
+        "speedup": 0.9435229787012405
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.02314239978790283,
+        "tflops": 1.4499115177130344,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.409169921875,
+        "tflops": 0.08200610603594358,
+        "correct": true,
+        "speedup": 0.05655938657918446
+      },
+      "cutlass": {
+        "ms": 0.05545983791351319,
+        "tflops": 0.6050221793350071,
+        "correct": true,
+        "speedup": 0.4172821389054947
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.023470079898834227,
+        "tflops": 11.437347344238626,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.36884479522705077,
+        "tflops": 0.7277734686069204,
+        "correct": true,
+        "speedup": 0.06363131648472005
+      },
+      "cutlass": {
+        "ms": 0.0474726390838623,
+        "tflops": 5.654529876162943,
+        "correct": true,
+        "speedup": 0.49439172440726115
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.02580480098724365,
+        "tflops": 41.610157138231514,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.38207489013671875,
+        "tflops": 2.8102915206382195,
+        "correct": true,
+        "speedup": 0.06753859427404366
+      },
+      "cutlass": {
+        "ms": 0.048127999305725096,
+        "tflops": 22.310127981411277,
+        "correct": true,
+        "speedup": 0.5361702410134058
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.03192831993103027,
+        "tflops": 134.51905096408902,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3807231903076172,
+        "tflops": 11.281076134421303,
+        "correct": true,
+        "speedup": 0.08386229350839593
+      },
+      "cutlass": {
+        "ms": 0.05445631980895996,
+        "tflops": 78.86995138612596,
+        "correct": true,
+        "speedup": 0.5863106438892507
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.08161279678344727,
+        "tflops": 210.50460051731037,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3743948745727539,
+        "tflops": 45.887030915166925,
+        "correct": true,
+        "speedup": 0.21798588155508508
+      },
+      "cutlass": {
+        "ms": 0.09822208404541016,
+        "tflops": 174.90841648256392,
+        "correct": true,
+        "speedup": 0.8309006836559886
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.26023935317993163,
+        "tflops": 264.06258660075434,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3803955078125,
+        "tflops": 180.6527031067685,
+        "correct": true,
+        "speedup": 0.6841283554489442
+      },
+      "cutlass": {
+        "ms": 0.29106176376342774,
+        "tflops": 236.09929331650218,
+        "correct": true,
+        "speedup": 0.8941035394516874
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 1.0772889709472657,
+        "tflops": 255.1570788869197,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.6265446472167969,
+        "tflops": 438.72038196327736,
+        "correct": true,
+        "speedup": 1.719412935267648
+      },
+      "cutlass": {
+        "ms": 1.1669913482666017,
+        "tflops": 235.54408295510652,
+        "correct": true,
+        "speedup": 0.9231336398058341
+      }
+    },
+    {
+      "layer": "o_proj",
+      "n": 4096,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 2.0679884338378907,
+        "tflops": 265.84085524488734,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 1.2113510131835938,
+        "tflops": 453.8369208468878,
+        "correct": true,
+        "speedup": 1.707175221163136
+      },
+      "cutlass": {
+        "ms": 2.334023742675781,
+        "tflops": 235.5399406767588,
+        "correct": true,
+        "speedup": 0.8860185935671326
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.15071231842041016,
+        "tflops": 1.5584726348963875,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.4116275024414062,
+        "tflops": 0.5706154778456148,
+        "correct": true,
+        "speedup": 0.3661376305677329
+      },
+      "cutlass": {
+        "ms": 0.13170687675476075,
+        "tflops": 1.7833618850240471,
+        "correct": true,
+        "speedup": 1.14430105803084
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.14954496383666993,
+        "tflops": 12.565105128195821,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3837542343139648,
+        "tflops": 4.896488491805604,
+        "correct": true,
+        "speedup": 0.38968941698848114
+      },
+      "cutlass": {
+        "ms": 0.1265459156036377,
+        "tflops": 14.848746267603635,
+        "correct": true,
+        "speedup": 1.1817446902440452
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.16855039596557617,
+        "tflops": 44.59314809046825,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.3819724655151367,
+        "tflops": 19.677315635469938,
+        "correct": true,
+        "speedup": 0.44126320921657347
+      },
+      "cutlass": {
+        "ms": 0.13551615715026855,
+        "tflops": 55.46344381405081,
+        "correct": true,
+        "speedup": 1.2437660535095991
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.1860812759399414,
+        "tflops": 161.56795421858322,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.39409664154052737,
+        "tflops": 76.28781345224495,
+        "correct": true,
+        "speedup": 0.47217168665164966
+      },
+      "cutlass": {
+        "ms": 0.17766399383544923,
+        "tflops": 169.22264564110674,
+        "correct": true,
+        "speedup": 1.0473775351030787
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.46893054962158204,
+        "tflops": 256.453934138108,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.40366081237792967,
+        "tflops": 297.92112734343596,
+        "correct": true,
+        "speedup": 1.161694509950456
+      },
+      "cutlass": {
+        "ms": 0.568012809753418,
+        "tflops": 211.71896517651794,
+        "correct": true,
+        "speedup": 0.8255633351387817
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 2048,
+      "dense": {
+        "ms": 1.8941746520996094,
+        "tflops": 253.95564058403608,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 1.4474855041503907,
+        "tflops": 332.32549533153826,
+        "correct": true,
+        "speedup": 1.308596629581728
+      },
+      "cutlass": {
+        "ms": 2.1899264526367186,
+        "tflops": 219.6586723598968,
+        "correct": true,
+        "speedup": 0.8649489802814987
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 8192,
+      "dense": {
+        "ms": 6.868336791992188,
+        "tflops": 280.1472040292733,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 5.845933837890625,
+        "tflops": 329.14251203744124,
+        "correct": true,
+        "speedup": 1.174891297516031
+      },
+      "cutlass": {
+        "ms": 8.737321166992187,
+        "tflops": 220.22142849424233,
+        "correct": true,
+        "speedup": 0.7860918307477766
+      }
+    },
+    {
+      "layer": "gate_up_proj",
+      "n": 28672,
+      "k": 4096,
+      "tokens": 16384,
+      "dense": {
+        "ms": 13.695303955078124,
+        "tflops": 280.9934492756607,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 11.863408203125,
+        "tflops": 324.38323214759674,
+        "correct": true,
+        "speedup": 1.1544156384562891
+      },
+      "cutlass": {
+        "ms": 17.70008544921875,
+        "tflops": 217.41650390653095,
+        "correct": true,
+        "speedup": 0.7737422508139705
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 1,
+      "dense": {
+        "ms": 0.07634943962097168,
+        "tflops": 1.5381974325289143,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.42199039459228516,
+        "tflops": 0.27830138672579885,
+        "correct": true,
+        "speedup": 0.18092696089620308
+      },
+      "cutlass": {
+        "ms": 0.15857664108276368,
+        "tflops": 0.7405914969450382,
+        "correct": true,
+        "speedup": 0.48146712592508306
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 8,
+      "dense": {
+        "ms": 0.0764518404006958,
+        "tflops": 12.289097176416032,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.4270284652709961,
+        "tflops": 2.200143953878507,
+        "correct": true,
+        "speedup": 0.1790321878242444
+      },
+      "cutlass": {
+        "ms": 0.1519820785522461,
+        "tflops": 6.18180844050652,
+        "correct": true,
+        "speedup": 0.5030319438249711
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 32,
+      "dense": {
+        "ms": 0.08286208152770996,
+        "tflops": 45.35363238181812,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.4013056182861328,
+        "tflops": 9.364674235187156,
+        "correct": true,
+        "speedup": 0.20648123961381698
+      },
+      "cutlass": {
+        "ms": 0.1543782424926758,
+        "tflops": 24.343432878362353,
+        "correct": true,
+        "speedup": 0.5367471490138335
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 128,
+      "dense": {
+        "ms": 0.10887167930603027,
+        "tflops": 138.07434249034657,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.4454399871826172,
+        "tflops": 33.747274534284614,
+        "correct": true,
+        "speedup": 0.24441379857842918
+      },
+      "cutlass": {
+        "ms": 0.16912384033203126,
+        "tflops": 88.88389423092433,
+        "correct": true,
+        "speedup": 0.6437393988469554
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 512,
+      "dense": {
+        "ms": 0.26484735488891603,
+        "tflops": 227.03470899008948,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.4094771194458008,
+        "tflops": 146.84469360676664,
+        "correct": false,
+        "speedup": 0.6467940266048778
+      },
+      "cutlass": {
+        "ms": 0.25622528076171874,
+        "tflops": 234.6745097331693,
+        "correct": false,
+        "speedup": 1.0336503646383572
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 2048,
+      "dense": {
+        "ms": 0.890408935546875,
+        "tflops": 270.12101852760225,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 0.6061670303344726,
+        "tflops": 396.7853026306729,
+        "correct": true,
+        "speedup": 1.468916801785743
+      },
+      "cutlass": {
+        "ms": 0.8146329498291016,
+        "tflops": 295.247287292341,
+        "correct": true,
+        "speedup": 1.0930185622048187
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 8192,
+      "dense": {
+        "ms": 3.47789306640625,
+        "tflops": 276.6251451480426,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 2.062602233886719,
+        "tflops": 466.43635815864167,
+        "correct": true,
+        "speedup": 1.686167603848945
+      },
+      "cutlass": {
+        "ms": 3.071180725097656,
+        "tflops": 313.25824183577095,
+        "correct": true,
+        "speedup": 1.132428657807385
+      }
+    },
+    {
+      "layer": "down_proj",
+      "n": 4096,
+      "k": 14336,
+      "tokens": 16384,
+      "dense": {
+        "ms": 6.726717529296875,
+        "tflops": 286.0452130222161,
+        "correct": true
+      },
+      "cusparselt": {
+        "ms": 3.9638015747070314,
+        "tflops": 485.42928104321555,
+        "correct": true,
+        "speedup": 1.697036898168661
+      },
+      "cutlass": {
+        "ms": 6.225325927734375,
+        "tflops": 309.08347144295897,
+        "correct": true,
+        "speedup": 1.0805406186572104
+      }
+    }
+  ]
+}
