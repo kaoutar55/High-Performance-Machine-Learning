@@ -34,6 +34,7 @@ modal run chapter09/sparse_gemm.py                       # 2. 2:4 GEMM benchmark
 modal run chapter09/modal_quant.py --what quality        # 3. KL, SQuAD answers and lm-eval vs baseline, on the H100
 modal run chapter09/modal_quant.py --what perf           # 4. memory, latency and capacity on all three GPUs
 modal run chapter09/modal_quant.py --what prefill,long   # 5. prefill-heavy and long-context studies
+modal run chapter09/modal_quant.py --what squad          # adds SQuAD scores to quality results from older runs
 python chapter09/summarize_results.py                    # tables for the chapter
 ```
 

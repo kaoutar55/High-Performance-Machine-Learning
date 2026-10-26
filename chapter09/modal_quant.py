@@ -560,6 +560,26 @@ def quality(model: str, variant: str) -> dict:
     return out
 
 
+@app.function(gpu="H100!", cpu=8, **COMMON)
+def squad(model: str, variant: str) -> dict:
+    """SQuAD correctness only (greedy answers on the held-out prompts), for quality results produced before
+    this metric was added to quality(). Much cheaper than a full quality run: no lm-eval and no KL."""
+    import numpy as np
+    from vllm import SamplingParams
+    from vllm.inputs import TokensPrompt
+    ref = np.load(f"/ckpt/reference_{model}.npz", allow_pickle=True)
+    llm = make_llm(model, variant)
+    gen = llm.generate([TokensPrompt(prompt_token_ids=list(p)) for p in ref["p_ids"]],
+                       SamplingParams(temperature=0.0, max_tokens=128))
+    free(llm)
+    golds = gold_answers(eval_prompts())
+    b_c, b_f = answer_scores(list(ref["texts"]), golds)
+    v_c, v_f = answer_scores([o.outputs[0].text for o in gen], golds)
+    return {"prompts_with_reference": int(sum(1 for g in golds if g)),
+            "contains_answer": paired(b_c, v_c), "token_f1": paired(b_f, v_f),
+            "per_item": {"baseline_contains": b_c, "variant_contains": v_c}}
+
+
 # ------------------------------------------------------------------------------------------------ entrypoint
 def merge(path, key, value):
     data = json.loads(path.read_text()) if path.exists() else {}
@@ -584,6 +604,15 @@ def main(what: str = "perf", gpus: str = "", models: str = "", variants: str = "
             r = r if isinstance(r, dict) else {"error": repr(r)[-4000:]}
             merge(out / f"quality_{m}.json", ("variants", v), r)
             print("quality", m, v, r.get("kl", r.get("error", "")))
+    if "squad" in what:                                    # add SQuAD scores to existing quality results
+        jobs = [(m, v) for m in sel_m for v in QUALITY[m] if not sel_v or v in sel_v]
+        for (m, v), r in zip(jobs, squad.starmap(jobs, return_exceptions=True)):
+            r = r if isinstance(r, dict) else {"error": repr(r)[-2000:]}
+            path = out / f"quality_{m}.json"
+            data = json.loads(path.read_text()) if path.exists() else {}
+            data.setdefault("variants", {}).setdefault(v, {})["squad"] = r
+            path.write_text(json.dumps(data, indent=2))
+            print("squad", m, v, r.get("contains_answer", r.get("error", "")))
     table = {"perf": PERF, "prefill": PREFILL, "long": LONG}
     for study in [w for w in what if w in table]:
         jobs = [(g, m, v, study) for (g, m), vs in table[study].items() if g in sel_g and m in sel_m
