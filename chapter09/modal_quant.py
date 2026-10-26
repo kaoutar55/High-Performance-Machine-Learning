@@ -46,8 +46,9 @@ VARIANTS = {
         "fp8_dynamic":         (f"{RH}-FP8-dynamic", []),
         "fp8_online":          (LLAMA, ["--quantization", "fp8_per_tensor"]),
         "w8a8_int8":           (f"{RH}-quantized.w8a8", []),
-        "w4a16_gptq":          (f"{RH}-quantized.w4a16", []),
-        "w4a16_gptq_marlin":   (f"{RH}-quantized.w4a16", ["--linear-backend", "marlin"]),
+        # Red Hat's published W4A16 checkpoint uses dynamic act-order (desc_act=True), which vLLM 0.32 rejects,
+        # so the W4A16 speed runs use the chapter's own GPTQ checkpoint (static act-order), calibrated on RAG
+        "w4a16_gptq_marlin":   ("/ckpt/llama-w4a16_gptq_rag", ["--linear-backend", "marlin"]),
         "kv_fp8":              (LLAMA, ["--kv-cache-dtype", "fp8"]),
         # the two FP8-KV variants share weights and activations (same llm-compressor FP8_DYNAMIC pipeline) and
         # differ only in the KV scales: 1.0 (none in the checkpoint) vs calibrated per-tensor scales
@@ -76,18 +77,20 @@ BASELINE = {"llama": "bf16", "gemma": "fp16"}
 
 # Which variants each study runs, per GPU. T4 has no BF16 and 16 GB, so Llama runs there only quantized.
 PERF = {
-    ("H100", "llama"): ["bf16", "fp8_dynamic", "fp8_online", "w8a8_int8", "w4a16_gptq", "w4a16_gptq_marlin", "kv_fp8"],
-    ("A100-80GB", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq", "kv_fp8"],
-    ("T4", "llama"): ["w4a16_gptq", "w8a8_int8", "fp8_online"],
+    ("H100", "llama"): ["bf16", "fp8_dynamic", "fp8_online", "w8a8_int8", "w4a16_gptq_rag", "w4a16_gptq_marlin",
+                        "kv_fp8"],
+    ("A100-80GB", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq_rag", "kv_fp8"],
+    ("T4", "llama"): ["w4a16_gptq_rag", "w8a8_int8", "fp8_online"],
     ("H100", "gemma"): ["fp16", "fp8_dynamic", "w4a16_gptq_rag"],
     ("T4", "gemma"): ["fp16", "w8a8_int8", "w4a16_gptq_rag", "fp8_dynamic", "kv_fp8"],
 }
-PREFILL = {("H100", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq"],
-           ("A100-80GB", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq"]}
-LONG = {("H100", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq"],
-        ("A100-80GB", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq"]}
+PREFILL = {("H100", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq_rag"],
+           ("A100-80GB", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq_rag"]}
+LONG = {("H100", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq_rag"],
+        ("A100-80GB", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq_rag"]}
 QUALITY = {"llama": [v for v in VARIANTS["llama"] if v != "w4a16_gptq_marlin"],
-           "gemma": list(VARIANTS["gemma"])}
+           # FlashAttention-3 accepts an FP8 KV cache only for a BF16 model, and Gemma runs in FP16 here
+           "gemma": [v for v in VARIANTS["gemma"] if v != "kv_fp8"]}
 
 RATES = {("H100", "llama"): [16, 32, 48, 64, 80, 96], ("A100-80GB", "llama"): [4, 8, 12, 16, 20, 24],
          ("T4", "llama"): [0.25, 0.5, 1, 2, 3], ("H100", "gemma"): [32, 64, 96, 128, 160],

@@ -48,6 +48,10 @@ What each variant is, and which GPU runs it, is listed at the top of `modal_quan
   run weight-only (FP8 weights, 16-bit math). `--kv-cache-dtype fp8` works on the H100 (FlashAttention-3) and
   the A100 (FlashInfer), and fails on the T4.
 - Llama-3.1-8B does not fit on the 16 GB T4 in 16 bits; there it runs only quantized.
+- Red Hat's W4A16 Llama checkpoint uses dynamic act-order (desc_act=True), which vLLM 0.32 rejects, so the W4A16
+  speed runs use the chapter's own GPTQ checkpoint (`w4a16_gptq_rag`, static act-order).
+- Gemma with an FP8 KV cache is not run on the H100: FlashAttention-3 accepts an FP8 KV cache only for BF16 models,
+  and Gemma runs in FP16 throughout. On the T4 it fails at startup, which the perf study records.
 - The two Llama FP8-KV variants, `fp8_dynamic_kv_scale1` and `fp8_dynamic_kv_cal`, come from the same FP8_DYNAMIC
   recipe and differ only in the KV scales (1.0 versus calibrated), so their comparison isolates the scales.
 - Quality also scores each answer against the SQuAD reference answers of its question (answer contained in the
