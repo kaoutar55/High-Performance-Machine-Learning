@@ -14,6 +14,7 @@
   -llama/Llama-3.1-8B-Instruct w4a16_awq_rag          5.728 GB, 951.5 s
   -llama/Llama-3.1-8B-Instruct fp8_dynamic_kv         9.084 GB, 134.2 s
   -llama/Llama-3.1-8B-Instruct sparse24_sparsegpt     16.061 GB, 772.1 s, sparsity 0.500 valid 2:4 True
+  -llama/Llama-3.1-8B-Instruct fp8_dynamic            9.084 GB, 32.2 s
 
 === 2:4 GEMM NVIDIA A100-SXM4-80GB (torch 2.14.1+cu130): speedup over dense FP16
   qkv_proj      tokens      1  dense 0.0358 ms  cuSPARSELt 0.09  CUTLASS 0.54
@@ -103,6 +104,10 @@ W8A8 no smoothing  per-tensor A 0.1900   per-token A 0.0862
 W8A8 alpha = 0.5   per-tensor A 0.0330   per-token A 0.0188
 W8A8 alpha = 0.8   per-tensor A 0.0441   per-token A 0.0431
 
+-- gptq_demo.py
+INT4 per-channel  RTN 0.1562  GPTQ 0.0867  ratio 1.80x
+INT3 per-channel  RTN 0.3643  GPTQ 0.2031  ratio 1.79x
+
 -- prune24.py
 magnitude unstructured 50% output error 0.2649
 magnitude 2:4              output error 0.3582
@@ -115,30 +120,50 @@ Wanda     2:4              output error 0.1502
 === quality llama  (reference noise floor: {'kl_mean': 0.0, 'kl_p50': 0.0, 'kl_p99': 0.0, 'kl_max': 0.0, 'top1_agreement': 1.0, 'tokens': 25527, 'method': 'prompt_logprob_token_ids'})
   variant               KL mean   KL p99   top-1   same answer  lm-eval
   bf16                   0.0000    0.000   1.000       0.970  gsm8k_cot_llama=0.8499 ifeval=0.7449 arc_challenge_llama=0.8309 arc_challenge=0.5384 wikitext=9.01
+      SQuAD (n=188): contains answer 0.128 vs 0.128 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.069 vs 0.069
   fp8_dynamic            0.0062    0.056   0.976       0.070  gsm8k_cot_llama=0.8461 ifeval=0.7579 arc_challenge_llama=0.8258 arc_challenge=0.5435 wikitext=9.07
+      SQuAD (n=188): contains answer 0.133 vs 0.128 (diff +0.005 ± 0.016, flips -4/+5); token F1 0.077 vs 0.069
   fp8_online             0.0060    0.053   0.976       0.070  gsm8k_cot_llama=0.8438 ifeval=0.7394 arc_challenge_llama=0.8318 arc_challenge=0.5324 wikitext=9.071
+      SQuAD (n=188): contains answer 0.117 vs 0.128 (diff -0.011 ± 0.011, flips -3/+1); token F1 0.070 vs 0.069
   w8a8_int8              0.0102    0.093   0.967       0.035  gsm8k_cot_llama=0.8469 ifeval=0.7505 arc_challenge_llama=0.8369 arc_challenge=0.535 wikitext=9.121
-  w4a16_gptq           ERROR UserCodeException(SerializationError("Failed to serialize exception 1 validation error for VllmConfig\n  Value error, GPTQ group activation ordering (desc_act=True) is no longer supported. Use a check
+      SQuAD (n=188): contains answer 0.101 vs 0.128 (diff -0.027 ± 0.014, flips -6/+1); token F1 0.058 vs 0.069
   kv_fp8                 0.0067    0.059   0.975       0.070  gsm8k_cot_llama=0.8461 ifeval=0.756 arc_challenge_llama=0.8309 arc_challenge=0.5307 wikitext=9.078
+      SQuAD (n=188): contains answer 0.144 vs 0.128 (diff +0.016 ± 0.009, flips -0/+3); token F1 0.072 vs 0.069
   fp8_dynamic_kv_cal     0.0125    0.111   0.966       0.020  gsm8k_cot_llama=0.8355 ifeval=0.7431 arc_challenge_llama=0.8292 arc_challenge=0.5299 wikitext=9.14
+      SQuAD (n=188): contains answer 0.144 vs 0.128 (diff +0.016 ± 0.016, flips -3/+6); token F1 0.078 vs 0.069
   w4a16_gptq_rag         0.0287    0.261   0.947       0.020  gsm8k_cot_llama=0.8264 ifeval=0.7061 arc_challenge_llama=0.818 arc_challenge=0.5256 wikitext=9.548
+      SQuAD (n=188): contains answer 0.096 vs 0.128 (diff -0.032 ± 0.017, flips -8/+2); token F1 0.083 vs 0.069
   w4a16_gptq_ultrachat   0.0525    0.687   0.934       0.015  gsm8k_cot_llama=0.8256 ifeval=0.7209 arc_challenge_llama=0.8292 arc_challenge=0.5085 wikitext=9.603
+      SQuAD (n=188): contains answer 0.128 vs 0.128 (diff +0.000 ± 0.017, flips -5/+5); token F1 0.093 vs 0.069
   w4a16_gptq_wikitext    0.0354    0.321   0.940       0.010  gsm8k_cot_llama=0.8112 ifeval=0.7616 arc_challenge_llama=0.8249 arc_challenge=0.5162 wikitext=9.427
+      SQuAD (n=188): contains answer 0.112 vs 0.128 (diff -0.016 ± 0.016, flips -6/+3); token F1 0.065 vs 0.069
   w4a16_awq_rag          0.0405    0.352   0.936       0.015  gsm8k_cot_llama=0.8264 ifeval=0.7061 arc_challenge_llama=0.8283 arc_challenge=0.5205 wikitext=9.549
+      SQuAD (n=188): contains answer 0.101 vs 0.128 (diff -0.027 ± 0.016, flips -7/+2); token F1 0.073 vs 0.069
   sparse24_sparsegpt     0.4083    3.050   0.803       0.000  gsm8k_cot_llama=0.09932 ifeval=0.2514 arc_challenge_llama=0.5047 arc_challenge=0.3737 wikitext=25.29
+      SQuAD (n=188): contains answer 0.027 vs 0.128 (diff -0.101 ± 0.024, flips -21/+2); token F1 0.033 vs 0.069
+  fp8_dynamic_kv_scale1   0.0123    0.112   0.965       0.040  gsm8k_cot_llama=0.8423 ifeval=0.756 arc_challenge_llama=0.8292 arc_challenge=0.529 wikitext=9.146
+      SQuAD (n=188): contains answer 0.128 vs 0.128 (diff +0.000 ± 0.015, flips -4/+4); token F1 0.068 vs 0.069
 
 === quality gemma  (reference noise floor: {'kl_mean': 1.1307588621778321e-06, 'kl_p50': 2.6699547167602616e-08, 'kl_p99': 1.921816862730269e-05, 'kl_max': 9.761517834040778e-05, 'top1_agreement': 1.0, 'tokens': 5856, 'method': 'prompt_logprob_token_ids'})
   variant               KL mean   KL p99   top-1   same answer  lm-eval
   fp16                   0.0000    0.000   1.000       1.000  ifeval=0.2366 arc_challenge=0.4019 wikitext=28.53
+      SQuAD (n=188): contains answer 0.021 vs 0.021 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.025 vs 0.025
   w4a16_gptq_rag         0.0129    0.219   0.976       0.510  ifeval=0.2421 arc_challenge=0.3942 wikitext=29.34
+      SQuAD (n=188): contains answer 0.021 vs 0.021 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.024 vs 0.025
   fp8_dynamic            0.0029    0.047   0.990       0.760  ifeval=0.2255 arc_challenge=0.401 wikitext=28.78
+      SQuAD (n=188): contains answer 0.021 vs 0.021 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.024 vs 0.025
   w8a8_int8              0.0033    0.057   0.987       0.720  ifeval=0.2421 arc_challenge=0.3976 wikitext=28.55
+      SQuAD (n=188): contains answer 0.021 vs 0.021 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.024 vs 0.025
   w4a16_gptq_wikitext    0.0199    0.315   0.968       0.390  ifeval=0.2421 arc_challenge=0.3959 wikitext=29.22
+      SQuAD (n=188): contains answer 0.021 vs 0.021 (diff +0.000 ± 0.000, flips -0/+0); token F1 0.024 vs 0.025
   w4a16_awq_rag          0.0168    0.259   0.975       0.515  ifeval=0.2255 arc_challenge=0.3874 wikitext=28.9
-  kv_fp8               ERROR UserCodeException(RuntimeError('Engine core initialization failed. See root cause above. Failed core proc(s): {}'))
+      SQuAD (n=188): contains answer 0.027 vs 0.021 (diff +0.005 ± 0.005, flips -0/+1); token F1 0.026 vs 0.025
   sparse24_magnitude     3.1205   15.131   0.548       0.000  ifeval=0.09797 arc_challenge=0.2142 wikitext=1275
+      SQuAD (n=188): contains answer 0.000 vs 0.021 (diff -0.021 ± 0.011, flips -4/+0); token F1 0.000 vs 0.025
   sparse24_wanda        13.7894   53.113   0.398       0.000  ifeval=0.1146 arc_challenge=0.1971 wikitext=1.682e+11
+      SQuAD (n=188): contains answer 0.000 vs 0.021 (diff -0.021 ± 0.011, flips -4/+0); token F1 0.000 vs 0.025
   sparse24_sparsegpt     3.6284   44.536   0.627       0.000  ifeval=0.122 arc_challenge=0.2193 wikitext=6.621e+05
+      SQuAD (n=188): contains answer 0.011 vs 0.021 (diff -0.011 ± 0.008, flips -2/+0); token F1 0.009 vs 0.025
 
 === A100-80GB_llama
   bf16                 weights 15.00 GiB  KV 460640 tok  TTFT p50 53 ms  TPOT p50 10.85 ms  sweep pass [4.0, 8.0, 12.0]  capacity 12 req/s
@@ -169,6 +194,13 @@ Wanda     2:4              output error 0.1502
       Using V2 Model Runner
       Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTIO
       Using FlashAttention version 2
+  w4a16_gptq_rag       weights 5.36 GiB  KV 539024 tok  TTFT p50 66 ms  TPOT p50 5.05 ms  sweep pass [4.0, 8.0, 12.0]  capacity 12 req/s
+      knee  12.0: within [100.0, 100.0, 100.0]  out tok/s [1499, 1525, 1531]
+      knee    16: within [10.0, 23.3, 17.7]  out tok/s [1843, 1806, 1819]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MarlinLinearKernel for mixed-precision linear
+      Using MarlinLinearKernel for CompressedTensorsWNA16
   prefill bf16                 KV 460640 tok
       rate   0.5: done 0.42/s  TTFT p50/p99 300/477 ms  TPOT p50 -  within 100.0%
       rate   1.0: done 1.29/s  TTFT p50/p99 292/737 ms  TPOT p50 -  within 100.0%
@@ -189,6 +221,12 @@ Wanda     2:4              output error 0.1502
       rate   2.0: done 1.58/s  TTFT p50/p99 343/1313 ms  TPOT p50 -  within 100.0%
       rate   4.0: done 3.15/s  TTFT p50/p99 1746/3428 ms  TPOT p50 -  within 63.3%
       rate   6.0: done 3.19/s  TTFT p50/p99 13420/24614 ms  TPOT p50 -  within 3.9%
+  prefill w4a16_gptq_rag       KV 539024 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 381/619 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.28/s  TTFT p50/p99 443/1058 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.58/s  TTFT p50/p99 406/1598 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.04/s  TTFT p50/p99 2638/4888 ms  TPOT p50 -  within 26.7%
+      rate   6.0: done 3.05/s  TTFT p50/p99 14791/27282 ms  TPOT p50 -  within 3.3%
   long bf16                 KV 467120 tok
       rate   0.5: done 0.37/s  TTFT p50/p99 313/513 ms  TPOT p50 14.6  within 100.0%  KV 11%  preempt 0
       rate   1.0: done 0.79/s  TTFT p50/p99 438/892 ms  TPOT p50 31.4  within 100.0%  KV 41%  preempt 0
@@ -207,6 +245,18 @@ Wanda     2:4              output error 0.1502
       rate   1.5: done 1.04/s  TTFT p50/p99 416/1290 ms  TPOT p50 23.0  within 100.0%  KV 16%  preempt 0
       rate   2.0: done 1.32/s  TTFT p50/p99 570/1676 ms  TPOT p50 36.4  within 99.2%  KV 35%  preempt 0
       rate   3.0: done 1.55/s  TTFT p50/p99 2914/6357 ms  TPOT p50 79.1  within 0.0%  KV 87%  preempt 0
+  long w4a16_gptq_rag       KV 545568 tok
+      rate   0.5: done 0.39/s  TTFT p50/p99 383/633 ms  TPOT p50 7.8  within 100.0%  KV 7%  preempt 0
+      rate   1.0: done 0.89/s  TTFT p50/p99 531/1134 ms  TPOT p50 22.6  within 100.0%  KV 29%  preempt 0
+      rate   1.5: done 0.96/s  TTFT p50/p99 594/1529 ms  TPOT p50 35.9  within 100.0%  KV 46%  preempt 0
+      rate   2.0: done 1.01/s  TTFT p50/p99 1105/6456 ms  TPOT p50 71.6  within 0.0%  KV 93%  preempt 0
+      rate   3.0: done 0.95/s  TTFT p50/p99 9482/91154 ms  TPOT p50 110.7  within 0.0%  KV 100%  preempt 20
+  long fp8_dynamic_kv_scale1 KV 1021680 tok
+      rate   0.5: done 0.39/s  TTFT p50/p99 337/568 ms  TPOT p50 9.1  within 100.0%  KV 4%  preempt 0
+      rate   1.0: done 0.91/s  TTFT p50/p99 367/886 ms  TPOT p50 16.1  within 100.0%  KV 12%  preempt 0
+      rate   1.5: done 1.05/s  TTFT p50/p99 388/1192 ms  TPOT p50 21.3  within 100.0%  KV 15%  preempt 0
+      rate   2.0: done 1.35/s  TTFT p50/p99 507/1484 ms  TPOT p50 33.0  within 100.0%  KV 29%  preempt 0
+      rate   3.0: done 1.62/s  TTFT p50/p99 1751/4474 ms  TPOT p50 74.7  within 6.7%  KV 86%  preempt 0
 
 === H100_gemma
   fp16                 weights 4.67 GiB  KV 3801616 tok  TTFT p50 14 ms  TPOT p50 2.36 ms  sweep pass [32.0, 64.0, 96.0, 128.0]  capacity 128 req/s
@@ -267,6 +317,20 @@ Wanda     2:4              output error 0.1502
       Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may
       Using V2 Model Runner
       Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN'].
+  w4a16_gptq_rag       weights 5.36 GiB  KV 529904 tok  TTFT p50 23 ms  TPOT p50 3.98 ms  sweep pass [16.0, 32.0, 48.0]  capacity 48 req/s
+      knee  48.0: within [100.0, 100.0, 100.0]  out tok/s [5970, 5814, 6114]
+      knee    64: within [0.1, 2.2, 1.4]  out tok/s [6567, 6450, 6554]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MacheteLinearKernel for mixed-precision linear
+      Using MacheteLinearKernel for CompressedTensorsWNA16
+  w4a16_gptq_marlin    weights 5.36 GiB  KV 529968 tok  TTFT p50 33 ms  TPOT p50 3.44 ms  sweep pass [16.0]  capacity 16 req/s
+      knee  16.0: within [100.0, 100.0, 100.0]  out tok/s [2051, 2007, 2138]
+      knee    32: within [23.0, 26.0, 22.7]  out tok/s [3869, 3813, 3868]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MarlinLinearKernel for mixed-precision linear
+      Using MarlinLinearKernel for CompressedTensorsWNA16
   prefill bf16                 KV 451056 tok
       rate   0.5: done 0.42/s  TTFT p50/p99 106/158 ms  TPOT p50 -  within 100.0%
       rate   1.0: done 1.29/s  TTFT p50/p99 107/263 ms  TPOT p50 -  within 100.0%
@@ -294,6 +358,15 @@ Wanda     2:4              output error 0.1502
       rate   8.0: done 7.51/s  TTFT p50/p99 107/496 ms  TPOT p50 -  within 100.0%
       rate  12.0: done 11.73/s  TTFT p50/p99 212/777 ms  TPOT p50 -  within 100.0%
       rate  16.0: done 14.92/s  TTFT p50/p99 2033/3778 ms  TPOT p50 -  within 46.9%
+  prefill w4a16_gptq_rag       KV 529904 tok
+      rate   0.5: done 0.42/s  TTFT p50/p99 117/169 ms  TPOT p50 -  within 100.0%
+      rate   1.0: done 1.29/s  TTFT p50/p99 120/344 ms  TPOT p50 -  within 100.0%
+      rate   2.0: done 1.59/s  TTFT p50/p99 122/299 ms  TPOT p50 -  within 100.0%
+      rate   4.0: done 3.45/s  TTFT p50/p99 121/313 ms  TPOT p50 -  within 100.0%
+      rate   6.0: done 5.67/s  TTFT p50/p99 195/684 ms  TPOT p50 -  within 100.0%
+      rate   8.0: done 7.28/s  TTFT p50/p99 253/1520 ms  TPOT p50 -  within 100.0%
+      rate  12.0: done 9.48/s  TTFT p50/p99 3622/7445 ms  TPOT p50 -  within 25.6%
+      rate  16.0: done 9.50/s  TTFT p50/p99 10933/21964 ms  TPOT p50 -  within 6.5%
   long bf16                 KV 452928 tok
       rate   1.0: done 0.80/s  TTFT p50/p99 122/218 ms  TPOT p50 9.3  within 100.0%  KV 13%  preempt 0
       rate   2.0: done 1.73/s  TTFT p50/p99 139/307 ms  TPOT p50 15.8  within 100.0%  KV 41%  preempt 0
@@ -312,6 +385,18 @@ Wanda     2:4              output error 0.1502
       rate   3.0: done 2.55/s  TTFT p50/p99 115/343 ms  TPOT p50 10.6  within 100.0%  KV 23%  preempt 0
       rate   4.0: done 3.24/s  TTFT p50/p99 132/267 ms  TPOT p50 16.5  within 100.0%  KV 44%  preempt 0
       rate   6.0: done 3.96/s  TTFT p50/p99 227/1236 ms  TPOT p50 35.4  within 100.0%  KV 100%  preempt 9
+  long w4a16_gptq_rag       KV 532032 tok
+      rate   1.0: done 0.83/s  TTFT p50/p99 122/218 ms  TPOT p50 5.9  within 100.0%  KV 9%  preempt 0
+      rate   2.0: done 1.83/s  TTFT p50/p99 135/307 ms  TPOT p50 10.8  within 100.0%  KV 26%  preempt 0
+      rate   3.0: done 2.30/s  TTFT p50/p99 162/626 ms  TPOT p50 19.4  within 100.0%  KV 81%  preempt 0
+      rate   4.0: done 2.54/s  TTFT p50/p99 264/15631 ms  TPOT p50 32.5  within 72.1%  KV 100%  preempt 21
+      rate   6.0: done 2.60/s  TTFT p50/p99 20008/45843 ms  TPOT p50 39.8  within 39.0%  KV 100%  preempt 50
+  long fp8_dynamic_kv_scale1 KV 1008560 tok
+      rate   1.0: done 0.83/s  TTFT p50/p99 92/159 ms  TPOT p50 5.8  within 100.0%  KV 4%  preempt 0
+      rate   2.0: done 1.85/s  TTFT p50/p99 100/250 ms  TPOT p50 8.7  within 100.0%  KV 12%  preempt 0
+      rate   3.0: done 2.55/s  TTFT p50/p99 107/361 ms  TPOT p50 10.6  within 100.0%  KV 24%  preempt 0
+      rate   4.0: done 3.24/s  TTFT p50/p99 127/264 ms  TPOT p50 16.6  within 100.0%  KV 44%  preempt 0
+      rate   6.0: done 3.96/s  TTFT p50/p99 226/1239 ms  TPOT p50 35.4  within 100.0%  KV 100%  preempt 6
 
 === T4_gemma
   fp16                 weights 4.67 GiB  KV 456512 tok  TTFT p50 178 ms  TPOT p50 22.02 ms  sweep pass [0.5, 1.0, 2.0, 3.0]  capacity 0 req/s
@@ -358,3 +443,10 @@ Wanda     2:4              output error 0.1502
       Using V2 Model Runner
       Selected MarlinFP8ScaledMMLinearKernel for Fp8PerTensorOnlineLinearMethod
       Using TRITON_ATTN attention backend out of potential backends: ['TRITON_ATTN', 'FLEX_ATTENTION'].
+  w4a16_gptq_rag       weights 5.36 GiB  KV 51920 tok  TTFT p50 477 ms  TPOT p50 25.28 ms  sweep pass []  capacity 0 req/s
+      knee  0.25: within [73.3, 70.0, 73.3]  out tok/s [35, 30, 37]
+      knee   0.5: within [63.3, 55.0, 68.3]  out tok/s [74, 63, 60]
+      Using max model len 2048
+      Using V2 Model Runner
+      Using MarlinLinearKernel for mixed-precision linear
+      Using MarlinLinearKernel for CompressedTensorsWNA16

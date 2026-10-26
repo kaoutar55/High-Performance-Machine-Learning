@@ -136,5 +136,11 @@
     "valid_2_4": true,
     "build_s": 772.1,
     "size_gb": 16.061
+  },
+  {
+    "variant": "fp8_dynamic",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "build_s": 32.2,
+    "size_gb": 9.084
   }
 ]

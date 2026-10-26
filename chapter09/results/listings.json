@@ -9,6 +9,11 @@
     "stderr": "",
     "returncode": 0
   },
+  "gptq_demo.py": {
+    "stdout": "INT4 per-channel  RTN 0.1562  GPTQ 0.0867  ratio 1.80x\nINT3 per-channel  RTN 0.3643  GPTQ 0.2031  ratio 1.79x\n",
+    "stderr": "",
+    "returncode": 0
+  },
   "prune24.py": {
     "stdout": "magnitude unstructured 50% output error 0.2649\nmagnitude 2:4              output error 0.3582\nWanda     unstructured 50% output error 0.1101\nWanda     2:4              output error 0.1502\n",
     "stderr": "",

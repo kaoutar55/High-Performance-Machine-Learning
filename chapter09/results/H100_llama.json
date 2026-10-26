@@ -3127,6 +3127,1106 @@
         "vllm": "0.32.0"
       },
       "wall_s": 1107.8
+    },
+    "w4a16_gptq_rag": {
+      "startup": {
+        "weights_gib": 5.36,
+        "load_s": 8.494781,
+        "kv_cache_gib": 64.69,
+        "kv_cache_tokens": 529904,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 10:43:25 [model.py:2152] Using max model len 2048",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=64) INFO 10-26 10:43:38 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=64) INFO 10-26 10:43:39 [__init__.py:923] Using MacheteLinearKernel for mixed-precision linear",
+          "(EngineCore pid=64) INFO 10-26 10:43:39 [compressed_tensors_wNa16.py:138] Using MacheteLinearKernel for CompressedTensorsWNA16",
+          "(EngineCore pid=64) INFO 10-26 10:43:40 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "(EngineCore pid=64) INFO 10-26 10:43:40 [flash_attn.py:1117] Using FlashAttention version 3",
+          "(EngineCore pid=64) INFO 10-26 10:43:47 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=64) INFO 10-26 10:43:54 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/e5613445a8/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=64) INFO 10-26 10:44:13 [gpu_worker.py:759] Available KV cache memory: 64.69 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.9085 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9315. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=64) INFO 10-26 10:44:13 [kv_cache_utils.py:2327] GPU KV cache size: 529,904 tokens, Maximum concurrency for 2,048 tokens per request: 258.74x",
+          "(EngineCore pid=64) INFO 10-26 10:44:13 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /vllm_cache/flashinfer_autotune_cache/0.7.0.post1/90a/7cb0a8fa6ad3d63ea460e14b7924bfc3083f31fbb4d5a3599abab6f3912c3d16/autotune_configs_dp0_rank0.json",
+          " for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=68781857485` (64.06 GiB) to fit into requested memory, or `--kv-cache-memory=75030203904` (69.88 GiB) to fully utilize gpu memory. Current kv cache memory in use is 64.69 GiB.",
+          "(EngineCore pid=64) INFO 10-26 10:44:33 [core.py:395] init engine (profile, create kv cache, warmup model) took 45.38 s (compilation: 16.21 s)"
+        ]
+      },
+      "single": {
+        "rate": 0.25,
+        "completed": 30,
+        "duration_s": 141.068168955,
+        "request_throughput": 0.21266314167280245,
+        "output_token_throughput": 27.220882134118714,
+        "goodput_req_s": 0.21266314167280245,
+        "slo_attainment": 1.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 24.036193300000264,
+          "p50": 23.419930500004682,
+          "p90": 26.810364600018488,
+          "p95": 29.63163175000148,
+          "p99": 36.571011299996464
+        },
+        "tpot_ms": {
+          "mean": 3.9826902251968606,
+          "p50": 3.9774138031497044,
+          "p90": 3.9874048354330918,
+          "p95": 3.9892105964566813,
+          "p99": 4.077546676535393
+        },
+        "itl_ms": {
+          "mean": 3.98269022519686,
+          "p50": 3.978065500007233,
+          "p90": 4.153813699991815,
+          "p95": 4.2274343999999076,
+          "p99": 4.375987139995914
+        },
+        "e2e_ms": {
+          "mean": 529.8378519000015,
+          "p50": 528.7387965000007,
+          "p90": 533.6696251999996,
+          "p95": 540.4335414999998,
+          "p99": 546.6210473299976
+        },
+        "send_lag_ms": {
+          "p50": 1.074540071030583,
+          "max": 2.7047178745647216
+        },
+        "sent_rate": 0.20634751266373094
+      },
+      "sweep": [
+        {
+          "rate": 16.0,
+          "completed": 480,
+          "duration_s": 31.758030873999985,
+          "request_throughput": 15.114287214607241,
+          "output_token_throughput": 1934.628763469727,
+          "goodput_req_s": 15.114287214607241,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.999951171875,
+          "ttft_ms": {
+            "mean": 32.57309094583126,
+            "p50": 29.973923499994726,
+            "p90": 45.370141700021804,
+            "p95": 48.95310609997807,
+            "p99": 55.81356678000473
+          },
+          "tpot_ms": {
+            "mean": 5.384283400656177,
+            "p50": 5.368787610236284,
+            "p90": 6.025371455905183,
+            "p95": 6.253415600393799,
+            "p99": 6.407572303307293
+          },
+          "itl_ms": {
+            "mean": 5.38454838827371,
+            "p50": 4.445242999963739,
+            "p90": 7.035697200024061,
+            "p95": 15.12566379999497,
+            "p99": 18.99426143999567
+          },
+          "e2e_ms": {
+            "mean": 716.3770828291657,
+            "p50": 713.6631995000187,
+            "p90": 808.0842872999824,
+            "p95": 823.6078666999674,
+            "p99": 846.5453036500047
+          },
+          "send_lag_ms": {
+            "p50": 0.6222564554541066,
+            "max": 2.015407438083372
+          },
+          "sent_rate": 15.350775535981253
+        },
+        {
+          "rate": 32.0,
+          "completed": 960,
+          "duration_s": 31.600331613000037,
+          "request_throughput": 30.379428031225668,
+          "output_token_throughput": 3888.5667879968855,
+          "goodput_req_s": 30.379428031225668,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9999593098958334,
+          "ttft_ms": {
+            "mean": 48.27047428020948,
+            "p50": 47.42762250000965,
+            "p90": 63.90436920002571,
+            "p95": 71.821609200029,
+            "p99": 84.23637726001571
+          },
+          "tpot_ms": {
+            "mean": 9.376887952395007,
+            "p50": 9.55683341732307,
+            "p90": 10.943248766929177,
+            "p95": 11.749003950393845,
+            "p99": 12.914797156456343
+          },
+          "itl_ms": {
+            "mean": 9.377272519017342,
+            "p50": 6.429466999975375,
+            "p90": 18.94833199999084,
+            "p95": 20.629063299992374,
+            "p99": 27.340068139990308
+          },
+          "e2e_ms": {
+            "mean": 1239.1352442343753,
+            "p50": 1264.5527935000018,
+            "p90": 1445.150102399998,
+            "p95": 1544.3344219499975,
+            "p99": 1690.1326507100339
+          },
+          "send_lag_ms": {
+            "p50": 0.7191533880295253,
+            "max": 3.605196337614913
+          },
+          "sent_rate": 30.964404855837852
+        },
+        {
+          "rate": 48.0,
+          "completed": 1440,
+          "duration_s": 31.475949170000035,
+          "request_throughput": 45.74921608313165,
+          "output_token_throughput": 5855.899658640851,
+          "goodput_req_s": 45.74921608313165,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9999728732638888,
+          "ttft_ms": {
+            "mean": 103.22269481041704,
+            "p50": 96.44138450002515,
+            "p90": 151.97591489996964,
+            "p95": 175.1981495499933,
+            "p99": 214.30792337001148
+          },
+          "tpot_ms": {
+            "mean": 25.708834222276906,
+            "p50": 26.493601291338734,
+            "p90": 30.66076325511792,
+            "p95": 31.780229840157357,
+            "p99": 32.71334389669294
+          },
+          "itl_ms": {
+            "mean": 25.709537129569384,
+            "p50": 22.771531999978833,
+            "p90": 45.62278079998805,
+            "p95": 54.00437390001684,
+            "p99": 85.64163952000972
+          },
+          "e2e_ms": {
+            "mean": 3368.2446410395837,
+            "p50": 3466.184249000008,
+            "p90": 3993.9808541999637,
+            "p95": 4153.897317349999,
+            "p99": 4242.8968026599705
+          },
+          "send_lag_ms": {
+            "p50": 0.9690634685588506,
+            "max": 10.00526704609328
+          },
+          "sent_rate": 47.288756206794154
+        },
+        {
+          "rate": 64.0,
+          "completed": 1920,
+          "duration_s": 37.886281654000015,
+          "request_throughput": 50.67797408926477,
+          "output_token_throughput": 6486.780683425891,
+          "goodput_req_s": 1.4253180212605716,
+          "slo_attainment": 0.028125,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9972737630208334,
+          "ttft_ms": {
+            "mean": 1638.5967019739583,
+            "p50": 718.7464754999837,
+            "p90": 3624.138545100027,
+            "p95": 3691.893325999999,
+            "p99": 3777.77005515
+          },
+          "tpot_ms": {
+            "mean": 106.32176522793225,
+            "p50": 121.21122095669288,
+            "p90": 134.8697727086614,
+            "p95": 136.61768953307083,
+            "p99": 137.74804057653566
+          },
+          "itl_ms": {
+            "mean": 106.61471083266439,
+            "p50": 71.25123750003581,
+            "p90": 218.96796400004064,
+            "p95": 226.74645949996943,
+            "p99": 304.8336981499807
+          },
+          "e2e_ms": {
+            "mean": 15141.460885921353,
+            "p50": 16422.300183499996,
+            "p90": 17778.97342889996,
+            "p95": 17915.728767199987,
+            "p99": 18000.90087999001
+          },
+          "send_lag_ms": {
+            "p50": 1.0162756678759877,
+            "max": 42.39641729935428
+          },
+          "sent_rate": 64.52003129624302
+        }
+      ],
+      "knee": {
+        "rates": [
+          48.0,
+          64
+        ],
+        "repeats": [
+          {
+            "order": [
+              48.0,
+              64
+            ],
+            "runs": {
+              "48.0": {
+                "rate": 48.0,
+                "completed": 1440,
+                "duration_s": 30.872585797000056,
+                "request_throughput": 46.64332328586248,
+                "output_token_throughput": 5970.345380590397,
+                "goodput_req_s": 46.64332328586248,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999565972222222,
+                "ttft_ms": {
+                  "mean": 106.56497998125165,
+                  "p50": 101.96524700000964,
+                  "p90": 155.30395539998378,
+                  "p95": 173.55100760007076,
+                  "p99": 204.17375466997876
+                },
+                "tpot_ms": {
+                  "mean": 27.033489567629015,
+                  "p50": 26.96868590944865,
+                  "p90": 35.0730049141734,
+                  "p95": 35.89751475196908,
+                  "p99": 37.515920708031224
+                },
+                "itl_ms": {
+                  "mean": 27.034672186709802,
+                  "p50": 22.64848599998004,
+                  "p90": 49.4256164000376,
+                  "p95": 59.59797294999023,
+                  "p99": 91.1504086699518
+                },
+                "e2e_ms": {
+                  "mean": 3539.818155070137,
+                  "p50": 3525.7658025000183,
+                  "p90": 4576.562134199958,
+                  "p95": 4689.532381099963,
+                  "p99": 4892.163857109981
+                },
+                "send_lag_ms": {
+                  "p50": 0.9710469042776282,
+                  "max": 12.988930875632576
+                },
+                "sent_rate": 48.46774665753619,
+                "position_in_repeat": 0
+              },
+              "64": {
+                "rate": 64.0,
+                "completed": 1920,
+                "duration_s": 37.42125106100002,
+                "request_throughput": 51.30774481243897,
+                "output_token_throughput": 6567.391335992188,
+                "goodput_req_s": 0.02672278375647863,
+                "slo_attainment": 0.0005208333333333333,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999593098958334,
+                "ttft_ms": {
+                  "mean": 2017.7029116296883,
+                  "p50": 801.3246374999881,
+                  "p90": 4924.598044399988,
+                  "p95": 5047.120258650039,
+                  "p99": 5170.102725830004
+                },
+                "tpot_ms": {
+                  "mean": 105.01286260869011,
+                  "p50": 120.4530080787406,
+                  "p90": 135.59973930787405,
+                  "p95": 136.37007151810963,
+                  "p99": 136.89273992212605
+                },
+                "itl_ms": {
+                  "mean": 105.0171694151786,
+                  "p50": 71.59779600004867,
+                  "p90": 219.64291020000246,
+                  "p95": 227.43010294999522,
+                  "p99": 367.14396414002294
+                },
+                "e2e_ms": {
+                  "mean": 15354.336462933334,
+                  "p50": 16541.832792000037,
+                  "p90": 17863.087610399987,
+                  "p95": 17968.706394950044,
+                  "p99": 18123.35671813997
+                },
+                "send_lag_ms": {
+                  "p50": 1.025480372844001,
+                  "max": 32.55865143881209
+                },
+                "sent_rate": 66.66766786750527,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              64,
+              48.0
+            ],
+            "runs": {
+              "64": {
+                "rate": 64.0,
+                "completed": 1920,
+                "duration_s": 38.102511238000034,
+                "request_throughput": 50.39037946887773,
+                "output_token_throughput": 6449.96857201635,
+                "goodput_req_s": 1.1022895508817003,
+                "slo_attainment": 0.021875,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.99754638671875,
+                "ttft_ms": {
+                  "mean": 1351.604980900521,
+                  "p50": 644.0531174999933,
+                  "p90": 3473.128163999911,
+                  "p95": 3606.3021233500363,
+                  "p99": 3745.1536279699576
+                },
+                "tpot_ms": {
+                  "mean": 106.57740912581612,
+                  "p50": 120.42120109842514,
+                  "p90": 135.63403303228407,
+                  "p95": 136.60527219370135,
+                  "p99": 137.31043167692903
+                },
+                "itl_ms": {
+                  "mean": 106.84162130448492,
+                  "p50": 76.0510320000094,
+                  "p90": 218.00952839994352,
+                  "p95": 225.46279159994359,
+                  "p99": 355.5007819600178
+                },
+                "e2e_ms": {
+                  "mean": 14886.935939879168,
+                  "p50": 15943.351018999976,
+                  "p90": 17785.559438100052,
+                  "p95": 17877.72210785002,
+                  "p99": 18010.79917967
+                },
+                "send_lag_ms": {
+                  "p50": 1.045662913146117,
+                  "max": 21.44879879209327
+                },
+                "sent_rate": 62.814099017565994,
+                "position_in_repeat": 0
+              },
+              "48.0": {
+                "rate": 48.0,
+                "completed": 1440,
+                "duration_s": 31.702273988,
+                "request_throughput": 45.422609133498476,
+                "output_token_throughput": 5814.093969087805,
+                "goodput_req_s": 45.422609133498476,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999565972222222,
+                "ttft_ms": {
+                  "mean": 93.29907906041907,
+                  "p50": 88.53680999993685,
+                  "p90": 136.00673559992623,
+                  "p95": 148.01969180003312,
+                  "p99": 165.41673145997373
+                },
+                "tpot_ms": {
+                  "mean": 23.611830064517704,
+                  "p50": 24.24741255511813,
+                  "p90": 29.672913692913394,
+                  "p95": 31.140751699606703,
+                  "p99": 32.40132807063025
+                },
+                "itl_ms": {
+                  "mean": 23.612862998157173,
+                  "p50": 21.156731500013848,
+                  "p90": 39.93918939993364,
+                  "p95": 48.29334854998706,
+                  "p99": 67.61677973999555
+                },
+                "e2e_ms": {
+                  "mean": 3092.0014972541676,
+                  "p50": 3187.347002000024,
+                  "p90": 3871.623268400049,
+                  "p95": 4041.761720750054,
+                  "p99": 4229.434556970051
+                },
+                "send_lag_ms": {
+                  "p50": 0.9168230506766406,
+                  "max": 7.186915371814706
+                },
+                "sent_rate": 46.93496231466608,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              48.0,
+              64
+            ],
+            "runs": {
+              "48.0": {
+                "rate": 48.0,
+                "completed": 1440,
+                "duration_s": 30.149606080000012,
+                "request_throughput": 47.76181805424104,
+                "output_token_throughput": 6113.512710942853,
+                "goodput_req_s": 47.76181805424104,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999620225694444,
+                "ttft_ms": {
+                  "mean": 138.5014376743058,
+                  "p50": 132.47325849999925,
+                  "p90": 208.32319849998837,
+                  "p95": 244.3732828999202,
+                  "p99": 342.0803339700194
+                },
+                "tpot_ms": {
+                  "mean": 34.84886927767388,
+                  "p50": 37.72393377559054,
+                  "p90": 45.366183185039176,
+                  "p95": 46.3244902074798,
+                  "p99": 48.11263206173251
+                },
+                "itl_ms": {
+                  "mean": 34.85020322027308,
+                  "p50": 28.13836200004971,
+                  "p90": 63.12157619995559,
+                  "p95": 77.17762499996749,
+                  "p99": 116.4584159599508
+                },
+                "e2e_ms": {
+                  "mean": 4564.307835938889,
+                  "p50": 4993.913690499994,
+                  "p90": 5922.615825500054,
+                  "p95": 6014.133359800018,
+                  "p99": 6330.096074170056
+                },
+                "send_lag_ms": {
+                  "p50": 0.9848138560784037,
+                  "max": 24.76382287758838
+                },
+                "sent_rate": 49.80277690743634,
+                "position_in_repeat": 0
+              },
+              "64": {
+                "rate": 64.0,
+                "completed": 1920,
+                "duration_s": 37.49850400399998,
+                "request_throughput": 51.20204261469185,
+                "output_token_throughput": 6553.861454680557,
+                "goodput_req_s": 0.7200287242691041,
+                "slo_attainment": 0.0140625,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.99620361328125,
+                "ttft_ms": {
+                  "mean": 1644.2087155864585,
+                  "p50": 658.971172000065,
+                  "p90": 3488.1504375000077,
+                  "p95": 3557.0009729000503,
+                  "p99": 3680.0981144999637
+                },
+                "tpot_ms": {
+                  "mean": 107.7274216644562,
+                  "p50": 123.12495200393727,
+                  "p90": 136.94536619291338,
+                  "p95": 138.06317740511804,
+                  "p99": 138.3564424254334
+                },
+                "itl_ms": {
+                  "mean": 108.14120012457855,
+                  "p50": 70.0493510000797,
+                  "p90": 217.0032538000214,
+                  "p95": 225.69625909998194,
+                  "p99": 359.0046105599595
+                },
+                "e2e_ms": {
+                  "mean": 15325.591266972397,
+                  "p50": 16568.216014499965,
+                  "p90": 18048.452990200032,
+                  "p95": 18162.73132840001,
+                  "p99": 18794.740834870023
+                },
+                "send_lag_ms": {
+                  "p50": 1.0786307092054415,
+                  "max": 32.6531441280018
+                },
+                "sent_rate": 63.96157037930324,
+                "position_in_repeat": 1
+              }
+            }
+          }
+        ]
+      },
+      "env": {
+        "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 1024.0
+    },
+    "w4a16_gptq_marlin": {
+      "startup": {
+        "weights_gib": 5.36,
+        "load_s": 8.299018,
+        "kv_cache_gib": 64.69,
+        "kv_cache_tokens": 529968,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 10:43:26 [model.py:2152] Using max model len 2048",
+          "triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='marlin', linear_backend_per_quant=None)",
+          "(EngineCore pid=65) INFO 10-26 10:43:39 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=65) INFO 10-26 10:43:40 [__init__.py:923] Using MarlinLinearKernel for mixed-precision linear",
+          "(EngineCore pid=65) INFO 10-26 10:43:40 [compressed_tensors_wNa16.py:138] Using MarlinLinearKernel for CompressedTensorsWNA16",
+          "(EngineCore pid=65) INFO 10-26 10:43:41 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "(EngineCore pid=65) INFO 10-26 10:43:41 [flash_attn.py:1117] Using FlashAttention version 3",
+          "(EngineCore pid=65) INFO 10-26 10:43:48 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=65) INFO 10-26 10:43:55 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/c2125eaa7d/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=65) INFO 10-26 10:44:14 [gpu_worker.py:759] Available KV cache memory: 64.69 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.9092 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9308. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=65) INFO 10-26 10:44:14 [kv_cache_utils.py:2327] GPU KV cache size: 529,968 tokens, Maximum concurrency for 2,048 tokens per request: 258.77x",
+          "(EngineCore pid=65) INFO 10-26 10:44:14 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /vllm_cache/flashinfer_autotune_cache/0.7.0.post1/90a/e80ccfffde390daa5139e794ef7bdf6ad67574cbaa92a278438b71c2bc87ef42/autotune_configs_dp0_rank0.json",
+          " for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=68865746125` (64.14 GiB) to fit into requested memory, or `--kv-cache-memory=75114092544` (69.96 GiB) to fully utilize gpu memory. Current kv cache memory in use is 64.69 GiB.",
+          "(EngineCore pid=65) INFO 10-26 10:44:33 [core.py:395] init engine (profile, create kv cache, warmup model) took 44.84 s (compilation: 16.66 s)"
+        ]
+      },
+      "single": {
+        "rate": 0.25,
+        "completed": 30,
+        "duration_s": 141.010647554,
+        "request_throughput": 0.2127498917307752,
+        "output_token_throughput": 27.231986141539224,
+        "goodput_req_s": 0.2127498917307752,
+        "slo_attainment": 1.0,
+        "failed": 0,
+        "slo": {
+          "ttft_ms": 500.0,
+          "tpot_ms": 50.0
+        },
+        "text_chunks_per_token": 1.0,
+        "ttft_ms": {
+          "mean": 33.996846066668716,
+          "p50": 33.2105154999951,
+          "p90": 35.304793100007714,
+          "p95": 36.20650285000835,
+          "p99": 54.566282470000566
+        },
+        "tpot_ms": {
+          "mean": 3.446874244881885,
+          "p50": 3.4415039291337424,
+          "p90": 3.447337776378017,
+          "p95": 3.4512619933071,
+          "p99": 3.5644497454331945
+        },
+        "itl_ms": {
+          "mean": 3.4468742448818857,
+          "p50": 3.4416459999988547,
+          "p90": 3.6109102000011717,
+          "p95": 3.670450450005092,
+          "p99": 3.818094479998706
+        },
+        "e2e_ms": {
+          "mean": 471.7498751666682,
+          "p50": 470.9133540000039,
+          "p90": 473.1313822000203,
+          "p95": 483.8942179,
+          "p99": 496.3294757400117
+        },
+        "send_lag_ms": {
+          "p50": 1.1702172418068812,
+          "max": 2.434520246154648
+        },
+        "sent_rate": 0.20634768227629355
+      },
+      "sweep": [
+        {
+          "rate": 16.0,
+          "completed": 480,
+          "duration_s": 31.705887066999992,
+          "request_throughput": 15.139144316816541,
+          "output_token_throughput": 1937.8104725525172,
+          "goodput_req_s": 15.139144316816541,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.999951171875,
+          "ttft_ms": {
+            "mean": 47.59832577708387,
+            "p50": 40.140448500011416,
+            "p90": 74.22284360001186,
+            "p95": 79.71798899999669,
+            "p99": 93.6676482899735
+          },
+          "tpot_ms": {
+            "mean": 6.292887553001958,
+            "p50": 6.145509744094505,
+            "p90": 7.8593061267716315,
+            "p95": 8.257315842519791,
+            "p99": 8.771602458031433
+          },
+          "itl_ms": {
+            "mean": 6.293197257591406,
+            "p50": 4.229987000030633,
+            "p90": 13.940511800001335,
+            "p95": 19.05190619999074,
+            "p99": 27.59712468000089
+          },
+          "e2e_ms": {
+            "mean": 846.7950450083325,
+            "p50": 826.0134120000089,
+            "p90": 1052.8937306000046,
+            "p95": 1104.6500495500027,
+            "p99": 1151.543196949998
+          },
+          "send_lag_ms": {
+            "p50": 0.8359043340568917,
+            "max": 2.8062121672665086
+          },
+          "sent_rate": 15.350755780581096
+        },
+        {
+          "rate": 32.0,
+          "completed": 960,
+          "duration_s": 32.41531414299999,
+          "request_throughput": 29.615631542701237,
+          "output_token_throughput": 3790.8008374657584,
+          "goodput_req_s": 8.946388695190999,
+          "slo_attainment": 0.3020833333333333,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 500.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9999755859375,
+          "ttft_ms": {
+            "mean": 223.35229604062607,
+            "p50": 198.91655150001952,
+            "p90": 356.919843500009,
+            "p95": 421.60564089999167,
+            "p99": 656.6024177100007
+          },
+          "tpot_ms": {
+            "mean": 54.08983102180118,
+            "p50": 57.950383992125964,
+            "p90": 71.0200805771653,
+            "p95": 73.00997202874007,
+            "p99": 74.13536167992136
+          },
+          "itl_ms": {
+            "mean": 54.09116200511824,
+            "p50": 42.780805000006694,
+            "p90": 106.42813120000483,
+            "p95": 137.8836445999923,
+            "p99": 223.50417283998695
+          },
+          "e2e_ms": {
+            "mean": 7092.760835809377,
+            "p50": 7548.6256235000155,
+            "p90": 9208.088433500006,
+            "p95": 9493.749626100007,
+            "p99": 9619.598763430004
+          },
+          "send_lag_ms": {
+            "p50": 1.0509565512180075,
+            "max": 7.770595723354035
+          },
+          "sent_rate": 30.962914461236988
+        }
+      ],
+      "knee": {
+        "rates": [
+          16.0,
+          32
+        ],
+        "repeats": [
+          {
+            "order": [
+              16.0,
+              32
+            ],
+            "runs": {
+              "16.0": {
+                "rate": 16.0,
+                "completed": 480,
+                "duration_s": 29.954395808999948,
+                "request_throughput": 16.024359264685337,
+                "output_token_throughput": 2051.117985879723,
+                "goodput_req_s": 16.024359264685337,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.999951171875,
+                "ttft_ms": {
+                  "mean": 48.003193949999336,
+                  "p50": 41.115205999972204,
+                  "p90": 68.47230469997498,
+                  "p95": 79.75365709994549,
+                  "p99": 99.77062424999755
+                },
+                "tpot_ms": {
+                  "mean": 6.571996752132529,
+                  "p50": 6.383350090551519,
+                  "p90": 8.571413187401792,
+                  "p95": 8.85915323858306,
+                  "p99": 9.235553358818736
+                },
+                "itl_ms": {
+                  "mean": 6.572320193086914,
+                  "p50": 4.335932000003595,
+                  "p90": 13.870349200033163,
+                  "p95": 20.719410200058512,
+                  "p99": 27.57325639998501
+                },
+                "e2e_ms": {
+                  "mean": 882.6467814708305,
+                  "p50": 857.8358075000097,
+                  "p90": 1130.6126914999936,
+                  "p95": 1181.7925355500051,
+                  "p99": 1235.3850129899893
+                },
+                "send_lag_ms": {
+                  "p50": 0.8333017801582798,
+                  "max": 2.992338704359554
+                },
+                "sent_rate": 16.28928020659531,
+                "position_in_repeat": 0
+              },
+              "32": {
+                "rate": 32.0,
+                "completed": 960,
+                "duration_s": 31.756693322999922,
+                "request_throughput": 30.22984761781592,
+                "output_token_throughput": 3869.420495080438,
+                "goodput_req_s": 6.959162837018041,
+                "slo_attainment": 0.23020833333333332,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999755859375,
+                "ttft_ms": {
+                  "mean": 281.9689997552075,
+                  "p50": 256.3536284999941,
+                  "p90": 494.7995588999447,
+                  "p95": 614.1390164000481,
+                  "p99": 742.1024758499568
+                },
+                "tpot_ms": {
+                  "mean": 61.97715423214403,
+                  "p50": 63.717425759842705,
+                  "p90": 83.52385976141717,
+                  "p95": 85.35405919015774,
+                  "p99": 86.43992740244092
+                },
+                "itl_ms": {
+                  "mean": 61.97867929807164,
+                  "p50": 39.27134599996407,
+                  "p90": 147.25175740004488,
+                  "p95": 166.31666019995916,
+                  "p99": 299.04533999996147
+                },
+                "e2e_ms": {
+                  "mean": 8153.0675872374995,
+                  "p50": 8252.272569000012,
+                  "p90": 11002.724366799986,
+                  "p95": 11192.31736709998,
+                  "p99": 11318.513448239966
+                },
+                "send_lag_ms": {
+                  "p50": 1.0867109432286526,
+                  "max": 12.190090766587502
+                },
+                "sent_rate": 32.797855472869436,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              32,
+              16.0
+            ],
+            "runs": {
+              "32": {
+                "rate": 32.0,
+                "completed": 960,
+                "duration_s": 32.22364915800006,
+                "request_throughput": 29.791784142537562,
+                "output_token_throughput": 3813.348370244808,
+                "goodput_req_s": 7.75827712045249,
+                "slo_attainment": 0.2604166666666667,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9999593098958334,
+                "ttft_ms": {
+                  "mean": 252.41239460624905,
+                  "p50": 231.78552600001012,
+                  "p90": 434.55429350001396,
+                  "p95": 501.6591126000492,
+                  "p99": 588.8813237699967
+                },
+                "tpot_ms": {
+                  "mean": 60.49029939338911,
+                  "p50": 68.78277858267681,
+                  "p90": 82.59447930236173,
+                  "p95": 84.69723109724404,
+                  "p99": 86.83957653007892
+                },
+                "itl_ms": {
+                  "mean": 60.49278023247344,
+                  "p50": 41.87619200001791,
+                  "p90": 138.81174280002142,
+                  "p95": 175.01007869994987,
+                  "p99": 280.10841268003105
+                },
+                "e2e_ms": {
+                  "mean": 7934.680417566666,
+                  "p50": 8887.610979499983,
+                  "p90": 10865.465052200023,
+                  "p95": 11100.002252300015,
+                  "p99": 11254.233075090026
+                },
+                "send_lag_ms": {
+                  "p50": 1.0316454661172259,
+                  "max": 11.937972122645135
+                },
+                "sent_rate": 31.72580641185284,
+                "position_in_repeat": 0
+              },
+              "16.0": {
+                "rate": 16.0,
+                "completed": 480,
+                "duration_s": 30.61769778200005,
+                "request_throughput": 15.677207457517886,
+                "output_token_throughput": 2006.6825545622894,
+                "goodput_req_s": 15.677207457517886,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 1.0,
+                "ttft_ms": {
+                  "mean": 46.1425272854214,
+                  "p50": 39.649316000009094,
+                  "p90": 67.00846710001542,
+                  "p95": 74.81509790007976,
+                  "p99": 90.24329265995205
+                },
+                "tpot_ms": {
+                  "mean": 6.451457265124639,
+                  "p50": 6.346844456693254,
+                  "p90": 7.855034816535269,
+                  "p95": 8.095292075197127,
+                  "p99": 8.538729804803252
+                },
+                "itl_ms": {
+                  "mean": 6.451457265124638,
+                  "p50": 4.327989500040985,
+                  "p90": 14.683502300010785,
+                  "p95": 19.385465200082308,
+                  "p99": 26.95188585003394
+                },
+                "e2e_ms": {
+                  "mean": 865.4775999562505,
+                  "p50": 853.640900500011,
+                  "p90": 1043.4790754000119,
+                  "p95": 1085.4682277000848,
+                  "p99": 1130.117464350011
+                },
+                "send_lag_ms": {
+                  "p50": 0.7495957080259075,
+                  "max": 2.7447742818136334
+                },
+                "sent_rate": 15.904110005497053,
+                "position_in_repeat": 1
+              }
+            }
+          },
+          {
+            "order": [
+              16.0,
+              32
+            ],
+            "runs": {
+              "16.0": {
+                "rate": 16.0,
+                "completed": 480,
+                "duration_s": 28.73289322300002,
+                "request_throughput": 16.7055923075568,
+                "output_token_throughput": 2138.3158153672703,
+                "goodput_req_s": 16.7055923075568,
+                "slo_attainment": 1.0,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.9996419270833333,
+                "ttft_ms": {
+                  "mean": 50.59154256875188,
+                  "p50": 40.67208899994057,
+                  "p90": 79.32295899996689,
+                  "p95": 92.44281749998322,
+                  "p99": 126.10442028995976
+                },
+                "tpot_ms": {
+                  "mean": 7.001544208923871,
+                  "p50": 6.70588431102364,
+                  "p90": 8.957758071653465,
+                  "p95": 11.82538918503894,
+                  "p99": 12.61625476094507
+                },
+                "itl_ms": {
+                  "mean": 7.004071925169831,
+                  "p50": 4.499247499950343,
+                  "p90": 16.42992490004645,
+                  "p95": 21.21606205003559,
+                  "p99": 38.44037307998633
+                },
+                "e2e_ms": {
+                  "mean": 939.7876571020836,
+                  "p50": 893.4447304999935,
+                  "p90": 1182.5628423000694,
+                  "p95": 1577.0249550000244,
+                  "p99": 1681.8674141099866
+                },
+                "send_lag_ms": {
+                  "p50": 0.8616203278251078,
+                  "max": 2.8975881385662206
+                },
+                "sent_rate": 16.963611267940948,
+                "position_in_repeat": 0
+              },
+              "32": {
+                "rate": 32.0,
+                "completed": 960,
+                "duration_s": 31.76822074400002,
+                "request_throughput": 30.218878411102477,
+                "output_token_throughput": 3868.016436621117,
+                "goodput_req_s": 6.862203639187854,
+                "slo_attainment": 0.22708333333333333,
+                "failed": 0,
+                "slo": {
+                  "ttft_ms": 500.0,
+                  "tpot_ms": 50.0
+                },
+                "text_chunks_per_token": 0.999951171875,
+                "ttft_ms": {
+                  "mean": 308.9757269010419,
+                  "p50": 295.72100250004496,
+                  "p90": 524.6259554000176,
+                  "p95": 567.6887436999266,
+                  "p99": 652.1716254799672
+                },
+                "tpot_ms": {
+                  "mean": 77.71037553188975,
+                  "p50": 91.37937327559045,
+                  "p90": 108.73867928818926,
+                  "p95": 109.55970113267666,
+                  "p99": 111.94794924976411
+                },
+                "itl_ms": {
+                  "mean": 77.71420004960872,
+                  "p50": 55.802524999990055,
+                  "p90": 171.38950050002677,
+                  "p95": 203.80916434998542,
+                  "p99": 267.7479067199465
+                },
+                "e2e_ms": {
+                  "mean": 10178.193419451041,
+                  "p50": 12008.469093500025,
+                  "p90": 14155.155760600019,
+                  "p95": 14355.105104000051,
+                  "p99": 14502.166998090053
+                },
+                "send_lag_ms": {
+                  "p50": 1.012244265082174,
+                  "max": 8.235851701449803
+                },
+                "sent_rate": 32.910004925580445,
+                "position_in_repeat": 1
+              }
+            }
+          }
+        ]
+      },
+      "env": {
+        "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 918.6
     }
   },
   "prefill": {
@@ -4452,6 +5552,447 @@
         "vllm": "0.32.0"
       },
       "wall_s": 448.7
+    },
+    "w4a16_gptq_rag": {
+      "startup": {
+        "weights_gib": 5.36,
+        "load_s": 6.321204,
+        "kv_cache_gib": 64.69,
+        "kv_cache_tokens": 529904,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 11:27:38 [model.py:2152] Using max model len 6144",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=64) INFO 10-26 11:27:53 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=64) INFO 10-26 11:27:54 [__init__.py:923] Using MacheteLinearKernel for mixed-precision linear",
+          "(EngineCore pid=64) INFO 10-26 11:27:54 [compressed_tensors_wNa16.py:138] Using MacheteLinearKernel for CompressedTensorsWNA16",
+          "(EngineCore pid=64) INFO 10-26 11:27:55 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "(EngineCore pid=64) INFO 10-26 11:27:55 [flash_attn.py:1117] Using FlashAttention version 3",
+          "(EngineCore pid=64) INFO 10-26 11:28:00 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=64) INFO 10-26 11:28:08 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/ce5075ef70/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=64) INFO 10-26 11:28:29 [gpu_worker.py:759] Available KV cache memory: 64.69 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.9085 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9315. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=64) INFO 10-26 11:28:29 [kv_cache_utils.py:2327] GPU KV cache size: 529,904 tokens, Maximum concurrency for 6,144 tokens per request: 86.25x",
+          "(EngineCore pid=64) INFO 10-26 11:28:29 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /vllm_cache/flashinfer_autotune_cache/0.7.0.post1/90a/09087533648104573d4f9b882af7a70977429dd4f917dfaea04e1ddfa42d4bb7/autotune_configs_dp0_rank0.json",
+          " for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=68781857485` (64.06 GiB) to fit into requested memory, or `--kv-cache-memory=75030203904` (69.88 GiB) to fully utilize gpu memory. Current kv cache memory in use is 64.69 GiB.",
+          "(EngineCore pid=64) INFO 10-26 11:28:51 [core.py:395] init engine (profile, create kv cache, warmup model) took 50.74 s (compilation: 19.17 s)",
+          "(APIServer pid=7) INFO 10-26 11:29:05 [loggers.py:335] Engine 000: Avg prompt throughput: 1589.1 tokens/s, Avg generation throughput: 0.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:29:15 [loggers.py:335] Engine 000: Avg prompt throughput: 2463.5 tokens/s, Avg generation throughput: 0.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:29:25 [loggers.py:335] Engine 000: Avg prompt throughput: 2478.5 tokens/s, Avg generation throughput: 0.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:29:35 [loggers.py:335] Engine 000: Avg prompt throughput: 2057.7 tokens/s, Avg generation throughput: 0.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:29:45 [loggers.py:335] Engine 000: Avg prompt throughput: 2079.4 tokens/s, Avg generation throughput: 0.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:29:55 [loggers.py:335] Engine 000: Avg prompt throughput: 812.9 tokens/s, Avg generation throughput: 0.2 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:05 [loggers.py:335] Engine 000: Avg prompt throughput: 1212.7 tokens/s, Avg generation throughput: 0.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:15 [loggers.py:335] Engine 000: Avg prompt throughput: 2052.5 tokens/s, Avg generation throughput: 0.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:25 [loggers.py:335] Engine 000: Avg prompt throughput: 1211.5 tokens/s, Avg generation throughput: 0.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:35 [loggers.py:335] Engine 000: Avg prompt throughput: 1229.7 tokens/s, Avg generation throughput: 0.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:45 [loggers.py:335] Engine 000: Avg prompt throughput: 2469.9 tokens/s, Avg generation throughput: 0.6 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:30:55 [loggers.py:335] Engine 000: Avg prompt throughput: 3679.3 tokens/s, Avg generation throughput: 0.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:05 [loggers.py:335] Engine 000: Avg prompt throughput: 4542.4 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:15 [loggers.py:335] Engine 000: Avg prompt throughput: 7353.9 tokens/s, Avg generation throughput: 1.8 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:25 [loggers.py:335] Engine 000: Avg prompt throughput: 5344.6 tokens/s, Avg generation throughput: 1.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:35 [loggers.py:335] Engine 000: Avg prompt throughput: 9464.4 tokens/s, Avg generation throughput: 2.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:45 [loggers.py:335] Engine 000: Avg prompt throughput: 4485.0 tokens/s, Avg generation throughput: 1.1 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:31:55 [loggers.py:335] Engine 000: Avg prompt throughput: 5366.8 tokens/s, Avg generation throughput: 1.3 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:32:05 [loggers.py:335] Engine 000: Avg prompt throughput: 14424.2 tokens/s, Avg generation throughput: 3.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:32:15 [loggers.py:335] Engine 000: Avg prompt throughput: 11045.4 tokens/s, Avg generation throughput: 2.7 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:32:25 [loggers.py:335] Engine 000: Avg prompt throughput: 14258.9 tokens/s, Avg generation throughput: 3.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:32:35 [loggers.py:335] Engine 000: Avg prompt throughput: 19678.6 tokens/s, Avg generation throughput: 4.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
+          "(APIServer pid=7) INFO 10-26 11:32:45 [loggers.py:335] Engine 000: Avg prompt throughput: 24456.5 tokens/s, Avg generation throughput: 6.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.8%",
+          "(APIServer pid=7) INFO 10-26 11:32:55 [loggers.py:335] Engine 000: Avg prompt throughput: 24153.7 tokens/s, Avg generation throughput: 5.9 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%",
+          "(APIServer pid=7) INFO 10-26 11:33:05 [loggers.py:335] Engine 000: Avg prompt throughput: 18012.5 tokens/s, Avg generation throughput: 4.4 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%"
+        ]
+      },
+      "runs": [
+        {
+          "rate": 0.5,
+          "completed": 40,
+          "duration_s": 95.029699976,
+          "request_throughput": 0.42092103847641427,
+          "output_token_throughput": 0.42092103847641427,
+          "goodput_req_s": 0.42092103847641427,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 119.25158125000124,
+            "p50": 117.23118249999942,
+            "p90": 120.85119699999751,
+            "p95": 121.4563008500093,
+            "p99": 169.37050832001057
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 119.25158125000124,
+            "p50": 117.23118249999942,
+            "p90": 120.85119699999751,
+            "p95": 121.4563008500093,
+            "p99": 169.37050832001057
+          },
+          "send_lag_ms": {
+            "p50": 1.218617842854819,
+            "max": 2.0067327845794125
+          },
+          "sent_rate": 0.41089506142580773
+        },
+        {
+          "rate": 1.0,
+          "completed": 40,
+          "duration_s": 30.922233358,
+          "request_throughput": 1.2935676261446833,
+          "output_token_throughput": 1.2935676261446833,
+          "goodput_req_s": 1.2935676261446833,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 139.40412442500119,
+            "p50": 120.00404750000371,
+            "p90": 203.02502840000045,
+            "p95": 226.68827540001044,
+            "p99": 343.84094015000016
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 139.40412442500119,
+            "p50": 120.00404750000371,
+            "p90": 203.02502840000045,
+            "p95": 226.68827540001044,
+            "p99": 343.84094015000016
+          },
+          "send_lag_ms": {
+            "p50": 1.3008082289385214,
+            "max": 2.9996215124192815
+          },
+          "sent_rate": 1.2660458886411656
+        },
+        {
+          "rate": 2.0,
+          "completed": 60,
+          "duration_s": 37.79663610099999,
+          "request_throughput": 1.5874428570751187,
+          "output_token_throughput": 1.5874428570751187,
+          "goodput_req_s": 1.5874428570751187,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 134.3945746833318,
+            "p50": 122.1921405000046,
+            "p90": 147.66928550001526,
+            "p95": 217.1405827499838,
+            "p99": 299.241154019993
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 134.3945746833318,
+            "p50": 122.1921405000046,
+            "p90": 147.66928550001526,
+            "p95": 217.1405827499838,
+            "p99": 299.241154019993
+          },
+          "send_lag_ms": {
+            "p50": 1.0153402442671933,
+            "max": 10.16649799848679
+          },
+          "sent_rate": 1.5660063030842226
+        },
+        {
+          "rate": 4.0,
+          "completed": 120,
+          "duration_s": 34.738132302,
+          "request_throughput": 3.45441715048944,
+          "output_token_throughput": 3.45441715048944,
+          "goodput_req_s": 3.45441715048944,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 148.4375374416705,
+            "p50": 121.20017150002127,
+            "p90": 230.95454209999954,
+            "p95": 285.63859230002606,
+            "p99": 312.7950356500088
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 148.4375374416705,
+            "p50": 121.20017150002127,
+            "p90": 230.95454209999954,
+            "p95": 285.63859230002606,
+            "p99": 312.7950356500088
+          },
+          "send_lag_ms": {
+            "p50": 1.202269477596829,
+            "max": 2.720551213013067
+          },
+          "sent_rate": 3.4375324677378916
+        },
+        {
+          "rate": 6.0,
+          "completed": 180,
+          "duration_s": 31.768069465999986,
+          "request_throughput": 5.6660666834869,
+          "output_token_throughput": 5.6660666834869,
+          "goodput_req_s": 5.6660666834869,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 237.669180483332,
+            "p50": 194.92886199998338,
+            "p90": 425.5828713000198,
+            "p95": 485.85410255002444,
+            "p99": 684.0723026799856
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 237.669180483332,
+            "p50": 194.92886199998338,
+            "p90": 425.5828713000198,
+            "p95": 485.85410255002444,
+            "p99": 684.0723026799856
+          },
+          "send_lag_ms": {
+            "p50": 1.2033822333101796,
+            "max": 5.024697623916552
+          },
+          "sent_rate": 5.656185189165851
+        },
+        {
+          "rate": 8.0,
+          "completed": 240,
+          "duration_s": 32.96222015000001,
+          "request_throughput": 7.281062953521957,
+          "output_token_throughput": 7.281062953521957,
+          "goodput_req_s": 7.281062953521957,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 408.11467738332965,
+            "p50": 253.4716349999826,
+            "p90": 1126.594458400018,
+            "p95": 1310.2481390500234,
+            "p99": 1520.3964282
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 408.11467738332965,
+            "p50": 253.4716349999826,
+            "p90": 1126.594458400018,
+            "p95": 1310.2481390500234,
+            "p99": 1520.3964282
+          },
+          "send_lag_ms": {
+            "p50": 1.1542948419775296,
+            "max": 4.114203044025544
+          },
+          "sent_rate": 7.503198654006156
+        },
+        {
+          "rate": 12.0,
+          "completed": 360,
+          "duration_s": 37.98780041699996,
+          "request_throughput": 9.476726634556499,
+          "output_token_throughput": 9.476726634556499,
+          "goodput_req_s": 2.4218301399422164,
+          "slo_attainment": 0.25555555555555554,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 3876.4875771499983,
+            "p50": 3621.536852499986,
+            "p90": 6894.864860900005,
+            "p95": 7068.805663850023,
+            "p99": 7445.434197089995
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 3876.4875771499983,
+            "p50": 3621.536852499986,
+            "p90": 6894.864860900005,
+            "p95": 7068.805663850023,
+            "p99": 7445.434197089995
+          },
+          "send_lag_ms": {
+            "p50": 1.1375546120269142,
+            "max": 3.102750164678092
+          },
+          "sent_rate": 11.736997676335061
+        },
+        {
+          "rate": 16.0,
+          "completed": 480,
+          "duration_s": 50.549744454000006,
+          "request_throughput": 9.495596964625555,
+          "output_token_throughput": 9.495596964625555,
+          "goodput_req_s": 0.6132573039654005,
+          "slo_attainment": 0.06458333333333334,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 11330.511171477086,
+            "p50": 10932.50464899998,
+            "p90": 20131.585344199983,
+            "p95": 21111.07100375001,
+            "p99": 21963.9116893
+          },
+          "tpot_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "itl_ms": {
+            "mean": null,
+            "p50": null,
+            "p90": null,
+            "p95": null,
+            "p99": null
+          },
+          "e2e_ms": {
+            "mean": 11330.511171477086,
+            "p50": 10932.50464899998,
+            "p90": 20131.585344199983,
+            "p95": 21111.07100375001,
+            "p99": 21963.9116893
+          },
+          "send_lag_ms": {
+            "p50": 1.1145030692194524,
+            "max": 2.81614609128944
+          },
+          "sent_rate": 16.832806603726127
+        }
+      ],
+      "env": {
+        "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 470.5
     }
   },
   "long": {
@@ -5668,6 +7209,820 @@
         "vllm": "0.32.0"
       },
       "wall_s": 522.8
+    },
+    "w4a16_gptq_rag": {
+      "startup": {
+        "weights_gib": 5.36,
+        "load_s": 5.321343,
+        "kv_cache_gib": 64.95,
+        "kv_cache_tokens": 532032,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 11:42:54 [model.py:2152] Using max model len 6144",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=64) INFO 10-26 11:43:06 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=64) INFO 10-26 11:43:07 [__init__.py:923] Using MacheteLinearKernel for mixed-precision linear",
+          "(EngineCore pid=64) INFO 10-26 11:43:07 [compressed_tensors_wNa16.py:138] Using MacheteLinearKernel for CompressedTensorsWNA16",
+          "(EngineCore pid=64) INFO 10-26 11:43:09 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].",
+          "(EngineCore pid=64) INFO 10-26 11:43:09 [flash_attn.py:1117] Using FlashAttention version 3",
+          "(EngineCore pid=64) INFO 10-26 11:43:12 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=64) INFO 10-26 11:43:25 [gpu_worker.py:759] Available KV cache memory: 64.95 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.9085 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9315. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=64) INFO 10-26 11:43:25 [kv_cache_utils.py:2327] GPU KV cache size: 532,032 tokens, Maximum concurrency for 6,144 tokens per request: 86.59x",
+          "(EngineCore pid=64) INFO 10-26 11:43:25 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /vllm_cache/flashinfer_autotune_cache/0.7.0.post1/90a/09087533648104573d4f9b882af7a70977429dd4f917dfaea04e1ddfa42d4bb7/autotune_configs_dp0_rank0.json",
+          " for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=69060819661` (64.32 GiB) to fit into requested memory, or `--kv-cache-memory=75309166080` (70.14 GiB) to fully utilize gpu memory. Current kv cache memory in use is 64.95 GiB.",
+          "(EngineCore pid=64) INFO 10-26 11:43:46 [core.py:395] init engine (profile, create kv cache, warmup model) took 33.35 s (compilation: 4.63 s)"
+        ]
+      },
+      "runs": [
+        {
+          "rate": 1.0,
+          "completed": 60,
+          "duration_s": 71.95953674,
+          "request_throughput": 0.8338019214435537,
+          "output_token_throughput": 853.813167558199,
+          "goodput_req_s": 0.8338019214435537,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9998209635416667,
+          "ttft_ms": {
+            "mean": 125.33939838333434,
+            "p50": 121.75532400000577,
+            "p90": 127.94119299999664,
+            "p95": 138.978550849999,
+            "p99": 218.07882129000257
+          },
+          "tpot_ms": {
+            "mean": 5.878031732974908,
+            "p50": 5.890887847996087,
+            "p90": 6.6475698420332225,
+            "p95": 6.693051474780057,
+            "p99": 6.87645211878787
+          },
+          "itl_ms": {
+            "mean": 5.879085332496861,
+            "p50": 5.500472000008472,
+            "p90": 6.147200800012342,
+            "p95": 6.399951599991027,
+            "p99": 14.71810411999797
+          },
+          "e2e_ms": {
+            "mean": 6138.565861216665,
+            "p50": 6152.479015500006,
+            "p90": 6929.364291900018,
+            "p95": 6978.932653399993,
+            "p99": 7158.698268719999
+          },
+          "send_lag_ms": {
+            "p50": 0.9303339630228891,
+            "max": 2.173516813062548
+          },
+          "sent_rate": 0.8809379428924885,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 10.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0856515593515984,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          }
+        },
+        {
+          "rate": 2.0,
+          "completed": 120,
+          "duration_s": 65.61265227000001,
+          "request_throughput": 1.8289155497965968,
+          "output_token_throughput": 1872.809522991715,
+          "goodput_req_s": 1.8289155497965968,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 149.88347684999823,
+            "p50": 134.54531949999193,
+            "p90": 220.34890369998834,
+            "p95": 238.84448379999978,
+            "p99": 307.3764342299876
+          },
+          "tpot_ms": {
+            "mean": 10.436397072922777,
+            "p50": 10.754923252688172,
+            "p90": 11.70584592649071,
+            "p95": 11.888871547262962,
+            "p99": 12.131867680097756
+          },
+          "itl_ms": {
+            "mean": 10.436397072922777,
+            "p50": 8.86599650000619,
+            "p90": 9.984417699999426,
+            "p95": 10.543105949996345,
+            "p99": 97.38644969000605
+          },
+          "e2e_ms": {
+            "mean": 10826.317682449999,
+            "p50": 11132.74087949999,
+            "p90": 12109.176734700002,
+            "p95": 12377.942443000002,
+            "p99": 12542.426770340018
+          },
+          "send_lag_ms": {
+            "p50": 0.878161857709614,
+            "max": 2.981719893881518
+          },
+          "sent_rate": 2.0454848382724315,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 31.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.26336050043607706,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          }
+        },
+        {
+          "rate": 3.0,
+          "completed": 180,
+          "duration_s": 78.26487824299997,
+          "request_throughput": 2.2998821954482405,
+          "output_token_throughput": 2355.0793681389982,
+          "goodput_req_s": 2.2998821954482405,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 207.31768910555672,
+            "p50": 162.25562299999297,
+            "p90": 331.06109699996864,
+            "p95": 441.77261405003514,
+            "p99": 625.6979882200319
+          },
+          "tpot_ms": {
+            "mean": 19.47298935331813,
+            "p50": 19.379280259042034,
+            "p90": 26.497508096969685,
+            "p95": 26.656913557478003,
+            "p99": 26.836726596803544
+          },
+          "itl_ms": {
+            "mean": 19.472989353318127,
+            "p50": 15.770520500012708,
+            "p90": 22.636305599974094,
+            "p95": 23.955493399972738,
+            "p99": 121.36074139001207
+          },
+          "e2e_ms": {
+            "mean": 20128.185797550002,
+            "p50": 19961.589979500004,
+            "p90": 27267.267103800023,
+            "p95": 27496.355550599987,
+            "p99": 27670.304232640006
+          },
+          "send_lag_ms": {
+            "p50": 0.9634016714130667,
+            "max": 2.579203361729565
+          },
+          "sent_rate": 2.904534045346392,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 95.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 1.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 1.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.8136597395567051,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          }
+        },
+        {
+          "rate": 4.0,
+          "completed": 240,
+          "duration_s": 94.519643041,
+          "request_throughput": 2.539154743695918,
+          "output_token_throughput": 2600.09445754462,
+          "goodput_req_s": 1.8303073777474743,
+          "slo_attainment": 0.7208333333333333,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.99998779296875,
+          "ttft_ms": {
+            "mean": 3548.460787716666,
+            "p50": 264.0714720000119,
+            "p90": 13924.156619299958,
+            "p95": 14625.729187350013,
+            "p99": 15631.464223460021
+          },
+          "tpot_ms": {
+            "mean": 30.479403529366245,
+            "p50": 32.48236354349952,
+            "p90": 40.09380121065494,
+            "p95": 40.54670115742913,
+            "p99": 40.79188578003911
+          },
+          "itl_ms": {
+            "mean": 30.479775960646315,
+            "p50": 24.094387999980427,
+            "p90": 29.689683200024316,
+            "p95": 122.5487133999764,
+            "p99": 226.79150220003066
+          },
+          "e2e_ms": {
+            "mean": 34728.89059825833,
+            "p50": 37635.793592,
+            "p90": 41483.12998839998,
+            "p95": 41782.7221726,
+            "p99": 41984.910473380005
+          },
+          "send_lag_ms": {
+            "p50": 0.9926073373307531,
+            "max": 5.362801558653985
+          },
+          "sent_rate": 3.7833937426717315,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 21.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 120.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 45.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 45.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.9999097771495594,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 21.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          }
+        },
+        {
+          "rate": 6.0,
+          "completed": 300,
+          "duration_s": 115.20134509600001,
+          "request_throughput": 2.6041362603015,
+          "output_token_throughput": 2666.635530548736,
+          "goodput_req_s": 1.0156131415175849,
+          "slo_attainment": 0.39,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 17465.762701686668,
+            "p50": 20008.44340949999,
+            "p90": 44737.83184530002,
+            "p95": 44959.532807399984,
+            "p99": 45843.44947458998
+          },
+          "tpot_ms": {
+            "mean": 36.755545284431406,
+            "p50": 39.80945748729226,
+            "p90": 42.421398528739026,
+            "p95": 42.70902394657874,
+            "p99": 53.81083548344083
+          },
+          "itl_ms": {
+            "mean": 36.755545284431406,
+            "p50": 27.765438499983475,
+            "p90": 30.112339399994422,
+            "p95": 130.83631805000664,
+            "p99": 230.67719331002593
+          },
+          "e2e_ms": {
+            "mean": 55066.68552766,
+            "p50": 61632.23007199997,
+            "p90": 68719.7565605,
+            "p95": 69729.26099730004,
+            "p99": 70497.11349319
+          },
+          "send_lag_ms": {
+            "p50": 1.0528221328804932,
+            "max": 3.0217032847303926
+          },
+          "sent_rate": 5.741700950525312,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 21.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 71.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 123.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 124.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 124.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 1.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 71.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793015027.3974464
+          }
+        }
+      ],
+      "env": {
+        "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 519.1
+    },
+    "fp8_dynamic_kv_scale1": {
+      "startup": {
+        "weights_gib": 8.52,
+        "load_s": 11.488451,
+        "kv_cache_gib": 61.56,
+        "kv_cache_tokens": 1008560,
+        "lines": [
+          "(APIServer pid=7) INFO 10-26 12:01:44 [model.py:2152] Using max model len 6144",
+          "(APIServer pid=7) INFO 10-26 12:01:45 [cache.py:361] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor",
+          "['triton', 'native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)",
+          "(EngineCore pid=65) INFO 10-26 12:02:01 [gpu_worker.py:518] Using V2 Model Runner",
+          "(EngineCore pid=65) INFO 10-26 12:02:01 [__init__.py:797] Selected CutlassFP8ScaledMMLinearKernel for CompressedTensorsW8A8Fp8",
+          "(EngineCore pid=65) INFO 10-26 12:02:03 [cuda.py:506] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN'].",
+          "(EngineCore pid=65) INFO 10-26 12:02:03 [flash_attn.py:1117] Using FlashAttention version 3",
+          "(EngineCore pid=65) INFO 10-26 12:02:13 [utils.py:347] Using LBNHC KV cache layout.",
+          "(EngineCore pid=65) INFO 10-26 12:02:27 [backends.py:1104] [backbone] Using cache directory: /vllm_cache/torch_compile_cache/d140ad5929/rank_0_0/backbone for vLLM's torch.compile",
+          "(EngineCore pid=65) INFO 10-26 12:02:56 [gpu_worker.py:759] Available KV cache memory: 61.56 GiB",
+          "zation=0.9200 is equivalent to --gpu-memory-utilization=0.9092 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9308. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+          "(EngineCore pid=65) INFO 10-26 12:02:56 [kv_cache_utils.py:2327] GPU KV cache size: 1,008,560 tokens, Maximum concurrency for 6,144 tokens per request: 164.15x",
+          "(EngineCore pid=65) INFO 10-26 12:02:57 [cache.py:361] Using fp8 data type to store kv cache. It reduces the GPU memory footprint and boosts the performance. Meanwhile, it may cause accuracy drop without a proper scaling factor",
+          "(EngineCore pid=65) INFO 10-26 12:02:57 [kernel_warmup.py:460] Using FlashInfer autotune cache file: /vllm_cache/flashinfer_autotune_cache/0.7.0.post1/90a/3038831e0d9a336043c15f8e8f7356eae67aec8ce70c96d493977f538e538d3b/autotune_configs_dp0_rank0.json",
+          "B for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=65499814605` (61.0 GiB) to fit into requested memory, or `--kv-cache-memory=71748161024` (66.82 GiB) to fully utilize gpu memory. Current kv cache memory in use is 61.56 GiB.",
+          "(EngineCore pid=65) INFO 10-26 12:03:19 [core.py:395] init engine (profile, create kv cache, warmup model) took 65.97 s (compilation: 35.05 s)"
+        ]
+      },
+      "runs": [
+        {
+          "rate": 1.0,
+          "completed": 60,
+          "duration_s": 72.04289915199999,
+          "request_throughput": 0.832837111030315,
+          "output_token_throughput": 852.8252016950426,
+          "goodput_req_s": 0.832837111030315,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.999658203125,
+          "ttft_ms": {
+            "mean": 94.6353913833344,
+            "p50": 92.3311929999926,
+            "p90": 98.67872009999132,
+            "p95": 102.05422630000669,
+            "p99": 158.96523956001
+          },
+          "tpot_ms": {
+            "mean": 5.684567054512869,
+            "p50": 5.772301501955033,
+            "p90": 6.122595967546422,
+            "p95": 6.1767426934506195,
+            "p99": 6.239524395777129
+          },
+          "itl_ms": {
+            "mean": 5.6865125866784,
+            "p50": 5.423600000000306,
+            "p90": 6.065269000004037,
+            "p95": 6.277157899992858,
+            "p99": 8.716968240014461
+          },
+          "e2e_ms": {
+            "mean": 5909.947488150001,
+            "p50": 6001.288091000006,
+            "p90": 6356.356693100003,
+            "p95": 6440.846147750014,
+            "p99": 6480.631198399995
+          },
+          "send_lag_ms": {
+            "p50": 0.8485794492187893,
+            "max": 1.977824448630372
+          },
+          "sent_rate": 0.8809454676588782,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 9.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.04185042992670618,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          }
+        },
+        {
+          "rate": 2.0,
+          "completed": 120,
+          "duration_s": 64.91664495500001,
+          "request_throughput": 1.8485243666425395,
+          "output_token_throughput": 1892.8889514419604,
+          "goodput_req_s": 1.8485243666425395,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 1.0,
+          "ttft_ms": {
+            "mean": 110.15309275833285,
+            "p50": 100.12039299998321,
+            "p90": 150.64260539998594,
+            "p95": 172.52326660000108,
+            "p99": 250.40166187001725
+          },
+          "tpot_ms": {
+            "mean": 8.477501922238515,
+            "p50": 8.676776732649099,
+            "p90": 9.349762489540575,
+            "p95": 9.485115176392965,
+            "p99": 9.614965408924729
+          },
+          "itl_ms": {
+            "mean": 8.477501922238515,
+            "p50": 7.726856000005,
+            "p90": 8.644396100004315,
+            "p95": 8.999113049981133,
+            "p99": 55.748468619994036
+          },
+          "e2e_ms": {
+            "mean": 8782.637559208333,
+            "p50": 8987.047939500002,
+            "p90": 9665.8639004,
+            "p95": 9805.691446900006,
+            "p99": 9933.527473749986
+          },
+          "send_lag_ms": {
+            "p50": 0.7796879568502391,
+            "max": 2.3905704716726817
+          },
+          "sent_rate": 2.045513532427548,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 26.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.1211727004473776,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          }
+        },
+        {
+          "rate": 3.0,
+          "completed": 180,
+          "duration_s": 70.56842161100002,
+          "request_throughput": 2.550715970271072,
+          "output_token_throughput": 2611.933153557578,
+          "goodput_req_s": 2.550715970271072,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9998914930555556,
+          "ttft_ms": {
+            "mean": 125.58558595555414,
+            "p50": 107.48226600000521,
+            "p90": 178.3241522999958,
+            "p95": 203.64193555001594,
+            "p99": 361.144663259985
+          },
+          "tpot_ms": {
+            "mean": 10.992284972548061,
+            "p50": 10.575682289833848,
+            "p90": 13.096672263734074,
+            "p95": 13.37401635874878,
+            "p99": 13.530437773724326
+          },
+          "itl_ms": {
+            "mean": 10.993479007413644,
+            "p50": 8.99951650001185,
+            "p90": 10.931609999983039,
+            "p95": 23.177599000004513,
+            "p99": 65.43015649001063
+          },
+          "e2e_ms": {
+            "mean": 11370.69311287222,
+            "p50": 10923.112513999997,
+            "p90": 13539.749459199993,
+            "p95": 13803.4404263,
+            "p99": 13993.403911539988
+          },
+          "send_lag_ms": {
+            "p50": 0.9181707035672559,
+            "max": 2.7886821157210306
+          },
+          "sent_rate": 2.9044907689051445,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 52.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.23593616143668494,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          }
+        },
+        {
+          "rate": 4.0,
+          "completed": 240,
+          "duration_s": 74.05970710499997,
+          "request_throughput": 3.2406285331338687,
+          "output_token_throughput": 3318.4036179290815,
+          "goodput_req_s": 3.2406285331338687,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9998128255208333,
+          "ttft_ms": {
+            "mean": 140.9862493416663,
+            "p50": 127.15827599998875,
+            "p90": 200.46720770001798,
+            "p95": 221.08956590002435,
+            "p99": 263.6277026400006
+          },
+          "tpot_ms": {
+            "mean": 16.143729132697946,
+            "p50": 16.605876245356775,
+            "p90": 21.555876556891484,
+            "p95": 21.627531886265878,
+            "p99": 21.709924102033217
+          },
+          "itl_ms": {
+            "mean": 16.14675434734432,
+            "p50": 12.300153500007127,
+            "p90": 18.88039429998118,
+            "p95": 58.106070000013695,
+            "p99": 79.68538887001557
+          },
+          "e2e_ms": {
+            "mean": 16656.021152091664,
+            "p50": 17207.924048999987,
+            "p90": 22202.832295899985,
+            "p95": 22253.296469799956,
+            "p99": 22338.95334491
+          },
+          "send_lag_ms": {
+            "p50": 1.0360373872337902,
+            "max": 7.321306764161761
+          },
+          "sent_rate": 3.783377539934602,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 96.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.44150775771805695,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          }
+        },
+        {
+          "rate": 6.0,
+          "completed": 300,
+          "duration_s": 75.69167684499996,
+          "request_throughput": 3.963447666965214,
+          "output_token_throughput": 4058.5704109723792,
+          "goodput_req_s": 3.963447666965214,
+          "slo_attainment": 1.0,
+          "failed": 0,
+          "slo": {
+            "ttft_ms": 2000.0,
+            "tpot_ms": 50.0
+          },
+          "text_chunks_per_token": 0.9999869791666667,
+          "ttft_ms": {
+            "mean": 287.3162758833322,
+            "p50": 226.31728700000053,
+            "p90": 459.1283489999569,
+            "p95": 721.5755666500098,
+            "p99": 1239.3528259699794
+          },
+          "tpot_ms": {
+            "mean": 34.18739451811991,
+            "p50": 35.38640089002932,
+            "p90": 41.43466579237536,
+            "p95": 41.810048751026436,
+            "p99": 42.08426831464317
+          },
+          "itl_ms": {
+            "mean": 34.187840107433786,
+            "p50": 26.965959499989367,
+            "p90": 70.09823600000686,
+            "p95": 107.06168800003013,
+            "p99": 170.38604749997134
+          },
+          "e2e_ms": {
+            "mean": 35261.02086792,
+            "p50": 36505.047429499995,
+            "p90": 42712.62399479998,
+            "p95": 43008.11376990002,
+            "p99": 43296.573828570035
+          },
+          "send_lag_ms": {
+            "p50": 1.2486606013837331,
+            "max": 8.62963086277091
+          },
+          "sent_rate": 5.74166608827286,
+          "metrics_before": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_after": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 0.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.0,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 6.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          },
+          "metrics_peak": {
+            "vllm:num_requests_running{engine=\"0\",model_name=\"m\"}": 222.0,
+            "vllm:num_requests_waiting{engine=\"0\",model_name=\"m\"}": 7.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"capacity\"}": 7.0,
+            "vllm:num_requests_waiting_by_reason{engine=\"0\",model_name=\"m\",reason=\"deferred\"}": 0.0,
+            "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"m\"}": 0.9992543706571057,
+            "vllm:num_preemptions_total{engine=\"0\",model_name=\"m\"}": 6.0,
+            "vllm:num_preemptions_created{engine=\"0\",model_name=\"m\"}": 1793016200.4753182
+          }
+        }
+      ],
+      "env": {
+        "gpu": "NVIDIA H100 80GB HBM3, 81559 MiB, 610.57.04",
+        "vllm": "0.32.0"
+      },
+      "wall_s": 511.4
     }
   }
 }
