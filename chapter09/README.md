@@ -31,7 +31,7 @@ Needs the Modal secret `huggingface` (a token that can read `google/gemma-2b-it`
 ```bash
 modal run chapter09/quantize.py                          # 1. build the compressed checkpoints (A100, ~2-3 h)
 modal run chapter09/sparse_gemm.py                       # 2. 2:4 GEMM benchmark and the CPU listings
-modal run chapter09/modal_quant.py --what quality        # 3. KL vs baseline and lm-eval, on the H100
+modal run chapter09/modal_quant.py --what quality        # 3. KL, SQuAD answers and lm-eval vs baseline, on the H100
 modal run chapter09/modal_quant.py --what perf           # 4. memory, latency and capacity on all three GPUs
 modal run chapter09/modal_quant.py --what prefill,long   # 5. prefill-heavy and long-context studies
 python chapter09/summarize_results.py                    # tables for the chapter
@@ -47,4 +47,8 @@ What each variant is, and which GPU runs it, is listed at the top of `modal_quan
   run weight-only (FP8 weights, 16-bit math). `--kv-cache-dtype fp8` works on the H100 (FlashAttention-3) and
   the A100 (FlashInfer), and fails on the T4.
 - Llama-3.1-8B does not fit on the 16 GB T4 in 16 bits; there it runs only quantized.
+- The two Llama FP8-KV variants, `fp8_dynamic_kv_scale1` and `fp8_dynamic_kv_cal`, come from the same FP8_DYNAMIC
+  recipe and differ only in the KV scales (1.0 versus calibrated), so their comparison isolates the scales.
+- Quality also scores each answer against the SQuAD reference answers of its question (answer contained in the
+  first line, and token F1), paired with the 16-bit model on the same 200 held-out prompts, with flips.
 - Every A100 result comes from the SXM4 card; the scripts reject a PCIe A100 and retry.

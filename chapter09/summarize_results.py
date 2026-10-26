@@ -90,6 +90,14 @@ def quality():
                     short.append(f"{task}={ms[key]:.4g}")
             print(f"  {v:20s} {f(kl.get('kl_mean'), 4):>8} {f(kl.get('kl_p99'), 3):>8} {f(kl.get('top1_agreement'), 3):>7}"
                   f" {f(g.get('identical_answers'), 3):>11}  {' '.join(short)}")
+            sq = r.get("squad", {})
+            if "contains_answer" in sq:
+                c, f1 = sq["contains_answer"], sq["token_f1"]
+                print(f"      SQuAD (n={c['n']}): contains answer {c['variant']:.3f} vs {c['baseline']:.3f} "
+                      f"(diff {c['diff']:+.3f} ± {c['diff_se']:.3f}, flips -{c['flips_to_wrong']}/+{c['flips_to_right']}); "
+                      f"token F1 {f1['variant']:.3f} vs {f1['baseline']:.3f}")
+            elif "error" in sq:
+                print(f"      SQuAD ERROR {sq['error'][:160]}")
             if kl.get("method", "").startswith("top-k"):
                 print(f"      KL method: {kl['method'][:160]}")
 

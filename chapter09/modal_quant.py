@@ -49,6 +49,9 @@ VARIANTS = {
         "w4a16_gptq":          (f"{RH}-quantized.w4a16", []),
         "w4a16_gptq_marlin":   (f"{RH}-quantized.w4a16", ["--linear-backend", "marlin"]),
         "kv_fp8":              (LLAMA, ["--kv-cache-dtype", "fp8"]),
+        # the two FP8-KV variants share weights and activations (same llm-compressor FP8_DYNAMIC pipeline) and
+        # differ only in the KV scales: 1.0 (none in the checkpoint) vs calibrated per-tensor scales
+        "fp8_dynamic_kv_scale1": ("/ckpt/llama-fp8_dynamic", ["--kv-cache-dtype", "fp8"]),
         "fp8_dynamic_kv_cal":  ("/ckpt/llama-fp8_dynamic_kv", ["--kv-cache-dtype", "fp8"]),
         "w4a16_gptq_rag":      ("/ckpt/llama-w4a16_gptq_rag", []),
         "w4a16_gptq_ultrachat": ("/ckpt/llama-w4a16_gptq_ultrachat", []),
@@ -81,8 +84,8 @@ PERF = {
 }
 PREFILL = {("H100", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq"],
            ("A100-80GB", "llama"): ["bf16", "fp8_dynamic", "w8a8_int8", "w4a16_gptq"]}
-LONG = {("H100", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_cal", "w4a16_gptq"],
-        ("A100-80GB", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_cal", "w4a16_gptq"]}
+LONG = {("H100", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq"],
+        ("A100-80GB", "llama"): ["bf16", "kv_fp8", "fp8_dynamic_kv_scale1", "fp8_dynamic_kv_cal", "w4a16_gptq"]}
 QUALITY = {"llama": [v for v in VARIANTS["llama"] if v != "w4a16_gptq_marlin"],
            "gemma": list(VARIANTS["gemma"])}
 
@@ -305,6 +308,57 @@ def eval_prompts():
     return rows[EVAL_ROWS[0]:EVAL_ROWS[1]]
 
 
+def _norm(t):
+    """SQuAD answer normalization: lower case, no punctuation, no articles, single spaces."""
+    import string
+    t = "".join(ch for ch in t.lower() if ch not in set(string.punctuation))
+    return " ".join(w for w in t.split() if w not in ("a", "an", "the"))
+
+
+def gold_answers(prompts):
+    """SQuAD reference answers for each RAG prompt, matched through the question text of the prompt."""
+    from datasets import load_dataset
+    gold = {}
+    for ex in load_dataset("rajpurkar/squad", split="validation"):
+        gold.setdefault(ex["question"], set()).update(ex["answers"]["text"])
+    out = []
+    for p in prompts:
+        q = p.rsplit("Question: ", 1)[-1].split("\nAnswer:")[0].strip()
+        out.append(sorted(gold.get(q, [])))
+    return out
+
+
+def answer_scores(texts, golds):
+    """Per prompt: does the first line of the answer contain a reference answer, and the best token F1."""
+    import collections
+    contains, f1 = [], []
+    for t, g in zip(texts, golds):
+        if not g:
+            contains.append(None); f1.append(None); continue
+        a = _norm(t.strip().split("\n")[0])
+        contains.append(float(any(_norm(x) and _norm(x) in a for x in g)))
+        best = 0.0
+        for x in g:
+            pa, pg = a.split(), _norm(x).split()
+            common = sum((collections.Counter(pa) & collections.Counter(pg)).values())
+            if common:
+                pr, rc = common / len(pa), common / len(pg)
+                best = max(best, 2 * pr * rc / (pr + rc))
+        f1.append(best)
+    return contains, f1
+
+
+def paired(base, var):
+    """Mean of each, the paired difference with its standard error, and the flips, over items scored in both."""
+    import numpy as np
+    pairs = [(b, v) for b, v in zip(base, var) if b is not None and v is not None]
+    b, v = np.array([x[0] for x in pairs]), np.array([x[1] for x in pairs])
+    d = v - b
+    return {"n": int(len(d)), "baseline": float(b.mean()), "variant": float(v.mean()), "diff": float(d.mean()),
+            "diff_se": float(d.std(ddof=1) / np.sqrt(len(d))) if len(d) > 1 else None,
+            "flips_to_wrong": int(((b == 1) & (v == 0)).sum()), "flips_to_right": int(((b == 0) & (v == 1)).sum())}
+
+
 def make_llm(model, variant, max_logprobs=K):
     from vllm import LLM
     src, extra = VARIANTS[model][variant]
@@ -487,6 +541,16 @@ def quality(model: str, variant: str) -> dict:
         prefix.append(n)
     out["generation"] = {"identical_answers": float(np.mean(same)), "mean_common_prefix_tokens": float(np.mean(prefix)),
                          "answers": len(same)}
+    # 1b) correctness against the SQuAD reference answers, paired with the 16-bit model's answers
+    try:
+        golds = gold_answers(eval_prompts())
+        b_c, b_f = answer_scores(list(ref["texts"]), golds)
+        v_c, v_f = answer_scores([o.outputs[0].text for o in gen], golds)
+        out["squad"] = {"prompts_with_reference": int(sum(1 for g in golds if g)),
+                        "contains_answer": paired(b_c, v_c), "token_f1": paired(b_f, v_f),
+                        "per_item": {"baseline_contains": b_c, "variant_contains": v_c}}
+    except Exception as e:
+        out["squad"] = {"error": f"{type(e).__name__}: {e}"[-2000:]}
     # 2) per-token KL on the reference answers, scoring exactly the reference's top-K token ids
     q_lps, method = score_ids(llm, p_ids, r_ids, ids)
     out["kl"] = kl_rows(lps, q_lps)

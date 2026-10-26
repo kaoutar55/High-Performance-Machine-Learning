@@ -33,7 +33,7 @@ VARIANTS = {
     "gemma": ["fp8_dynamic", "w8a8_int8", "w4a16_gptq_rag", "w4a16_gptq_wikitext", "w4a16_awq_rag",
               "sparse24_magnitude", "sparse24_wanda", "sparse24_sparsegpt"],
     "llama": ["w4a16_gptq_rag", "w4a16_gptq_ultrachat", "w4a16_gptq_wikitext", "w4a16_awq_rag",
-              "fp8_dynamic_kv", "sparse24_sparsegpt"],
+              "fp8_dynamic", "fp8_dynamic_kv", "sparse24_sparsegpt"],
 }
 N_CALIB, SEQ_LEN = 512, 1024
 
