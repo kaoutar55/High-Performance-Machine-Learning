@@ -8,11 +8,11 @@ share of its bytes once the linear layers are compressed.
     python decode_bytes.py
 """
 MODELS = {   # parameters in quantizable linear layers, and in the 16-bit lm_head that every step reads
-    "Gemma-2B": {"linear": 1.982e9, "head": 0.524e9},
-    "Llama-3.1-8B": {"linear": 6.979e9, "head": 0.525e9},
+    "Gemma": {"linear": 1.982e9, "head": 0.524e9},           # Gemma-2B
+    "Llama": {"linear": 6.979e9, "head": 0.525e9},           # Llama-3.1-8B
 }
 FORMATS = {"16-bit": 2.0, "8-bit": 1.0, "INT4 g128": 0.5 + 2 / 128}       # bytes per linear-layer weight
-BANDWIDTH = {"T4": 320e9, "A100 80GB": 2.039e12, "H100 SXM": 3.35e12}   # bytes/s, datasheet
+BANDWIDTH = {"T4": 320e9, "A100": 2.039e12, "H100": 3.35e12}   # bytes/s, datasheet (A100 80GB SXM, H100 SXM)
 
 
 def step_bytes(m, fmt):
@@ -20,10 +20,10 @@ def step_bytes(m, fmt):
 
 
 if __name__ == "__main__":
+    print("model  format     GB/step  bound    T4  A100  H100 (ms)")
     for name, m in MODELS.items():
         base = step_bytes(m, "16-bit")
-        print(name)
         for fmt in FORMATS:
             b = step_bytes(m, fmt)
-            floors = "  ".join(f"{g} {b / bw * 1e3:5.1f} ms" for g, bw in BANDWIDTH.items())
-            print(f"  {fmt:9s} {b / 1e9:5.2f} GB per step  bound {base / b:4.2f}x   {floors}")
+            ms = "".join(f"{b / bw * 1e3:6.1f}" for bw in BANDWIDTH.values())
+            print(f"{name:6s} {fmt:9s} {b / 1e9:7.2f} {base / b:6.2f}x{ms}")
