@@ -1,0 +1,273 @@
+{
+ "date": "2026-11-25",
+ "question": "Does the Table 9.11 row '2:4 SparseGPT, one shot' (Llama-3.1-8B-Instruct; KL 0.408, top-1 0.803, GSM8K -74.8, IFEval -49.4, ARC-C -32.6, SQuAD -10.1) change when the LM head is kept dense? The published checkpoint has a 2:4-pruned lm_head (llm-compressor 0.14.0.1 ignored ignore=['lm_head']).",
+ "answer": "Slightly. With the LM head dense, KL 0.359 (0.408), top-1 0.814 (0.803), GSM8K -73.8 +- 1.2 (-74.8), IFEval -47.3 +- 2.3 (-49.4), ARC-C -30.0 +- 1.6 (-32.6), SQuAD -9.0 +- 2.6 (-10.1), wikitext 22.0 (25.3). Every metric moves by about one paired SE or less; the large loss from one-shot 2:4 SparseGPT on Llama-3.1-8B is real. The LM head is untied in Llama, so the embedding was never pruned (unlike Gemma).",
+ "platform": "GPU cluster, 1 x NVIDIA H100 80GB HBM3 (SXM, 700 W), one Slurm job with node-local Python environments",
+ "env_builder": {
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "driver": "590.48.01",
+  "gpu_power_limit": "700.00 W",
+  "driver_cuda_version": "13.1",
+  "torch_cuda": "13.0",
+  "host_cpu": "Intel(R) Xeon(R) Platinum 8468",
+  "python": "3.11.18",
+  "versions": {
+   "torch": "2.14.0",
+   "transformers": "5.17.0",
+   "vllm": "0.33.0",
+   "llmcompressor": "0.14.0.1",
+   "compressed-tensors": "0.19.0",
+   "lm_eval": "0.4.13",
+   "datasets": "5.2.0",
+   "safetensors": "0.8.0"
+  }
+ },
+ "env_evaluator": {
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "driver": "590.48.01",
+  "gpu_power_limit": "700.00 W",
+  "driver_cuda_version": "13.1",
+  "torch_cuda": "13.0",
+  "host_cpu": "Intel(R) Xeon(R) Platinum 8468",
+  "python": "3.11.18",
+  "versions": {
+   "torch": "2.13.0",
+   "transformers": "5.19.0",
+   "vllm": "0.32.0",
+   "compressed-tensors": "0.17.0",
+   "lm_eval": "0.4.13",
+   "datasets": "5.2.0",
+   "safetensors": "0.8.0"
+  }
+ },
+ "method": {
+  "build": {
+   "code": "llama24_rerun.py build (gemma24_rerun.build with MODEL = meta-llama/Llama-3.1-8B-Instruct; quantize.py recipe_for, calibration_set, sparsity_report, oneshot_dense_embedding)",
+   "recipe": "SparseGPTModifier(sparsity=0.5, mask_structure='2:4', targets=DECODER_PROJ, ignore=['lm_head']); llm-compressor defaults block_size 128, dampening_frac 0.01",
+   "recipe_targets": [
+    "re:.*self_attn\\.(q|k|v|o)_proj$",
+    "re:.*mlp\\.(gate|up|down)_proj$"
+   ],
+   "calibration": {
+    "domain": "rag",
+    "samples": 512,
+    "max_seq_length": 1024
+   },
+   "load_dtype": "bfloat16",
+   "save_compressed": false,
+   "build_s": 655.3,
+   "build_s_includes": "the 16 GB base model download",
+   "embedding_zero_frac_after_oneshot": 2.4479543299094075e-06,
+   "backstop_restore_triggered": false,
+   "published_build": "Modal A100-80GB, 2026-10-26, targets=['Linear'], ignore=['lm_head'], 772 s (results/build_info.json)"
+  },
+  "prompts": "Chapter 8 prompts_single.jsonl (sha256 095ee51ccf1e...); rows 0-511 calibrate, rows 800-999 evaluate",
+  "lm_eval_commands": [
+   "lm_eval --model vllm --model_args pretrained=SRC,dtype=bfloat16,max_model_len=4096,gpu_memory_utilization=0.85,seed=0 --tasks gsm8k_cot_llama,ifeval,arc_challenge_llama --batch_size auto --seed 1234 --output_path OUT/gen --log_samples --apply_chat_template --fewshot_as_multiturn",
+   "lm_eval --model vllm --model_args pretrained=SRC,dtype=bfloat16,max_model_len=4096,gpu_memory_utilization=0.85,seed=0,add_bos_token=True --tasks arc_challenge,wikitext --batch_size auto --seed 1234 --output_path OUT/ll --log_samples"
+  ],
+  "per_item": "modal_quant.lm_eval() parsing copied verbatim; every per-item mean equals its aggregate (GSM8K exact_match,flexible-extract; IFEval prompt_level_strict_acc; ARC-C llama exact_match,strict_match; arc_challenge acc) for both models",
+  "paired": "modal_quant.paired over doc_ids in both runs; points = diff x 100, SE = diff_se x 100. The same code applied to the published per-item data reproduces the Table 9.11 row.",
+  "reference": "dense Llama-3.1-8B-Instruct BF16 on vLLM 0.32.0: 25527 answer tokens, noise floor KL 0.0, top-1 1.0 (published: 25,527 tokens, KL 0.0, top-1 1.0)",
+  "repeats": "one run per variant, as in the published quality runs"
+ },
+ "masks": {
+  "published_checkpoint": {
+   "exact_2_4_decoder_tensors": 224,
+   "min_frac_groups_exactly_2": 1.0,
+   "lm_head_zero_frac": 0.5,
+   "lm_head_groups_exactly_2": 1.0,
+   "embed_tokens_zero_frac": 2.4479543299094075e-06,
+   "exact_2_4_per_projection": {
+    "q_proj": 32,
+    "k_proj": 32,
+    "v_proj": 32,
+    "o_proj": 32,
+    "gate_proj": 32,
+    "up_proj": 32,
+    "down_proj": 32
+   },
+   "passes_fixed_criteria": false
+  },
+  "rebuilt_checkpoint": {
+   "exact_2_4_decoder_tensors": 224,
+   "min_frac_groups_exactly_2": 1.0,
+   "lm_head_zero_frac": 0.0,
+   "lm_head_groups_exactly_2": 0.0,
+   "embed_tokens_zero_frac": 2.4479543299094075e-06,
+   "exact_2_4_per_projection": {
+    "q_proj": 32,
+    "k_proj": 32,
+    "v_proj": 32,
+    "o_proj": 32,
+    "gate_proj": 32,
+    "up_proj": 32,
+    "down_proj": 32
+   },
+   "passes_fixed_criteria": true
+  }
+ },
+ "pruned_modules": {
+  "dense_bf16": "none",
+  "sparse24_sparsegpt_published": "the 7 linear projections (self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj) of all 32 decoder blocks, 224 tensors, 2:4 along the input dimension; plus lm_head (128,256 x 4,096) 2:4; embed_tokens dense (untied)",
+  "sparse24_sparsegpt_fixed": "the 7 linear projections (self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj) of all 32 decoder blocks, 224 tensors, 2:4 along the input dimension; lm_head and embed_tokens dense"
+ },
+ "quality": {
+  "dense_bf16": {
+   "blue_vela": {
+    "gsm8k_flexible_extract": 0.8529188779378317,
+    "gsm8k_strict_match": 0.8498862774829417,
+    "ifeval_prompt_strict": 0.744916820702403,
+    "arc_c_llama_strict_match": 0.8309012875536481,
+    "arc_c_acc": 0.53839590443686,
+    "wikitext_word_perplexity": 9.009637933630053,
+    "kl_mean": 0.0,
+    "kl_p50": 0.0,
+    "kl_p99": 0.0,
+    "top1_agreement": 1.0,
+    "kl_tokens": 25527,
+    "squad_contains_answer": 0.1276595744680851,
+    "squad_prompts_with_reference": 188,
+    "identical_answers": 1.0,
+    "mean_common_prefix_tokens": 127.635
+   },
+   "published_2026_10_26": {
+    "gsm8k_flexible_extract": 0.8529188779378317,
+    "gsm8k_strict_match": 0.8498862774829417,
+    "ifeval_prompt_strict": 0.744916820702403,
+    "arc_c_llama_strict_match": 0.8309012875536481,
+    "arc_c_acc": 0.53839590443686,
+    "wikitext_word_perplexity": 9.009637933630053,
+    "kl_mean": 0.0,
+    "kl_p50": 0.0,
+    "kl_p99": 0.0,
+    "top1_agreement": 1.0,
+    "kl_tokens": 25527,
+    "squad_contains_answer": 0.1276595744680851,
+    "squad_prompts_with_reference": 188,
+    "identical_answers": 0.97,
+    "mean_common_prefix_tokens": 125.365
+   }
+  },
+  "sparse24_sparsegpt_fixed_bf16": {
+   "absolute": {
+    "gsm8k_flexible_extract": 0.1152388172858226,
+    "gsm8k_strict_match": 0.11448066717210008,
+    "ifeval_prompt_strict": 0.27171903881700554,
+    "arc_c_llama_strict_match": 0.5304721030042918,
+    "arc_c_acc": 0.3873720136518771,
+    "wikitext_word_perplexity": 22.040627232925058,
+    "kl_mean": 0.35911552873997743,
+    "kl_p50": 0.13337496036570035,
+    "kl_p99": 2.853737511324667,
+    "top1_agreement": 0.8136874681709563,
+    "kl_tokens": 25527,
+    "squad_contains_answer": 0.03723404255319149,
+    "squad_prompts_with_reference": 188,
+    "identical_answers": 0.0,
+    "mean_common_prefix_tokens": 1.525
+   },
+   "paired_vs_dense_bf16": {
+    "GSM8K": {
+     "diff_points": -73.77,
+     "diff_se_points": 1.25,
+     "n": 1319,
+     "flips_to_wrong": 981,
+     "flips_to_right": 8
+    },
+    "IFEval": {
+     "diff_points": -47.32,
+     "diff_se_points": 2.33,
+     "n": 541,
+     "flips_to_wrong": 268,
+     "flips_to_right": 12
+    },
+    "ARC-C": {
+     "diff_points": -30.04,
+     "diff_se_points": 1.65,
+     "n": 1165,
+     "flips_to_wrong": 412,
+     "flips_to_right": 62
+    },
+    "ARC-C (acc, log-likelihood)": {
+     "diff_points": -15.1,
+     "diff_se_points": 1.34,
+     "n": 1172,
+     "flips_to_wrong": 225,
+     "flips_to_right": 48
+    },
+    "SQuAD contains": {
+     "diff_points": -9.04,
+     "diff_se_points": 2.58,
+     "n": 188,
+     "flips_to_wrong": 21,
+     "flips_to_right": 4
+    }
+   }
+  },
+  "table_9_11_published_sparse24_sparsegpt": {
+   "absolute": {
+    "gsm8k_flexible_extract": 0.10538286580742987,
+    "gsm8k_strict_match": 0.09931766489764973,
+    "ifeval_prompt_strict": 0.2513863216266174,
+    "arc_c_llama_strict_match": 0.5047210300429185,
+    "arc_c_acc": 0.37372013651877134,
+    "wikitext_word_perplexity": 25.287935765646225,
+    "kl_mean": 0.4083479516133857,
+    "kl_p50": 0.17172281010268897,
+    "kl_p99": 3.0498393770927406,
+    "top1_agreement": 0.8029537352607043,
+    "kl_tokens": 25527,
+    "squad_contains_answer": 0.026595744680851064,
+    "squad_prompts_with_reference": 188,
+    "identical_answers": 0.0,
+    "mean_common_prefix_tokens": 1.21
+   },
+   "paired_vs_dense_bf16": {
+    "GSM8K": {
+     "diff_points": -74.75,
+     "diff_se_points": 1.21,
+     "n": 1319,
+     "flips_to_wrong": 988,
+     "flips_to_right": 2
+    },
+    "IFEval": {
+     "diff_points": -49.35,
+     "diff_se_points": 2.41,
+     "n": 541,
+     "flips_to_wrong": 284,
+     "flips_to_right": 17
+    },
+    "ARC-C": {
+     "diff_points": -32.62,
+     "diff_se_points": 1.7,
+     "n": 1165,
+     "flips_to_wrong": 447,
+     "flips_to_right": 67
+    },
+    "ARC-C (acc, log-likelihood)": {
+     "diff_points": -16.47,
+     "diff_se_points": 1.37,
+     "n": 1172,
+     "flips_to_wrong": 242,
+     "flips_to_right": 49
+    },
+    "SQuAD contains": {
+     "diff_points": -10.11,
+     "diff_se_points": 2.45,
+     "n": 188,
+     "flips_to_wrong": 21,
+     "flips_to_right": 2
+    }
+   },
+   "note": "published 2026-10-26 on Modal H100 80GB HBM3, driver 610.57.04; lm_head pruned 2:4"
+  }
+ },
+ "control_published_checkpoint_on_this_cluster": "not run: no copy of the published checkpoint on the cluster outside the home folder (step h)",
+ "gpu_hours": {
+  "build_and_evaluation_job": 0.39,
+  "total": 0.39,
+  "note": "the published-checkpoint mask check (step 1) ran on a laptop CPU"
+ },
+ "raw_files": "raw logs kept with the book sources (not in this repository)"
+}
