@@ -1,0 +1,565 @@
+{
+  "date": "2026-11-25",
+  "question": "Are the published Gemma-2B-IT 2:4 perplexities (magnitude 1,275, SparseGPT 6.6e5, Wanda 1.7e11; FP16 dense 28.5) a numerical failure (pruned in BF16, evaluated in FP16)?",
+  "answer": "No. BF16 and FP16 give the same perplexity (dense 28.61/28.54, magnitude 1,286/1,278); the largest activation is 2,024-2,352, far below the FP16 maximum 65,504, with no non-finite values. The Wanda and SparseGPT results come from an implementation bug: with targets=['Linear'] and ignore=['lm_head'], llm-compressor 0.14.0.1 also pruned lm_head 2:4, and in Gemma lm_head is tied to the input embedding, so half of every token embedding was zero. With the decoder projections named as targets (embedding and LM head dense, as the Wanda and SparseGPT papers prune), SparseGPT reaches perplexity 45.0 and Wanda 91.5, against 1,276 for magnitude.",
+  "platform": "GPU cluster, 1 x NVIDIA H100 80GB HBM3 (SXM, 700 W), Slurm jobs with node-local Python environments",
+  "env_builder_and_transformers_ppl": {
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "driver": "590.48.01",
+    "gpu_power_limit": "700.00 W",
+    "driver_cuda_version": "13.1",
+    "torch_cuda": "13.0",
+    "host_cpu": "Intel(R) Xeon(R) Platinum 8468",
+    "python": "3.11.18",
+    "versions": {
+      "torch": "2.14.0",
+      "transformers": "5.17.0",
+      "vllm": "0.33.0",
+      "llmcompressor": "0.14.0.1",
+      "compressed-tensors": "0.19.0",
+      "lm_eval": "0.4.13",
+      "datasets": "5.2.0",
+      "safetensors": "0.8.0"
+    }
+  },
+  "env_vllm_eval": {
+    "gpu": "NVIDIA H100 80GB HBM3",
+    "driver": "590.48.01",
+    "gpu_power_limit": "700.00 W",
+    "driver_cuda_version": "13.1",
+    "torch_cuda": "13.0",
+    "host_cpu": "Intel(R) Xeon(R) Platinum 8468",
+    "python": "3.11.18",
+    "versions": {
+      "torch": "2.13.0",
+      "transformers": "5.19.0",
+      "vllm": "0.32.0",
+      "compressed-tensors": "0.17.0",
+      "lm_eval": "0.4.13",
+      "datasets": "5.2.0",
+      "safetensors": "0.8.0"
+    }
+  },
+  "method": {
+    "build": "quantize.py functions (calibration_set, recipe_for, magnitude_24, sparsity_report) executed from its source; 512 RAG calibration prompts (rows 0-511 of the Chapter 8 prompts_single.jsonl, sha256 095ee51c..., identical to the Modal volume copy), max length 1,024; model loaded in BF16; saved dense (save_compressed=False)",
+    "step1_perplexity": "lm-eval 0.4.13 wikitext (62 test documents, rolling windows) on the Transformers backend, add_bos_token=True, max_length=4096, seed 1234, BF16 and FP16",
+    "step1_activations": "per decoder layer max |hidden state| and max |input to mlp.down_proj|, held-out RAG prompts 800-803",
+    "step2_quality": "modal_quant.py quality() (functions executed from its source) with the dtype as a parameter: lm-eval 0.4.13 vLLM backend arc_challenge and wikitext (max_model_len 4096, add_bos_token=True, seed 1234); greedy answers (128 tokens) on held-out prompts 800-999 compared with the reference; SQuAD contains-answer and token F1 paired with the reference; top-20 KL with a rest bucket and top-1 agreement on the reference answer tokens. IFEval not re-run.",
+    "reference": "dense Gemma-2B-IT in BF16 on vLLM 0.32.0 (5,851 answer tokens; noise floor KL 7.4e-5, top-1 0.999). The published reference was FP16 (5,856 tokens, noise floor 1.1e-6).",
+    "repeats": "one run per variant, as in the published quality runs"
+  },
+  "magnitude_pruning_scope_evidence": "quantize.py magnitude_24 (commit 6a1d75c, 2026-10-26, chapter09/quantize.py lines 109-120; line 114: 'if isinstance(m, torch.nn.Linear) and \"lm_head\" not in name') prunes only nn.Linear modules and skips lm_head by name; the embedding is an nn.Embedding and is never touched. Measured: 126 pruned tensors (7 projections x 18 blocks), embed_tokens 0.0% zeros, in the published checkpoint and in the rebuild, which is bit-identical to the published checkpoint in all 164 tensors.",
+  "bug": {
+    "what": "llm-compressor 0.14.0.1 WandaPruningModifier/SparseGPTModifier with targets=['Linear'], ignore=['lm_head'] pruned lm_head 2:4",
+    "gemma_effect": "lm_head is tied to model.embed_tokens (tie_word_embeddings=True): the 256,000 x 2,048 embedding is 50% zero, exactly 2 of every 4 kept",
+    "llama_effect": "published Llama-3.1-8B SparseGPT checkpoint: untied lm_head.weight (128,256 x 4,096) 50% zero, exactly 2:4; embedding dense. Its Chapter 9 numbers (KL 0.408, top-1 0.80) include a 2:4 LM head; not re-run here.",
+    "fix": "quantize.py: DECODER_PROJ targets (re:.*self_attn.(q|k|v|o)_proj$, re:.*mlp.(gate|up|down)_proj$) for the 2:4 recipes; oneshot_dense_embedding restores the embedding (and an untied lm_head) through compressed_tensors.update_offload_parameter if oneshot leaves zeros; sparsity_report records embedding_dense and the build fails if it is false. Uncommitted."
+  },
+  "build_reproducibility": "magnitude builds are bit-identical across runs. Wanda and SparseGPT builds are not: two published-recipe Wanda builds on H100s in different jobs match in 6 of 126 decoder tensors, so decoder-mask comparisons between recipes are not informative and Wanda/SparseGPT numbers vary from build to build.",
+  "step1_wikitext_word_perplexity_transformers": {
+    "gemma-2b-it": {
+      "bfloat16": 28.608188823911867,
+      "float16": 28.544650911958197
+    },
+    "gemma-sparse24_magnitude": {
+      "bfloat16": 1286.2040419926518,
+      "float16": 1277.5230065422816
+    },
+    "gemma-sparse24_sparsegpt": {
+      "bfloat16": 725953.3640987562,
+      "float16": Infinity
+    },
+    "gemma-sparse24_wanda": {
+      "bfloat16": 79291199387.72923,
+      "float16": Infinity
+    }
+  },
+  "step1_activations": {
+    "gemma-2b-it": {
+      "bf16_max_abs_down_proj_input": 2352.0,
+      "bf16_max_abs_hidden_state": 468.0,
+      "fp16_max_abs_down_proj_input": 2350.0,
+      "fp16_nonfinite_hidden_values": 0,
+      "fp16_nonfinite_logits": 0,
+      "fp16_vs_bf16_top1_agreement": 0.9941520690917969,
+      "prompts": 4
+    },
+    "gemma-sparse24_magnitude": {
+      "bf16_max_abs_down_proj_input": 2024.0,
+      "bf16_max_abs_hidden_state": 458.0,
+      "fp16_max_abs_down_proj_input": 2037.0,
+      "fp16_nonfinite_hidden_values": 0,
+      "fp16_nonfinite_logits": 0,
+      "fp16_vs_bf16_top1_agreement": 0.9844054579734802,
+      "prompts": 4
+    },
+    "gemma-sparse24_sparsegpt": {
+      "bf16_max_abs_down_proj_input": 2272.0,
+      "bf16_max_abs_hidden_state": 462.0,
+      "fp16_max_abs_down_proj_input": 2268.0,
+      "fp16_nonfinite_hidden_values": 0,
+      "fp16_nonfinite_logits": 0,
+      "fp16_vs_bf16_top1_agreement": 0.9824561476707458,
+      "prompts": 4
+    },
+    "gemma-sparse24_wanda": {
+      "bf16_max_abs_down_proj_input": 2176.0,
+      "bf16_max_abs_hidden_state": 462.0,
+      "fp16_max_abs_down_proj_input": 2186.0,
+      "fp16_nonfinite_hidden_values": 0,
+      "fp16_nonfinite_logits": 0,
+      "fp16_vs_bf16_top1_agreement": 0.9800195097923279,
+      "prompts": 4
+    }
+  },
+  "fp16_max": 65504.0,
+  "quality": {
+    "dense_fp16": {
+      "pruned_modules": "none",
+      "result": {
+        "word_perplexity": 28.52748263412228,
+        "arc_challenge_acc": 0.40187713310580203,
+        "arc_challenge_acc_norm": 0.4232081911262799,
+        "kl_mean": 4.711201434058796e-05,
+        "kl_p50": 5.840677149701892e-07,
+        "kl_p99": 0.0007387705308867826,
+        "top1_agreement": 0.9979490685352931,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.02127659574468085,
+        "squad_contains_diff": 0.0,
+        "squad_contains_diff_se": 0.0,
+        "squad_token_f1": 0.024613474844280073,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.965,
+        "mean_common_prefix_tokens": 28.54,
+        "dtype": "float16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 28.52748263412228,
+        "arc_challenge_acc": 0.40187713310580203,
+        "arc_challenge_acc_norm": 0.4232081911262799,
+        "kl_mean": 1.1307588621778321e-06,
+        "top1_agreement": 1.0,
+        "squad_contains_answer": 0.02127659574468085,
+        "squad_token_f1": 0.024613474844280073,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      }
+    },
+    "dense_bf16": {
+      "pruned_modules": "none",
+      "result": {
+        "word_perplexity": 28.49987658763724,
+        "arc_challenge_acc": 0.40187713310580203,
+        "arc_challenge_acc_norm": 0.4189419795221843,
+        "kl_mean": 7.363648000254671e-05,
+        "kl_p50": 7.103595353220543e-07,
+        "kl_p99": 0.0013751322490931808,
+        "top1_agreement": 0.9989745342676466,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.02127659574468085,
+        "squad_contains_diff": 0.0,
+        "squad_contains_diff_se": 0.0,
+        "squad_token_f1": 0.024592450540184534,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.995,
+        "mean_common_prefix_tokens": 29.24,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      }
+    },
+    "sparse24_magnitude_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; embed_tokens and the tied lm_head dense",
+      "result": {
+        "word_perplexity": 1276.1014955440623,
+        "arc_challenge_acc": 0.21331058020477817,
+        "arc_challenge_acc_norm": 0.2593856655290102,
+        "kl_mean": 3.1238371715277564,
+        "kl_p50": 1.6033151277721718,
+        "kl_p99": 15.230070340501431,
+        "top1_agreement": 0.5481114339429157,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.0,
+        "squad_contains_diff": -0.02127659574468085,
+        "squad_contains_diff_se": 0.01055261891061731,
+        "squad_token_f1": 0.0001624167614097775,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.05,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "quantize.magnitude_24",
+        "bit_identical_to_published_checkpoint": true
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.0
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 1275.4024269083345,
+        "arc_challenge_acc": 0.21416382252559726,
+        "arc_challenge_acc_norm": 0.25853242320819114,
+        "kl_mean": 3.1205406983018174,
+        "top1_agreement": 0.5483265027322405,
+        "squad_contains_answer": 0.0,
+        "squad_token_f1": 0.0001624167614097775,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      }
+    },
+    "sparse24_magnitude_fp16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; embed_tokens and the tied lm_head dense",
+      "result": {
+        "word_perplexity": 1275.4029778947129,
+        "arc_challenge_acc": 0.21416382252559726,
+        "arc_challenge_acc_norm": 0.25853242320819114,
+        "kl_mean": 3.1183985049652727,
+        "kl_p50": 1.5959950511847103,
+        "kl_p99": 15.136228810700612,
+        "top1_agreement": 0.5481114339429157,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.0,
+        "squad_contains_diff": -0.02127659574468085,
+        "squad_contains_diff_se": 0.01055261891061731,
+        "squad_token_f1": 0.0001624167614097775,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.045,
+        "dtype": "float16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "quantize.magnitude_24"
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 1275.4024269083345,
+        "arc_challenge_acc": 0.21416382252559726,
+        "arc_challenge_acc_norm": 0.25853242320819114,
+        "kl_mean": 3.1205406983018174,
+        "top1_agreement": 0.5483265027322405,
+        "squad_contains_answer": 0.0,
+        "squad_token_f1": 0.0001624167614097775,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      },
+      "note": "reproduction of the published FP16 run on this stack"
+    },
+    "sparse24_wanda_published_recipe_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 89200613686.27579,
+        "arc_challenge_acc": 0.18686006825938567,
+        "arc_challenge_acc_norm": 0.2150170648464164,
+        "kl_mean": 13.064386507852737,
+        "kl_p50": 10.160124208145875,
+        "kl_p99": 54.01504378611483,
+        "top1_agreement": 0.41360451204922233,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.0,
+        "squad_contains_diff": -0.02127659574468085,
+        "squad_contains_diff_se": 0.01055261891061731,
+        "squad_token_f1": 0.0,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.015,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "published: targets=['Linear'], ignore=['lm_head']"
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.5
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 168210602678.0013,
+        "arc_challenge_acc": 0.197098976109215,
+        "arc_challenge_acc_norm": 0.2090443686006826,
+        "kl_mean": 13.789417336589057,
+        "top1_agreement": 0.39771174863387976,
+        "squad_contains_answer": 0.0,
+        "squad_token_f1": 0.0,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      }
+    },
+    "sparse24_wanda_published_recipe_fp16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 88229071580.46649,
+        "arc_challenge_acc": 0.189419795221843,
+        "arc_challenge_acc_norm": 0.21928327645051193,
+        "kl_mean": 13.060041353838438,
+        "kl_p50": 10.168185378826234,
+        "kl_p99": 53.92031479719601,
+        "top1_agreement": 0.4134336010938301,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.0,
+        "squad_contains_diff": -0.02127659574468085,
+        "squad_contains_diff_se": 0.01055261891061731,
+        "squad_token_f1": 0.0,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.015,
+        "dtype": "float16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "published"
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 168210602678.0013,
+        "arc_challenge_acc": 0.197098976109215,
+        "arc_challenge_acc_norm": 0.2090443686006826,
+        "kl_mean": 13.789417336589057,
+        "top1_agreement": 0.39771174863387976,
+        "squad_contains_answer": 0.0,
+        "squad_token_f1": 0.0,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      },
+      "note": "reproduction of the published FP16 run on this stack"
+    },
+    "sparse24_wanda_fixed_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; embed_tokens and the tied lm_head dense (targets = the 7 projections by name)",
+      "result": {
+        "word_perplexity": 91.51589216152242,
+        "arc_challenge_acc": 0.26109215017064846,
+        "arc_challenge_acc_norm": 0.2901023890784983,
+        "kl_mean": 0.8510163530539642,
+        "kl_p50": 0.14172645748727436,
+        "kl_p99": 6.897355534428964,
+        "top1_agreement": 0.7450008545547769,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.015957446808510637,
+        "squad_contains_diff": -0.005319148936170213,
+        "squad_contains_diff_se": 0.005319148936170212,
+        "squad_token_f1": 0.03706913452944993,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.005,
+        "mean_common_prefix_tokens": 0.675,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "fixed: targets = decoder projections by name (quantize.DECODER_PROJ)",
+        "embedding_zero_frac_after_oneshot": 0.0
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.0
+      }
+    },
+    "sparse24_wanda_first_fix_attempt_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 100159922759.24182,
+        "arc_challenge_acc": 0.19368600682593856,
+        "arc_challenge_acc_norm": 0.2175767918088737,
+        "kl_mean": 13.410560828968865,
+        "kl_p50": 10.588884678602213,
+        "kl_p99": 53.66659868484146,
+        "top1_agreement": 0.4014698342163733,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.0,
+        "squad_contains_diff": -0.02127659574468085,
+        "squad_contains_diff_se": 0.01055261891061731,
+        "squad_token_f1": 0.0,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.015,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.5
+      },
+      "note": "first fix (restore the embedding with copy_ after oneshot) did not take effect: llm-compressor keeps the weights in offload storage during oneshot. The embedding is still pruned; this is a second published-recipe-equivalent build, not a fixed result."
+    },
+    "sparse24_sparsegpt_published_recipe_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 1631050.133067681,
+        "arc_challenge_acc": 0.21416382252559726,
+        "arc_challenge_acc_norm": 0.22781569965870307,
+        "kl_mean": 3.730454326635597,
+        "kl_p50": 1.0747348139830049,
+        "kl_p99": 44.107600907204834,
+        "top1_agreement": 0.6075884464194155,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.005319148936170213,
+        "squad_contains_diff": -0.015957446808510637,
+        "squad_contains_diff_se": 0.009163636196484436,
+        "squad_token_f1": 0.003874085494725619,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 1.08,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "published: targets=['Linear'], ignore=['lm_head']"
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.5
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 662101.7226689311,
+        "arc_challenge_acc": 0.21928327645051193,
+        "arc_challenge_acc_norm": 0.22440273037542663,
+        "kl_mean": 3.6284155672258294,
+        "top1_agreement": 0.6272199453551912,
+        "squad_contains_answer": 0.010638297872340425,
+        "squad_token_f1": 0.008957688013354033,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      }
+    },
+    "sparse24_sparsegpt_published_recipe_fp16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 1625262.4659620973,
+        "arc_challenge_acc": 0.21245733788395904,
+        "arc_challenge_acc_norm": 0.22696245733788395,
+        "kl_mean": 3.7242646475566867,
+        "kl_p50": 1.0708324592969807,
+        "kl_p99": 44.04004184198785,
+        "top1_agreement": 0.6074175354640232,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.005319148936170213,
+        "squad_contains_diff": -0.015957446808510637,
+        "squad_contains_diff_se": 0.009163636196484436,
+        "squad_token_f1": 0.003874085494725619,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 1.07,
+        "dtype": "float16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "published"
+      },
+      "published_2026_10_26": {
+        "word_perplexity": 662101.7226689311,
+        "arc_challenge_acc": 0.21928327645051193,
+        "arc_challenge_acc_norm": 0.22440273037542663,
+        "kl_mean": 3.6284155672258294,
+        "top1_agreement": 0.6272199453551912,
+        "squad_contains_answer": 0.010638297872340425,
+        "squad_token_f1": 0.008957688013354033,
+        "dtype": "float16",
+        "reference": "FP16 dense (vLLM 0.32.0)"
+      },
+      "note": "reproduction of the published FP16 run on this stack"
+    },
+    "sparse24_sparsegpt_fixed_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; embed_tokens and the tied lm_head dense (targets = the 7 projections by name)",
+      "result": {
+        "word_perplexity": 45.00789730743875,
+        "arc_challenge_acc": 0.31399317406143346,
+        "arc_challenge_acc_norm": 0.32337883959044367,
+        "kl_mean": 0.28381953133588744,
+        "kl_p50": 0.007592407689714718,
+        "kl_p99": 3.3481160820783975,
+        "top1_agreement": 0.8567766193813023,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.02127659574468085,
+        "squad_contains_diff": 0.0,
+        "squad_contains_diff_se": 0.00754249915047894,
+        "squad_token_f1": 0.03706708947227523,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.005,
+        "mean_common_prefix_tokens": 3.825,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "build": {
+        "recipe": "fixed: targets = decoder projections by name (quantize.DECODER_PROJ)",
+        "embedding_zero_frac_after_oneshot": 0.0
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.0
+      }
+    },
+    "sparse24_sparsegpt_first_fix_attempt_bf16": {
+      "pruned_modules": "the 7 linear projections of each of the 18 decoder blocks (126 tensors): self_attn.q_proj, k_proj, v_proj, o_proj; mlp.gate_proj, up_proj, down_proj; 2:4 along the input dimension; plus the tied embed_tokens / lm_head (256,000 x 2,048), pruned 2:4 by llm-compressor despite ignore=['lm_head']",
+      "result": {
+        "word_perplexity": 720406.1364189034,
+        "arc_challenge_acc": 0.21928327645051193,
+        "arc_challenge_acc_norm": 0.24232081911262798,
+        "kl_mean": 3.5874338772097687,
+        "kl_p50": 1.0089466503766165,
+        "kl_p99": 43.11812128630294,
+        "top1_agreement": 0.6205776790292258,
+        "kl_tokens": 5851,
+        "kl_method": "prompt_logprob_token_ids",
+        "squad_contains_answer": 0.005319148936170213,
+        "squad_contains_diff": -0.015957446808510637,
+        "squad_contains_diff_se": 0.009163636196484436,
+        "squad_token_f1": 0.0061580450433023565,
+        "squad_prompts_with_reference": 188,
+        "identical_answers": 0.0,
+        "mean_common_prefix_tokens": 0.84,
+        "dtype": "bfloat16",
+        "reference": "BF16 dense (vLLM 0.32.0, this run)",
+        "lm_eval_returncode": 0
+      },
+      "mask_check": {
+        "pruned_linear_tensors": 126,
+        "min_frac_groups_exactly_2_of_4": 1.0,
+        "linear_zero_frac_mean": 0.5,
+        "embed_tokens_zero_frac": 0.5
+      },
+      "note": "first fix (restore the embedding with copy_ after oneshot) did not take effect: llm-compressor keeps the weights in offload storage during oneshot. The embedding is still pruned; this is a second published-recipe-equivalent build, not a fixed result."
+    }
+  },
+  "verdict_wanda_vs_magnitude": "Reversed. With the bug, Wanda (8.9e10) and SparseGPT (1.6e6) looked worse than magnitude (1,276). With the embedding dense: SparseGPT 45.0 < Wanda 91.5 < magnitude 1,276 on perplexity, and the same order on ARC-C, KL and top-1.",
+  "gpu_hours": {
+    "step1": 0.52,
+    "step2": 1.07,
+    "total": 1.59,
+    "note": "step 1 includes a cancelled first attempt (pip backtracking during the environment install)"
+  },
+  "raw_files": "raw logs kept with the book sources (not in this repository)"
+}
