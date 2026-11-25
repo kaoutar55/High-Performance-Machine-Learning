@@ -26,3 +26,31 @@ The chapter pins **PyTorch 2.6 + Triton 3.2** for reproducibility, and its publi
 ## Run it
 
 Open the notebook in Google Colab or on any GPU machine and run top to bottom. On a Colab T4 (Turing), first run `pip install torch==2.6.0 triton==3.2.0`: Triton dropped Turing support in 3.3, so the Triton that ships with a current Colab runtime does not compile for a T4. A GPU runtime is required — Triton compiles for the GPU, and there is no CPU fallback for these kernels except the interpreter used in the debugging section.
+
+## Online resources
+
+The print chapter refers to the material below. Release details change; check each item against the release you
+run.
+
+### Kernel languages around Triton: release details
+
+The section "Where Triton fits among kernel languages" names Helion, Gluon, NVIDIA's cuTile Python and the CuTe DSL
+(CuTeDSL). Release details:
+
+- cuTile Python is part of NVIDIA CUDA Tile, which NVIDIA introduced with CUDA 13.1 (NVIDIA Technical Blog,
+  ["NVIDIA CUDA 13.1 Powers Next-Gen GPU Programming with NVIDIA CUDA Tile and Performance Gains"](https://developer.nvidia.com/blog/nvidia-cuda-13-1-powers-next-gen-gpu-programming-with-nvidia-cuda-tile-and-performance-gains/),
+  December 2025). The first release supports compute capabilities 8.x, 10.x, 11.x and 12.x.
+- The CuTe DSL is the first of the CUTLASS Python DSLs and was released with CUTLASS 4.0; NVIDIA describes it as a
+  public beta ([CUTLASS documentation, "Overview"](https://docs.nvidia.com/cutlass/media/docs/pythonDSL/overview.html)).
+
+### Enabling the CuTeDSL GEMM backend in TorchInductor
+
+In the PyTorch releases described in the PyTorch blog post "Generating State-of-the-Art GEMMs with TorchInductor's
+CuTeDSL Backend" (April 7, 2026), the CuTeDSL GEMM path is opt-in. It is enabled in max-autotune mode with
+
+```python
+torch._inductor.config.max_autotune_gemm_backends = "ATEN,TRITON,NVGEMM"
+```
+
+and NVIDIA's CuTeDSL packages installed. Check the option name and the package requirements against the PyTorch
+release you use.

@@ -31,7 +31,8 @@ To run the case study on your own GPU instead, build the workload once and point
 
 ```bash
 python chapter08/build_prompts.py --out-dir data --num 1000
-vllm serve google/gemma-2b-it --dtype float16 --max-model-len 2048
+# The load studies repeat prompts, so prefix caching is off, as in the book's runs
+vllm serve google/gemma-2b-it --dtype float16 --max-model-len 2048 --no-enable-prefix-caching
 python chapter08/loadgen.py --model google/gemma-2b-it --prompts data/prompts_single.jsonl \
     --rate 4 --num 200 --max-tokens 128 --slo-ttft-ms 500 --slo-tpot-ms 50
 ```
@@ -50,6 +51,37 @@ python chapter08/loadgen.py --model google/gemma-2b-it --prompts data/prompts_si
 | `modal_serving.py` | Runs the case-study studies on Modal, one fresh `vllm serve` per configuration; writes `results/<gpu>_<model>.json` |
 | `summarize_results.py` | Prints the case-study tables and plots the load sweep |
 
+## What to expect when you reproduce the results
+
+Your numbers will differ from the book's, and some rows will differ more than others. Measured on the same models in
+October and November 2026:
+
+| Quantity | How much it moved between setups | Why |
+|---|---|---|
+| Eager and `torch.compile` time per output token at batch size 1 (Table 8.5) | Up to about 2x. Gemma-2B eager on an A100 80GB: 16.5 ms (FP16, 20 output tokens, Modal) and 25.2 ms (BF16, 128 output tokens, Colab Pro, Chapter 11). On an H100: 11.3 and 18.7 ms in two Modal sessions with the same script | Limited by CPU-side overhead: host CPU, PyTorch and transformers versions, data type and timing harness all change it |
+| vLLM time per output token at low load | Within 2% (Gemma-2B) and 5% (Llama-3.1-8B) between Chapters 8 and 11 | Close to the weight-read floor, so set mainly by memory bandwidth |
+| Capacity and goodput under load | Depends on the GPU's power limit and clock under sustained load | The A100 ran at 1,245 to 1,320 MHz instead of 1,410 MHz during the load sweeps |
+
+Compare the ordering of the stacks and each value's ratio to the weight-read floor. Record the GPU, driver, host CPU
+and package versions with every result (the scripts in this folder do), and repeat each measurement at least three
+times before comparing it with the book.
+
 ## Versions
 
 The case study pins vLLM 0.32.0 in its own image (vLLM pins its own PyTorch build). Set `CH08_VLLM` to try another version, and record the version with your results: serving engines change their defaults between releases.
+
+## Online resources
+
+The print chapter refers to the material below.
+
+### Open-source LLM serving engines (October 2026)
+
+Versions and features change from release to release; check each project's documentation.
+
+| Engine | Status | Hardware | Techniques from Chapter 8 |
+|---|---|---|---|
+| vLLM | PyTorch Foundation hosted project since May 2025 ([PyTorch Foundation, 7 May 2025](https://pytorch.org/blog/pytorch-foundation-welcomes-vllm/)); V1 engine only since release 0.11 ([v0.11.0 release notes](https://github.com/vllm-project/vllm/releases/tag/v0.11.0)); release 0.32 in October 2026 ([v0.32.0 release notes](https://github.com/vllm-project/vllm/releases/tag/v0.32.0)) | NVIDIA, AMD, Intel and CPU; TPU and Ascend through plugins | Continuous batching, PagedAttention, hash-based prefix caching, chunked prefill, speculative decoding (n-gram, draft model, EAGLE, MTP, suffix), structured output, expert parallelism, P/D disaggregation through KV connectors, multi-LoRA |
+| SGLang | Incubated at LMSYS; RadixArk, founded by SGLang's creators and core maintainers, is the commercial company behind it (spin-out reported in January 2026 by [TechCrunch](https://techcrunch.com/2026/01/21/sources-project-sglang-spins-out-as-radixark-with-400m-valuation-as-inference-market-explodes); public launch in May 2026, [RadixArk press release](https://www.businesswire.com/news/home/20260505077157/en/)) | NVIDIA, AMD, Intel Xeon, TPU and Ascend | Continuous batching, RadixAttention prefix caching, chunked prefill, EAGLE and MTP speculation, structured output, expert parallelism with DeepEP, P/D disaggregation |
+| TensorRT-LLM | Developed by NVIDIA; PyTorch is the only execution backend after the removal of the TensorRT engine backend ([TensorRT-LLM migration guide](https://nvidia.github.io/TensorRT-LLM/latest/legacy/tensorrt-backend-removal.html)) | NVIDIA | In-flight (continuous) batching, paged KV cache, speculative decoding (EAGLE-3, MTP, n-gram, draft model), disaggregated serving, wide expert parallelism |
+| llama.cpp server | ggml.ai, part of Hugging Face since February 2026 ([Hugging Face blog, 20 February 2026](https://huggingface.co/blog/ggml-joins-hf)) | CPU, Apple silicon, consumer GPUs; quantized GGUF models | Continuous batching, prompt-cache reuse, speculative decoding, grammar-constrained output, multiple LoRA adapters |
+| Text Generation Inference (TGI) | Maintenance mode ([TGI documentation](https://huggingface.co/docs/text-generation-inference/index)); repository archived on 21 March 2026 ([GitHub](https://github.com/huggingface/text-generation-inference)) | – | Hugging Face recommends vLLM and SGLang, and local engines such as llama.cpp and MLX ([TGI documentation](https://huggingface.co/docs/text-generation-inference/index)) |

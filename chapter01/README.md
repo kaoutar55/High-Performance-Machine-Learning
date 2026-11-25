@@ -25,4 +25,4 @@ Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), tr
 
 Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. The first cell installs the tested library versions. It runs on CPU too, but decoding is far slower.
 
-Runtime: about 12 minutes on a Colab Free T4, about 25 minutes on a CPU laptop. The notebook has not yet been re-run on the tested stack below.
+Runtime, measured on Modal in November 2026 with the tested stack: 73 s on a T4 and 252 s on a 2-vCPU cloud CPU, plus the model downloads on a fresh machine (results/lab_corpus_check_2026-11-23.json). Timings on your machine will differ, most of all on CPU, where the host processor sets the speed.

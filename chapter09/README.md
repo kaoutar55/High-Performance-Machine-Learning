@@ -57,3 +57,42 @@ What each variant is, and which GPU runs it, is listed at the top of `modal_quan
 - Quality also scores each answer against the SQuAD reference answers of its question (answer contained in the
   first line, and token F1), paired with the 16-bit model on the same 200 held-out prompts, with flips.
 - Every A100 result comes from the SXM4 card; the scripts reject a PCIe A100 and retry.
+
+## Online resources
+
+The print chapter refers to the material below. Reference numbers in brackets are those of the chapter's reference
+list. The case study is being re-run; the items that cite case-study results describe the October 2026 runs and
+will be checked against the new runs.
+
+### GPTQ act-order and vLLM 0.32
+
+The original GPTQ act-order (desc_act=True) reorders the group scales and slows the kernels. vLLM 0.32 rejects
+checkpoints that use it and accepts the static act-order variant that llm-compressor produces. For this reason the
+case study builds its own W4A16 checkpoints with llm-compressor in place of Red Hat's published W4A16 checkpoint.
+
+### FP8 KV cache backends in vLLM 0.32
+
+In vLLM 0.32 the cache format is chosen with --kv-cache-dtype, and what it does depends on the GPU [40]:
+
+- H100: fp8 runs on the FlashAttention-3 backend, which also quantizes the query and computes attention in FP8.
+  The cache is halved and the attention arithmetic runs at the FP8 rate.
+- A100: FlashAttention-2 does not accept an FP8 cache, so vLLM uses the FlashInfer backend, which stores K and V in
+  FP8 and converts them to 16 bits inside the kernel. The cache is halved; the attention arithmetic stays in 16 bits.
+- T4: no attention backend in vLLM 0.32 accepts an FP8 cache on compute capability 7.5, and the server fails at
+  startup with an error that suggests --kv-cache-dtype float16 (recorded in
+  [`results/T4_gemma.errors.json`](results/T4_gemma.errors.json)).
+
+### 2:4 sparsity support history (as of the case-study runs, October 2026)
+
+- vLLM removed its 2:4 kernels in 2026: Sparse-Marlin after version 0.15 and CUTLASS after 0.18 [51]. vLLM 0.32
+  refuses checkpoints with a sparsity configuration [52].
+- torchao removed its sparsity module in August 2026 and kept FP8 2:4 tensors in its quantization workflows
+  [53][54].
+- PyTorch keeps torch.sparse.to_sparse_semi_structured, which runs a pruned 16-bit or INT8 weight with cuSPARSELt
+  or CUTLASS (`sparse_gemm.py` in this folder uses it). In PyTorch 2.14.1 the CUTLASS backend supports only compute
+  capability 8.x.
+- TensorRT-LLM's TensorRT engine backend offered 2:4 weight sparsity through the `--weight_sparsity` option of
+  `trtllm-build` ([TensorRT-LLM 0.21.0 documentation](https://nvidia.github.io/TensorRT-LLM/0.21.0/commands/trtllm-build.html)).
+  That backend has since been removed, and PyTorch is the only execution backend
+  ([TensorRT-LLM migration guide](https://nvidia.github.io/TensorRT-LLM/latest/legacy/tensorrt-backend-removal.html)).
+- On the B300, the sparse FP4 rate is 1.33 times the dense rate [55].

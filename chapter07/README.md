@@ -45,3 +45,21 @@ The measured cells need at least two GPUs. The notebook gives the exact `torchru
 | `modal_run.py` | Runs the analytics and both studies on a two-GPU Modal container and writes `modal_results.txt` |
 
 The analytical modules need only PyTorch and NumPy and run on CPU. Measured numbers vary with the GPU, the interconnect and the host; the recorded run is in `results/modal_results_2xa10g.txt`.
+
+## Online resources
+
+The print chapter refers to the material below.
+
+### PyTorch API history for DeviceMesh and fully_shard
+
+The tensor-parallel and sharded-data-parallel APIs used in Chapter 7 reached their current form over several
+releases: DeviceMesh arrived as a beta feature in PyTorch 2.2, and the per-module `fully_shard` API is importable from
+`torch.distributed.fsdp` from PyTorch 2.6 onward (in 2.4 and 2.5 it was a prototype under
+`torch.distributed._composable.fsdp`). On an older release the imports fail or only the older
+`FullyShardedDataParallel` wrapper exists, and the code needs adjusting. The chapter was tested with PyTorch 2.14.1.
+
+### NVLink bandwidth by GPU generation
+
+NVIDIA lists 900 GB/s of bidirectional NVLink bandwidth per GPU for H100 (fourth-generation NVLink), 1.8 TB/s for
+Blackwell, and 3.6 TB/s for Rubin (NVIDIA, "NVLink and NVSwitch", https://www.nvidia.com/en-us/data-center/nvlink/).
+Check the NVIDIA page for the current generation.

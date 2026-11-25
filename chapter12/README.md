@@ -7,7 +7,7 @@ optional llm-d run on Kubernetes (`k8s/`) was not run.
 Companion code for Chapter 12: the mature multimodal, agentic RAG system. The case study serves Qwen3-VL-8B-Instruct
 with vLLM 0.33.0 behind an agent that retrieves from a BGE-M3 + FAISS text index and a ColQwen3 page-image index over
 the ViDoRe V3 corpora (computer science, finance and HR). A cumulative ladder of experiments (E0 to E7) adds one
-serving optimization at a time on one H100 and measures goodput, latency, accuracy and cost per completed task.
+serving optimization at a time on H100 GPUs and measures goodput, latency, accuracy and GPU-seconds per completed task.
 E8 measures scale-out with three routing policies, E9 the choice of GPU, R0 retrieval quality, R1 run-to-run
 variation and a vLLM version regression gate, and R2 batch invariance.
 
@@ -39,7 +39,7 @@ variation and a vLLM version regression gate, and R2 batch invariance.
 | Corpus | ViDoRe V3 computer science, finance (English) and HR at pinned revisions: 5,412 pages, 842 English questions, graded qrels |
 | Load | open-loop Poisson task arrivals; rates 0.5, 1, 2, 4, 8, 16 tasks/s in ascending order, stopping one rate above goodput; 600 s per rate after 60 s warm-up; 3 repeats per rate (E8: 1) |
 | Objective | task completion time <= 20 s; goodput = highest rate at which >= 90% of tasks met it in all 3 repeats; table rows are medians of the 3 repeats at goodput |
-| Cost | cost per task at the Modal H100 list price of 3.95 USD/h, utilization 1.0 (`cost.py`) |
+| Cost | GPU-seconds per task = GPUs / goodput, at utilization 1.0 (E0-E6: two H100s; E7 and E9: one GPU). Cost per task at a price per GPU-hour = GPU-seconds per task x price / 3,600 (`cost.py`); see [Prices and cost per task](#prices-and-cost-per-task-for-the-case-study) |
 
 Notes:
 
@@ -65,20 +65,20 @@ Notes:
 Retrieval (R0, 842 questions, nDCG@10): text 48.3, page image 69.5, hybrid (reciprocal rank
 fusion) 60.3, page image in 4 bits 69.3. Recall@5: 40.7, 60.2, 52.0, 60.1.
 
-### The cumulative ladder (one H100, median of 3 repeats at goodput)
+### The cumulative ladder (H100, median of 3 repeats at goodput)
 
-| ID | Change | Accuracy (%) | Task time p50 / p95 (s) | Steps per task | Prefix hit rate (%) | Images per task | Goodput (tasks/s) | Cost per task ($) |
-|---|---|---|---|---|---|---|---|---|
-| E0 | Single pass: hybrid retrieval, top-3 pages to the model | 56.2 | 4.6 / 11.7 | 1.0 | 5 | 3.0 | 1 | 0.0011 |
-| E1 | Agent loop (unstable prompt prefix) | 44.0 | 4.4 / 11.2 | 4.0 | 1 | 1.9 | 1 | 0.0011 |
-| E2 | Stable prompt prefix | 45.7 | 4.9 / 11.5 | 4.0 | 61 | 1.8 | 2 | 0.0005 |
-| E3 | Image resolution limit (1,310,720 pixels) | 41.4 | 3.9 / 8.2 | 4.2 | 70 | 2.1 | 4 | 0.0003 |
-| E4 | Parallel tool calls | 41.6 | 3.9 / 8.2 | 4.2 | 71 | 2.1 | 4 | 0.0003 |
-| E5 | FP8 weights and FP8 KV cache | 43.3 | 8.2 / 17.3 | 4.2 | 72 | 2.0 | 8 | 0.0001 |
-| E6 | N-gram speculative decoding (two lowest rates) | 44.5 | 1.4 / 2.8 | 4.2 | 73 | 2.0 | 1 | 0.0011 |
-| E7 | 4-bit page retriever on the generator's GPU, compiled | 42.7 | 3.0 / 6.0 | 4.2 | 71 | 2.1 | 4 | 0.0003 |
+| ID | Change | Accuracy (%) | Task time p50 / p95 (s) | Steps per task | Prefix hit rate (%) | Images per task | Goodput (tasks/s) | GPUs | GPU-seconds per task |
+|---|---|---|---|---|---|---|---|---|---|
+| E0 | Single pass: hybrid retrieval, top-3 pages to the model | 56.2 | 4.6 / 11.7 | 1.0 | 5 | 3.0 | 1 | 2 | 2.0 |
+| E1 | Agent loop (unstable prompt prefix) | 44.0 | 4.4 / 11.2 | 4.0 | 1 | 1.9 | 1 | 2 | 2.0 |
+| E2 | Stable prompt prefix | 45.7 | 4.9 / 11.5 | 4.0 | 61 | 1.8 | 2 | 2 | 1.0 |
+| E3 | Image resolution limit (1,310,720 pixels) | 41.4 | 3.9 / 8.2 | 4.2 | 70 | 2.1 | 4 | 2 | 0.5 |
+| E4 | Parallel tool calls | 41.6 | 3.9 / 8.2 | 4.2 | 71 | 2.1 | 4 | 2 | 0.5 |
+| E5 | FP8 weights and FP8 KV cache | 43.3 | 8.2 / 17.3 | 4.2 | 72 | 2.0 | 8 | 2 | 0.25 |
+| E6 | N-gram speculative decoding (two lowest rates) | 44.5 | 1.4 / 2.8 | 4.2 | 73 | 2.0 | 1 | 2 | 2.0 |
+| E7 | 4-bit page retriever on the generator's GPU, compiled | 42.7 | 3.0 / 6.0 | 4.2 | 71 | 2.1 | 4 | 1 | 0.25 |
 
-E6 was run at the two lowest rates only, so its goodput is not comparable with the other rows.
+E6 was run at the two lowest rates only, so its goodput and GPU-seconds per task are not comparable with the other rows.
 
 ### Scale-out and routing (E8, E7 configuration, one repeat)
 
@@ -105,11 +105,11 @@ E6 was run at the two lowest rates only, so its goodput is not comparable with t
 
 ### Choosing the GPU (E9, E7 configuration)
 
-| GPU | Goodput (tasks/s) | p50 / p95 at goodput (s) | Price (USD/h, Modal list) | Cost per task (USD) |
-|---|---|---|---|---|
-| NVIDIA L40S (48 GB) | 1 | 7.5 / 15.3 | 1.95 | 0.00054 |
-| NVIDIA A100-SXM4-80GB | 1 | 5.4 / 13.5 | 2.50 | 0.00069 |
-| NVIDIA H100 80GB HBM3 (SXM) | 4 | 3.0 / 6.0 | 3.95 | 0.00027 |
+| GPU | Goodput (tasks/s) | p50 / p95 at goodput (s) | GPU-seconds per task |
+|---|---|---|---|
+| NVIDIA L40S (48 GB) | 1 | 7.5 / 15.3 | 1.0 |
+| NVIDIA A100-SXM4-80GB | 1 | 5.4 / 13.5 | 1.0 |
+| NVIDIA H100 80GB HBM3 (SXM) | 4 | 3.0 / 6.0 | 0.25 |
 
 The E7 setting `--gpu-memory-utilization=0.80` does not fit on one L40S next to the 4-bit retriever (36.2 of 47.4 GiB
 free at vLLM start-up, 37.9 GiB requested), so the L40S row uses 0.70. L40S and A100: one repeat per rate (0.5, 1 and
@@ -179,8 +179,69 @@ As measured by the authors of each paper.
 
 | Design | Example | Reported effect |
 |---|---|---|
-| Multi-head latent attention + MoE | DeepSeek-V2 (236B total, 21B active) | 93.3% smaller KV cache and 5.76× higher maximum generation throughput than DeepSeek 67B [48] |
-| Local:global attention 5:1, 1,024-token window | Gemma 3 | KV memory overhead at 32K context reduced from about 60% to under 15% [45] |
-| Attention:Mamba 1:7 with MoE | Jamba | 4 GB KV cache at 256K context against 32 GB for Mixtral; 3× Mixtral's throughput at 128K [46] |
-| Hybrid Mamba-Transformer | Nemotron-H 8B and 56B | Up to 3× faster inference than similarly sized Transformers at similar accuracy [49] |
-| Blockwise NAS on a trained model | Nemotron-51B from Llama-3.1-70B | Up to 2.17× throughput on one H100 with about 98.4% of the parent's accuracy [50] |
+| Multi-head latent attention + MoE | DeepSeek-V2 (236B total, 21B active) | 93.3% smaller KV cache and 5.76× higher maximum generation throughput than DeepSeek 67B [46] |
+| Local:global attention 5:1, 1,024-token window | Gemma 3 | KV memory overhead at 32K context reduced from about 60% to under 15% [43] |
+| Attention:Mamba 1:7 with MoE | Jamba | 4 GB KV cache at 256K context against 32 GB for Mixtral; 3× Mixtral's throughput at 128K [44] |
+| Hybrid Mamba-Transformer | Nemotron-H 8B and 56B | Up to 3× faster inference than similarly sized Transformers at similar accuracy [47] |
+| Blockwise NAS on a trained model | Nemotron-51B from Llama-3.1-70B | Up to 2.17× throughput on one H100 with about 98.4% of the parent's accuracy [48] |
+
+### Prices and cost per task for the case study
+
+The chapter reports GPU-seconds per task: GPUs / goodput, at full utilization. The cost per task at a given price is
+price per GPU-hour x GPUs / (goodput x utilization x 3,600). For comparison with a public price, the table applies
+Modal's on-demand list prices of November 2026 (Modal Labs, "Pricing", accessed 7 November 2026,
+https://modal.com/pricing): H100 80GB USD 3.95, A100 80GB USD 2.50 and L40S USD 1.95 per GPU-hour, at full
+utilization. E0 to E7 and the H100 row of E9 ran on an H100 cluster, so for those rows these are Modal list prices
+applied to cluster runs.
+
+| Experiment | GPUs | Goodput (tasks/s) | GPU-seconds per task | USD per task at Modal list price |
+|---|---|---|---|---|
+| E0, E1 | 2 x H100 | 1 | 2.0 | 0.00219 |
+| E2 | 2 x H100 | 2 | 1.0 | 0.00110 |
+| E3, E4 | 2 x H100 | 4 | 0.5 | 0.00055 |
+| E5 | 2 x H100 | 8 | 0.25 | 0.00027 |
+| E6 | 2 x H100 | at least 1 (tested to 1) | at most 2.0 | at most 0.00219 |
+| E7 | 1 x H100 | 4 | 0.25 | 0.00027 |
+| E9 L40S (Modal) | 1 | 1 | 1.0 | 0.00054 |
+| E9 A100 80GB (Modal) | 1 | 1 | 1.0 | 0.00069 |
+| E9 H100 (E7) | 1 | 4 | 0.25 | 0.00027 |
+
+[`cost.py`](cost.py) prints 0.0022 and 0.0055 USD per task for one H100 at USD 3.95 per hour and 0.5 tasks/s, with
+utilization 1.0 and 0.4.
+
+### H100 price trend
+
+The median on-demand H100 price across 46 providers rose by about 32% between November 2025 and November 2026
+(GetDeploying, "GPU Price Trends", weekly median on-demand prices across providers, accessed 7 November 2026,
+https://getdeploying.com/gpu-price-trends).
+
+### Status of the OpenTelemetry GenAI semantic conventions
+
+As of November 2026 the OpenTelemetry semantic conventions for generative AI had Development status, so attribute
+names could still change between versions (OpenTelemetry, "Semantic Conventions for Generative AI Systems", accessed
+7 November 2026, https://opentelemetry.io/docs/specs/semconv/gen-ai/).
+
+### Serving-framework landscape notes (November 2026)
+
+- llm-d 1.0 was a CNCF Sandbox project (llm-d Project, "llm-d v1.0: State-of-the-Art Inference, Ready for Day 2",
+  October 2026, https://llm-d.ai/blog/llm-d-v1.0-state-of-the-art-inference-ready-for-day-2).
+- Hugging Face put its TGI server in maintenance mode and recommends vLLM and SGLang (Hugging Face, "Text Generation
+  Inference" documentation, accessed 25 October 2026, https://huggingface.co/docs/text-generation-inference/index).
+- Amazon reported that its Rufus assistant runs on vLLM across tens of thousands of Trainium chips (Amazon Web
+  Services, "How Amazon Scaled Rufus by Building Multi-Node Inference Using AWS Trainium Chips and vLLM", AWS Machine
+  Learning Blog, August 2025,
+  https://aws.amazon.com/blogs/machine-learning/how-amazon-scaled-rufus-by-building-multi-node-inference-using-aws-trainium-chips-and-vllm).
+- The feature comparison of llm-d, Dynamo and KServe above is dated November 2026.
+
+### Disaggregated prefill status in vLLM
+
+vLLM's documentation (vLLM 0.33.0, November 2026) marked disaggregated prefill as experimental and subject to change
+(vLLM Project, "Disaggregated Prefilling (experimental)", vLLM documentation v0.33.0, accessed 25 November 2026,
+https://docs.vllm.ai/en/v0.33.0/features/disagg_prefill/).
+
+### Batch invariance in vLLM 0.33.0
+
+vLLM provided batch invariance as a beta feature (`VLLM_BATCH_INVARIANT=1`) on NVIDIA GPUs of compute capability 8.0
+and newer and on recent AMD GPUs. With tensor parallelism it disabled some custom all-reduce implementations (vLLM
+Project, "Batch Invariance", vLLM documentation, accessed 7 November 2026,
+https://docs.vllm.ai/en/latest/features/batch_invariance/).
