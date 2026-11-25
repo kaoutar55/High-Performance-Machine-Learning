@@ -255,7 +255,12 @@ def exp_decode_batching() -> dict:
     tok, model = _generator()
     params = sum(p.numel() for p in model.parameters())
     wbytes = sum(p.numel() * p.element_size() for p in model.parameters())
-    out = {"params_b": round(params / 1e9, 3), "weight_gb": round(wbytes / 1e9, 3), "rows": []}
+    # Prefill FLOPs count only the non-embedding parameters: the embedding lookup is a gather, so prefill does
+    # not multiply the (tied) embedding matrix. For Gemma-2B this is 1,981,884,416 of 2,506,172,416 parameters.
+    # Decode keeps all parameters, because the LM head reads the tied embedding at every step.
+    prefill_params = params - model.get_input_embeddings().weight.numel()
+    out = {"params_b": round(params / 1e9, 3), "prefill_params_b": round(prefill_params / 1e9, 3),
+           "weight_gb": round(wbytes / 1e9, 3), "rows": []}
     with torch.inference_mode():
         for bs in cfg.DECODE_BATCHES:
             try:
@@ -268,7 +273,7 @@ def exp_decode_batching() -> dict:
                 step = (tn - t1) / (cfg.NEW_TOKENS - 1)
                 plen = int(inputs["input_ids"].shape[1])
                 out["rows"].append({"batch": bs, "prompt_tokens": plen, "prefill_s": round(t1, 4),
-                                    "prefill_tflops": round(2 * params * plen * bs / t1 / 1e12, 2),
+                                    "prefill_tflops": round(2 * prefill_params * plen * bs / t1 / 1e12, 2),
                                     "decode_ms_per_step": round(step * 1000, 2),
                                     "decode_tokens_per_s": round(bs / step, 1),
                                     "weight_read_gbs": round(wbytes / step / 1e9, 1)})

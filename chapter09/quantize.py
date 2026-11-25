@@ -102,8 +102,14 @@ def recipe_for(variant):
             from llmcompressor.modifiers.pruning.wanda import WandaPruningModifier
             from llmcompressor.modifiers.obcq import SparseGPTModifier
         cls = WandaPruningModifier if variant.endswith("wanda") else SparseGPTModifier
-        return cls(sparsity=0.5, mask_structure="2:4", targets=["Linear"], ignore=["lm_head"]), "rag"
+        # The seven projections of each decoder block, named explicitly: with targets=["Linear"] and
+        # ignore=["lm_head"], llm-compressor 0.14.0.1 also pruned lm_head (the published Gemma and Llama
+        # checkpoints of 2026-10-26 have a 2:4 lm_head, which in Gemma is the tied input embedding).
+        return cls(sparsity=0.5, mask_structure="2:4", targets=DECODER_PROJ, ignore=["lm_head"]), "rag"
     raise ValueError(variant)
+
+
+DECODER_PROJ = [r"re:.*self_attn\.(q|k|v|o)_proj$", r"re:.*mlp\.(gate|up|down)_proj$"]
 
 
 def magnitude_24(model):
@@ -120,6 +126,42 @@ def magnitude_24(model):
     return n
 
 
+def oneshot_dense_embedding(model, recipe, **kwargs):
+    """llm-compressor oneshot for the 2:4 recipes, with the input embedding kept dense.
+
+    Gemma ties lm_head to the input embedding. With llm-compressor 0.14.0.1, ignore=["lm_head"] did not stop
+    Wanda and SparseGPT from pruning that shared weight 2:4 (the published Gemma checkpoints of 2026-10-26 have a
+    50%-zero, exactly 2:4 embedding), which damages every input token and every output logit. The embedding is
+    The 2:4 recipes name the decoder projections as targets (DECODER_PROJ) so lm_head is not pruned; as a
+    backstop, the embedding (and lm_head when it is a separate tensor, as in Llama) is saved before oneshot and
+    written back if oneshot left zeros in it. The largest zero fraction oneshot left is returned."""
+    import torch
+    from llmcompressor import oneshot
+    def weights():                                         # input embedding, and lm_head when it is untied
+        e, h = model.get_input_embeddings().weight, model.get_output_embeddings().weight
+        return [e] if h is e or h.data_ptr() == e.data_ptr() else [e, h]
+    def modules():
+        e, h = model.get_input_embeddings(), model.get_output_embeddings()
+        return [e] if h.weight is e.weight or h.weight.data_ptr() == e.weight.data_ptr() else [e, h]
+    saved = [m.weight.detach().cpu().clone() for m in modules()]
+    oneshot(model=model, recipe=recipe, **kwargs)
+    pruned = max(float((m.weight == 0).float().mean()) for m in modules())
+    if pruned > 0.01:
+        # The model is dispatched with offloading during oneshot, so a plain copy_ into .weight does not reach
+        # the stored value; update_offload_parameter writes through the offload hook.
+        try:
+            from compressed_tensors.utils import update_offload_parameter
+        except ImportError:
+            update_offload_parameter = None
+        with torch.no_grad():
+            for m, s in zip(modules(), saved):
+                if update_offload_parameter is not None:
+                    update_offload_parameter(m, "weight", s.to(m.weight.dtype))
+                else:
+                    m.weight.copy_(s.to(m.weight.device, m.weight.dtype))
+    return pruned
+
+
 def sparsity_report(model):
     import torch
     zeros = total = 0
@@ -129,7 +171,9 @@ def sparsity_report(model):
             w = m.weight.data
             zeros += (w == 0).sum().item(); total += w.numel()
             ok &= bool(((w.reshape(-1, 4) != 0).sum(dim=1) <= 2).all())
-    return {"linear_sparsity": zeros / total, "valid_2_4": ok}
+    emb_zero = float((model.get_input_embeddings().weight == 0).float().mean())
+    return {"linear_sparsity": zeros / total, "valid_2_4": ok, "embedding_zero_frac": emb_zero,
+            "embedding_dense": emb_zero < 0.01}
 
 
 # ------------------------------------------------------------------------------------------------ worker
@@ -158,11 +202,16 @@ def build(model_key: str, variant: str) -> dict:
             kwargs = dict(dataset=calibration_set(domain, tok), max_seq_length=SEQ_LEN,
                           num_calibration_samples=N_CALIB)
             info["calibration"] = {"domain": domain, "samples": N_CALIB, "max_seq_length": SEQ_LEN}
-        oneshot(model=model, recipe=recipe, **kwargs)
+        if variant.startswith("sparse24"):
+            info["embedding_zero_frac_after_oneshot"] = oneshot_dense_embedding(model, recipe, **kwargs)
+        else:
+            oneshot(model=model, recipe=recipe, **kwargs)
         # vLLM 0.32 rejects checkpoints that declare sparsity, so pruned models are saved as dense weights
         save_compressed = not variant.startswith("sparse24")
     if variant.startswith("sparse24"):
         info.update(sparsity_report(model))
+        if not info["embedding_dense"]:
+            raise RuntimeError(f"{variant}: the input embedding (tied to lm_head) was pruned")
     model.save_pretrained(out_dir, save_compressed=save_compressed)
     tok.save_pretrained(out_dir)
     info["build_s"] = round(time.time() - t0, 1)
