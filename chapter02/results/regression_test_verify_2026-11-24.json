@@ -1,0 +1,3354 @@
+{
+  "date": "2026-11-24",
+  "task": "verify the edited Chapter 2 regression test (cells 0, 36-39) on Modal T4s of both host types",
+  "platform": "Modal, NVIDIA Tesla T4 (PCIe, 16 GB, 70 W); drivers 620.70.06 (CUDA UMD 13.5) and 610.57.04 (CUDA UMD 13.3)",
+  "command": "nbclient execution of chapter02/chapter02_lab.ipynb top to bottom in a fresh container, then itemA_cells.verify_cells() (Book tools/runs_2026-11-24/: modal_nb.py, itemA_cells.py, run_verify.py, run_verify2.py, run_verify3.py)",
+  "container_starts": 15,
+  "max_starts": 20,
+  "bug_found": {
+    "what": "gpu_state() parsed nvidia-smi fields with int(). Driver 620.70.06 reports temperature.gpu with decimals (for example 43.16), int() raised ValueError, gpu_state() returned None. ClockMonitor then collected no samples, so the 85% clock rule never ran, and the driver comparison in regression_test was skipped (driver None).",
+    "effect_before_fix": "c06 (driver 620.70.06 on a 2.0 GHz Xeon host, SM clock 675 MHz, 79 C) printed FAIL on the clean first test (ratio 1.237) and raised RegressionError; step 5 did not raise on 620.70.06 hosts.",
+    "fix": "cell 37: int(float(sm)), int(float(sm_max)), round(float(temp)), applied 2026-11-24 at Kaoutar's request; pre-fix copy in Book _to_review/2026-11-24/High-Performance-Machine-Learning/chapter02/chapter02_lab.ipynb",
+    "clocks_throttle_reasons_active": "accepted by nvidia-smi on both drivers (return code 0, value 0x...0 or 0x...4)."
+  },
+  "summary_after_fix": {
+    "620.70.06": {
+      "containers": [
+        "d02",
+        "d04",
+        "d06"
+      ],
+      "cell38_first_test": [
+        "UNSTABLE",
+        "UNSTABLE",
+        "UNSTABLE"
+      ],
+      "repeat_status_counts": {
+        "PASS": 0,
+        "UNSTABLE": 15,
+        "FAIL": 0,
+        "null": 0
+      },
+      "clean_runs_with_FAIL": 0,
+      "ratio_range_repeats": [
+        1.0006471738710507,
+        1.0614302415114183
+      ],
+      "busy_sm_median_mhz_range": [
+        1005,
+        1275
+      ],
+      "step4": [
+        {
+          "container": "d02",
+          "status": "UNSTABLE",
+          "ratio": 1.0751007752097332,
+          "raised": false
+        },
+        {
+          "container": "d04",
+          "status": "UNSTABLE",
+          "ratio": 1.0255693765210856,
+          "raised": false
+        },
+        {
+          "container": "d06",
+          "status": "UNSTABLE",
+          "ratio": 1.0312569754464285,
+          "raised": false
+        }
+      ],
+      "step5": [
+        {
+          "container": "d02",
+          "foreign_driver": "610.57.04",
+          "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+        },
+        {
+          "container": "d04",
+          "foreign_driver": "610.57.04",
+          "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+        },
+        {
+          "container": "d06",
+          "foreign_driver": "610.57.04",
+          "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+        }
+      ]
+    },
+    "610.57.04": {
+      "containers": [
+        "d01",
+        "d03",
+        "d05"
+      ],
+      "cell38_first_test": [
+        "UNSTABLE",
+        "UNSTABLE",
+        "UNSTABLE"
+      ],
+      "repeat_status_counts": {
+        "PASS": 0,
+        "UNSTABLE": 15,
+        "FAIL": 0,
+        "null": 0
+      },
+      "clean_runs_with_FAIL": 0,
+      "ratio_range_repeats": [
+        1.0885749937159226,
+        1.4524922970526233
+      ],
+      "busy_sm_median_mhz_range": [
+        420,
+        1305
+      ],
+      "step4": [],
+      "step5": []
+    }
+  },
+  "summary_before_fix": {
+    "620.70.06": {
+      "containers": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c06",
+        "c07",
+        "c08",
+        "c09"
+      ],
+      "cell38_first_test": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "repeat_status_counts": {
+        "PASS": 40,
+        "UNSTABLE": 0,
+        "FAIL": 0,
+        "null": 0
+      },
+      "clean_runs_with_FAIL": 1,
+      "ratio_range_repeats": [
+        0.9175966280384367,
+        1.0834178667147367
+      ],
+      "busy_sm_median_mhz_range": null,
+      "step4": [
+        {
+          "container": "c07",
+          "status": null,
+          "ratio": 1.1148162546552056,
+          "raised": true
+        },
+        {
+          "container": "c08",
+          "status": "PASS",
+          "ratio": 1.0287920052189712,
+          "raised": false
+        },
+        {
+          "container": "c09",
+          "status": null,
+          "ratio": 1.1494601666535373,
+          "raised": true
+        }
+      ],
+      "step5": [
+        {
+          "container": "c07",
+          "foreign_driver": "610.57.04",
+          "raised": null
+        },
+        {
+          "container": "c08",
+          "foreign_driver": "610.57.04",
+          "raised": null
+        },
+        {
+          "container": "c09",
+          "foreign_driver": "610.57.04",
+          "raised": null
+        }
+      ]
+    },
+    "610.57.04": {
+      "containers": [
+        "c05"
+      ],
+      "cell38_first_test": [
+        "UNSTABLE"
+      ],
+      "repeat_status_counts": {
+        "PASS": 0,
+        "UNSTABLE": 5,
+        "FAIL": 0,
+        "null": 0
+      },
+      "clean_runs_with_FAIL": 0,
+      "ratio_range_repeats": [
+        1.0068281574128868,
+        1.0180799219764145
+      ],
+      "busy_sm_median_mhz_range": [
+        915,
+        1035
+      ],
+      "step4": [],
+      "step5": []
+    }
+  },
+  "pass_criteria_after_fix": {
+    "620.70.06 hosts: every result PASS": {
+      "holds": false,
+      "detail": "every result UNSTABLE: the notebook's busy SM clock median was 1005-1275 MHz of 1590 (63-80%) in the 15 repeats, with throttle reason 0x4 (software power cap) and a maximum of 36-51 C; ratios 1.001-1.061. The 85% rule is too strict for a T4 under its 70 W power cap. Rule not changed."
+    },
+    "610.57.04 hosts: UNSTABLE or PASS, no FAIL from a clean run": {
+      "holds": true,
+      "detail": "all UNSTABLE (SM median 420-1305 MHz), ratios 1.09-1.45, no FAIL"
+    },
+    "step 4 raises RegressionError": {
+      "holds": false,
+      "detail": "after the fix, the slowdown run is reported UNSTABLE on all three 620.70.06 containers (ratios 1.075, 1.026, 1.031) and does not raise. Before the fix (clock check disabled) it raised in c07 (1.115) and c09 (1.149); in c08 the GPU delay kernel only reached 1.029."
+    },
+    "step 5 raises the mismatch error": {
+      "holds": true,
+      "detail": "after the fix, raised on d02, d04, d06 (620.70.06 host, 610.57.04 baseline): \"Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06)\". Not tested on a 610.57.04 host: the old-notebook 620.70.06 baselines have no driver field."
+    },
+    "simulated 30% prints without raising and the notebook finishes": {
+      "holds": true,
+      "detail": "all 15 notebooks completed; the simulated case printed FAIL (clock check off) or UNSTABLE (clock check on) and did not raise"
+    },
+    "clocks_throttle_reasons.active accepted by nvidia-smi": {
+      "holds": true
+    }
+  },
+  "containers": [
+    {
+      "container": "d01",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:36:43+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 2000.174 MHz, avx512f",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "610.57.04",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.3",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 275.8,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "610.57.04",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 590.4,
+        "p95_ms": 596.2,
+        "p99_ms": 597.4,
+        "decode_p50_ms": 456.7
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "610.57.04, 1575, 1590, 59, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "610.57.04",
+        "sm_mhz": 1590,
+        "sm_max_mhz": 1590,
+        "temp_c": 59,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 515.2 ms  (baseline 456.7, threshold 502.4, ratio 1.128)\n         SM clock median 1305, min 720 of 1590 MHz over 24 samples, max 60 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 669.7 ms  (baseline 456.7, threshold 502.4, ratio 1.466)\n         SM clock median 1305, min 720 of 1590 MHz over 24 samples, max 60 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.128,
+          "sm_clock_line": "SM clock median 1305, min 720 of 1590 MHz over 24 samples, max 60 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.466,
+          "sm_clock_line": "SM clock median 1305, min 720 of 1590 MHz over 24 samples, max 60 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 513.4118957519531,
+          "ratio": 1.1241775689773443,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1305,
+          "sm_min_mhz": 705,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 63,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1305,
+            "sm_min_mhz": 705,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 63.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 510.24090576171875,
+          "ratio": 1.1172343020839035,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1290,
+          "sm_min_mhz": 705,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 65,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1290,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 65.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 507.7107238769531,
+          "ratio": 1.1116941622004668,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1245,
+          "sm_min_mhz": 705,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 67,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1245,
+            "sm_min_mhz": 675,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 67.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 508.4162902832031,
+          "ratio": 1.113239085358448,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1275,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 68,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1275,
+            "sm_min_mhz": 705,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 68.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 509.46466064453125,
+          "ratio": 1.1155346193223807,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1230,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 70,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1230,
+            "sm_min_mhz": 660,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 69.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "d02",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:38:19+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3104.119 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 290.4,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "620.70.06",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 599.0,
+        "p95_ms": 645.0,
+        "p99_ms": 693.0,
+        "decode_p50_ms": 463.2
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 41.62, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "620.70.06",
+        "sm_mhz": 1590,
+        "sm_max_mhz": 1590,
+        "temp_c": 42,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 467.1 ms  (baseline 463.2, threshold 509.5, ratio 1.008)\n         SM clock median 1155, min 645 of 1590 MHz over 22 samples, max 42 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 607.2 ms  (baseline 463.2, threshold 509.5, ratio 1.311)\n         SM clock median 1155, min 645 of 1590 MHz over 22 samples, max 42 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.008,
+          "sm_clock_line": "SM clock median 1155, min 645 of 1590 MHz over 22 samples, max 42 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.311,
+          "sm_clock_line": "SM clock median 1155, min 645 of 1590 MHz over 22 samples, max 42 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 475.04052734375,
+          "ratio": 1.0255624510875432,
+          "n_samples": 22,
+          "n_busy": 22,
+          "sm_median_mhz": 1140,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 44,
+          "throttle_reasons_seen": [
+            "0x0000000000000000",
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1230,
+            "sm_min_mhz": 660,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 44.31,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 471.82957458496094,
+          "ratio": 1.018630342368223,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1125,
+          "sm_min_mhz": 615,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 46,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1140,
+            "sm_min_mhz": 645,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.53,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 466.3354949951172,
+          "ratio": 1.006769203357334,
+          "n_samples": 22,
+          "n_busy": 22,
+          "sm_median_mhz": 1125,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 46,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1125,
+            "sm_min_mhz": 660,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 46.66,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 485.91490173339844,
+          "ratio": 1.0490390797353162,
+          "n_samples": 22,
+          "n_busy": 22,
+          "sm_median_mhz": 1095,
+          "sm_min_mhz": 660,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 47,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1095,
+            "sm_min_mhz": 660,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.38,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 477.03489685058594,
+          "ratio": 1.0298680847378798,
+          "n_samples": 23,
+          "n_busy": 23,
+          "sm_median_mhz": 1095,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 48,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 23,
+            "n_busy": 23,
+            "sm_median_mhz": 1230,
+            "sm_min_mhz": 675,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.62,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.6568421052631574,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 497.98667907714844,
+          "ratio": 1.0751007752097332,
+          "n_samples": 23,
+          "n_busy": 23,
+          "sm_median_mhz": 1185,
+          "sm_min_mhz": 660,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 48,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 23,
+            "n_busy": 23,
+            "sm_median_mhz": 1125,
+            "sm_min_mhz": 675,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.81,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 481.9450378417969,
+          "ratio": 1.0404685618346219,
+          "n_samples": 22,
+          "n_busy": 22,
+          "sm_median_mhz": 1170,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 48,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1185,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 48.41,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+      }
+    },
+    {
+      "container": "d03",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:39:23+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 2000.208 MHz, avx512f",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "610.57.04",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.3",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 323.4,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "610.57.04",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 701.7,
+        "p95_ms": 988.7,
+        "p99_ms": 1022.1,
+        "decode_p50_ms": 534.4
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "610.57.04, 1140, 1590, 76, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "610.57.04",
+        "sm_mhz": 1140,
+        "sm_max_mhz": 1590,
+        "temp_c": 76,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 625.1 ms  (baseline 534.4, threshold 587.8, ratio 1.170)\n         SM clock median 555, min 405 of 1590 MHz over 30 samples, max 78 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 812.6 ms  (baseline 534.4, threshold 587.8, ratio 1.521)\n         SM clock median 555, min 405 of 1590 MHz over 30 samples, max 78 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.17,
+          "sm_clock_line": "SM clock median 555, min 405 of 1590 MHz over 30 samples, max 78 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.521,
+          "sm_clock_line": "SM clock median 555, min 405 of 1590 MHz over 30 samples, max 78 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 776.2118835449219,
+          "ratio": 1.4524922970526233,
+          "n_samples": 36,
+          "n_busy": 36,
+          "sm_median_mhz": 420,
+          "sm_min_mhz": 360,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 81,
+          "throttle_reasons_seen": [
+            "0x0000000000000000",
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 36,
+            "n_busy": 36,
+            "sm_median_mhz": 420,
+            "sm_min_mhz": 345,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 81.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 763.1531677246094,
+          "ratio": 1.4280560773289848,
+          "n_samples": 35,
+          "n_busy": 35,
+          "sm_median_mhz": 420,
+          "sm_min_mhz": 345,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 81,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 36,
+            "n_busy": 36,
+            "sm_median_mhz": 420,
+            "sm_min_mhz": 345,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 81.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 647.1202087402344,
+          "ratio": 1.2109285343193008,
+          "n_samples": 30,
+          "n_busy": 30,
+          "sm_median_mhz": 540,
+          "sm_min_mhz": 375,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 77,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 30,
+            "n_busy": 30,
+            "sm_median_mhz": 525,
+            "sm_min_mhz": 375,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 77.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 630.3912048339844,
+          "ratio": 1.1796242605426355,
+          "n_samples": 30,
+          "n_busy": 30,
+          "sm_median_mhz": 540,
+          "sm_min_mhz": 435,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 76,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 30,
+            "n_busy": 30,
+            "sm_median_mhz": 525,
+            "sm_min_mhz": 420,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 77.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 756.80615234375,
+          "ratio": 1.4161791772899515,
+          "n_samples": 34,
+          "n_busy": 34,
+          "sm_median_mhz": 450,
+          "sm_min_mhz": 390,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 79,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 34,
+            "n_busy": 34,
+            "sm_median_mhz": 450,
+            "sm_min_mhz": 390,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 79.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "d04",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:38:38+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3100.216 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 279.2,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "620.70.06",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 588.9,
+        "p95_ms": 601.6,
+        "p99_ms": 611.4,
+        "decode_p50_ms": 458.4
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1590, 1590, 44.91, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "620.70.06",
+        "sm_mhz": 1590,
+        "sm_max_mhz": 1590,
+        "temp_c": 45,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 458.4 ms  (baseline 458.4, threshold 504.2, ratio 1.000)\n         SM clock median 1200, min 735 of 1590 MHz over 21 samples, max 46 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 595.9 ms  (baseline 458.4, threshold 504.2, ratio 1.300)\n         SM clock median 1200, min 735 of 1590 MHz over 21 samples, max 46 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.0,
+          "sm_clock_line": "SM clock median 1200, min 735 of 1590 MHz over 21 samples, max 46 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.3,
+          "sm_clock_line": "SM clock median 1200, min 735 of 1590 MHz over 21 samples, max 46 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 479.3555908203125,
+          "ratio": 1.0457146396603676,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1200,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 48,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.81,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 459.12315368652344,
+          "ratio": 1.0015775603981751,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1200,
+          "sm_min_mhz": 810,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 49,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1185,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 49.34,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 459.9129180908203,
+          "ratio": 1.0033004321352974,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1185,
+          "sm_min_mhz": 1140,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 50,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1170,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 49.97,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 460.8001708984375,
+          "ratio": 1.0052359749093314,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1185,
+          "sm_min_mhz": 1125,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 51,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1170,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 51.19,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 461.5595397949219,
+          "ratio": 1.0068925388196377,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1170,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 51,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1140,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 51.44,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.6189473684210522,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 470.1210021972656,
+          "ratio": 1.0255693765210856,
+          "n_samples": 22,
+          "n_busy": 22,
+          "sm_median_mhz": 1170,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 52,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1185,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 51.72,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 461.81732177734375,
+          "ratio": 1.0074548904392315,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1155,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 52,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1155,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 52.19,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+      }
+    },
+    {
+      "container": "d05",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:41:34+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 2000.174 MHz, avx512f",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "610.57.04",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.3",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 270.7,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "610.57.04",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 600.5,
+        "p95_ms": 606.4,
+        "p99_ms": 610.3,
+        "decode_p50_ms": 463.1
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "610.57.04, 1590, 1590, 63, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "610.57.04",
+        "sm_mhz": 1590,
+        "sm_max_mhz": 1590,
+        "temp_c": 63,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 505.1 ms  (baseline 463.1, threshold 509.4, ratio 1.091)\n         SM clock median 1275, min 690 of 1590 MHz over 24 samples, max 64 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 656.6 ms  (baseline 463.1, threshold 509.4, ratio 1.418)\n         SM clock median 1275, min 690 of 1590 MHz over 24 samples, max 64 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.091,
+          "sm_clock_line": "SM clock median 1275, min 690 of 1590 MHz over 24 samples, max 64 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.418,
+          "sm_clock_line": "SM clock median 1275, min 690 of 1590 MHz over 24 samples, max 64 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 514.3325805664062,
+          "ratio": 1.110629627653652,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1260,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 66,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1260,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 66.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 504.11907958984375,
+          "ratio": 1.0885749937159226,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1125,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 68,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1185,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 68.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 508.3986053466797,
+          "ratio": 1.0978160340027632,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1185,
+          "sm_min_mhz": 675,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 70,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1200,
+            "sm_min_mhz": 675,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 69.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 511.39122009277344,
+          "ratio": 1.1042781690623482,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1230,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 71,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1230,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 70.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 506.4756317138672,
+          "ratio": 1.093663640064494,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1110,
+          "sm_min_mhz": 660,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 72,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1170,
+            "sm_min_mhz": 645,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 71.0,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "d06",
+      "notebook": "after the fix (cell 37 parses with float())",
+      "env": {
+        "date_utc": "2026-11-24T14:42:39+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3097.003 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 280.7,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "620.70.06",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 585.6,
+        "p95_ms": 614.9,
+        "p99_ms": 635.0,
+        "decode_p50_ms": 455.0
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1515, 1590, 35.12, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "620.70.06",
+        "sm_mhz": 1515,
+        "sm_max_mhz": 1590,
+        "temp_c": 35,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 454.5 ms  (baseline 455.0, threshold 500.5, ratio 0.999)\n         SM clock median 1245, min 735 of 1590 MHz over 21 samples, max 36 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 590.9 ms  (baseline 455.0, threshold 500.5, ratio 1.299)\n         SM clock median 1245, min 735 of 1590 MHz over 21 samples, max 36 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 0.999,
+          "sm_clock_line": "SM clock median 1245, min 735 of 1590 MHz over 21 samples, max 36 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.299,
+          "sm_clock_line": "SM clock median 1245, min 735 of 1590 MHz over 21 samples, max 36 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 461.7130584716797,
+          "ratio": 1.0147539746630323,
+          "n_samples": 20,
+          "n_busy": 20,
+          "sm_median_mhz": 1005,
+          "sm_min_mhz": 690,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 38,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1290,
+            "sm_min_mhz": 1095,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 37.56,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 457.8122253417969,
+          "ratio": 1.0061807150369162,
+          "n_samples": 20,
+          "n_busy": 20,
+          "sm_median_mhz": 1095,
+          "sm_min_mhz": 810,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 39,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1275,
+            "sm_min_mhz": 810,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 39.06,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 482.9507598876953,
+          "ratio": 1.0614302415114183,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1260,
+          "sm_min_mhz": 735,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 39,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1320,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 39.31,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 455.4736785888672,
+          "ratio": 1.001041051843664,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1275,
+          "sm_min_mhz": 1215,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 40,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1260,
+            "sm_min_mhz": 1110,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 40.03,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 455.2944641113281,
+          "ratio": 1.0006471738710507,
+          "n_samples": 20,
+          "n_busy": 20,
+          "sm_median_mhz": 1140,
+          "sm_min_mhz": 705,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 40,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 40.41,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.5921052631578947,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 469.221923828125,
+          "ratio": 1.0312569754464285,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1290,
+          "sm_min_mhz": 1200,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 40,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1275,
+            "sm_min_mhz": 1080,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 40.19,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 455.7953796386719,
+          "ratio": 1.0017480871179603,
+          "n_samples": 21,
+          "n_busy": 21,
+          "sm_median_mhz": 1260,
+          "sm_min_mhz": 735,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 41,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": {
+            "n_samples": 21,
+            "n_busy": 21,
+            "sm_median_mhz": 1245,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 40.66,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": "Baseline is from a different machine (driver: baseline 610.57.04, now 620.70.06). Save a new baseline first."
+      }
+    },
+    {
+      "container": "c01",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:19:28+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.816 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 245.6,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 597.0,
+        "p95_ms": 600.6,
+        "p99_ms": 601.5,
+        "decode_p50_ms": 463.4
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 43.16, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 462.0 ms  (baseline 463.4, threshold 509.7, ratio 0.997)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 600.7 ms  (baseline 463.4, threshold 509.7, ratio 1.296)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 0.997,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.296,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 462.6623229980469,
+          "ratio": 0.9984081204101142,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 463.7805480957031,
+          "ratio": 1.0008212086657384,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 463.7038116455078,
+          "ratio": 1.0006556142544407,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 463.8808288574219,
+          "ratio": 1.0010376108274102,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 464.13377380371094,
+          "ratio": 1.0015834566329542,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c02",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:16:12+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.757 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 265.0,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 585.6,
+        "p95_ms": 596.1,
+        "p99_ms": 612.9,
+        "decode_p50_ms": 455.5
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1590, 1590, 38.06, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 491.1 ms  (baseline 455.5, threshold 501.1, ratio 1.078)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 638.4 ms  (baseline 455.5, threshold 501.1, ratio 1.402)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 1.078,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.402,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 466.7771759033203,
+          "ratio": 1.02475779561651,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 467.72711181640625,
+          "ratio": 1.0268432751183452,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 488.26026916503906,
+          "ratio": 1.0719215568936094,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 466.54283142089844,
+          "ratio": 1.0242433181578452,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 482.5981750488281,
+          "ratio": 1.059491053894244,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c03",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:16:02+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.568 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 253.0,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 587.7,
+        "p95_ms": 591.6,
+        "p99_ms": 593.9,
+        "decode_p50_ms": 456.4
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 36.78, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 455.2 ms  (baseline 456.4, threshold 502.0, ratio 0.997)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 591.7 ms  (baseline 456.4, threshold 502.0, ratio 1.296)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 0.997,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.296,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 455.6473388671875,
+          "ratio": 0.9983508739421286,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.25148010253906,
+          "ratio": 0.9996745839231794,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.9261169433594,
+          "ratio": 1.001152754038912,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 457.3582458496094,
+          "ratio": 1.0020995746047532,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 457.57862854003906,
+          "ratio": 1.0025824464067465,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c04",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:16:07+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3101.656 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 257.2,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 591.9,
+        "p95_ms": 598.9,
+        "p99_ms": 603.6,
+        "decode_p50_ms": 459.4
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 44.09, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 457.8 ms  (baseline 459.4, threshold 505.3, ratio 0.997)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 595.2 ms  (baseline 459.4, threshold 505.3, ratio 1.296)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 0.997,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.296,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 463.5394287109375,
+          "ratio": 1.0090105109075698,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 497.72216796875,
+          "ratio": 1.0834178667147367,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 469.8653564453125,
+          "ratio": 1.022780488561847,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 477.6144256591797,
+          "ratio": 1.0396482926843267,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 481.60386657714844,
+          "ratio": 1.048332317320741,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c05",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:16:44+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 2000.156 MHz, avx512f",
+        "cpu_count_visible": 14,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "610.57.04",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.3",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 292.1,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": "610.57.04",
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 648.1,
+        "p95_ms": 676.5,
+        "p99_ms": 695.5,
+        "decode_p50_ms": 491.1
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "610.57.04, 1575, 1590, 64, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": {
+        "driver": "610.57.04",
+        "sm_mhz": 1590,
+        "sm_max_mhz": 1590,
+        "temp_c": 64,
+        "throttle_reasons": "0x0000000000000000"
+      },
+      "cell38": {
+        "printed": "[UNSTABLE] decode p50 = 499.0 ms  (baseline 491.1, threshold 540.2, ratio 1.016)\n         SM clock median 1125, min 630 of 1590 MHz over 24 samples, max 66 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.\n\nSimulating a 30% regression:\n[UNSTABLE] decode p50 = 648.8 ms  (baseline 491.1, threshold 540.2, ratio 1.321)\n         SM clock median 1125, min 630 of 1590 MHz over 24 samples, max 66 C\n         The GPU clock dropped during the run, so this result is not a verdict. Re-run on a GPU that holds its clock, or on dedicated hardware.",
+        "first_test": {
+          "status": "UNSTABLE",
+          "ratio": 1.016,
+          "sm_clock_line": "SM clock median 1125, min 630 of 1590 MHz over 24 samples, max 66 C"
+        },
+        "simulated_30pct": {
+          "status": "UNSTABLE",
+          "ratio": 1.321,
+          "sm_clock_line": "SM clock median 1125, min 630 of 1590 MHz over 24 samples, max 66 C"
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 494.45330810546875,
+          "ratio": 1.0068281574128868,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 1035,
+          "sm_min_mhz": 585,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 68,
+          "throttle_reasons_seen": [
+            "0x0000000000000000",
+            "0x0000000000000004"
+          ],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 499.7691650390625,
+          "ratio": 1.0176525453859957,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 990,
+          "sm_min_mhz": 645,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 70,
+          "throttle_reasons_seen": [
+            "0x0000000000000000",
+            "0x0000000000000004"
+          ],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 499.9790496826172,
+          "ratio": 1.0180799219764145,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 960,
+          "sm_min_mhz": 615,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 71,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 499.45680236816406,
+          "ratio": 1.0170164984079904,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 960,
+          "sm_min_mhz": 555,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 72,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "UNSTABLE",
+          "raised": null,
+          "median_ms": 496.9641571044922,
+          "ratio": 1.011940861544476,
+          "n_samples": 24,
+          "n_busy": 24,
+          "sm_median_mhz": 915,
+          "sm_min_mhz": 555,
+          "sm_max_mhz": 1590,
+          "temp_max_c": 73,
+          "throttle_reasons_seen": [
+            "0x0000000000000004"
+          ],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c06",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T13:18:00+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 2000.130 MHz, avx512f",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": {
+        "cell": 38,
+        "ename": "RegressionError",
+        "evalue": "decode p50 886.7 ms is above the threshold 788.3 ms",
+        "appended": false,
+        "source_head": "# --- Run the regression test against the just-saved baseline (should PASS) ---\n# Median decode time over N_TEST_QUERIES fresh queries, with the GPU clock sampled during the run\nfresh_decode = []\nwith ClockMonitor() as clocks:\n    for q in EVAL_QUERIES[:N_TEST_QUERIES]:\n        r = rag_answer(q)\n   "
+      },
+      "elapsed_s": 367.7,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 904.7,
+        "p95_ms": 952.7,
+        "p99_ms": 955.2,
+        "decode_p50_ms": 716.6
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 675, 1590, 79.47, 0x0000000000000000",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[FAIL] decode p50 = 886.7 ms  (baseline 716.6, threshold 788.3, ratio 1.237)\n\nRegressionError: decode p50 886.7 ms is above the threshold 788.3 ms",
+        "first_test": {
+          "status": "FAIL",
+          "ratio": 1.237,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": null,
+        "raised_in_cell38": true
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 748.4639587402344,
+          "ratio": 1.0444654741002433,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 657.5497436523438,
+          "ratio": 0.9175966280384367,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 684.9349670410156,
+          "ratio": 0.9558121225802618,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 760.1653442382812,
+          "ratio": 1.0607945077285532,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 757.0950012207031,
+          "ratio": 1.0565099096018742,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": null,
+          "status_if_clock_check_worked": null
+        }
+      ],
+      "step4": null,
+      "step5": null
+    },
+    {
+      "container": "c07",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T14:30:38+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.601 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 284.4,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 583.0,
+        "p95_ms": 607.3,
+        "p99_ms": 619.8,
+        "decode_p50_ms": 454.8
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 39.66, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 461.1 ms  (baseline 454.8, threshold 500.3, ratio 1.014)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 599.5 ms  (baseline 454.8, threshold 500.3, ratio 1.318)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 1.014,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.318,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 472.00103759765625,
+          "ratio": 1.0378211028972213,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1305,
+            "sm_min_mhz": 585,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 43.38,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 467.2377014160156,
+          "ratio": 1.027347628443306,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1245,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 44.5,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 477.3126525878906,
+          "ratio": 1.0495001156286072,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1260,
+            "sm_min_mhz": 780,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.53,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 487.3187255859375,
+          "ratio": 1.071501155641903,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1275,
+            "sm_min_mhz": 750,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.81,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 471.47760009765625,
+          "ratio": 1.0366701849112934,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1245,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 46.94,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.590526315789474,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": null,
+          "raised": "decode p50 507.0 ms is above the threshold 500.3 ms",
+          "median_ms": 507.0184326171875,
+          "ratio": 1.1148162546552056,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 23,
+            "n_busy": 23,
+            "sm_median_mhz": 1275,
+            "sm_min_mhz": 765,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.16,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 487.57701110839844,
+          "ratio": 1.07206906576165,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 23,
+            "n_busy": 23,
+            "sm_median_mhz": 1380,
+            "sm_min_mhz": 750,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.97,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "PASS"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": null
+      }
+    },
+    {
+      "container": "c08",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T14:30:26+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.916 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 268.3,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 589.5,
+        "p95_ms": 593.7,
+        "p99_ms": 596.4,
+        "decode_p50_ms": 459.0
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 44.94, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 457.6 ms  (baseline 459.0, threshold 504.9, ratio 0.997)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 594.8 ms  (baseline 459.0, threshold 504.9, ratio 1.296)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 0.997,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.296,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 458.7684020996094,
+          "ratio": 0.9994954294109136,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1185,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 47.69,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 459.4104461669922,
+          "ratio": 1.0008942182287413,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1170,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 48.5,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 460.1343994140625,
+          "ratio": 1.0024714584184369,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1170,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 49.5,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 460.74989318847656,
+          "ratio": 1.0038124034607332,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1155,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 49.97,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 461.26185607910156,
+          "ratio": 1.0049277910220078,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1155,
+            "sm_min_mhz": 690,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 50.84,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.6236842105263154,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 472.2155303955078,
+          "ratio": 1.0287920052189712,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 23,
+            "n_busy": 23,
+            "sm_median_mhz": 1155,
+            "sm_min_mhz": 660,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 50.97,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 461.5303649902344,
+          "ratio": 1.0055127777565018,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1155,
+            "sm_min_mhz": 675,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 51.12,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": null
+      }
+    },
+    {
+      "container": "c09",
+      "notebook": "before the fix (cell 37 parses with int())",
+      "env": {
+        "date_utc": "2026-11-24T14:30:31+00:00",
+        "platform": "Modal",
+        "kind": "T4",
+        "host_cpu": "model name hidden by the sandbox; GenuineIntel family 6 model 85, 3099.015 MHz, avx512f,avx512_vnni",
+        "cpu_count_visible": 17,
+        "omp_num_threads": "1",
+        "gpu_name": "Tesla T4",
+        "gpu_memory": "15360 MiB",
+        "driver": "620.70.06",
+        "gpu_power_max_limit": "70.00 W",
+        "gpu_form_factor": "PCIe",
+        "driver_cuda_version": "13.5",
+        "versions": {
+          "torch": "2.14.1+cu130",
+          "triton": "3.8.0",
+          "transformers": "5.20.2",
+          "sentence_transformers": "6.2.0",
+          "accelerate": "1.16.0",
+          "datasets": "5.2.0",
+          "faiss": "1.16.0",
+          "bitsandbytes": null,
+          "torch_cuda": "13.0"
+        }
+      },
+      "notebook_status": "completed",
+      "first_error": null,
+      "elapsed_s": 268.1,
+      "own_baseline": {
+        "hardware": "Tesla T4",
+        "driver": null,
+        "model": "google/gemma-2b-it",
+        "torch_version": "2.14.1+cu130",
+        "p50_ms": 584.8,
+        "p95_ms": 588.3,
+        "p99_ms": 591.5,
+        "decode_p50_ms": 456.2
+      },
+      "nvidia_smi_query": {
+        "returncode": 0,
+        "stdout": "620.70.06, 1575, 1590, 39.62, 0x0000000000000004",
+        "stderr": ""
+      },
+      "gpu_state_returned": null,
+      "cell38": {
+        "printed": "[PASS] decode p50 = 454.7 ms  (baseline 456.2, threshold 501.8, ratio 0.997)\n\nSimulating a 30% regression:\n[FAIL] decode p50 = 591.1 ms  (baseline 456.2, threshold 501.8, ratio 1.296)",
+        "first_test": {
+          "status": "PASS",
+          "ratio": 0.997,
+          "sm_clock_line": null
+        },
+        "simulated_30pct": {
+          "status": "FAIL",
+          "ratio": 1.296,
+          "sm_clock_line": null
+        },
+        "raised_in_cell38": false
+      },
+      "repeats": [
+        {
+          "label": "repeat_1",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 455.8325958251953,
+          "ratio": 0.9991946423173944,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1230,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 42.25,
+            "throttle_reasons_seen": [
+              "0x0000000000000000",
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_2",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.29319763183594,
+          "ratio": 1.0002042911701796,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 750,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 43.47,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_3",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.43809509277344,
+          "ratio": 1.0005219094536901,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 44.41,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_4",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.9249572753906,
+          "ratio": 1.0015891216032238,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 705,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 44.97,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        {
+          "label": "repeat_5",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 456.55767822265625,
+          "ratio": 1.000784038190829,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 735,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.19,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      ],
+      "step4": {
+        "per_step_ms": 3.6015789473684205,
+        "result": {
+          "label": "step4_gpu_slowdown",
+          "status": null,
+          "raised": "decode p50 524.4 ms is above the threshold 501.8 ms",
+          "median_ms": 524.3837280273438,
+          "ratio": 1.1494601666535373,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 24,
+            "n_busy": 24,
+            "sm_median_mhz": 1305,
+            "sm_min_mhz": 645,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.59,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        },
+        "after_removal": {
+          "label": "step4_after_removal",
+          "status": "PASS",
+          "raised": null,
+          "median_ms": 457.15867614746094,
+          "ratio": 1.002101438289042,
+          "n_samples": 0,
+          "n_busy": 0,
+          "sm_median_mhz": null,
+          "sm_min_mhz": null,
+          "sm_max_mhz": null,
+          "temp_max_c": null,
+          "throttle_reasons_seen": [],
+          "independent_clock": {
+            "n_samples": 22,
+            "n_busy": 22,
+            "sm_median_mhz": 1215,
+            "sm_min_mhz": 720,
+            "sm_max_mhz": 1590,
+            "temp_max_c": 45.94,
+            "throttle_reasons_seen": [
+              "0x0000000000000004"
+            ]
+          },
+          "status_if_clock_check_worked": "UNSTABLE"
+        }
+      },
+      "step5": {
+        "foreign_driver": "610.57.04",
+        "raised": null
+      }
+    }
+  ]
+}

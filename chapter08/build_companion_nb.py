@@ -298,7 +298,7 @@ fig.suptitle("Load sweep across five GPU/model pairs (vLLM 0.32.0)", y=1.02)
 fig.tight_layout(); plt.show()
 """)
 
-md("""Read the knee of each curve from the plot and compare it with Table 8.8 in the chapter,
+md("""Read the knee of each curve from the plot and compare it with Table 8.6 in the chapter,
 which uses the repeated runs near capacity. The T4 is already at its limit at a few
 requests per second. Llama-3.1-8B reaches its knee at a lower rate than Gemma on the same
 GPU; it reads about three times the weight bytes and does about three times the FLOPs per
@@ -311,7 +311,7 @@ A single run at the edge of capacity can pass or fail by chance, so the load poi
 near each knee ran three times on the A100 and H100, each repeat on a fresh server
 with the rates in a different order. Capacity is the highest load at which every
 repeat kept at least 90% of requests within both objectives. These are the numbers
-in Table 8.8. The GPU columns show the SM clock and power: under sustained load both
+in Table 8.6. The GPU columns show the SM clock and power: under sustained load both
 GPUs reach their power limit and lower the clock.
 """)
 code("""
