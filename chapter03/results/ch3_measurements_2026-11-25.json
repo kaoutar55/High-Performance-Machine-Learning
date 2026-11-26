@@ -1,0 +1,59 @@
+{
+ "_note": "Transcribed from the executed Colab notebook output (HPML_ch3_measurements_colab_v2.ipynb, 2026-11-25); numpy_blas config string omitted (OpenBLAS 0.3.31, Haswell kernels, 64-bit ints).",
+ "env": {
+  "date_utc": "2026-11-25T17:59:18+00:00",
+  "platform": "Colab",
+  "gpu": "Tesla T4",
+  "nvidia_smi": "Tesla T4, 580.82.07, 70.00 W, 1590 MHz",
+  "cuda_umd": "CUDA Version: 13.0",
+  "host_cpu": "Intel(R) Xeon(R) CPU @ 2.00GHz",
+  "cpu_count": 2,
+  "python": "3.13.16",
+  "torch": "2.14.1+cu130",
+  "torch_cuda": "13.0",
+  "transformers": "5.22.1",
+  "numpy": "2.4.6",
+  "gpu_state_start": "795 MHz, 1590 MHz, 70.00 W, 21.18 W, 57, 0x0000000000000001",
+  "datasets": "4.8.5",
+  "gpu_state_end": "585 MHz, 1590 MHz, 70.00 W, 31.28 W, 65, 0x0000000000000000"
+ },
+ "hot_loop": {
+  "model": "BAAI/bge-m3",
+  "dtype": "float16",
+  "n": 32,
+  "seq_len": 128,
+  "loop": {"median_ms": 586.3465859999906, "min_ms": 501.27265800000487, "max_ms": 4002.0393160000085, "reps": 20},
+  "batched": {"median_ms": 149.55004800000893, "min_ms": 147.6823550000006, "max_ms": 151.9702169999846, "reps": 20},
+  "speedup": 3.92073819996337,
+  "max_abs_diff": 0.02734375
+ },
+ "py_matmul": {
+  "n": 1000,
+  "dtype": "float64",
+  "python_s": 75.862536947,
+  "numpy_median_s": 0.037318475999995826,
+  "ratio": 2032.8412378632097,
+  "max_abs_diff": 1.0800249583553523e-12,
+  "numpy_blas": "scipy-openblas, OpenBLAS 0.3.31.188.0 USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=64"
+ },
+ "ema": {
+  "model": "BAAI/bge-m3",
+  "param_tensors": 391,
+  "params_millions": 567.754752,
+  "ema_step_loop": {"median_ms": 48.92379349996645, "min_ms": 48.4730910000053, "max_ms": 48.98641500000167, "reps": 20, "achieved_gbps": 232.09759970897977},
+  "ema_step_foreach": {"median_ms": 48.10720949998881, "min_ms": 48.07715100002952, "max_ms": 48.175445000026684, "reps": 20, "achieved_gbps": 236.03728335152428},
+  "train_step_with_loop": {"step_ms": 242.70791280000026, "gpu_busy_fraction": 1.0564278409467713, "kernels_per_step": 3017.0},
+  "train_step_with_foreach": {"step_ms": 277.5853884000014, "gpu_busy_fraction": 0.8739015021584621, "kernels_per_step": 2243.0},
+  "ema_bytes_per_update": 11355095040
+ },
+ "ema_small": {
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "param_tensors": 103,
+  "params_millions": 22.713216,
+  "ema_bytes_per_update": 454264320,
+  "ema_step_loop": {"median_ms": 2.3392690000036964, "min_ms": 2.3317120000001523, "max_ms": 3.1132789999901433, "reps": 20},
+  "ema_step_foreach": {"median_ms": 1.9232444999772724, "min_ms": 1.909090000026481, "max_ms": 1.951926000003823, "reps": 20},
+  "train_step_with_loop": {"step_ms": 39.17321850000235, "gpu_busy_fraction": 0.41470477846999204, "kernels_per_step": 800.0},
+  "train_step_with_foreach": {"step_ms": 56.40630989999522, "gpu_busy_fraction": 0.3619375817385523, "kernels_per_step": 596.0}
+ }
+}
