@@ -9,7 +9,7 @@ Seven programming exercises, one per major section of the chapter. Every one is 
 
 ## The exercises
 
-1. The Python tax: sum a million floats four ways and disassemble one `+`.
+1. The interpreter cost: sum a million floats four ways and disassemble one `+`.
 2. Where launch overhead dominates: watch per-op dispatch cost hide as the batch grows.
 3. What autograd costs at inference: latency and peak memory with autograd on, `no_grad`, `inference_mode`.
 4. Sweeping the DataLoader: throughput vs `num_workers` and `pin_memory`.

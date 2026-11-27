@@ -71,7 +71,8 @@ gradient tracking and is the configuration to test next.
 5. (b) Remove `dynamic=False` so that the default marks the varying dimension symbolic after the first recompile, or
    mark the sequence dimension dynamic before the first call.
 6. (c) On the A100, per-step overhead took most of each eager decode step, and compilation removed it. On the T4 the
-   weight-read floor was already about 60% of the eager step, so there was little overhead to remove.
+   GPU was already busy for 99% of each eager step (Chapter 2, Figure 2.13), so removing launches did not shorten it;
+   compilation gave 0.88x in the reference runs and 1.05x in a later run.
 7. (b) The first compilation specialized on the first sequence length; the second call with a new length recompiled
    with the dimension symbolic. Marking the sequence dimension with `torch._dynamo.mark_dynamic` before the first call
    gives one compilation.

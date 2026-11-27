@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 app = modal.App("hpml-ch11-onnx")
 hf = modal.Volume.from_name("hf-cache", create_if_missing=True)
 img = (modal.Image.from_registry("nvidia/cuda:12.8.1-cudnn-runtime-ubuntu22.04", add_python="3.11")
-       .pip_install("torch==2.14.1", "transformers>=5.16,<5.20", "onnx", "onnxscript", "onnxruntime-gpu==1.31.*",
+       .pip_install("torch==2.14.1", "transformers>=5.16,<5.20", "onnx", "onnxscript", "onnxruntime-gpu==1.32.*",
                     "datasets", "numpy")
        .add_local_file(os.path.join(HERE, "..", "common.py"), "/root/common.py"))
 
