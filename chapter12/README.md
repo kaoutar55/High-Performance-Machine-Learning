@@ -16,7 +16,7 @@ variation and a vLLM version regression gate, and R2 batch invariance.
 | `build_corpus.py` | Download ViDoRe V3 CS, Finance-EN and HR at run time; render pages; license report |
 | `indexing.py` | BGE-M3 + FAISS text index, ColQwen3 page index, retrieval service (Modal, or HTTP when `RETRIEVAL_URL` is set), R0 evaluation |
 | `serve_vlm.py` | vLLM 0.33.0 server for Qwen3-VL-8B-Instruct on Modal, one configuration per experiment |
-| `configs/experiments.yaml` | The cumulative experiments E0–E9, R1, R2, load points, objectives, prices |
+| `configs/experiments.yaml` | The cumulative experiments E0–E9, R1, R2, load points, objectives |
 | `agent.py`, `tools.json`, `system_prompt.txt` | Agent controller, tools, OpenTelemetry-named spans |
 | `router.py`, `routed_client.py` | Round-robin, session-affinity and prefix-aware routing (E8) |
 | `loadgen_agent.py` | Open-loop multi-turn load generator |
@@ -39,7 +39,7 @@ variation and a vLLM version regression gate, and R2 batch invariance.
 | Corpus | ViDoRe V3 computer science, finance (English) and HR at pinned revisions: 5,412 pages, 842 English questions, graded qrels |
 | Load | open-loop Poisson task arrivals; rates 0.5, 1, 2, 4, 8, 16 tasks/s in ascending order, stopping one rate above goodput; 600 s per rate after 60 s warm-up; 3 repeats per rate (E8: 1) |
 | Objective | task completion time <= 20 s; goodput = highest rate at which >= 90% of tasks met it in all 3 repeats; table rows are medians of the 3 repeats at goodput |
-| Cost | GPU-seconds per task = GPUs / goodput, at utilization 1.0 (E0-E6: two H100s; E7 and E9: one GPU). Cost per task at a price per GPU-hour = GPU-seconds per task x price / 3,600 (`cost.py`); see [Prices and cost per task](#prices-and-cost-per-task-for-the-case-study) |
+| Cost | GPU-seconds per task = GPUs / goodput, at utilization 1.0 (E0-E6: two H100s; E7 and E9: one GPU). Cost per task at a price per GPU-hour = GPU-seconds per task x price / 3,600 (`cost.py`); see [GPU-seconds and cost per task](#gpu-seconds-and-cost-per-task-for-the-case-study) |
 
 Notes:
 
@@ -185,29 +185,26 @@ As measured by the authors of each paper.
 | Hybrid Mamba-Transformer | Nemotron-H 8B and 56B | Up to 3× faster inference than similarly sized Transformers at similar accuracy [47] |
 | Blockwise NAS on a trained model | Nemotron-51B from Llama-3.1-70B | Up to 2.17× throughput on one H100 with about 98.4% of the parent's accuracy [48] |
 
-### Prices and cost per task for the case study
+### GPU-seconds and cost per task for the case study
 
-The chapter reports GPU-seconds per task: GPUs / goodput, at full utilization. The cost per task at a given price is
-price per GPU-hour x GPUs / (goodput x utilization x 3,600). For comparison with a public price, the table applies
-Modal's on-demand list prices of November 2026 (Modal Labs, "Pricing", accessed 7 November 2026,
-https://modal.com/pricing): H100 80GB USD 3.95, A100 80GB USD 2.50 and L40S USD 1.95 per GPU-hour, at full
-utilization. E0 to E7 and the H100 row of E9 ran on an H100 cluster, so for those rows these are Modal list prices
-applied to cluster runs.
+The chapter reports GPU-seconds per task: GPUs / goodput, at full utilization. The cost per task at your own price is
+price per GPU-hour x GPUs / (goodput x utilization x 3,600), or GPU-seconds per task x price per GPU-hour / 3,600 at
+full utilization (`cost.py`).
 
-| Experiment | GPUs | Goodput (tasks/s) | GPU-seconds per task | USD per task at Modal list price |
-|---|---|---|---|---|
-| E0, E1 | 2 x H100 | 1 | 2.0 | 0.00219 |
-| E2 | 2 x H100 | 2 | 1.0 | 0.00110 |
-| E3, E4 | 2 x H100 | 4 | 0.5 | 0.00055 |
-| E5 | 2 x H100 | 8 | 0.25 | 0.00027 |
-| E6 | 2 x H100 | at least 1 (tested to 1) | at most 2.0 | at most 0.00219 |
-| E7 | 1 x H100 | 4 | 0.25 | 0.00027 |
-| E9 L40S (Modal) | 1 | 1 | 1.0 | 0.00054 |
-| E9 A100 80GB (Modal) | 1 | 1 | 1.0 | 0.00069 |
-| E9 H100 (E7) | 1 | 4 | 0.25 | 0.00027 |
+| Experiment | GPUs | Goodput (tasks/s) | GPU-seconds per task |
+|---|---|---|---|
+| E0, E1 | 2 x H100 | 1 | 2.0 |
+| E2 | 2 x H100 | 2 | 1.0 |
+| E3, E4 | 2 x H100 | 4 | 0.5 |
+| E5 | 2 x H100 | 8 | 0.25 |
+| E6 | 2 x H100 | at least 1 (tested to 1) | at most 2.0 |
+| E7 | 1 x H100 | 4 | 0.25 |
+| E9 L40S (Modal) | 1 | 1 | 1.0 |
+| E9 A100 80GB (Modal) | 1 | 1 | 1.0 |
+| E9 H100 (E7) | 1 | 4 | 0.25 |
 
-[`cost.py`](cost.py) prints 0.0022 and 0.0055 USD per task for one H100 at USD 3.95 per hour and 0.5 tasks/s, with
-utilization 1.0 and 0.4.
+[`cost.py`](cost.py) prints 2.0 and 5.0 GPU-seconds per task for one GPU at 0.5 tasks/s, with utilization 1.0 and 0.4
+(a price of 1 per GPU-hour, times 3,600).
 
 ### H100 price trend
 

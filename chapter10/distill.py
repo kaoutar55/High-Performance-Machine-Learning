@@ -12,7 +12,7 @@ import json
 import torch
 import torch.nn.functional as F
 
-from common import DATA, MODELS, PRICE, RUNS, Timer, for_model, save_json
+from common import DATA, MODELS, RUNS, Timer, for_model, save_json
 
 
 def kd_loss(student_logits, teacher_logits, labels, T=2.0, alpha=0.5):
@@ -101,8 +101,7 @@ def main():
                             train_dataset=prompts)
             tr.train()
     tr.save_model(out); tok.save_pretrained(out)
-    save_json({"arm": a.arm, "student": a.student, "train_seconds": t.s, "gpu_hours": t.s / 3600,
-               "cost_usd": t.s / 3600 * PRICE.get(a.gpu, float("nan"))}, f"{out}/train_metrics.json")
+    save_json({"arm": a.arm, "student": a.student, "train_seconds": t.s, "gpu_hours": t.s / 3600}, f"{out}/train_metrics.json")
 
 
 if __name__ == "__main__":

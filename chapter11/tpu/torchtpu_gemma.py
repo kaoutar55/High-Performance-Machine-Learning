@@ -21,7 +21,7 @@ def torchtpu(ref=None, precision="default"):
     device = torch.device("tpu")
     tok = AutoTokenizer.from_pretrained(MODEL); tok.padding_side = "left"
     dtype = torch.float32 if precision == "highest" else torch.bfloat16
-    model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=dtype).to(device).eval()
+    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=dtype).to(device).eval()
     step = torch.compile(model, backend="tpu")
     prompts = [chat(tok, p) for p in load_prompts()]
     sync = torch.accelerator.synchronize

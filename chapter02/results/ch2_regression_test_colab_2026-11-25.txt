@@ -1,0 +1,37 @@
+Chapter 2 regression test (redesigned), first GPU run
+Colab Pro, Tesla T4, driver 580.82.07, PyTorch 2.14.1+cu130, Python 3.13, google/gemma-2b-it FP16
+Notebook: chapter02/chapter02_lab.ipynb from kaoutar55/High-Performance-Machine-Learning main 7cf6c2f, run 2026-11-25 ~19:15-19:23 UTC
+(Transcribed from the notebook outputs.)
+
+Baseline (cell "lock in the baseline"):
+Warning: the 3 baseline runs differ by 16.6%, more than half the 10% margin. On this GPU the test cannot separate a 10% regression from run-to-run variation, and it will report NOISY. Use a GPU that repeats its timing, or set THRESHOLD_MARGIN to at least 1.33.
+{
+  "hardware": "Tesla T4",
+  "driver": "580.82.07",
+  "model": "google/gemma-2b-it",
+  "torch_version": "2.14.1+cu130",
+  "p50_ms": 684.0,
+  "p95_ms": 774.9,
+  "p99_ms": 1626.2,
+  "decode_p50_ms": 573.5,
+  "decode_p50_runs_ms": [520.8, 615.8, 573.5],
+  "spread": 0.1657,
+  "too_noisy": true,
+  "clock": {"sm_median_mhz": 555, "sm_min_mhz": 450, "sm_max_mhz": 1590, "temp_max_c": 82, "n_samples": 30}
+}
+
+Regression test:
+[NOISY] decode p50 = 507.7 ms (baseline 573.5, threshold 630.9)
+        this run: SM clock median 810, min 570 of 1590 MHz
+        baseline: SM clock median 555, min 450 of 1590 MHz
+        No verdict: the baseline runs varied by more than half the margin.
+Simulating a 30% regression:
+[NOISY] decode p50 = 660.0 ms (baseline 573.5, threshold 630.9)
+        this run: SM clock median 810, min 570 of 1590 MHz
+        baseline: SM clock median 555, min 450 of 1590 MHz
+        No verdict: the baseline runs varied by more than half the margin.
+'NOISY'
+
+Other outputs on this T4: decode step 31.5 ms, achieved 0.16 TB/s (50% of the 0.32 TB/s peak), AI 1.00 FLOP/byte, ridge 203.
+
+Reading: the T4 ran at a median SM clock of 555 MHz (max 1,590) and 82 C during the baseline, so the three baseline runs spread by 16.6%. The test refused to give a verdict for both the fresh run and the simulated 30% regression (NOISY), which is the designed behaviour; no exception was raised. A PASS/FAIL verdict needs a GPU whose runs repeat within 5%.

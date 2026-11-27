@@ -14,7 +14,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 def main(prompts_path=None, out="ref"):
     os.makedirs(out, exist_ok=True)
     tok = AutoTokenizer.from_pretrained(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float32).eval()
+    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.float32).eval()
     ids_all, toks, logits = [], [], []
     for p in load_prompts(prompts_path):
         ids = tok(chat(tok, p), return_tensors="pt", truncation=True, max_length=MAX_PROMPT).input_ids

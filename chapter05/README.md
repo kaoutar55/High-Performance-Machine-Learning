@@ -12,9 +12,17 @@ Companion notebook for Chapter 5. It makes the chapter's claims measurable on a 
 2. Coalescing: contiguous access is far faster than strided access for the same byte count.
 3. Arithmetic intensity and the roofline: where the three RAG stages fall, computed from real shapes.
 4. Mixed precision (FP16): the honest result. FP16 speeds up the compute-bound prefill matmul and does little for memory-bound decode.
-5. Figure regeneration: the code that reproduces the chapter's roofline figure.
+5. Roofline plot: the chapter's roofline with the RAG stages, drawn with the datasheet peaks of the detected GPU (T4, A100 80GB or H100; enter the values for another GPU).
 
 The notebook closes with exercises that sweep copy size against bandwidth, stride against slowdown, and place your own model's shapes on the roofline.
+
+## Profiling commands
+
+The Nsight Systems and Nsight Compute commands in the chapter (Code 5.4) run a script called `rag_decode.py`. Build it
+from the decode loop with NVTX ranges in the Chapter 2 lab (`decode_with_nvtx` in
+[`../chapter02/chapter02_lab.ipynb`](../chapter02/chapter02_lab.ipynb)) and add `torch.cuda.profiler.start()` and
+`torch.cuda.profiler.stop()` around the decode steps, so that `--capture-range=cudaProfilerApi` records only that
+region. The Nsight Systems report records the process environment: keep tokens out of it and do not share the file.
 
 ## Versions
 

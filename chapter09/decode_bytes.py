@@ -2,21 +2,22 @@
 
 At batch 1, a decode step reads every weight once, so its time is at least (weight bytes) / (memory bandwidth).
 Embeddings and the output projection (lm_head) usually stay in 16 bits; group-128 INT4 adds one FP16 scale per
-128 weights. Gemma-2B ties its 256K-token output projection to the embedding, so that 16-bit matrix is a large
+128 weights. As in the rest of the book, the weight bytes include the input embedding table (16.06 GB for
+Llama-3.1-8B in BF16, 8.03 billion parameters x 2 bytes), although a decode step reads only one row of it per token. Gemma-2B ties its 256K-token output projection to the embedding, so that 16-bit matrix is a large
 share of its bytes once the linear layers are compressed.
 
     python decode_bytes.py
 """
-MODELS = {   # parameters in quantizable linear layers, and in the 16-bit lm_head that every step reads
-    "Gemma": {"linear": 1.982e9, "head": 0.524e9},           # Gemma-2B
-    "Llama": {"linear": 6.979e9, "head": 0.525e9},           # Llama-3.1-8B
+MODELS = {   # parameters in quantizable linear layers, the 16-bit lm_head and the 16-bit input embedding
+    "Gemma": {"linear": 1.982e9, "head": 0.524e9, "embed": 0.0},      # Gemma-2B (embedding tied to lm_head)
+    "Llama": {"linear": 6.979e9, "head": 0.525e9, "embed": 0.525e9},  # Llama-3.1-8B
 }
 FORMATS = {"16-bit": 2.0, "8-bit": 1.0, "INT4 g128": 0.5 + 2 / 128}       # bytes per linear-layer weight
 BANDWIDTH = {"T4": 320e9, "A100": 2.039e12, "H100": 3.35e12}   # bytes/s, datasheet (A100 80GB SXM, H100 SXM)
 
 
 def step_bytes(m, fmt):
-    return m["linear"] * FORMATS[fmt] + m["head"] * 2.0
+    return m["linear"] * FORMATS[fmt] + (m["head"] + m["embed"]) * 2.0
 
 
 if __name__ == "__main__":

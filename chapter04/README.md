@@ -58,6 +58,24 @@ A100 and H100 ([`results/reduce_overhead_retest_2026-11-23.json`](results/reduce
 If CUDA graph capture fails inside `torch.inference_mode` with another PyTorch release, `torch.no_grad` also disables
 gradient tracking and is the configuration to test next.
 
+### Knowledge check answers
+
+1. (b) An FX graph and a set of guards. The guards record the assumptions (types, shapes, values) under which the
+   captured graph can be reused.
+2. (c) Graph breaks split the model into eager-mode sections, so the small kernels and the launch gaps between them
+   remain.
+3. (b) The elementwise chain is memory-bandwidth-bound, and fusion removes the intermediate reads and writes; the large
+   matmul is compute-bound, so the traffic that fusion removes is a small share of its time.
+4. (c) reduce-overhead. Batch-1 decode is launch-bound, and CUDA graphs replay the whole step with one launch. See the
+   answer note below for what happened in the case study.
+5. (b) Remove `dynamic=False` so that the default marks the varying dimension symbolic after the first recompile, or
+   mark the sequence dimension dynamic before the first call.
+6. (c) On the A100, per-step overhead took most of each eager decode step, and compilation removed it. On the T4 the
+   weight-read floor was already about 60% of the eager step, so there was little overhead to remove.
+7. (b) The first compilation specialized on the first sequence length; the second call with a new length recompiled
+   with the dimension symbolic. Marking the sequence dimension with `torch._dynamo.mark_dynamic` before the first call
+   gives one compilation.
+
 ### Knowledge check, question 4: answer note
 
 Answer: (c). reduce-overhead targets the per-step launch overhead of batch-1 decode with CUDA graphs. In the case

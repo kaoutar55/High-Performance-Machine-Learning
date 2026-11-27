@@ -13,7 +13,7 @@ from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from trl import SFTConfig, SFTTrainer
 
-from common import DATA, MODELS, PRICE, RUNS, Timer, save_json, NO_SYSTEM_ROLE, for_model
+from common import DATA, MODELS, RUNS, Timer, save_json, NO_SYSTEM_ROLE, for_model
 
 
 def main():
@@ -117,7 +117,7 @@ def main():
          "n_gpus": a.n_gpus, "seed": a.seed, "lr": lr, "max_examples": a.max_examples, "max_steps": a.max_steps,
          "steps": res.global_step, "peak_mem_gb": peak, "train_seconds": t.s,
          "tokens": tokens, "tokens_per_s": tokens / t.s, "gpu_hours": gpu_hours,
-         "cost_usd": gpu_hours * PRICE.get(a.gpu, float("nan")), "final_loss": res.training_loss,
+         "final_loss": res.training_loss,
          "trainable_params": sum(p.numel() for p in trainer.model.parameters() if p.requires_grad)}
     save_json(m, f"{out}/train_metrics.json")
     print(json.dumps(m, indent=1))

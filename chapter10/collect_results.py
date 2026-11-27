@@ -1,7 +1,7 @@
 """Collect the Chapter 10 measurements into results/ch10_results.json, the file the chapter build reads.
 
 Schema (keys match content_e.py and figs_ch10.py):
-  train[ "<Model>|<Method>|<GPU>" ]   = {peak_mem_gb, tokens_per_s, gpu_hours, cost_usd}
+  train[ "<Model>|<Method>|<GPU>" ]   = {peak_mem_gb, tokens_per_s, gpu_hours}
   quality[ "<Model>|<Variant>" ]      = {hotpot_em: [diff, se], abstain_f1: [diff, se], gsm8k, ifeval, mmlu,
                                          forget_avg: [diff, se], kl}
   rank[ "<r>" ]                       = {em, forget, em_rs, forget_rs}   (each [diff, se])
@@ -79,7 +79,7 @@ def main():
             meth = "Full FT (FSDP, 2 GPUs)"
         if meth and t["model"] in NAMES:
             R["train"][f"{NAMES[t['model']]}|{meth}|{GPU.get(t['gpu'], t['gpu'])}"] = {
-                k: t[k] for k in ("peak_mem_gb", "tokens_per_s", "gpu_hours", "cost_usd")}
+                k: t[k] for k in ("peak_mem_gb", "tokens_per_s", "gpu_hours")}
 
     def q(model, run, label):
         base = jl(f"{RESULTS}/eval/{model}-base-hotpot.json"); cur = jl(f"{RESULTS}/eval/{run}-hotpot.json")

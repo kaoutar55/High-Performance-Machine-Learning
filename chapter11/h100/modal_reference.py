@@ -36,7 +36,7 @@ def torch_rows(ref_ids_json: str = ""):
     prompts = [chat(tok, p) for p in load_prompts()]
     out = {}
     for mode in ("eager", "compile"):
-        model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16).cuda().eval()
+        model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16).cuda().eval()
         kw = dict(do_sample=False, max_new_tokens=NEW_TOKENS, min_new_tokens=NEW_TOKENS)
         if mode == "compile":
             model.generation_config.cache_implementation = "static"

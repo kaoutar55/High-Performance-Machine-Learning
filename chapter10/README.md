@@ -83,14 +83,16 @@ MMLU 68.7 and 34.3.
 
 ### Training cost (H100)
 
-| Model | Method | Peak memory (GB) | Tokens/s | GPU-hours | Cost at $3.95/h |
-|---|---|---|---|---|---|
-| Gemma-2B | LoRA r=16 | 8.4 | 10,694 | 0.35 | $1.36 |
-| Gemma-2B | QLoRA r=16 | 4.7 | 11,113 | 0.33 | $1.31 |
-| Gemma-2B | Full FT | 24.4 | 12,565 | 0.29 | $1.16 |
-| Llama-3.1-8B | LoRA r=16 | 21.5 | 4,855 | 0.77 | $3.04 |
-| Llama-3.1-8B | QLoRA r=16 | 10.0 | 5,070 | 0.74 | $2.91 |
-| Llama-3.1-8B | Full FT (FSDP, 2 GPUs) | 71.2 | 7,846 | 0.95 | $3.76 |
+| Model | Method | Peak memory (GB) | Tokens/s | GPU-hours |
+|---|---|---|---|---|
+| Gemma-2B | LoRA r=16 | 8.4 | 10,694 | 0.35 |
+| Gemma-2B | QLoRA r=16 | 4.7 | 11,113 | 0.33 |
+| Gemma-2B | Full FT | 24.4 | 12,565 | 0.29 |
+| Llama-3.1-8B | LoRA r=16 | 21.5 | 4,855 | 0.77 |
+| Llama-3.1-8B | QLoRA r=16 | 10.0 | 5,070 | 0.74 |
+| Llama-3.1-8B | Full FT (FSDP, 2 GPUs) | 71.2 | 7,846 | 0.95 |
+
+Cost of a run = GPU-hours x your price per GPU-hour.
 
 ### Quality, paired differences against the base model (points)
 

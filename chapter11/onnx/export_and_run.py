@@ -25,7 +25,7 @@ def run(ref_ids_json: str = ""):
     from common import MODEL, MAX_PROMPT, PARITY_POSITIONS, load_prompts, chat, environment
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float16).cuda().eval()
+    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.float16).cuda().eval()
     model.config.use_cache = False
     prompts = [chat(tok, p) for p in load_prompts()]
     ids = tok(prompts[0], return_tensors="pt", padding="max_length", max_length=MAX_PROMPT, truncation=True).input_ids

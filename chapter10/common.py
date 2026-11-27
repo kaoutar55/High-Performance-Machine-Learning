@@ -14,7 +14,6 @@ VOL = os.environ.get("CH10_VOL", "/vol")          # Modal volume mount point
 DATA = f"{VOL}/data"
 RUNS = f"{VOL}/runs"
 RESULTS = f"{VOL}/results"
-PRICE = {"H100": 3.95, "A100-80GB": 2.50, "T4": 0.59}  # USD per GPU-hour, Modal list prices, November 2026
 NOT_IN_CONTEXT = "The context does not contain the answer."
 
 # RAG prompt template of Chapter 8 (system + numbered passages + question)

@@ -10,5 +10,7 @@ def cost_per_task(gpu_price_h, n_gpus, tasks_per_s, utilization=0.6, other_cost_
 
 
 if __name__ == "__main__":
-    print(f"{cost_per_task(3.95, 1, 0.5, utilization=1.0):.4f}")   # 0.0022
-    print(f"{cost_per_task(3.95, 1, 0.5, utilization=0.4):.4f}")   # 0.0055
+    # one GPU at 0.5 tasks/s goodput; a price of 1 per GPU-hour gives GPU-hours,
+    # times 3,600 gives GPU-seconds per task. Multiply GPU-hours by your own price.
+    print(f"{3600 * cost_per_task(1, 1, 0.5, utilization=1.0):.1f}")   # 2.0
+    print(f"{3600 * cost_per_task(1, 1, 0.5, utilization=0.4):.1f}")   # 5.0

@@ -43,4 +43,4 @@ load:
   repeats: 3
   seed: 1234
 objectives: {ttft_p99_s: 0.5, tpot_p99_s: 0.05, task_p95_single_s: 20, task_p95_multihop_s: 45}
-prices_usd_per_h: {T4: 0.59, L40S: 1.95, A100-80GB: 2.50, H100: 3.95, H200: 4.54}   # Modal list, Nov 2026
+# No prices are stored: cost per task = GPU-seconds per task x your price per GPU-hour / 3,600 (cost.py).
