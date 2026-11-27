@@ -8,9 +8,6 @@ reference and times them with CUDA events.
 - [`chapter06_companion_2p14.ipynb`](chapter06_companion_2p14.ipynb): the companion notebook named in the chapter,
   pinned to PyTorch 2.14.1 (CUDA 13.0 build) and Triton 3.8.0.
 
-The earlier notebook for PyTorch 2.6.0 and Triton 3.2.0, `chapter06_companion.ipynb`, and its executed copy
-`chapter06_companion_executed.ipynb` do not match the current chapter text.
-
 ## What you build and measure
 
 1. Vector add: the launch grid, the boundary mask and a correctness check.
