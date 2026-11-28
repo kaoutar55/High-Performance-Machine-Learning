@@ -44,8 +44,10 @@ failure is the usual reason for a new entry here.
 - Affects: Chapter 6
 - Versions: Triton 3.3 and later
 - What changed: Triton requires compute capability 8.0 or newer. The T4 (7.5) is not supported.
-- What to do: on a T4, install the chapter's pinned pair: `pip install torch==2.6.0 triton==3.2.0`.
-- Evidence: Triton README and the 3.3 release notes
+- What to do: run the Chapter 6 notebook (`chapter06_companion_2p14.ipynb`, PyTorch 2.14.1 and Triton 3.8.0) on a GPU of
+  compute capability 8.0 or newer, such as an A100 or H100. The notebook is not tested on a T4, and the earlier
+  PyTorch 2.6 / Triton 3.2 notebook has been removed from the repository.
+- Evidence: Triton README and the 3.3 release notes; `chapter06/README.md`
 
 ### SDPA chooses cuDNN attention on H100  (2026-10-23)
 - Affects: Chapters 2, 3 and 5 (attention kernel names in profiles)

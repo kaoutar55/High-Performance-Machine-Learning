@@ -48,6 +48,10 @@ is required: there is no CPU path for these kernels except the interpreter used 
 The print chapter refers to the material below. Release details change; check each item against the release you
 run.
 
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
+
 ### Kernel languages around Triton: release details
 
 The section "Where Triton fits among kernel languages" names Helion, Gluon, NVIDIA's cuTile Python and the CuTe DSL

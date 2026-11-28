@@ -67,6 +67,11 @@ a Colab secret.
 
 The print chapter refers to the material below. Reference numbers are those of the chapter.
 
+- [`online_resources.md`](online_resources.md): the knowledge check answers and the full reference list of the chapter,
+  numbered as in the text. The answers are also in [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
+
 ### Selected accelerators (November 2026)
 
 Vendor-stated dense peak rates per chip, memory and scale-up links. A dash means the format is not supported or not stated. TPU ICI figures are bidirectional. Cerebras quotes its peak with sparsity; the WSE-3 value is an estimated dense rate. Sources: references [15], [16] and [19] to [25] of the chapter.

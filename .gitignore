@@ -67,3 +67,18 @@ chapter11/parity/ref/
 
 # Documentation site build output
 site/
+
+# Chapter 6 working files: notebook variants, logs, plans, audits and local result folders stay out of git.
+# The published notebook is chapter06_companion_2p14.ipynb.
+chapter06/chapter06_companion*.ipynb
+!chapter06/chapter06_companion_2p14.ipynb
+chapter06/*_log.md
+chapter06/*_checklist.md
+chapter06/*_plan.md
+chapter06/*_audit.md
+chapter06/*_assessment.md
+chapter06/*mockup.html
+chapter06/*.log
+chapter06/results_a100/
+chapter06/results/*.csv
+chapter06/results/environment.json

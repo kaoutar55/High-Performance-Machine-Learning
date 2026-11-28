@@ -9,7 +9,8 @@ Lab notebook for Chapter 1. You measure the ideas the chapter argues for on hard
 ## What you produce
 
 1. An auto-detected hardware tier (consumer CPU, consumer GPU 16 GB, datacenter 40 GB, datacenter 80 GB+).
-2. A measured latency-throughput trade-off curve with the three operating zones shaded in.
+2. A measured latency-throughput trade-off curve for a small matmul workload (the shaded operating zones are a reading
+   aid of the notebook; the chapter's Figure 1.4 has none).
 3. A working naïve RAG baseline: embedding plus FAISS plus a small instruct LM.
 4. An end-to-end latency waterfall for a single query.
 5. A short accuracy-performance gap demo: same model, same answer, very different cost per query.
@@ -26,3 +27,12 @@ Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), tr
 Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. The first cell installs the tested library versions. It runs on CPU too, but decoding is far slower.
 
 Runtime, measured on Modal in November 2026 with the tested stack: 73 s on a T4 and 252 s on a 2-vCPU cloud CPU, plus the model downloads on a fresh machine (results/lab_corpus_check_2026-11-23.json). Timings on your machine will differ, most of all on CPU, where the host processor sets the speed.
+
+## Online resources
+
+The print chapter refers to the material below.
+
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md). The same answers are in
+  Section 6 of the lab notebook.
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).

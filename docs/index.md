@@ -30,7 +30,8 @@ changes one part of it. The [experiment map](experiment-map.md) shows which part
 | 12 | The Mature ML System | [Notes, scripts and results](book/chapter12.md) |
 
 The [case study and principles](book/case_study.md) page describes how the book's measurements are repeated on
-several GPUs and checked against the principles the book states.
+several GPUs and checked against the principles the book states. The [list of the 51 Performance Engineering Principles](principles.md) gives each principle with
+the chapter that states it.
 
 ## Hardware
 

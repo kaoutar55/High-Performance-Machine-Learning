@@ -50,6 +50,10 @@ The analytical modules need only PyTorch and NumPy and run on CPU. Measured numb
 
 The print chapter refers to the material below.
 
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
+
 ### PyTorch API history for DeviceMesh and fully_shard
 
 The tensor-parallel and sharded-data-parallel APIs used in Chapter 7 reached their current form over several

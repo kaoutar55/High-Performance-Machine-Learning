@@ -74,6 +74,10 @@ The case study pins vLLM 0.32.0 in its own image (vLLM pins its own PyTorch buil
 
 The print chapter refers to the material below.
 
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
+
 ### Open-source LLM serving engines (October 2026)
 
 Versions and features change from release to release; check each project's documentation.

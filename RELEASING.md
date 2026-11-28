@@ -11,7 +11,7 @@ numbers the printed text quotes. Readers check out the tag to get exactly what t
    `case_study/experiment_config.py` (exact `==` pins for torch, transformers, sentence-transformers,
    accelerate, datasets, faiss-cpu, numpy and the notebook tools).
 3. State the same versions in every chapter README and notebook setup cell. Chapter 6 keeps its own pin
-   (PyTorch 2.6 + Triton 3.2).
+   (PyTorch 2.14.1 + Triton 3.8.0).
 
 ## 2. Regenerate the reference results
 

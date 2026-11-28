@@ -144,6 +144,10 @@ Traces (`*_trace.jsonl`) are not in the repository.
 
 The print chapter refers to the material below. Reference numbers are those of the chapter.
 
+- [`online_resources.md`](online_resources.md): the final quiz answers and the full reference list of the chapter,
+  numbered as in the text. The answers are also in [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
 - Full scale-out and GPU-choice results: [Scale-out and routing (E8)](#scale-out-and-routing-e8-e7-configuration-one-repeat)
   and [Choosing the GPU (E9)](#choosing-the-gpu-e9-e7-configuration) above.
 - Running the routing comparison on Kubernetes with llm-d 1.0 and four vLLM pods: [`k8s/`](k8s/README.md). llm-d

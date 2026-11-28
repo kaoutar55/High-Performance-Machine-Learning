@@ -23,3 +23,13 @@ Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), tr
 ## Run it
 
 Open the notebook in Google Colab, set Runtime > Change runtime type > T4 GPU, and run top to bottom. It runs on CPU too, but the timings and Roofline placement are only meaningful on a GPU.
+
+## Online resources
+
+The print chapter refers to the material below.
+
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- Exercises: the six hands-on exercises tied to the Knowledge check are in Section 8 of
+  [`chapter02_lab.ipynb`](chapter02_lab.ipynb).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).

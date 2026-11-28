@@ -11,10 +11,10 @@ Companion notebook for Chapter 5. It makes the chapter's claims measurable on a 
 1. Bandwidth vs compute: a copy is bound by memory, a large matmul is bound by arithmetic.
 2. Coalescing: contiguous access is far faster than strided access for the same byte count.
 3. Arithmetic intensity and the roofline: where the three RAG stages fall, computed from real shapes.
-4. Mixed precision (FP16): the honest result. FP16 speeds up the compute-bound prefill matmul and does little for memory-bound decode.
+4. Mixed precision (FP16): prefill against decode. FP16 speeds up the compute-bound prefill matmul and does little for memory-bound decode.
 5. Roofline plot: the chapter's roofline with the RAG stages, drawn with the datasheet peaks of the detected GPU (T4, A100 80GB or H100; enter the values for another GPU).
 
-The notebook closes with exercises that sweep copy size against bandwidth, stride against slowdown, and place your own model's shapes on the roofline.
+The notebook closes with five short exercises that sweep copy size against bandwidth, stride against slowdown, and place your own model's shapes on the roofline. They are numbered as notebook exercises 1 to 5, separately from the chapter's Exercises 5.1 to 5.8, and Section 6 of the notebook maps each one to the chapter exercise it shortens.
 
 ## Profiling commands
 
@@ -55,3 +55,21 @@ The values Chapter 5 uses for occupancy, Roofline and Tensor Core reasoning (NVI
 | FP16 mixed-precision peak | 65 TFLOP/s | Relevant only for Tensor-Core-eligible FP16 operations and appropriate shapes |
 | PCIe | Generation 3 x16 | Host-device transfer ceiling; actual throughput depends on payload and pinning |
 | Boost clock | 1,590 MHz | Basis of the published peaks; sustained clocks are lower under the 70 W power limit |
+
+## Online resources
+
+The print chapter refers to the material below.
+
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The chapter's eight hands-on exercises and the references cited in the chapter, numbered as in the text, are in the
+  book's online resources:
+  - Exercise 5.1: Occupancy is not utilization
+  - Exercise 5.2: Correct coalescing
+  - Exercise 5.3: Build empirical roofs
+  - Exercise 5.4: Dense-linear AI versus M
+  - Exercise 5.5: Mixed precision with evidence
+  - Exercise 5.6: KV-cache scaling
+  - Exercise 5.7: Bank conflicts
+  - Exercise 5.8: Amdahl handoff
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).

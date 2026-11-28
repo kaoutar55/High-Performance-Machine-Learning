@@ -6,7 +6,7 @@ A model that is accurate but too slow does not ship. Neither does one that is ac
 
 The companion site, <https://kaoutar55.github.io/High-Performance-Machine-Learning/>, shows each chapter's notes and notebooks as readable pages, with an experiment map of the whole book and links back to the code here.
 
-This repo holds runnable notebooks for every chapter. The same RAG case study runs through all of them: a Gemma-2B-IT generator in FP16, a BGE-M3 embedder and a FAISS index. The book measures it on an NVIDIA A100 80GB (the reference platform), an H100 and a T4, and sets every performance target relative to the measured baseline on the same GPU. On the A100 the naïve pipeline answers a query in about 380 ms at the median, and token-by-token decode takes almost 90% of that time.
+This repo holds runnable notebooks for every chapter. The same RAG case study runs through all of them: a Gemma-2B-IT generator in FP16, a BGE-M3 embedder and a FAISS index. The book measures it on an NVIDIA A100 80GB (the reference platform), an H100 and a T4, and sets every performance target relative to the measured baseline on the same GPU. On the A100 the naïve pipeline answers a query in 379 ms at the median, and token-by-token decode takes 89% of the sum of the stage medians (Chapter 1, Table 1.3).
 
 ## Platforms
 
@@ -14,15 +14,17 @@ The case study uses the same two models on every GPU. Absolute numbers change wi
 
 | Platform | Role in the book | Memory | Generator | Embedder | Naïve p50 latency (measured) |
 |---|---|---|---|---|---|
-| NVIDIA A100 80GB (SXM) | Reference: quoted first in every table | 80 GB HBM2e | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~380 ms |
-| NVIDIA H100 80GB | Current generation | 80 GB HBM3 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~220 ms |
-| NVIDIA T4 16GB | Budget path (free Colab tier) | 16 GB GDDR6 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | ~590 ms |
+| NVIDIA A100 80GB (SXM) | Reference: quoted first in every table | 80 GB HBM2e | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | 379 ms |
+| NVIDIA H100 80GB | Current generation | 80 GB HBM3 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | 189 ms |
+| NVIDIA T4 16GB | Budget path (free Colab tier) | 16 GB GDDR6 | Gemma-2B-IT, FP16 | BGE-M3 (568M), FP16 | 673 ms |
 
-FP16 is used throughout because the T4 has no BF16 Tensor Core path. Chapter 6 is the exception to the stack: it is pinned to PyTorch 2.6 + Triton 3.2 on an A100 80GB PCIe (see its README). The Chapter 1 lab still contains an older hardware-tier recipe with smaller models for CPU-only machines.
+The latencies are the medians of five independent runs of the Chapter 2 lab (100 requests each, PyTorch 2.14.1, Modal, 23 October 2026), as printed in Chapter 1, Table 1.3; the data is in [`case_study/reference_results/x5_2026-10-23/master_tables.md`](case_study/reference_results/x5_2026-10-23/master_tables.md).
+
+FP16 is used throughout because the T4 has no BF16 Tensor Core path. Chapter 6 has its own pin: its notebook (`chapter06_companion_2p14.ipynb`) is pinned to PyTorch 2.14.1 (CUDA 13.0 build) and Triton 3.8.0, and its reference measurements were taken on an NVIDIA H100 80GB HBM3 on 24 November 2026 (see its README). The Chapter 1 lab still contains an older hardware-tier recipe with smaller models for CPU-only machines.
 
 ## Case study and principles
 
-[`case_study/`](case_study/README.md) re-measures the case study on Modal on all three GPUs in one command and checks the book's principles against the measurements. It separates the claims the book teaches (`principles.py`, each with the chapters that teach it and its sources) from the swappable settings (`experiment_config.py`: GPUs, models, sizes, package versions). The measured data every chapter quotes is in [`case_study/reference_results/`](case_study/reference_results/README.md).
+[`case_study/`](case_study/README.md) re-measures the case study on Modal on all three GPUs in one command and checks the book's principles against the measurements. It separates the claims the book teaches (`principles.py`, each with the chapters that teach it and its sources) from the swappable settings (`experiment_config.py`: GPUs, models, sizes, package versions). The measured data every chapter quotes is in [`case_study/reference_results/`](case_study/reference_results/README.md). The list of the book's 51 Performance Engineering Principles is in [`docs/principles.md`](docs/principles.md).
 
 ## Repository layout
 
@@ -46,7 +48,7 @@ FP16 is used throughout because the T4 has no BF16 Tensor Core path. Chapter 6 i
 ├── chapter05/
 │   ├── README.md
 │   └── chapter05_companion.ipynb
-├── chapter06/                    Triton kernels (pinned PyTorch 2.6 + Triton 3.2)
+├── chapter06/                    Triton kernels (pinned PyTorch 2.14.1 + Triton 3.8.0)
 ├── chapter07/                    distributed training (analytical cells + measured 2x A10G runs)
 ├── chapter08/                    inference serving (analytical scripts + vLLM case study on Modal)
 ├── chapter09/                    quantization and sparsity (teaching scripts + llm-compressor/vLLM case study on Modal)
@@ -58,14 +60,14 @@ FP16 is used throughout because the T4 has no BF16 Tensor Core path. Chapter 6 i
 └── ...                           one folder per chapter as the book is released
 ```
 
-Each chapter folder has its own README, and Chapters 1 to 8 have a Colab-ready notebook (the Chapter 9 notebook is coming). Notebook section headings name the chapter section they accompany, so you can read with the notebook open beside you. Each README states the tested stack: Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2 and sentence-transformers 6.2.0 for Chapters 1–5 and 7, and PyTorch 2.6 + Triton 3.2 for Chapter 6. Chapters 8 and 9 run their case studies on Modal with vLLM 0.32.0, and Chapter 9 builds its checkpoints with llm-compressor 0.14 in a separate image; their teaching scripts run on a CPU.
+Each chapter folder has its own README, and Chapters 1 to 8 have a Colab-ready notebook; Chapters 9 to 12 provide scripts and case-study runners. Notebook section headings name the chapter section they accompany, so you can read with the notebook open beside you. Each README states the tested stack: Python 3.11, PyTorch 2.14.1 (CUDA 13.0), transformers 5.20.2 and sentence-transformers 6.2.0 for Chapters 1–5 and 7, and PyTorch 2.14.1 + Triton 3.8.0 for Chapter 6. Chapters 8 and 9 run their case studies on Modal with vLLM 0.32.0, and Chapter 9 builds its checkpoints with llm-compressor 0.14 in a separate image; their teaching scripts run on a CPU.
 
 ## Quick start
 
 ### Option 1: Google Colab
 
 1. Open the notebook on GitHub and click **Open in Colab**.
-2. *Runtime → Change runtime type → Hardware accelerator*: a T4 works for every chapter (Chapter 6 needs the pinned Triton on a T4; see its README); an A100 or H100 matches the book's reference numbers.
+2. *Runtime → Change runtime type → Hardware accelerator*: a T4 works for Chapters 1 to 5 and 7; Chapter 6 needs a GPU of compute capability 8.0 or newer (Triton does not support the T4), and an A100 or H100 matches the book's reference numbers.
 3. Run the cells top to bottom.
 
 That's the path most readers should take.

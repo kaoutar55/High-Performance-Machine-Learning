@@ -14,8 +14,8 @@ Seven programming exercises, one per major section of the chapter. Every one is 
 3. What autograd costs at inference: latency and peak memory with autograd on, `no_grad`, `inference_mode`.
 4. Sweeping the DataLoader: throughput vs `num_workers` and `pin_memory`.
 5. Hunt the anti-pattern: fix a correct-but-slow training step.
-6. Benchmark without lying to yourself: the difference between timing with and without a CUDA sync.
-7. Capstone: optimize the RAG embedding stage.
+6. Benchmark correctly: the difference between timing with and without warmup and a CUDA sync.
+7. Capstone: optimize the embedding stage.
 
 ## Versions
 
@@ -24,3 +24,14 @@ Tested stack (Chapters 1–5 and 7): Python 3.11, PyTorch 2.14.1 (CUDA 13.0), tr
 ## Run it
 
 Runs on Google Colab free tier. Exercises 3.3, 3.6, and 3.7 want a GPU (Runtime > Change runtime type > T4); the rest run on CPU. `torch` and `numpy` are preinstalled on Colab. Numbers vary by hardware; the ratios are what matter.
+
+## Online resources
+
+The print chapter refers to the material below.
+
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- Exercises 3.1 to 3.7 of the chapter's Hands-on exercises, with starter code in
+  [`chapter03_exercises.ipynb`](chapter03_exercises.ipynb) and full solutions in
+  [`chapter03_solutions.ipynb`](chapter03_solutions.ipynb). The notebook headings use the exercise titles of the book.
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).

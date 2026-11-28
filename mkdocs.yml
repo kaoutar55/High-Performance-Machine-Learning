@@ -77,6 +77,7 @@ nav:
       - 11. Accelerators and compilers: book/chapter11.md
       - 12. The mature ML system: book/chapter12.md
   - Case study and principles: book/case_study.md
+  - Performance Engineering Principles: principles.md
   - Notebooks:
       - Chapter 1 lab: notebooks/chapter01/chapter01_lab.ipynb
       - Chapter 2 lab: notebooks/chapter02/chapter02_lab.ipynb
@@ -84,7 +85,6 @@ nav:
       - Chapter 3 solutions: notebooks/chapter03/chapter03_solutions.ipynb
       - Chapter 4 companion: notebooks/chapter04/chapter04_companion.ipynb
       - Chapter 5 companion: notebooks/chapter05/chapter05_companion.ipynb
-      - Chapter 6 companion: notebooks/chapter06/chapter06_companion.ipynb
-      - Chapter 6 companion (executed): notebooks/chapter06/chapter06_companion_executed.ipynb
+      - Chapter 6 companion: notebooks/chapter06/chapter06_companion_2p14.ipynb
       - Chapter 7 companion: notebooks/chapter07/chapter07_companion.ipynb
       - Chapter 8 companion: notebooks/chapter08/chapter08_companion.ipynb

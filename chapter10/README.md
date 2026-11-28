@@ -224,6 +224,11 @@ values are in `ch10_results.json`.
 
 The print chapter refers to the material below.
 
+- [`online_resources.md`](online_resources.md): the knowledge check answers and the full reference list of the chapter,
+  numbered as in the text. The answers are also in [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
+
 ### Rank sweep on Gemma-2B
 
 Change in HotpotQA exact match and in the forgetting-suite average, in points, with the original α / r scaling and

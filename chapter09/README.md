@@ -61,8 +61,13 @@ What each variant is, and which GPU runs it, is listed at the top of `modal_quan
 ## Online resources
 
 The print chapter refers to the material below. Reference numbers in brackets are those of the chapter's reference
-list. The case study is being re-run; the items that cite case-study results describe the October 2026 runs and
-will be checked against the new runs.
+list. The items that cite case-study results describe the runs that the chapter reports: vLLM 0.32.0 and
+llm-compressor 0.14 on the A100 80GB (SXM4), H100 and T4 of Chapter 8, and the rebuilt 2:4 checkpoints and the
+comparison of pruning criteria measured on one H100 80GB on 25 November 2026.
+
+- Knowledge check answers: [`knowledge_check_solutions.md`](knowledge_check_solutions.md).
+- The list of the book's 51 Performance Engineering Principles, with the chapter that states each one:
+  [`docs/principles.md`](../docs/principles.md).
 
 ### GPTQ act-order and vLLM 0.32
 
@@ -96,3 +101,24 @@ In vLLM 0.32 the cache format is chosen with --kv-cache-dtype, and what it does 
   That backend has since been removed, and PyTorch is the only execution backend
   ([TensorRT-LLM migration guide](https://nvidia.github.io/TensorRT-LLM/latest/legacy/tensorrt-backend-removal.html)).
 - On the B300, the sparse FP4 rate is 1.33 times the dense rate [55].
+
+### Build history of the 2:4 checkpoints (added 28 November 2026)
+
+The print chapter reports the final 2:4 builds. This section records how they were reached.
+
+- Gemma-2B. With the recipe first used for the chapter, the Wanda and SparseGPT builds of Gemma-2B gave WikiText
+  perplexities of 8.9 × 10¹⁰ and 1.6 × 10⁶ in the same run, higher than magnitude pruning. That order contradicted
+  the method papers and the `prune24.py` result, so the saved checkpoints were checked tensor by tensor for the
+  fraction of zeros. llm-compressor 0.14.0.1, called with `targets=["Linear"]` and `ignore=["lm_head"]`, had also
+  pruned the output projection (`lm_head`) to 2:4. Gemma-2B shares this matrix with its input embedding, so half of
+  the values of every token embedding were zero. Listing the seven decoder projections as the targets kept the
+  embedding dense and gave the results in the chapter (`gemma24_rerun.py`,
+  [`results/gemma_24_rerun_2026-11-25.json`](results/gemma_24_rerun_2026-11-25.json)). The re-run evaluated every
+  model in BF16, the precision in which the checkpoints were pruned, to test whether evaluation in FP16 had caused
+  the high perplexities of the first builds.
+- Llama-3.1-8B. The first SparseGPT 2:4 build had also pruned the output layer (`lm_head`), although the recipe
+  excluded it. Rebuilt with the output layer dense, it lost 73.8 GSM8K points against 74.8 for the first build. The
+  2:4 row of Table 9.11 is the rebuilt checkpoint, measured on 25 November 2026 on one H100 80GB with vLLM 0.32.0,
+  with the same prompts, tasks and BF16 baseline (`llama24_rerun.py`,
+  [`results/llama_24_rerun_2026-11-25.json`](results/llama_24_rerun_2026-11-25.json)). Between the two builds, every
+  task changed by less than two of the paired standard errors in Table 9.11.

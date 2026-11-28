@@ -11,6 +11,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DOCS = os.path.join(ROOT, "docs")
@@ -25,9 +26,24 @@ TITLES_IF_MISSING = {"chapter11": "Chapter 11: Navigating the Accelerator and Co
 LINK = re.compile(r"(!?)\[([^\]]*)\]\(([^)\s]+)(\s+\"[^\"]*\")?\)")
 
 
+def tracked_files():
+    """Paths tracked by git, or None outside a git checkout. Untracked working notebooks stay off the site."""
+    try:
+        out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return set(out.splitlines())
+
+
+TRACKED = tracked_files()
+
+
 def notebooks(folder):
     d = os.path.join(ROOT, folder)
-    return sorted(f for f in os.listdir(d) if f.endswith(".ipynb")) if os.path.isdir(d) else []
+    if not os.path.isdir(d):
+        return []
+    names = sorted(f for f in os.listdir(d) if f.endswith(".ipynb"))
+    return [f for f in names if TRACKED is None or f"{folder}/{f}" in TRACKED]
 
 
 def site_target(folder, target):
